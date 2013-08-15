@@ -251,7 +251,7 @@ $(function () {
                     $('#select-upload').html('');
                     photo_urls = [];
                     for (var i = 0; i < albums.length; i++) {
-                        var albumid = albums[0]["id"];
+                        var albumid = albums[i]["id"];
                         FB.api("/" + albumid + "/photos", function (response) {
                             var photos = response["data"];
                             for (var v = 0; v < photos.length; v++) {
