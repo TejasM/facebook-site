@@ -1,0 +1,105 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Benefit Cosmetics</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+</head>
+<body>
+<div class="content" id="wrap" style="padding: 50px">
+    <img src="{% static 'images/Beneselfies-Logo.png' %}" alt=""
+         style="display: block; margin-left: auto; margin-right: auto;">
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Aliquam lorem ligula, rhoncus eget ante a, vulputate pellentesque magna. Fusce pellentesque tempus velit vel
+        pharetra.
+        Duis imperdiet sollicitudin ante. Fusce quis consectetur lorem.</p>
+
+    <p>1. Like our facebook/twitter page.</p>
+
+    <p>2. Pick 9 fabulous friends to match the personalities.</p>
+
+    <p>3. Invite your friends to make their own!.</p>
+
+    <p>Like to get started</p>
+
+    <div id="fb-root" style="">
+        <button id="login" style="background: url('{% static 'images/Like-Pink.png' %}'); width: 102px; height: 52px"></button>
+        <div id="like-button" class="fb-like" data-width="450"
+             data-href="https://www.facebook.com/benefitcosmeticscanada"></div>
+    </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<script>
+    $(function () {
+
+        $('#like-button').hide();
+
+        // init the FB JS SDK
+        FB.init({
+            appId: '151985691672341',                        // App ID from the app dashboard
+            cookie: true,
+            status: true,                                 // Check Facebook Login status
+            xfbml: true                                  // Look for social plugins on the page
+        });
+
+        FB.Event.subscribe('edge.create',
+                function (response) {
+                    window.location = "/upload";
+                }
+        );
+        FB.Event.subscribe('auth.authResponseChange', function (response) {
+            // Here we specify what we do with the response anytime this event occurs.
+            if (response.status === 'connected') {
+                // The response object is returned with a status field that lets the app know the current
+                // login status of the person. In this case, we're handling the situation where they
+                // have logged in to the app.
+                var user_id = response.authResponse.userID;
+                var page_id = "171685016222749"; //Change to this page
+                var fql_query = "SELECT uid FROM page_fan WHERE page_id =" + page_id + " and url=" + "https://www.facebook.com/benefitcosmeticscanada";
+                var the_query = FB.Data.query(fql_query);
+                the_query.wait(function (rows) {
+                    if (rows.length == 1 && rows[0].uid == user_id) {
+                        window.location = "/upload";
+                    } else {
+                        $('#login').hide();
+                        $('#like-button').show();
+                    }
+                });
+            } else if (response.status === 'not_authorized') {
+            } else {
+            }
+        });
+
+        $('#login').click(function () {
+            FB.login(function (response) {
+                // handle the response
+            }, {scope: 'email,user_likes,user_photos,publish_stream,photo_upload'});
+            $('#login').hide();
+            $('#like-button').show();
+        });
+
+        FB.getLoginStatus(function (response) {
+            if (response.status == 'connected') {
+                var user_id = response.authResponse.userID;
+                var page_id = "171685016222749"; //Change to this page
+                var fql_query = "SELECT uid FROM page_fan WHERE page_id =" + page_id + " and url=" + "https://www.facebook.com/benefitcosmeticscanada";
+                var the_query = FB.Data.query(fql_query);
+                the_query.wait(function (rows) {
+                    if (rows.length == 1 && rows[0].uid == user_id) {
+                        window.location = "/upload";
+                    } else {
+                    }
+                });
+            } else if (response.status === 'not_authorized') {
+            } else {
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Benefit Cosmetics</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+</head>
+<body>
+    <div id="wrap">
+        <img id="back" src="{% static 'images/Beneselfies-Locker-Back.png' %}" alt=""
+             style="position:absolute; top: 0; left: 0; z-index: 1">
+        <img id="door" src="{% static 'images/Beneselfies-Locker-Front.png' %}" alt="" style="position:absolute; top: 0; left: 0; z-index: 3">
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript">
+
+        $('#door').click(function () {
+            $('#door').fadeOut('slow', function () {
+                $('#back').show();
+                window.location = "like"
+            });
+        });
+    </script>
+</body>
+</html>
