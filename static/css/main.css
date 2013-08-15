@@ -32,7 +32,6 @@
     position: absolute;
     margin: 0 auto;
     z-index: 9999;
-    background: url('../images/uploading.gif') no-repeat;
     top: 50px;
     cursor: wait;
 }
