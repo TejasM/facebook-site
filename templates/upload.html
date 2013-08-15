@@ -250,6 +250,7 @@ $(function () {
                     var albums = response["data"];
                     $('#select-upload').html('');
                     photo_urls = [];
+                    var count = 0;
                     for (var i = 0; i < albums.length; i++) {
                         var albumid = albums[i]["id"];
                         FB.api("/" + albumid + "/photos", function (response) {
@@ -270,9 +271,10 @@ $(function () {
                                 });
 
                                 //this is for the small picture that comes in the second column
-                                var text = '<option data-img-src="' + image_arr[(image_arr.length - 1)]["source"] + '?type=normal" value=' + v.toString() + '/>';
+                                var text = '<option data-img-src="' + image_arr[(image_arr.length - 1)]["source"] + '?type=normal" value=' + count.toString() + '/>';
 
                                 $('#select-upload').prepend(text);
+                                count++;
                             }
                             $("select").imagepicker()
                         });
