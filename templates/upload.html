@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 </head>
 <body>
+<div class="loader"></div>
 <div class="content" id="wrap" style="padding: 50px">
     <div class="polaroid" id="shopaholic-div">
         <div id="shopaholic" style="display: inline"></div>
@@ -89,18 +90,19 @@
 
 <script type="text/javascript">
 $('#next').hide();
+$('div.loader').hide();
 $('#upload-form').ajaxForm({
-            success: function (response) {
-                var imageObj = new Image();
-                imageObj.onload = function () {
-                    drawImageDraggable(this);
-                };
-                imageObj.src = response['url'];
-                next++;
-                $('#next').show();
-                $('#upload-div').dialog('close');
-            }
-        });
+    success: function (response) {
+        var imageObj = new Image();
+        imageObj.onload = function () {
+            drawImageDraggable(this);
+        };
+        imageObj.src = response['url'];
+        next++;
+        $('#next').show();
+        $('#upload-div').dialog('close');
+    }
+});
 
 var next = 0;
 var stageCentral = null;
@@ -180,7 +182,7 @@ var user_id = null;
 
 $('#next').click(function () {
     var canvases = $('#wrap').find('> .polaroid');
-    var dataUrls = [];
+    $('div.loader').show();
     var done = 0;
     for (var i = 0; i < canvases.length; i++) {
         if (canvases[i].children[0].children[0].children[0]) {
@@ -246,12 +248,12 @@ $(function () {
                 accessToken = FB.getAuthResponse()['accessToken'];
                 FB.api('/' + user_id + '/' + 'albums?access_token=' + FB.getAuthResponse()['accessToken'], function (response) {
                     var albums = response["data"];
+                    $('#select-upload').html('');
+                    photo_urls = [];
                     for (var i = 0; i < albums.length; i++) {
                         var albumid = albums[0]["id"];
                         FB.api("/" + albumid + "/photos", function (response) {
                             var photos = response["data"];
-                            $('#select-upload').html('');
-                            photo_urls = [];
                             for (var v = 0; v < photos.length; v++) {
                                 var image_arr = photos[v]["images"];
                                 //POST to server
