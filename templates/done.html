@@ -7,29 +7,16 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 </head>
 <body>
-<div class="content" id="wrap" style="padding: 50px">
-    <img src="{% static 'images/Beneselfies-Logo.png' %}" alt=""
-         style="display: block; margin-left: auto; margin-right: auto;">
-    <div style="text-align: center; padding-bottom: 30px"><strong style="font-size: 20px; font-family: arial">POSTED</strong></div>
-    {% for image in images %}
-        <div class="polaroid" id="shopaholic-div">
-            <div id="shopaholic" style="display: inline"><img src="{{ image }}" alt=""></div>
-        </div>
-    {% endfor %}
+<div class="content" id="wrap"
+     style="width: 1000px; height:1333px;">
+        {% for image in images %}
+        <img src="{{ image }}"/>
+        {% endfor %}
+    </div>
 </div>
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript">
-    $(function () {
-        function getRandomArbitary(min, max) {
-            return Math.random() * (max - min) + min;
-        }
-
-        $('.polaroid img').each(function () {
-            $(this).css("transform", "rotate(" + getRandomArbitary(-30, 30) + "deg)");
-        });
-    });
-
 </script>
 </body>
 </html>

@@ -6,8 +6,9 @@ __author__ = 'tmehta'
 
 
 class UserSubmission(models.Model):
-    email = models.CharField(max_length=50, default="")
-    user_id = models.CharField(max_length=50)
+    email = models.CharField(max_length=100, default="")
+    user_id = models.CharField(max_length=50, default="")
+    user_name = models.CharField(max_length=100, default="")
 
 
 def get_user_id(instance, filename):
