@@ -5,6 +5,8 @@
 <head>
     <title>Benefit Cosmetics</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 </head>
 <body>
 <div class="loader" style="background: url('{% static 'images/uploading.gif' %}') no-repeat;"></div>
@@ -49,18 +51,6 @@
         <div class="polaroid" id="sexy-div">
             <div id="sexy" style="display: inline"></div>
         </div>
-        <div id="central-div">
-            <div id="central" width="500" height="550">
-            </div>
-            <div style="text-align: center">
-                <button id="upload"
-                        style="background: url('{% static 'images/Upload-Pink.png' %}'); width: 102px; height: 52px"
-                        onclick="$('#upload-div').dialog('open');"></button>
-                <button id="done"
-                        style="background: url('{% static 'images/Done-Pink.png' %}'); width: 102px; height: 52px"
-                        onclick="$('#central-div').dialog('close');"></button>
-            </div>
-        </div>
 
         <div id="upload-div">
             <label for="filter">Filter by Tags: </label>
@@ -80,8 +70,8 @@
         </div>
         <div id="fb-root">
         </div>
-        <button id="next"
-                style="background: url('{% static 'images/Next-Pink.png' %}'); width: 102px; height: 52px"></button>
+        <div id="next"
+                style="background: url('{% static 'images/Next-Black.png' %}'); width: 102px; height: 52px; margin-top: 850px; border-radius: 15px; float: right"></div>
     </div>
 </div>
 
@@ -124,10 +114,6 @@
     };
 </script>
 <script type="text/javascript">
-function getRandomArbitary(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
 $(function () {
     var $next = $('#next');
     $next.hide();
@@ -167,7 +153,6 @@ $(function () {
     });
 });
 
-
 var next = 0;
 var stageCentral = null;
 var imageLayer = null;
@@ -177,14 +162,22 @@ function drawImageDraggable(imageObj) {
     var $filter = $('#filter');
     $filter.val('');
     $filter.change();
+    var $polaroids = $(clicked.parentElement).find('.polaroid');
+    var i = 0;
+    $.each($polaroids, function(index){
+        if ($polaroids[index] == clicked)
+            i = index
+    });
+    var stage = $(clicked).find('canvas')[0];
     var image_added = new Kinetic.Image({
         image: imageObj,
-        x: stageCentral.getWidth() / 2 - 400 / 2,
-        y: stageCentral.getHeight() / 2 - 500 / 2,
-        width: 400,
-        height: 500,
+        x: stage.width / 2 - 180 / 2,
+        y: stage.height / 2 - 200 / 2,
+        width: 180,
+        height: 200,
         draggable: true
     });
+
 
     // add cursor styling
     image_added.on('mouseover', function () {
@@ -194,32 +187,12 @@ function drawImageDraggable(imageObj) {
         document.body.style.cursor = 'default';
     });
 
-    imageLayer.add(image_added);
+    layers[i].add(image_added);
     image_added.moveDown();
-    imageLayer.draw();
+    layers[i].draw();
 }
 
-function drawImageCentral(imageObj, container) {
-    stageCentral = new Kinetic.Stage({
-        container: container,
-        width: 500,
-        height: 550
-    });
-    imageLayer = new Kinetic.Layer();
-
-    var img = new Kinetic.Image({
-        image: imageObj,
-        x: stageCentral.getWidth() / 2 - 500 / 2,
-        y: stageCentral.getHeight() / 2 - 550 / 2,
-        width: 500,
-        height: 550
-    });
-    imageLayer.add(img);
-    stageCentral.add(imageLayer);
-}
-
-
-function drawImage(imageObj, container) {
+function drawImage(imageObj, container, i) {
     var stage = new Kinetic.Stage({
         container: container,
         width: 240,
@@ -237,6 +210,17 @@ function drawImage(imageObj, container) {
 
     layer.add(img);
     stage.add(layer);
+    layers[i] = layer;
+
+    // Give the inner div's and canvas' the proper width and height values.
+    $('#wrap').find('.polaroid div').css({
+        height: "100%",
+        width: "100%"
+    });
+    $('#wrap').find('.polaroid canvas').css({
+        height: "100%",
+        width: "100%"
+    });
 }
 
 function selectPic() {
@@ -321,15 +305,6 @@ $(function () {
     });
 });
 var current_open = null;
-$('#wrap').find('.polaroid').click(function () {
-    $('#central-div').dialog("open");
-    current_open = this.id;
-    if (this.children[0].children[0].children[0]) {
-        drawImageCentral(this.children[0].children[0].children[0], 'central');
-    } else {
-        drawImageCentral(this.children[0].children[0], 'central');
-    }
-});
 function bringForward(id) {
     var imageObj = new Image();
     imageObj.onload = function () {
@@ -340,7 +315,7 @@ function bringForward(id) {
         url: "/post_pic/",
         async: false,
         data: {
-            image: photo_urls[id] + '?width=400&height=500',
+            image: photo_urls[id] + '?width=180&height=200',
             user_id: user_id
         },
         success: function (data) {
@@ -350,72 +325,6 @@ function bringForward(id) {
     next++;
     $('#next').show();
 }
-
-
-var imageObj = new Image();
-
-imageObj.onload = function () {
-    drawImage(this, 'shopaholic');
-};
-
-imageObj.src = '{% static 'images/The-Shopaholic-Transparent.png' %}';
-
-var imageObj2 = new Image();
-
-imageObj2.onload = function () {
-    drawImage(this, 'independent');
-};
-
-imageObj2.src = '{% static 'images/Miss-Independent-Transparent.png' %}';
-
-var imageObj3 = new Image();
-
-imageObj3.onload = function () {
-    drawImage(this, 'sporty');
-};
-
-imageObj3.src = '{% static 'images/Sporty-Girl-Transparent.png' %}';
-
-var imageObj4 = new Image();
-
-imageObj4.onload = function () {
-    drawImage(this, 'badgal');
-};
-
-imageObj4.src = '{% static 'images/The-Bad-Gal-Transparent.png' %}';
-
-var imageObj5 = new Image();
-
-imageObj5.onload = function () {
-    drawImage(this, 'flirt');
-};
-
-imageObj5.src = '{% static 'images/The-Flirt-Transparent.png' %}';
-
-var imageObj6 = new Image();
-
-imageObj6.onload = function () {
-    drawImage(this, 'gorgeous');
-};
-
-imageObj6.src = '{% static 'images/The-Gorgeous-Geek-Transparent.png' %}';
-
-var imageObj7 = new Image();
-
-imageObj7.onload = function () {
-    drawImage(this, 'joker');
-};
-
-imageObj7.src = '{% static 'images/The-Joker-Transparent.png' %}';
-
-var imageObj8 = new Image();
-
-imageObj8.onload = function () {
-    drawImage(this, 'sexy');
-};
-
-imageObj8.src = '{% static 'images/The-Sexy-One-Transparent.png' %}';
-
 </script>
 </body>
 </html>

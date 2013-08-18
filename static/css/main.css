@@ -11,6 +11,7 @@
     margin-right: auto;
     margin-top: 2em;
     border-radius: 3px;
+    position: relative;
     -moz-box-shadow: 0px 2px 10px #666;
     -webkit-box-shadow: 0px 2px 10px #666;
     box-shadow: 0px 2px 10px #666;
@@ -18,14 +19,18 @@
 }
 
 .polaroid {
-    width: 275px;
-    height: 302px;
-    display: inline;
+    position: relative;
+    width: 245px;
+    height: 269px;
+    display: inline-block;
 }
 
-.polaroid img {
-    width: 275px;
-    height: 302px;
+.polaroid div.buttons {
+    text-align: center;
+}
+
+.polaroid div.buttons img {
+    cursor: pointer;
 }
 
 .loader {
