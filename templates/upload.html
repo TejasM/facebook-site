@@ -105,7 +105,7 @@
             });
             $(select).data('options', options);
 
-            $(textbox).bind('change keyup', function () {
+            $(textbox).bind('change keyup', function filterImages() {
                 var options = $(select).empty().data('options');
                 var search = $.trim($(this).val());
                 var regex = new RegExp(search, "gi");
@@ -164,36 +164,6 @@ $(function () {
                 });
             }
         });
-        {% comment %}var canvases = $('#wrap').find('.polaroid');{% endcomment %}
-        {% comment %}var done = 0;
-        for (var i = 0; i < canvases.length; i++) {
-            if (canvases[i].children[0].children[0].children[0]) {
-                dataURL = canvases[i].children[0].children[0].children[0].toDataURL();
-            } else {
-                dataURL = canvases[i].children[0].children[0].toDataURL();
-            }
-            $.ajax({
-                type: "POST",
-                url: "/upload_custom/",
-                enctype: 'multipart/form-data',
-                data: {'user_id': user_id, 'file': dataURL },
-                success: function (data) {
-                    FB.api('/' + user_id.toString() + '/photos?access_token=' + accessToken.toString(), 'post', {
-                        url: window.location.origin + "/" + data['image']
-                    }, function (response) {
-                        done++;
-                        if (done + 1 == canvases.length) {
-                            window.location = "/done/" + user_id;
-                        }
-                        if (response && response.id) {
-
-                        } else {
-                            //window.location = "/retry";
-                        }
-                    });
-                }
-            });
-        }{% endcomment %}
     });
 });
 
@@ -204,6 +174,9 @@ var imageLayer = null;
 var image_added = null;
 
 function drawImageDraggable(imageObj) {
+    var $filter = $('#filter');
+    $filter.val('');
+    $filter.change();
     var image_added = new Kinetic.Image({
         image: imageObj,
         x: stageCentral.getWidth() / 2 - 400 / 2,
@@ -321,28 +294,29 @@ $(function () {
                                 $.ajax({
                                     type: "POST",
                                     url: "/post_pic/",
+                                    async: false,
                                     data: {
                                         image: image_arr[(image_arr.length - 1)]["source"] + '?width=400&height=500',
                                         user_id: user_id
                                     },
                                     success: function (data) {
-                                        photo_urls.push(data["image"])
+                                        photo_urls[count] = data["image"];
                                     }
                                 });
                                 var tags = "";
                                 try {
-                                    var $tags = photos[v]['tags']['data'];
+                                    var $tags = photos[count]['tags']['data'];
                                     for (var k = 0; k < $tags.length; k++) {
                                         tags += $tags[k]["name"].replace('"', '').replace(' ', '');
                                     }
                                 } catch (e) {
 
                                 }
-                                //this is for the small picture that comes in the second column
                                 var text = '<option data-img-src="' + image_arr[(image_arr.length - 1)]["source"] + '?type=normal" value=' + count.toString() + ' data-tags=' + tags + '/>';
 
                                 $('#select-upload').prepend(text);
                                 count++;
+
                             }
                             $("select").imagepicker();
                             $('select').filterByText($('#filter'));
