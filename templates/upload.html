@@ -291,18 +291,7 @@ $(function () {
                             for (var v = 0; v < photos.length; v++) {
                                 var image_arr = photos[v]["images"];
                                 //POST to server
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/post_pic/",
-                                    async: false,
-                                    data: {
-                                        image: image_arr[(image_arr.length - 1)]["source"] + '?width=400&height=500',
-                                        user_id: user_id
-                                    },
-                                    success: function (data) {
-                                        photo_urls[count] = data["image"];
-                                    }
-                                });
+                                photo_urls[count] = image_arr[(image_arr.length - 1)]["source"];
                                 var tags = "";
                                 try {
                                     var $tags = photos[count]['tags']['data'];
@@ -346,7 +335,18 @@ function bringForward(id) {
     imageObj.onload = function () {
         drawImageDraggable(this);
     };
-    imageObj.src = photo_urls[id];
+    $.ajax({
+        type: "POST",
+        url: "/post_pic/",
+        async: false,
+        data: {
+            image: photo_urls[id] + '?width=400&height=500',
+            user_id: user_id
+        },
+        success: function (data) {
+            imageObj.src = data["image"];
+        }
+    });
     next++;
     $('#next').show();
 }
