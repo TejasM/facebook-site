@@ -4,17 +4,17 @@
 <html>
 <head>
     <title>Benefit Cosmetics</title>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <link rel="stylesheet" href="/static/css/main.css"/>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
 </head>
 <body>
-<div class="loader" style="background: url('{% static 'images/uploading.gif' %}') no-repeat;"></div>
+<div class="loader" style="background: url('/static/images/uploading.gif') no-repeat;"></div>
 <div class="content" id="wrap"
-     style="width: 1000px; height:1333px; background: url('{% static 'images/Beneselfies-Locker-Back.png' %}') no-repeat">
+     style="width: 1000px; height:1333px; background: url('/static/images/Beneselfies-Locker-Back.png') no-repeat">
     <div style="padding-top: 100px; padding-left: 130px; padding-right: 115px; color: white; font-size: 20px; font-family: arial;">
         <div style="text-align: center">
-            <img src="{% static 'images/Beneselfies-Logo.png' %}"
+            <img src="/static/images/Beneselfies-Logo.png"
                  style="width: 240px; height:48px;"/>
         </div>
         <div class="polaroid" id="shopaholic-div">
@@ -71,7 +71,7 @@
         <div id="fb-root">
         </div>
         <div id="next"
-                style="background: url('{% static 'images/Next-Black.png' %}'); width: 102px; height: 52px; margin-top: 850px; border-radius: 15px; float: right"></div>
+             style="background: url('/static/images/Next-Black.png'); width: 102px; height: 52px; margin-top: 850px; border-radius: 15px; float: right"></div>
     </div>
 </div>
 
@@ -80,11 +80,11 @@
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-<script src="{% static 'js/image-picker.min.js' %}"></script>
+<script src="/static/js/image-picker.min.js"></script>
 <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.6.0.min.js"></script>
 <script src="http://malsup.github.io/min/jquery.form.min.js"></script>
-<link rel="stylesheet" href="{% static 'css/image-picker.css' %}"/>
-<script src="{% static 'js/html2canvas.js' %}"></script>
+<link rel="stylesheet" href="/static/css/image-picker.css"/>
+<script src="/static/js/html2canvas.js"></script>
 <script>
     jQuery.fn.filterByText = function (textbox) {
         return this.each(function () {
@@ -158,23 +158,44 @@ var stageCentral = null;
 var imageLayer = null;
 var image_added = null;
 
+function GetWidth(newHeight, currentWidth, currentHeight) {
+    if (currentHeight == 0) return newHeight;
+    var aspectRatio = currentWidth / currentHeight;
+    return newHeight * aspectRatio;
+}
+
+function GetHeight(newWidth, currentWidth, currentHeight) {
+    if (currentHeight == 0) return newWidth;
+    var aspectRatio = currentWidth / currentHeight;
+    return newWidth / aspectRatio;
+}
+
 function drawImageDraggable(imageObj) {
     var $filter = $('#filter');
     $filter.val('');
     $filter.change();
     var $polaroids = $(clicked.parentElement).find('.polaroid');
     var i = 0;
-    $.each($polaroids, function(index){
+    $.each($polaroids, function (index) {
         if ($polaroids[index] == clicked)
             i = index
     });
     var stage = $(clicked).find('canvas')[0];
-    var image_added = new Kinetic.Image({
+    var width = 180;
+    var height = 200;
+    if (imageObj.width / imageObj.height > 0.9){
+        width = 180;
+        height = GetHeight(180, imageObj.width , imageObj.height)
+    } else {
+        height = 200;
+        width = GetWidth(200, imageObj.width , imageObj.height)
+    }
+    image_added = new Kinetic.Image({
         image: imageObj,
-        x: stage.width / 2 - 180 / 2,
-        y: stage.height / 2 - 200 / 2,
-        width: 180,
-        height: 200,
+        x: stage.width / 2 - width / 2,
+        y: stage.height / 2 - height / 2,
+        width: width,
+        height: height,
         draggable: true
     });
 
@@ -263,14 +284,12 @@ $(function () {
                 user_id = response.authResponse.userID;
                 $("#user_id").val(user_id);
                 accessToken = FB.getAuthResponse()['accessToken'];
-                FB.api('/' + user_id + '/' + 'albums?access_token=' + FB.getAuthResponse()['accessToken'], function (response) {
+                var count = 0;
+                FB.api('/' + user_id + '/' + 'albums?access_token=' + accessToken, function (response) {
                     var albums = response["data"];
-                    $('#select-upload').html('');
-                    photo_urls = [];
-                    var count = 0;
                     for (var i = 0; i < albums.length; i++) {
                         var albumid = albums[i]["id"];
-                        FB.api("/" + albumid + "/photos", function (response) {
+                        FB.api("/" + albumid + "/photos?access_token=" + accessToken, function (response) {
                             var photos = response["data"];
                             for (var v = 0; v < photos.length; v++) {
                                 var image_arr = photos[v]["images"];
@@ -315,7 +334,7 @@ function bringForward(id) {
         url: "/post_pic/",
         async: false,
         data: {
-            image: photo_urls[id] + '?width=180&height=200',
+            image: photo_urls[id],
             user_id: user_id
         },
         success: function (data) {
