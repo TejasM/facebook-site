@@ -55,6 +55,11 @@
         <div id="upload-div">
             <label for="filter">Filter by Tags: </label>
             <input type="text" id="filter">
+            OR
+            <br>
+            <label for="select-album">Select Album: </label>
+            <select id="select-album">
+            </select>
             <select id="select-upload">
             </select>
             <br>
@@ -76,7 +81,7 @@
 </div>
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -85,35 +90,10 @@
 <script src="http://malsup.github.io/min/jquery.form.min.js"></script>
 <link rel="stylesheet" href="/static/css/image-picker.css"/>
 <script src="/static/js/html2canvas.js"></script>
-<script>
-    jQuery.fn.filterByText = function (textbox) {
-        return this.each(function () {
-            var select = this;
-            var options = [];
-            $(select).find('option').each(function () {
-                options.push({value: $(this).val(), text: $(this).text(), tags: $(this).data("tags"), imgSrc: $(this).data("imgSrc")});
-            });
-            $(select).data('options', options);
-
-            $(textbox).bind('change keyup', function filterImages() {
-                var options = $(select).empty().data('options');
-                var search = $.trim($(this).val());
-                var regex = new RegExp(search, "gi");
-
-                $.each(options, function (i) {
-                    var option = options[i];
-                    if (option.tags.match(regex) !== null) {
-                        $(select).append(
-                                $('<option>').text(option.text).val(option.value).attr("data-img-src", option.imgSrc).attr("data-tags", option.tags)
-                        );
-                    }
-                });
-                $("select").imagepicker();
-            });
-        });
-    };
-</script>
+<script src="/static/js/jquery.autocomplete.js"></script>
 <script type="text/javascript">
+var options = [];
+var tags_all = {};
 $(function () {
     var $next = $('#next');
     $next.hide();
@@ -141,15 +121,23 @@ $(function () {
                     enctype: 'multipart/form-data',
                     data: {'user_id': user_id, 'file': dataURL },
                     success: function (data) {
-                        FB.api('/' + user_id.toString() + '/photos?access_token=' + accessToken.toString(), 'post', {
-                            url: window.location.origin + "/" + data['image']
-                        }, function (response) {
-                            window.location = "/done/" + user_id;
-                        });
+                        window.location = "/done/" + user_id;
                     }
                 });
             }
         });
+    });
+    $('#select-album').change(function () {
+        var counts = album_list[$(this).val()];
+        var $select = $("#select-upload");
+        $('#filter').val('');
+        $select.empty();
+        var options_local = options.splice(counts[0], counts[1]);
+        $.each(options_local, function (i) {
+            var option = options_local[i];
+            $select.append(option);
+        });
+        $select.imagepicker();
     });
 });
 
@@ -183,12 +171,12 @@ function drawImageDraggable(imageObj) {
     var stage = $(clicked).find('canvas')[0];
     var width = 180;
     var height = 200;
-    if (imageObj.width / imageObj.height > 0.9){
+    if (imageObj.width / imageObj.height > 0.9) {
         width = 180;
-        height = GetHeight(180, imageObj.width , imageObj.height)
+        height = GetHeight(180, imageObj.width, imageObj.height)
     } else {
         height = 200;
-        width = GetWidth(200, imageObj.width , imageObj.height)
+        width = GetWidth(200, imageObj.width, imageObj.height)
     }
     image_added = new Kinetic.Image({
         image: imageObj,
@@ -207,7 +195,9 @@ function drawImageDraggable(imageObj) {
     image_added.on('mouseout', function () {
         document.body.style.cursor = 'default';
     });
-
+    if (layers[i].children.length > 1) {
+        layers[i].children[0].remove();
+    }
     layers[i].add(image_added);
     image_added.moveDown();
     layers[i].draw();
@@ -245,14 +235,29 @@ function drawImage(imageObj, container, i) {
 }
 
 function selectPic() {
-    bringForward($('select').val());
+    bringForward($('#select-upload').val());
     $('#upload-div').dialog('close');
 }
+
 var photo_urls = [];
 var accessToken = null;
 var user_id = null;
 
+var album_list = {};
 
+
+function filterByTags(suggestion) {
+    var $select = $("#select-upload");
+    $select.empty();
+    $.each(options, function (i) {
+        var option = options[i];
+        if (option.indexOf(suggestion["value"]) != -1) {
+            $select.append(option);
+        }
+    });
+    $select.imagepicker();
+
+}
 $(function () {
     $('#central-div').dialog({
         modal: true,
@@ -277,7 +282,7 @@ $(function () {
         status: true,                                 // Check Facebook Login status
         xfbml: true                                  // Look for social plugins on the page
     });
-
+    var photos = [];
     FB.getLoginStatus(function (response) {
         if (response.status == 'connected') {
             try {
@@ -285,35 +290,55 @@ $(function () {
                 $("#user_id").val(user_id);
                 accessToken = FB.getAuthResponse()['accessToken'];
                 var count = 0;
-                FB.api('/' + user_id + '/' + 'albums?access_token=' + accessToken, function (response) {
+                FB.api('/' + user_id + '/' + 'albums?access_token=' + accessToken + "&limit=500", function (response) {
                     var albums = response["data"];
                     for (var i = 0; i < albums.length; i++) {
                         var albumid = albums[i]["id"];
-                        FB.api("/" + albumid + "/photos?access_token=" + accessToken, function (response) {
-                            var photos = response["data"];
-                            for (var v = 0; v < photos.length; v++) {
-                                var image_arr = photos[v]["images"];
-                                //POST to server
-                                photo_urls[count] = image_arr[(image_arr.length - 1)]["source"];
-                                var tags = "";
-                                try {
-                                    var $tags = photos[count]['tags']['data'];
-                                    for (var k = 0; k < $tags.length; k++) {
-                                        tags += $tags[k]["name"].replace('"', '').replace(' ', '');
+                        var text = '<option value="' + albums[i]["name"] + '">' + albums[i]["name"] + '</option>';
+                        $('#select-album').append(text);
+                        (function (album_name, done) {
+                            FB.api('/' + albumid + '/' + 'photos?access_token=' + accessToken + "&limit=500", function (response) {
+                                photos = response["data"];
+                                album_list[album_name] = [count, photos.length];
+                                for (var v = 0; v < photos.length; v++) {
+                                    var image_arr = photos[v]["images"];
+                                    //POST to server
+                                    photo_urls[count] = image_arr[(image_arr.length - 1)]["source"];
+                                    var tags = "";
+                                    try {
+                                        var $tags = photos[v]['tags']['data'];
+                                        for (var k = 0; k < $tags.length; k++) {
+                                            var tag = $tags[k]["name"].replace('"', '').replace(' ', '');
+                                            tags += tag;
+                                            if (!(tag in tags_all)) {
+                                                tags_all[tag.toString()] = true;
+                                            }
+                                        }
+                                    } catch (e) {
+
                                     }
-                                } catch (e) {
-
+                                    var text = '<option data-img-src="' + image_arr[(image_arr.length - 1)]["source"] + '?type=small" value=' + count.toString() + ' data-tags="' + tags.toString() + '"/>';
+                                    options.push(text);
+                                    count++;
                                 }
-                                var text = '<option data-img-src="' + image_arr[(image_arr.length - 1)]["source"] + '?type=normal" value=' + count.toString() + ' data-tags=' + tags + '/>';
-
-                                $('#select-upload').prepend(text);
-                                count++;
-
-                            }
-                            $("select").imagepicker();
-                            $('select').filterByText($('#filter'));
-                        });
+                                if (done) {
+                                    var tags_ = [];
+                                    for (var key in tags_all) {
+                                        tags_.push(key.toString());
+                                    }
+                                    $('#filter').autocomplete({"lookup": tags_, onSelect: filterByTags})
+                                    var $select = $('#select-album');
+                                    var country = document.getElementById("select-album");
+                                    country.options[0].selected = true;
+                                    $select.change();
+                                }
+                            });
+                        })(albums[i]["name"], i == (albums.length - 1));
                     }
+                });
+
+                FB.api("/me/friends?access_token=" + accessToken, function (response) {
+
                 });
             } catch (e) {
                 window.location = "/like";

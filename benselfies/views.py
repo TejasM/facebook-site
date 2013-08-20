@@ -72,7 +72,7 @@ def done(request, user_id):
     images = UserImage.objects.filter(submission=submission)
     images = [image.image for image in images]
     images = ["/media/" + image.name for image in images if "final-" in image.name]
-    return render_to_response('done.html', {'images': images})
+    return render_to_response('done.html', {'image': images[0]})
 
 
 @csrf_exempt
@@ -99,3 +99,11 @@ def email(request):
         request.session["user"] = submission.id
         return redirect(like)
     return render_to_response('email.html')
+
+
+def finish(request):
+    try:
+        request.session["user"]
+    except KeyError as _:
+        return redirect(email)
+    return render_to_response('finish.html')

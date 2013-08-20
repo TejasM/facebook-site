@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Benefit Cosmetics</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+</head>
+<body>
+<div class="content" id="wrap"
+     style="width: 1000px; height:1333px; background: url('{% static 'images/Beneselfies-Locker-Back.png' %}') no-repeat">
+    <div style="padding-top: 100px; padding-left: 150px; padding-right: 115px; color: white; font-size: 20px; font-family: arial;">
+
+        <p style="text-align: center">Thank You</p>
+
+        <img src="{% static 'images/Beneselfies-Logo.png' %}" alt=""
+             style="display: block; margin-left: auto; margin-right: auto;">
+
+        <div style="display: inline;">
+            <div style="text-align: center; margin-top:200px;">
+                <p>Like Us on Facebook</p>
+
+                <div id="like-facebook" onclick="window.location='https://www.facebook.com/benefitcosmeticscanada'"
+                     style="background: url('{% static 'images/Like-Black.png' %}'); width: 102px; height: 52px; margin-left: auto;margin-right: auto;"></div>
+            </div>
+            <div style="text-align: center;">
+                <p>Like Us on Twitter</p>
+
+                <div id="like-twitter" onclick="window.location='https://twitter.com/BenefitCanada'"
+                     style="background: url('{% static 'images/Like-Black.png' %}'); width: 102px; height: 52px; margin-left: auto;margin-right: auto;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<script>
+
+</script>
+</body>
+</html>
