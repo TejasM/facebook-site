@@ -52,31 +52,69 @@
             <div id="sexy" style="display: inline"></div>
         </div>
 
-        <div id="upload-div">
-            <label for="filter">Filter by Tags: </label>
-            <input type="text" id="filter">
-            OR
-            <br>
-            <label for="select-album">Select Album: </label>
-            <select id="select-album">
-            </select>
-            <select id="select-upload">
-            </select>
-            <br>
-            <button id="select-face" onclick="selectPic();">Select</button>
-            <br>
-            OR
-            <form action="/addimage/" method="post" enctype="multipart/form-data" id="upload-form">
-                {% csrf_token %}
-                <input type="hidden" value="" name="user_id" id="user_id">
-                <input id="image-upload" type="file" name="image">
-                <button type="submit" id="upload-image">Submit</button>
-            </form>
-        </div>
         <div id="fb-root">
         </div>
         <div id="next"
              style="background: url('/static/images/Next-Black.png'); width: 102px; height: 52px; margin-top: 850px; border-radius: 15px; float: right"></div>
+    </div>
+</div>
+<div id="CSPhotoSelector">
+    <div class="CSPhotoSelector_dialog">
+        <a href="#" id="CSPhotoSelector_buttonClose">x</a>
+
+        <div class="CSPhotoSelector_form">
+            <div class="CSPhotoSelector_header">
+                <p>Choose from Photos</p>
+            </div>
+            <label for="filter" style="color: #ffffff">Filter by Tags: </label>
+            <input type="text" id="filter">
+
+            <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
+                <p>Browse your albums until you find a picture you want to use</p>
+
+                <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+                    <div class="CSPhotoSelector_selectedCountContainer">Select an album</div>
+                </div>
+                <div class="CSPhotoSelector_photosContainer CSAlbum_container"></div>
+            </div>
+
+            <div class="CSPhotoSelector_content CSPhotoSelector_wrapper">
+                <p>Select a new photo</p>
+
+                <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+                    <div class="CSPhotoSelector_selectedCountContainer"><span
+                            class="CSPhotoSelector_selectedPhotoCount">0</span> / <span
+                            class="CSPhotoSelector_selectedPhotoCountMax">0</span> photos selected
+                    </div>
+                    <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
+                </div>
+                <div class="CSPhotoSelector_photosContainer CSPhoto_container"></div>
+            </div>
+
+            <div id="CSPhotoSelector_loader"></div>
+
+
+            <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
+                <a href="#" id="CSPhotoSelector_pagePrev" class="CSPhotoSelector_disabled">Previous</a>
+                <a href="#" id="CSPhotoSelector_pageNext">Next</a>
+
+                <div class="CSPhotoSelector_pageNumberContainer">
+                    Page <span id="CSPhotoSelector_pageNumber">1</span> / <span
+                        id="CSPhotoSelector_pageNumberTotal">1</span>
+                </div>
+                <a href="#" id="CSPhotoSelector_buttonOK">OK</a>
+                <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
+
+            </div>
+            <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
+                    <form action="/addimage/" method="post" enctype="multipart/form-data" id="upload-form">
+                        {% csrf_token %}
+                        <input type="hidden" value="" name="user_id" id="user_id">
+                        <input id="image-upload" type="file" name="image">
+                        <button type="submit" id="upload-image">Submit</button>
+                    </form>
+                </div>
+        </div>
     </div>
 </div>
 
@@ -89,8 +127,10 @@
 <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v4.6.0.min.js"></script>
 <script src="http://malsup.github.io/min/jquery.form.min.js"></script>
 <link rel="stylesheet" href="/static/css/image-picker.css"/>
+<link rel="stylesheet" href="/static/css/selector.css"/>
 <script src="/static/js/html2canvas.js"></script>
 <script src="/static/js/jquery.autocomplete.js"></script>
+<script src="/static/js/selector.js"></script>
 <script type="text/javascript">
 var options = [];
 var tags_all = {};
@@ -127,19 +167,71 @@ $(function () {
             }
         });
     });
-    $('#select-album').change(function () {
-        var counts = album_list[$(this).val()];
-        var $select = $("#select-upload");
-        $('#filter').val('');
-        $select.empty();
-        var options_local = options.splice(counts[0], counts[1]);
-        $.each(options_local, function (i) {
-            var option = options_local[i];
-            $select.append(option);
+    var buttonOK = $('#CSPhotoSelector_buttonOK');
+
+    fbphotoSelect = function (id) {
+        // if no user/friend id is sent, default to current user
+        if (!id) id = 'me';
+
+        callbackAlbumSelected = function (albumId) {
+            var album, name;
+            album = CSPhotoSelector.getAlbumById(albumId);
+            // show album photos
+            selector.showPhotoSelector(null, album.id);
+        };
+
+        callbackAlbumUnselected = function (albumId) {
+        };
+
+        callbackPhotoSelected = function (photoId) {
+            buttonOK.show();
+        };
+
+        callbackPhotoUnselected = function (photoId) {
+            buttonOK.hide();
+        };
+
+        callbackSubmit = function (photoId) {
+            var photo;
+            photo = CSPhotoSelector.getPhotoById(photoId);
+            selectPic(photo["picture"])
+        };
+
+
+        // Initialise the Photo Selector with options that will apply to all instances
+        CSPhotoSelector.init({debug: true});
+
+        // Create Photo Selector instances
+        selector = CSPhotoSelector.newInstance({
+            callbackAlbumSelected: callbackAlbumSelected,
+            callbackAlbumUnselected: callbackAlbumUnselected,
+            callbackPhotoSelected: callbackPhotoSelected,
+            callbackPhotoUnselected: callbackPhotoUnselected,
+            callbackSubmit: callbackSubmit,
+            maxSelection: 1,
+            albumsPerPage: 6,
+            photosPerPage: 200,
+            autoDeselection: true
         });
-        $select.imagepicker();
-    });
+
+        // reset and show album selector
+        selector.reset();
+        selector.showAlbumSelector(id);
+    }
+
 });
+
+function filterByTags(suggestion) {
+    var $select = $("#select-upload");
+    $select.empty();
+    $.each(options, function (i) {
+        var option = options[i];
+        if (option.indexOf(suggestion["value"]) != -1) {
+            $select.append(option);
+        }
+    });
+    $select.imagepicker();
+}
 
 var next = 0;
 var stageCentral = null;
@@ -187,7 +279,6 @@ function drawImageDraggable(imageObj) {
         draggable: true
     });
 
-
     // add cursor styling
     image_added.on('mouseover', function () {
         document.body.style.cursor = 'pointer';
@@ -234,9 +325,8 @@ function drawImage(imageObj, container, i) {
     });
 }
 
-function selectPic() {
-    bringForward($('#select-upload').val());
-    $('#upload-div').dialog('close');
+function selectPic(image_url) {
+    bringForward(image_url);
 }
 
 var photo_urls = [];
@@ -246,29 +336,7 @@ var user_id = null;
 var album_list = {};
 
 
-function filterByTags(suggestion) {
-    var $select = $("#select-upload");
-    $select.empty();
-    $.each(options, function (i) {
-        var option = options[i];
-        if (option.indexOf(suggestion["value"]) != -1) {
-            $select.append(option);
-        }
-    });
-    $select.imagepicker();
-
-}
 $(function () {
-    $('#central-div').dialog({
-        modal: true,
-        autoOpen: false,
-        height: 700,
-        width: 535,
-        close: function (event, ui) {
-            $('#' + current_open).html('');
-            drawImage($('#central').children()[0].children[0], current_open);
-        }
-    });
     $('#upload-div').dialog({
         modal: true,
         autoOpen: false,
@@ -282,7 +350,33 @@ $(function () {
         status: true,                                 // Check Facebook Login status
         xfbml: true                                  // Look for social plugins on the page
     });
-    var photos = [];
+});
+
+
+var current_open = null;
+function bringForward(url) {
+    var imageObj = new Image();
+    imageObj.onload = function () {
+        drawImageDraggable(this);
+    };
+    $.ajax({
+        type: "POST",
+        url: "/post_pic/",
+        async: false,
+        data: {
+            image: url,
+            user_id: user_id
+        },
+        success: function (data) {
+            imageObj.src = data["image"];
+        }
+    });
+    next++;
+    $('#next').show();
+}
+
+{% comment %}$(function(){
+    var count = 0;
     FB.getLoginStatus(function (response) {
         if (response.status == 'connected') {
             try {
@@ -294,8 +388,6 @@ $(function () {
                     var albums = response["data"];
                     for (var i = 0; i < albums.length; i++) {
                         var albumid = albums[i]["id"];
-                        var text = '<option value="' + albums[i]["name"] + '">' + albums[i]["name"] + '</option>';
-                        $('#select-album').append(text);
                         (function (album_name, done) {
                             FB.api('/' + albumid + '/' + 'photos?access_token=' + accessToken + "&limit=500", function (response) {
                                 photos = response["data"];
@@ -303,7 +395,6 @@ $(function () {
                                 for (var v = 0; v < photos.length; v++) {
                                     var image_arr = photos[v]["images"];
                                     //POST to server
-                                    photo_urls[count] = image_arr[(image_arr.length - 1)]["source"];
                                     var tags = "";
                                     try {
                                         var $tags = photos[v]['tags']['data'];
@@ -317,16 +408,14 @@ $(function () {
                                     } catch (e) {
 
                                     }
-                                    var text = '<option data-img-src="' + image_arr[(image_arr.length - 1)]["source"] + '?type=small" value=' + count.toString() + ' data-tags="' + tags.toString() + '"/>';
-                                    options.push(text);
                                     count++;
                                 }
                                 if (done) {
                                     var tags_ = [];
-                                    for (var key in tags_all) {
-                                        tags_.push(key.toString());
-                                    }
-                                    $('#filter').autocomplete({"lookup": tags_, onSelect: filterByTags})
+                                    $.each(tags_all, function(key, value){
+                                        tags_.push({value: key.toString(), data: value});
+                                    });
+                                    $('#filter').autocomplete({"lookup": tags_, onSelect: filterByTags});
                                     var $select = $('#select-album');
                                     var country = document.getElementById("select-album");
                                     country.options[0].selected = true;
@@ -336,39 +425,15 @@ $(function () {
                         })(albums[i]["name"], i == (albums.length - 1));
                     }
                 });
-
-                FB.api("/me/friends?access_token=" + accessToken, function (response) {
-
-                });
-            } catch (e) {
-                window.location = "/like";
             }
-        } else {
+            catch (e){
+            }
+        }
+        else{
             window.location = "/like";
         }
     });
-});
-var current_open = null;
-function bringForward(id) {
-    var imageObj = new Image();
-    imageObj.onload = function () {
-        drawImageDraggable(this);
-    };
-    $.ajax({
-        type: "POST",
-        url: "/post_pic/",
-        async: false,
-        data: {
-            image: photo_urls[id],
-            user_id: user_id
-        },
-        success: function (data) {
-            imageObj.src = data["image"];
-        }
-    });
-    next++;
-    $('#next').show();
-}
+});{% endcomment %}
 </script>
 </body>
 </html>

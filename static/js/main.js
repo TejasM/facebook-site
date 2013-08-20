@@ -13,7 +13,7 @@ $(document).ready(function() {
         'joker': '/static/images/The-Joker-Transparent.png',
         'sexy': '/static/images/The-Sexy-One-Transparent.png'
     };
-    
+
     var i = 0, imageCount = 8;
     $.each(images, function(key, value) {
         var imageObj = new Image();
@@ -36,7 +36,7 @@ $(document).ready(function() {
         };
         imageObj.src = value;
     });
-    
+
     $('#wrap').find('.polaroid').on('click', focusImage);
 });
 
@@ -83,7 +83,7 @@ function focusImage(event) {
             $(newButtons).append(newDone);
             $(newDone).on('click', unFocusImage);
             $(newUpload).on('click', function() {
-                $('#upload-div').dialog('open');
+                fbphotoSelect(null);
             });
             $(clicked).append(newButtons);
         }
