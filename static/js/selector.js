@@ -72,6 +72,7 @@ var CSPhotoSelector = (function (module, $) {
         $pagination = $container.find(settings.pagination);
     };
 
+
     /**
      * If your website has already loaded the user's Facebook photos, pass them in here to avoid another API call.
      */
@@ -205,17 +206,17 @@ var CSPhotoSelector = (function (module, $) {
             }
         };
 
-        showPhotoSelector = function (callback, albumId) {
+        showPhotoSelector = function (callback, albumId, uid) {
             var i, len;
             log('CSPhotoSelector - show Photos');
 
             // show loader until we get a response
             $loader.show();
 
-            if (!$photos || albumId) {
+            if (!$photos || albumId || uid) {
                 return buildPhotoSelector(function () {
                     showPhotoSelector(callback);
-                }, albumId);
+                }, albumId, uid);
             } else {
                 // Update classnames to represent the selections for this instance
                 $photos.removeClass(settings.albumSelectedClass + ' ' + settings.albumDisabledClass + ' ' + settings.photoFilteredClass);
@@ -548,7 +549,6 @@ var CSPhotoSelector = (function (module, $) {
     buildAlbumSelector = function (id, callback) {
         var buildMarkup, buildAlbumMarkup;
         log("buildAlbumSelector");
-        $('#filter').hide();
         $pagination.show();
 
         if (!FB) {
@@ -576,6 +576,28 @@ var CSPhotoSelector = (function (module, $) {
                         return false;
                     }
                 });
+                $filter = $('#filter');
+                $tags = [];
+                if ($filter) {
+                    FB.api('/me', function (response) {
+                        $tags.push({label: response.name, id: response.id, value:response.name});
+                    });
+                    FB.api('/me/friends', function (response) {
+                        if (response.data) {
+                            $.each(response.data, function (index, friend) {
+                                $tags.push({label: friend.name, id: friend.id, value:friend.name});
+                            });
+                            $filter.autocomplete({source: $tags,
+                                select: function (e, ui) {
+                                    selector.showPhotoSelector(null, null, ui.item.id);
+                                }
+                            });
+                            console.log($tags);
+                        } else {
+                        }
+                    });
+                }
+
             } else {
                 log('CSPhotoSelector - buildAlbumSelector - User is not logged in to Facebook');
                 return false;
@@ -612,33 +634,81 @@ var CSPhotoSelector = (function (module, $) {
     /**
      * Load the Facebook photos and build the markup
      */
-    buildPhotoSelector = function (callback, albumId) {
+    buildPhotoSelector = function (callback, albumId, uid) {
         var buildSecondMarkup, buildPhotoMarkup;
-        $('#filter').show();
         log("buildPhotoSelector");
 
         photos = [];
+        if (!uid || uid == null) {
+            FB.api('/' + albumId + '/photos?fields=id,picture,source,height,width&limit=500', function (response) {
+                if (response.data) {
+                    setPhotos(response.data);
 
-        FB.api('/' + albumId + '/photos?fields=id,picture,source,height,width,tags&limit=500', function (response) {
-            if (response.data) {
-                setPhotos(response.data);
-
-                // Build the markup
-                buildSecondMarkup();
-                // Call the callback
-                if (typeof callback === 'function') {
-                    callback();
-                    // hide the loader and pagination
-                    $loader.hide();
-                    $pagination.hide();
-                    // set the photo container to active
-                    $photosWrapper.addClass('CSPhoto_container_active');
+                    // Build the markup
+                    buildSecondMarkup();
+                    // Call the callback
+                    if (typeof callback === 'function') {
+                        callback();
+                        // hide the loader and pagination
+                        $loader.hide();
+                        $pagination.hide();
+                        // set the photo container to active
+                        $photosWrapper.addClass('CSPhoto_container_active');
+                    }
+                } else {
+                    log('CSPhotoSelector - showPhotoSelector - No photos returned');
+                    return false;
                 }
-            } else {
-                log('CSPhotoSelector - showPhotoSelector - No photos returned');
-                return false;
+            });
+        }
+        else {
+            FB.api(
+                {
+                    method: 'fql.query',
+                    query: "SELECT src, images, aid FROM photo WHERE pid in (SELECT pid FROM photo_tag WHERE subject = '" + uid + "')"
+                },
+                function (data) {
+                    if (data) {
+                        setPhotos(data);
+                        // Build the markup
+                        buildSecondMarkup2();
+                        // Call the callback
+                        if (typeof callback === 'function') {
+                            callback();
+                            // hide the loader and pagination
+                            $loader.hide();
+                            $pagination.hide();
+                            // set the photo container to active
+                            $photosWrapper.addClass('CSPhoto_container_active');
+                        }
+                    } else {
+                        log('CSPhotoSelector - showPhotoSelector - No photos returned');
+                        return false;
+                    }
+                }
+            );
+        }
+
+        buildSecondMarkup2 = function () {
+            //loop through photos
+            var i, len, html = '';
+            // if photos is empty, we need to try again
+
+            if (!photos) {
+                buildPhotoSelector(uid, null, albumId);
             }
-        });
+            for (i = 0, len = photos.length; i < len; i += 1) {
+                html += buildPhotoMarkup2(photos[i]);
+            }
+
+            $photos = $(html);
+        };
+
+        buildPhotoMarkup2 = function (photo) {
+            return '<a href="#" class="CSPhotoSelector_photo CSPhotoSelector_clearfix" data-id="' + photo.id + '">' +
+                '<span><img src="' + photo.src + '" alt="" class="CSPhotoSelector_photoAvatar" /></span>' +
+                '</a>';
+        };
 
         // Build the markup of the photo selector
         buildSecondMarkup = function () {
@@ -647,7 +717,7 @@ var CSPhotoSelector = (function (module, $) {
             // if photos is empty, we need to try again
 
             if (!photos) {
-                buildPhotoSelector(null, albumId);
+                buildPhotoSelector(uid, null, albumId);
             }
             for (i = 0, len = photos.length; i < len; i += 1) {
                 html += buildPhotoMarkup(photos[i]);

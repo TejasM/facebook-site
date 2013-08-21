@@ -66,9 +66,10 @@
             <div class="CSPhotoSelector_header">
                 <p>Choose from Photos</p>
             </div>
-            <label for="filter" style="color: #ffffff">Filter by Tags: </label>
-            <input type="text" id="filter">
-
+            <div class="ui-widget">
+                <label for="filter" style="color: #ffffff">Filter by Tags: </label>
+                <input type="text" id="filter">
+            </div>
             <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
                 <p>Browse your albums until you find a picture you want to use</p>
 
@@ -107,13 +108,13 @@
 
             </div>
             <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
-                    <form action="/addimage/" method="post" enctype="multipart/form-data" id="upload-form">
-                        {% csrf_token %}
-                        <input type="hidden" value="" name="user_id" id="user_id">
-                        <input id="image-upload" type="file" name="image">
-                        <button type="submit" id="upload-image">Submit</button>
-                    </form>
-                </div>
+                <form action="/addimage/" method="post" enctype="multipart/form-data" id="upload-form">
+                    {% csrf_token %}
+                    <input type="hidden" value="" name="user_id" id="user_id">
+                    <input id="image-upload" type="file" name="image">
+                    <button type="submit" id="upload-image">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -129,14 +130,27 @@
 <link rel="stylesheet" href="/static/css/image-picker.css"/>
 <link rel="stylesheet" href="/static/css/selector.css"/>
 <script src="/static/js/html2canvas.js"></script>
-<script src="/static/js/jquery.autocomplete.js"></script>
 <script src="/static/js/selector.js"></script>
 <script type="text/javascript">
 var options = [];
 var tags_all = {};
 $(function () {
+    // init the FB JS SDK
+    FB.init({
+        appId: '151985691672341',                        // App ID from the app dashboard
+        cookie: true,
+        status: true,                                 // Check Facebook Login status
+        xfbml: true                                  // Look for social plugins on the page
+    });
+});
+
+$(function () {
     var $next = $('#next');
     $next.hide();
+    $('#upload-image').hide();
+    $('#image-upload').change(function () {
+        $('#upload-image').show();
+    });
     $('div.loader').hide();
     $('#upload-form').ajaxForm({
         success: function (response) {
@@ -220,18 +234,6 @@ $(function () {
     }
 
 });
-
-function filterByTags(suggestion) {
-    var $select = $("#select-upload");
-    $select.empty();
-    $.each(options, function (i) {
-        var option = options[i];
-        if (option.indexOf(suggestion["value"]) != -1) {
-            $select.append(option);
-        }
-    });
-    $select.imagepicker();
-}
 
 var next = 0;
 var stageCentral = null;
@@ -334,24 +336,6 @@ var accessToken = null;
 var user_id = null;
 
 var album_list = {};
-
-
-$(function () {
-    $('#upload-div').dialog({
-        modal: true,
-        autoOpen: false,
-        width: 700,
-        height: 500
-    });
-    // init the FB JS SDK
-    FB.init({
-        appId: '151985691672341',                        // App ID from the app dashboard
-        cookie: true,
-        status: true,                                 // Check Facebook Login status
-        xfbml: true                                  // Look for social plugins on the page
-    });
-});
-
 
 var current_open = null;
 function bringForward(url) {
