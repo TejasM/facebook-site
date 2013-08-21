@@ -1,9 +1,11 @@
 import json
 import cStringIO
+import re
 import urllib
 from django.core.files.base import ContentFile
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
+from django.template import RequestContext
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import csrf_exempt
 from benselfies.models import UserSubmission, UserImage
@@ -25,7 +27,16 @@ def like(request):
 
 def upload(request):
     try:
-        request.session["user"]
+        user = request.session["user"]
+        user = UserSubmission.objects.get(pk=user)
+        try:
+            submission = UserSubmission.objects.get(user_id=request.GET["user_id"])
+            if user != submission:
+                submission.delete()
+        except UserSubmission.DoesNotExist as _:
+            pass
+        user.user_id = request.GET["user_id"]
+        user.save()
     except KeyError as _:
         return redirect(email)
     return render_to_response('upload.html')
@@ -56,11 +67,17 @@ def add_custom_pic(request):
     image = UserImage.objects.create(submission=submission)
     file_content = ContentFile(str(request.POST['file']).split(',')[1].decode('base64'))
     image.image.save("final-" + name + ".png", file_content)
+    image.tags = request.POST.getlist('tags[]')
     image.save()
     return HttpResponse(json.dumps({'image': "/media/" + image.image.name}), content_type="application/json")
 
 
-def done(request, user_id):
+def done(request):
+    """
+
+    :param request:
+    :return:
+    """
     try:
         request.session["user"]
     except KeyError as _:
@@ -70,9 +87,18 @@ def done(request, user_id):
     except UserSubmission.DoesNotExist:
         return redirect(email)
     images = UserImage.objects.filter(submission=submission)
-    images = [image.image for image in images]
-    images = ["/media/" + image.name for image in images if "final-" in image.name]
-    return render_to_response('done.html', {'image': images[0]})
+    images = [tuple((image.image, image.tags)) for image in images if "final-" in image.image.name]
+    images_file = ["/media/" + image.name for image, tag in images if "final-" in image.name]
+    if not images_file:
+        redirect(upload)
+    tags = (images[0])[1]
+    if isinstance(tags, unicode):
+        tags = re.findall(r'\d+', str(tags))
+        tags = map(lambda x: str(x), tags)
+    else:
+        tags = []
+    return render_to_response('done.html', {'image': images_file[0], 'tags': tags},
+                              context_instance=RequestContext(request))
 
 
 @csrf_exempt
@@ -95,7 +121,8 @@ def email(request):
             submission.delete()
         except UserSubmission.DoesNotExist:
             pass
-        submission = UserSubmission.objects.create(email=request.POST["email"], user_name=request.POST["name"])
+        submission = UserSubmission.objects.create(email=request.POST["email"], first_name=request.POST["first_name"],
+                                                   last_name=request.POST["last_name"])
         request.session["user"] = submission.id
         return redirect(like)
     return render_to_response('email.html')

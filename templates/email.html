@@ -20,7 +20,8 @@
 
             <form action="/email/" method="post">
                 {% csrf_token %}
-                <input type="text" id="name" placeholder="Name" name="name" style="border-radius: 7px; text-align: center; width: 300px; height: 30px">
+                <input type="text" id="first_name" placeholder="First Name" name="first_name" style="border-radius: 7px; text-align: center; width: 300px; height: 30px">
+                <input type="text" id="last_name" placeholder="Last Name" name="last_name" style="border-radius: 7px; text-align: center; width: 300px; height: 30px">
                 <br>
                 <input type="email" id="email" placeholder="Email" name="email" style="border-radius: 7px; margin-top: 20px; text-align: center; width: 300px; height: 30px">
                 <br>
@@ -36,8 +37,13 @@
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript">
     function preventSubmission(event){
-        if ($('#name').val() == ''){
-            $('#errorMsg').text('Name cannot be empty');
+        if ($('#first_name').val() == ''){
+            $('#errorMsg').text('First Name cannot be empty');
+            event.preventDefault();
+            return false;
+        }
+        if ($('#last_name').val() == ''){
+            $('#errorMsg').text('Last Name cannot be empty');
             event.preventDefault();
             return false;
         }

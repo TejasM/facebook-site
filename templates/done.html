@@ -13,7 +13,7 @@
         <img src="{{ image }}"/>
 
         <div id="confirm"
-             style="background: url('/static/images/Next-Black.png'); width: 102px; position: absolute; height: 52px; margin-top: -300px;  float: right; margin-left: 750px; z-index: 1000; border-radius: 15px; float: right"></div>
+             style="background: url('/static/images/confirm.png'); width: 102px; position: absolute; height: 52px; margin-top: -300px;  float: right; margin-left: 750px; z-index: 1000; border-radius: 15px; float: right"></div>
     </div>
 </div>
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -26,11 +26,31 @@
         status: true,                                 // Check Facebook Login status
         xfbml: true                                  // Look for social plugins on the page
     });
+
+    var tags = [];
+    {% for tag in tags %}
+        FB.api('/{{ tag }}', function (response) {
+            if (response.name)
+                tags[{{ forloop.counter0 }}] =
+                {id: {{ tag }}, name: response.name };
+
+        });
+    {% endfor %}
+
     $('#confirm').click(function () {
-        FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
-            url: window.location.origin + "{{ image }}"
+        FB.api('/me/feed?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
+            picture: window.location.origin + "{{ image }}",
+            with_tags: tags
         }, function (response) {
-            window.location = "/finish/"
+            if (response.error) {
+                FB.api('/me/feed?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
+                    picture: window.location.origin + "{{ image }}"
+                }, function (response) {
+                    window.location = "/finish/"
+                });
+            } else {
+                window.location = "/finish/"
+            }
         });
     });
 </script>

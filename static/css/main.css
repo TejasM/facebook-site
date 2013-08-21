@@ -41,10 +41,48 @@
     cursor: wait;
 }
 
-.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; width:239px !important; z-index: 10100 }
-.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
-.autocomplete-selected { background: #F0F0F0; }
-.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+.autocomplete-suggestions {
+    border: 1px solid #999;
+    background: #FFF;
+    overflow: auto;
+    width: 239px !important;
+    z-index: 10100
+}
 
-.ui-autocomplete { position: absolute; cursor: default;z-index:100000 !important;}
+.autocomplete-suggestion {
+    padding: 2px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
+.autocomplete-selected {
+    background: #F0F0F0;
+}
+
+.autocomplete-suggestions strong {
+    font-weight: normal;
+    color: #3399FF;
+}
+
+.ui-autocomplete {
+    position: absolute;
+    cursor: default;
+    z-index: 100000 !important;
+}
+
+.tag {
+    position: absolute;
+}
+
+.tag:active {
+    cursor: move;
+    padding-right: 10px;
+}
+
+.box {
+    border: solid 3px red;
+    width: 200px;
+    height: 100px;
+    float: left;
+    padding-right: 10px;
+}

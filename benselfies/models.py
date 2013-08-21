@@ -8,7 +8,8 @@ __author__ = 'tmehta'
 class UserSubmission(models.Model):
     email = models.CharField(max_length=100, default="")
     user_id = models.CharField(max_length=50, default="")
-    user_name = models.CharField(max_length=100, default="")
+    first_name = models.CharField(max_length=50, default="")
+    last_name = models.CharField(max_length=50, default="")
 
 
 def get_user_id(instance, filename):
@@ -18,3 +19,4 @@ def get_user_id(instance, filename):
 class UserImage(models.Model):
     submission = models.ForeignKey(UserSubmission)
     image = models.ImageField(upload_to=get_user_id, null=True)
+    tags = models.CharField(max_length=1000, null=True)

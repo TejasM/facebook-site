@@ -18,8 +18,7 @@ $(document).ready(function() {
     $.each(images, function(key, value) {
         var imageObj = new Image();
         imageObj.onload = function() {
-            drawImage(this, key, i);
-            ++i;
+            drawImage(this, key, this.i);
             if (i == imageCount) {
                 // Absolute position the polaroids.
                 var $wrap = $('#wrap').find('.polaroid');
@@ -34,7 +33,9 @@ $(document).ready(function() {
                 });
             }
         };
+        imageObj.i = i;
         imageObj.src = value;
+        ++i;
     });
 
     $('#wrap').find('.polaroid').on('click', focusImage);
@@ -43,9 +44,11 @@ $(document).ready(function() {
 function focusImage(event) {
     event.preventDefault();
     event.stopPropagation();
+    $('#next').hide();
     var $wrap = $('#wrap').find('.polaroid');
     $wrap.off('click');
     clicked = this;
+    $(clicked).find(".tag").show();
     clickedDefaults = {
         height: $(clicked).css("height"),
         left: $(clicked).css("left"),
@@ -94,6 +97,7 @@ function focusImage(event) {
 function unFocusImage(event) {
     event.preventDefault();
     event.stopPropagation();
+    $(clicked).find(".tag").hide();
     // Remove buttons.
     $(clicked).find(".buttons").remove();
     // Fade in all polaroids again.
@@ -116,6 +120,7 @@ function unFocusImage(event) {
                 zIndex: clickedDefaults.zIndex
             });
             $('#wrap').find('.polaroid').on('click', focusImage);
+            $('#next').show();
         }
     });
     return false;
