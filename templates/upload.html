@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/static/js/main.js"></script>
 </head>
 <body>
-<div class="loader" style="background: url('/static/images/uploading.gif') no-repeat;"></div>
+<div class="loader"></div>
 <div class="content" id="wrap"
      style="width: 1000px; height:1333px; background: url('/static/images/Beneselfies-Locker-Back.png') no-repeat">
     <div style="padding-top: 100px; padding-left: 130px; padding-right: 115px; color: white; font-size: 20px; font-family: arial;">
@@ -189,6 +189,7 @@ $(function () {
                 });
             }
         });
+        $('div.loader').show();
     });
     var buttonOK = $('#CSPhotoSelector_buttonOK');
 

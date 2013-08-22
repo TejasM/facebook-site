@@ -34,7 +34,6 @@
 }
 
 .loader {
-    display: none;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -44,6 +43,7 @@
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 	border-radius: 8px;
+    z-index: 100000;
 }
 
 .autocomplete-suggestions {
