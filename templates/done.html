@@ -38,13 +38,13 @@
     {% endfor %}
 
     $('#confirm').click(function () {
-        FB.api('/me/feed?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
-            picture: window.location.origin + "{{ image }}",
-            with_tags: tags
+        FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
+            url: window.location.origin + "{{ image }}",
+            tags: tags
         }, function (response) {
             if (response.error) {
-                FB.api('/me/feed?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
-                    picture: window.location.origin + "{{ image }}"
+                FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
+                    url: window.location.origin + "{{ image }}"
                 }, function (response) {
                     window.location = "/finish/"
                 });
