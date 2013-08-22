@@ -18,6 +18,10 @@
 
         <div style="display: inline;">
             <div style="text-align: center;">
+                {% if link %}
+                    <a id="link" href=" http://facebook.com/{{ user_id }}/posts/{{ link }}">POSTED HERE</a>
+                {% endif %}
+
                 <p>Like Us on Twitter</p>
 
                 <div id="like-twitter" onclick="window.location='https://twitter.com/BenefitCanada'"

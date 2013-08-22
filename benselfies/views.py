@@ -130,10 +130,11 @@ def email(request):
 
 def finish(request):
     try:
-        request.session["user"]
+        submission = UserSubmission.objects.get(pk=request.session["user"])
+        context = {"link": submission.submission_link, "user_id": submission.user_id}
     except KeyError as _:
         return redirect(email)
-    return render_to_response('finish.html')
+    return render_to_response('finish.html', context)
 
 
 def post_id(request):

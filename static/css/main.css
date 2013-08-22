@@ -34,11 +34,16 @@
 }
 
 .loader {
-    position: absolute;
-    margin: 0 auto;
-    z-index: 9999;
-    top: 50px;
-    cursor: wait;
+    display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: url(../images/loader.gif) center center no-repeat rgba(255,255,255,0.5);
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
 }
 
 .autocomplete-suggestions {
