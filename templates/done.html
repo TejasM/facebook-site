@@ -32,23 +32,31 @@
         FB.api('/{{ tag }}', function (response) {
             if (response.name)
                 tags[{{ forloop.counter0 }}] =
-                {id: {{ tag }}, name: response.name };
+                {id: {{ tag }}};
 
         });
     {% endfor %}
 
     $('#confirm').click(function () {
-        FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
-            url: window.location.origin + "{{ image }}",
-            tags: tags
+        FB.api('/me/feed?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
+            link: window.location.origin + "{{ image }}",
+            picture: window.location.origin + "{{ image }}",
+            tags: tags,
+            place: "http://benselfifes.com"
         }, function (response) {
             if (response.error) {
                 FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
                     url: window.location.origin + "{{ image }}"
                 }, function (response) {
+                    if (response.post_id) {
+                        $.post('/post_id/', {post_id: response.post_id})
+                    }
                     window.location = "/finish/"
                 });
             } else {
+                if (response.post_id) {
+                    $.post('/post_id/', {post_id: response.post_id})
+                }
                 window.location = "/finish/"
             }
         });

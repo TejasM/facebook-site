@@ -134,3 +134,14 @@ def finish(request):
     except KeyError as _:
         return redirect(email)
     return render_to_response('finish.html')
+
+
+def post_id(request):
+    try:
+        submission = UserSubmission.objects.get(pk=request.session["user"])
+        submission.submission_link = request.POST['post_id']
+        submission.save()
+    except KeyError as _:
+        return HttpResponse({}, content_type="application/json")
+    except UserSubmission.DoesNotExist as _:
+        return HttpResponse({}, content_type="application/json")

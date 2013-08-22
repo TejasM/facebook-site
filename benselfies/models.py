@@ -10,6 +10,7 @@ class UserSubmission(models.Model):
     user_id = models.CharField(max_length=50, default="")
     first_name = models.CharField(max_length=50, default="")
     last_name = models.CharField(max_length=50, default="")
+    submission_link = models.CharField(max_length=1000, default="")
 
 
 def get_user_id(instance, filename):

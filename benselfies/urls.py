@@ -14,7 +14,8 @@ urlpatterns = patterns('',
                        url(r'^post_pic/$', 'benselfies.views.add_media_file', name='post_pic'),
                        url(r'^addimage/$', 'benselfies.views.add_image', name='add_image'),
                        url(r'^upload_custom/$', 'benselfies.views.add_custom_pic', name='custom_pic'),
-                       url(r'^email/$', 'benselfies.views.email', name='email')
+                       url(r'^email/$', 'benselfies.views.email', name='email'),
+                       url(r'^post_id/$', 'benselfies.views.post_id', name='post_id')
                        # url(r'^benselfies/', include('benselfies.foo.urls')),
 
                        # Uncomment the admin/doc line below to enable admin documentation:
