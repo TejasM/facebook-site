@@ -103,7 +103,6 @@
                     Page <span id="CSPhotoSelector_pageNumber">1</span> / <span
                         id="CSPhotoSelector_pageNumberTotal">1</span>
                 </div>
-                <div id="tags">Tags: <input id="tags_input"></div>
                 <a href="#" id="CSPhotoSelector_buttonOK">OK</a>
                 <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
 
@@ -208,29 +207,10 @@ $(function () {
         };
 
         callbackPhotoSelected = function (photoId) {
-            var photo = CSPhotoSelector.getPhotoById(photoId);
-            try {
-                var tags = photo["tags"]["data"];
-                var $tags = "";
-                for (var i = 0; i < tags.length; i++) {
-                    $tags += tags[i]["name"] + ", "
-                }
-                $('#tags_input').val($tags);
-            } catch (e) {
-                try {
-                    ('#tags_input').val(photo["alternate_tags"]);
-                }
-                catch (e) {
-
-                }
-            }
-            $('#tags').show();
             buttonOK.show();
         };
 
         callbackPhotoUnselected = function (photoId) {
-            $('#tags_input').val('');
-            $('#tags').hide();
             buttonOK.hide();
         };
 
@@ -380,6 +360,10 @@ function selectPic(image_url, tags) {
             $(this).next('input').val(ui.item.id);
     }});
     var hidden_box = $('<input class="hidden_input" type="hidden"/>');
+    if (tags && tags.length == 1){
+        tag_box.val(tags[0].value);
+        hidden_box.val(tags[0].id);
+    }
     $(clicked).append(append);
     $(append).append(tag_box);
     $(append).append(hidden_box);
