@@ -137,6 +137,7 @@ def finish(request):
     return render_to_response('finish.html', context)
 
 
+@csrf_exempt
 def post_id(request):
     try:
         submission = UserSubmission.objects.get(pk=request.session["user"])

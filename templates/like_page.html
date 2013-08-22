@@ -29,9 +29,9 @@
 
             <div id="fb-root" style="text-align: center">
                 <div id="like-alternate"
-                     style="background: url('{% static 'images/Like-Black.png' %}'); width: 102px; height: 52px; margin-left: auto;margin-right: auto;"></div>
+                     style="background: url('{% static 'images/Like-Black.png' %}'); width: 102px; height: 52px; margin-left: auto;margin-right: auto;display: none"></div>
                 <div id="login"
-                     style="background: url('{% static 'images/Like-Black.png' %}'); width: 102px; height: 52px; margin-left: auto;margin-right: auto;"></div>
+                     style="background: url('{% static 'images/Like-Black.png' %}'); width: 102px; height: 52px; margin-left: auto;margin-right: auto;display: none"></div>
                 <div id="like-button" class="fb-like" data-width="450"
                      data-href="https://www.facebook.com/benefitcosmeticscanada"></div>
             </div>
@@ -46,7 +46,6 @@
     $(function () {
         var user_id = '';
         var $like = $('#like-alternate');
-        $like.hide();
         $('#like-button').hide();
 
         // init the FB JS SDK
@@ -59,7 +58,7 @@
 
         FB.Event.subscribe('edge.create',
                 function (response) {
-                    window.location = "/upload?user_id='" + response.authResponse.userID + "'";
+                    window.location = "/upload?user_id=" + user_id;
                 }
         );
         FB.Event.subscribe('auth.authResponseChange', function (response) {

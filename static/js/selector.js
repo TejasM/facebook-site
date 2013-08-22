@@ -562,7 +562,7 @@ var CSPhotoSelector = (function (module, $) {
             if (response.status === 'connected') {
                 var accessToken = response.authResponse.accessToken;
                 // Load Facebook photos
-                FB.api('/' + id + '/albums', function (response) {
+                FB.api('/' + id + '/albums?limit=500', function (response) {
                     if (response.data.length) {
                         setAlbums(response.data);
                         // Build the markup
