@@ -68,7 +68,7 @@
             </div>
             <div class="ui-widget">
                 <label for="filter" style="color: #ffffff">Filter by Tags: </label>
-                <input type="text" id="filter">
+                <input type="text" class="filter">
             </div>
             <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
                 <p>Browse your albums until you find a picture you want to use</p>
@@ -82,6 +82,10 @@
             <div class="CSPhotoSelector_content CSPhotoSelector_wrapper">
                 <p>Select a new photo</p>
 
+                <div class="ui-widget">
+                    <label for="filter" style="color: black">Filter by Tags: </label>
+                    <input type="text" class="filter">
+                </div>
                 <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
                     <div class="CSPhotoSelector_selectedCountContainer"><span
                             class="CSPhotoSelector_selectedPhotoCount">0</span> / <span
@@ -170,10 +174,10 @@ $(function () {
         html2canvas(document.getElementById('wrap'), {
             onrendered: function (canvas) {
                 var dataURL = canvas.toDataURL();
-                $.each($('.hidden_input'), function(index, element){
-                    if ($(element).val() != ''){
+                $.each($('.hidden_input'), function (index, element) {
+                    if ($(element).val() != '') {
                         current_tags.push($(element).val());
-                    }else{
+                    } else {
                         current_tags.push($(element).prev('input').val());
                     }
                 });
@@ -223,12 +227,15 @@ $(function () {
                 for (var i = 0; i < tags.length; i++) {
                     $tags.push({value: tags[i].name, label: tags[i].name, id: tags[i].id});
                 }
-                selectPic(photo["picture"], $tags);
             }
             catch (e) {
-                $tags = [
-                    {value: photo.alternate_tags, label: photo.alternate_tags, id: photo.uid}
-                ];
+                if (photo.alternate_tags) {
+                    $tags = [
+                        {value: photo.alternate_tags, label: photo.alternate_tags, id: photo.uid}
+                    ];
+                } else {
+                    $tags = selector.$tags;
+                }
             }
             selectPic(photo["picture"], $tags);
             selector.reset();
@@ -351,16 +358,16 @@ function drawImage(imageObj, container, i) {
 
 function selectPic(image_url, tags) {
     bringForward(image_url);
-    $clicked = $(clicked);
+    var $clicked = $(clicked);
     $clicked.find(".tag").remove();
     var top = $clicked.position()["top"] + $clicked.height() / 4;
     var left = $clicked.position()["left"] + $clicked.width() / 4;
     var append = $('<div class="tag box"><div id="cross" style="float: right">x</div></div>').draggable({containment: "parent"}).resizable({containment: "parent"}).css({"position": "absolute", "top": top, "left": left});
     var tag_box = $('<input type="text" value="" style="position:absolute; bottom:0; width=100px" placeholder="Tag"/>').autocomplete({source: tags, select: function (e, ui) {
-            $(this).next('input').val(ui.item.id);
+        $(this).next('input').val(ui.item.id);
     }});
     var hidden_box = $('<input class="hidden_input" type="hidden"/>');
-    if (tags && tags.length == 1){
+    if (tags && tags.length == 1) {
         tag_box.val(tags[0].value);
         hidden_box.val(tags[0].id);
     }
