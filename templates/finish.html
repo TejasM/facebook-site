@@ -18,8 +18,8 @@
 
         <div style="display: inline;">
             <div style="text-align: center;">
-                {% if link %}
-                    <a id="link" href=" http://facebook.com/{{ user_id }}/posts/{{ link }}">POSTED HERE</a>
+                {% if user_id %}
+                    <a id="link" href="http://facebook.com/profile.php?id={{ user_id }}">POSTED HERE</a>
                 {% endif %}
 
                 <p>Like Us on Twitter</p>

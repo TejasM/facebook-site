@@ -52,8 +52,9 @@
                         $.post('/post_id/', {post_id: response.post_id}).complete(function () {
                             window.location = "/finish/"
                         });
+                    }else{
+                        window.location = "/finish/";
                     }
-
                 });
             } else {
                 if (response.post_id) {
