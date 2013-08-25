@@ -169,6 +169,10 @@
         friend yet! Are you sure your #BENESELFIES?</p>
 </div>
 
+<div id="dialog-warn" title="Sure love?">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 60px 0;"></span>You have already selected this friend. Are you sure you don't want to share the love?</p>
+</div>
+
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
@@ -184,17 +188,18 @@
 var options = [];
 var tags_all = {};
 var tag_offsets = [
-    {"x": 133, "y": 285},
-    {"x": 399, "y": 285},
-    {"x": 665, "y": 285},
-    {"x": 133, "y": 554},
-    {"x": 399, "y": 554},
-    {"x": 665, "y": 554},
-    {"x": 133, "y": 823},
-    {"x": 399, "y": 823}
+    {"x": 14, "y": 21},
+    {"x": 40, "y": 21},
+    {"x": 66, "y": 21},
+    {"x": 14, "y": 42},
+    {"x": 40, "y": 42},
+    {"x": 66, "y": 42},
+    {"x": 14, "y": 62},
+    {"x": 40, "y": 62}
 ];
 var current_tags = [];
 var tags_final = [];
+var dict_for_each_clicked = {};
 $(function () {
     // init the FB JS SDK
     FB.init({
@@ -207,6 +212,12 @@ $(function () {
 
 function previewPost($next) {
     $next.hide();
+    $('#wrap').find('.polaroid').each(function(index, element){
+        if (!(element in dict_for_each_clicked)){
+            console.log(element);
+            // element.attr("src", "")
+        }
+    });
     html2canvas(document.getElementById('wrap'), {
         onrendered: function (canvas) {
             var dataURL = canvas.toDataURL();
@@ -260,26 +271,12 @@ $(function () {
             tags: tags_final,
             message: "#BENESELFIES"
         }, function (response) {
-            if (response.error) {
-                FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
-                    url: window.location.origin + $image.attr("src")
-                }, function (response) {
-                    if (response.post_id) {
-                        $.post('/post_id/', {post_id: response.post_id}).complete(function () {
-                            window.location = "/finish/"
-                        });
-                    } else {
-                        window.location = "/finish/";
-                    }
+            if (response.post_id) {
+                $.post('/post_id/', {post_id: response.post_id}).complete(function () {
+                    window.location = "/finish/"
                 });
             } else {
-                if (response.post_id) {
-                    $.post('/post_id/', {post_id: response.post_id}).complete(function () {
-                        window.location = "/finish/"
-                    });
-                } else {
-                    window.location = "/finish/"
-                }
+                window.location = "/finish/";
             }
         });
     });
@@ -379,7 +376,10 @@ $(function () {
             }
             catch (e) {
                 try {
-                    $tags.push({value: photo.alternate_tags, label: photo.alternate_tags, id: photo.uid});
+                    if (photo.alternate_tags)
+                        $tags.push({value: photo.alternate_tags, label: photo.alternate_tags, id: photo.uid});
+                    else
+                        $tags = selector.$tags;
                 } catch (e) {
                     $tags = selector.$tags;
                 }
@@ -420,6 +420,23 @@ $(function () {
                 $(this).dialog("close");
             },
             Cancel: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $("#dialog-warn").dialog({
+        resizable: false,
+        height: 250,
+        autoOpen: false,
+        modal: true,
+        buttons: {
+            "Yes": function () {
+                dict_for_each_clicked[clicked] = $(this).data("id");
+                $(this).dialog("close");
+            },
+            "No": function () {
+                fbphotoSelect(null);
                 $(this).dialog("close");
             }
         }
@@ -528,11 +545,21 @@ function selectPic(image_url, tags) {
     var append = $('<div class="tag box"><div id="cross" style="float: right">x</div></div>').draggable({containment: "parent"}).resizable({containment: "parent"}).css({"position": "absolute", "top": top, "left": left});
     var tag_box = $('<input type="text" value="" style="position:absolute; bottom:0; width=100px" placeholder="Tag"/>').autocomplete({source: tags, select: function (e, ui) {
         $(this).next('input').val(ui.item.id);
+        if (clicked in dict_for_each_clicked && dict_for_each_clicked[clicked] == ui.item.id) {
+            $("#dialog-warn").data("id",ui.item.id).dialog("open")
+        } else {
+            dict_for_each_clicked[clicked] = ui.item.id;
+        }
     }});
     var hidden_box = $('<input class="hidden_input" type="hidden"/>');
     if (tags && tags.length == 1) {
         tag_box.val(tags[0].value);
         hidden_box.val(tags[0].id);
+        if (clicked in dict_for_each_clicked && dict_for_each_clicked[clicked] == tags[0].id) {
+            $("#dialog-warn").data("id",tags[0].id).dialog("open")
+        } else {
+            dict_for_each_clicked[clicked] = tags[0].id;
+        }
     }
     $(clicked).append(append);
     $(append).append(tag_box);

@@ -678,9 +678,9 @@ var CSPhotoSelector = (function (module, $) {
             });
         }
         else {
-            var query = "SELECT object_id, caption_tags, images, aid FROM photo WHERE pid in (SELECT pid FROM photo_tag WHERE subject = '" + uid + "')";
+            var query = "SELECT object_id, caption_tags, images, src, aid FROM photo WHERE pid in (SELECT pid FROM photo_tag WHERE subject = '" + uid + "')";
             if ($selected_album && $selected_album != null) {
-                query += " AND album_object_id = '" + $selected_album.attr('data-id') + "'";
+                query += " AND (album_object_id = " + $selected_album.attr('data-id') + " OR aid = '" + $selected_album.attr('data-id') + "')";
             }
             FB.api(
                 {
@@ -690,8 +690,13 @@ var CSPhotoSelector = (function (module, $) {
                 function (data) {
                     if (data) {
                         $.each(data, function () {
-                            this.picture = this.images[0].source;
-                            this.source = this.images[0].source;
+                            if (this.images[0].source && this.images[0].source != null) {
+                                this.picture = this.images[0].source;
+                                this.source = this.images[0].source;
+                            } else {
+                                this.picture = this.src;
+                                this.source = this.src;
+                            }
                             this.id = this.object_id;
                             this.tags = this.caption_tags;
                             this.alternate_tags = name;
