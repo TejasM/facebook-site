@@ -1,15 +1,53 @@
-{% load staticfiles %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
     <title>Benefit Cosmetics</title>
     <link rel="stylesheet" href="/static/css/main.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="/static/js/main.js"></script>
 </head>
 <body>
 <div class="loader"></div>
+<div id="header"></div>
+<div id="main-nav">
+    <ul>
+        <li>What's New</li>
+        <li>Top Sellers</li>
+        <li>Beauty School</li>
+        <li>Gifts</li>
+        <li>Join Us</li>
+    </ul>
+</div>
+<div id="upper-content">
+    <h1>How to play</h1>
+
+    <p>Get that camera clicking by tagging the gorgeous girls (or guys!) that correspond to one of the
+        <em>#BENESELFIES</em> shown in the polaroids that are sitting in your lickers.</p>
+    <ul>
+        <li><span>1</span>Join the party on Facebook!</li>
+        <li><span>2</span>Open up your locker and begin tagging your friends that fit the <em>#BENESELFIES</em></li>
+        <li><span>3</span>Share your polaroids and invite your friends to enter too!</li>
+    </ul>
+    <p>To be on your way to enter our <em>#BENESELFIES</em> contest please sign in with Facebook and fill in your email
+        address. This will only be used to contact you if you're a lucky winner. You will no receive any other emails
+        from us!</p>
+</div>
+<div class="content wrap" id="confirm_page"
+     style="width: 1000px; height:1333px; display: none">
+    <div>
+        <img src="" id="confirm_image"/>
+
+        <div id="back"
+             style="color: white; width: 102px; position: absolute; height: 52px; margin-top: -300px;  float: left; margin-left: 150px; z-index: 1000; border-radius: 15px;">
+            Back
+        </div>
+
+        <div id="confirm"
+             style="background: url('/static/images/confirm.png'); width: 102px; position: absolute; height: 52px; margin-top: -300px;  float: right; margin-left: 750px; z-index: 1000; border-radius: 15px;"></div>
+    </div>
+</div>
 <div class="content" id="wrap"
      style="width: 1000px; height:1333px; background: url('/static/images/Beneselfies-Locker-Back.png') no-repeat">
     <div style="padding-top: 100px; padding-left: 130px; padding-right: 115px; color: white; font-size: 20px; font-family: arial;">
@@ -85,6 +123,8 @@
                 <div class="ui-widget">
                     <label for="filter" style="color: black">Filter by Tags: </label>
                     <input type="text" class="filter">
+
+                    <div id="tags" style="float: right">Tags: <span id="tag_values"></span></div>
                 </div>
                 <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
                     <div class="CSPhotoSelector_selectedCountContainer"><span
@@ -122,9 +162,14 @@
         </div>
     </div>
 </div>
+<div id="footer">Twitter, Facebook <em>LIKE US TO GET STARTED!!</em></div>
+
+<div id="dialog-confirm" title="Sure love?">
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span>You haven't selected 8
+        friend yet! Are you sure your #BENESELFIES?</p>
+</div>
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -138,7 +183,18 @@
 <script type="text/javascript">
 var options = [];
 var tags_all = {};
+var tag_offsets = [
+    {"x": 133, "y": 285},
+    {"x": 399, "y": 285},
+    {"x": 665, "y": 285},
+    {"x": 133, "y": 554},
+    {"x": 399, "y": 554},
+    {"x": 665, "y": 554},
+    {"x": 133, "y": 823},
+    {"x": 399, "y": 823}
+];
 var current_tags = [];
+var tags_final = [];
 $(function () {
     // init the FB JS SDK
     FB.init({
@@ -149,6 +205,39 @@ $(function () {
     });
 });
 
+function previewPost($next) {
+    $next.hide();
+    html2canvas(document.getElementById('wrap'), {
+        onrendered: function (canvas) {
+            var dataURL = canvas.toDataURL();
+            current_tags = [];
+            $.each($('.hidden_input'), function (index, element) {
+                if ($(element).val() != '') {
+                    current_tags.push($(element).val().toString() + "," + tag_offsets[index].x.toString() + "," + tag_offsets[index].y.toString());
+                }
+            });
+            $.ajax({
+                type: "POST",
+                url: "/upload_custom/",
+                enctype: 'multipart/form-data',
+                data: {'user_id': user_id, 'file': dataURL, 'tags': current_tags },
+                success: function (data) {
+                    var $image = $('#confirm_image');
+                    $image.load(function () {
+                        $('div.loader').hide();
+                        $('#wrap').hide();
+                        $('#confirm_page').show();
+                    });
+                    $image.attr("src", data["image"]);
+                    tags_final = data["tags"];
+                }
+            });
+        }
+    });
+    $('div.loader').show();
+}
+
+
 $(function () {
     var $next = $('#next');
     $next.hide();
@@ -158,6 +247,43 @@ $(function () {
         buttonOK.hide();
         $('#upload-image').show();
     });
+    $('#back').click(function () {
+        $('#confirm_page').hide();
+        $('#next').show();
+        $('#wrap').show();
+    });
+
+    $('#confirm').click(function () {
+        var $image = $('#confirm_image');
+        FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
+            url: window.location.origin + $image.attr("src"),
+            tags: tags_final,
+            message: "#BENESELFIES"
+        }, function (response) {
+            if (response.error) {
+                FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
+                    url: window.location.origin + $image.attr("src")
+                }, function (response) {
+                    if (response.post_id) {
+                        $.post('/post_id/', {post_id: response.post_id}).complete(function () {
+                            window.location = "/finish/"
+                        });
+                    } else {
+                        window.location = "/finish/";
+                    }
+                });
+            } else {
+                if (response.post_id) {
+                    $.post('/post_id/', {post_id: response.post_id}).complete(function () {
+                        window.location = "/finish/"
+                    });
+                } else {
+                    window.location = "/finish/"
+                }
+            }
+        });
+    });
+
     $('div.loader').hide();
     $('#upload-form').ajaxForm({
         success: function (response) {
@@ -191,29 +317,7 @@ $(function () {
         }
     });
     $next.click(function () {
-        $next.hide();
-        html2canvas(document.getElementById('wrap'), {
-            onrendered: function (canvas) {
-                var dataURL = canvas.toDataURL();
-                $.each($('.hidden_input'), function (index, element) {
-                    if ($(element).val() != '') {
-                        current_tags.push($(element).val());
-                    } else {
-                        current_tags.push($(element).prev('input').val());
-                    }
-                });
-                $.ajax({
-                    type: "POST",
-                    url: "/upload_custom/",
-                    enctype: 'multipart/form-data',
-                    data: {'user_id': user_id, 'file': dataURL, 'tags': current_tags },
-                    success: function (data) {
-                        window.location = "/done/";
-                    }
-                });
-            }
-        });
-        $('div.loader').show();
+        $("#dialog-confirm").dialog("open");
     });
     var buttonOK = $('#CSPhotoSelector_buttonOK');
     var buttonCancel = $('#CSPhotoSelector_buttonCancel');
@@ -230,9 +334,31 @@ $(function () {
         };
 
         callbackAlbumUnselected = function (albumId) {
+            $('#tag_values').text('');
+            $('#tags').hide();
         };
 
         callbackPhotoSelected = function (photoId) {
+            var photo;
+            photo = CSPhotoSelector.getPhotoById(photoId);
+            var $tags = "";
+            try {
+                var tags = photo["tags"]["data"];
+                for (var i = 0; i < tags.length; i++) {
+                    $tags += tags[i].name;
+                    if (i != tags.length - 1) {
+                        $tags += ", ";
+                    }
+                }
+            }
+            catch (e) {
+                try {
+                    $tags += photo.alternate_tags;
+                } catch (e) {
+                }
+            }
+            $('#tag_values').text($tags);
+            $('#tags').show();
             buttonOK.show();
         };
 
@@ -243,6 +369,7 @@ $(function () {
         callbackSubmit = function (photoId) {
             var photo;
             photo = CSPhotoSelector.getPhotoById(photoId);
+            selector.reset();
             var $tags = [];
             try {
                 var tags = photo["tags"]["data"];
@@ -251,16 +378,14 @@ $(function () {
                 }
             }
             catch (e) {
-                if (photo.alternate_tags) {
-                    $tags = [
-                        {value: photo.alternate_tags, label: photo.alternate_tags, id: photo.uid}
-                    ];
-                } else {
+                try {
+                    $tags.push({value: photo.alternate_tags, label: photo.alternate_tags, id: photo.uid});
+                } catch (e) {
                     $tags = selector.$tags;
                 }
             }
             selectPic(photo["source"], $tags);
-            selector.reset();
+            $('.loader').show();
         };
 
         // Initialise the Photo Selector with options that will apply to all instances
@@ -282,8 +407,23 @@ $(function () {
         // reset and show album selector
         selector.reset();
         selector.showAlbumSelector(id);
-    }
+    };
 
+    $("#dialog-confirm").dialog({
+        resizable: false,
+        height: 250,
+        autoOpen: false,
+        modal: true,
+        buttons: {
+            "Yes": function () {
+                previewPost($next);
+                $(this).dialog("close");
+            },
+            Cancel: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
 });
 
 var next = 0;
@@ -345,6 +485,7 @@ function drawImageDraggable(imageObj) {
     layers[i].add(image_added);
     image_added.moveDown();
     layers[i].draw();
+    $('.loader').hide();
 }
 
 function drawImage(imageObj, container, i) {

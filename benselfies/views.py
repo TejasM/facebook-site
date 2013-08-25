@@ -3,6 +3,7 @@ import cStringIO
 import re
 import urllib
 from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
@@ -25,17 +26,17 @@ def like(request):
     return render_to_response('like_page.html')
 
 
-def upload(request):
+def upload(request, user_id):
     try:
         user = request.session["user"]
         user = UserSubmission.objects.get(pk=user)
         try:
-            submission = UserSubmission.objects.get(user_id=request.GET["user_id"])
+            submission = UserSubmission.objects.get(user_id=user_id)
             if user != submission:
                 submission.delete()
         except UserSubmission.DoesNotExist as _:
             pass
-        user.user_id = request.GET["user_id"]
+        user.user_id = user_id
         user.save()
     except KeyError as _:
         return redirect(email)
@@ -68,37 +69,15 @@ def add_custom_pic(request):
     file_content = ContentFile(str(request.POST['file']).split(',')[1].decode('base64'))
     image.image.save("final-" + name + ".png", file_content)
     image.tags = request.POST.getlist('tags[]')
+    tags = image.tags
+    tags_submit = []
+    if isinstance(tags, list):
+        for tag in tags:
+            split_tag = tag.split(',')
+            tags_submit.append({'tag_uid': split_tag[0], 'x': split_tag[1], 'y': split_tag[2]})
     image.save()
-    return HttpResponse(json.dumps({'image': "/media/" + image.image.name}), content_type="application/json")
-
-
-def done(request):
-    """
-
-    :param request:
-    :return:
-    """
-    try:
-        request.session["user"]
-    except KeyError as _:
-        return redirect(email)
-    try:
-        submission = UserSubmission.objects.get(pk=request.session["user"])
-    except UserSubmission.DoesNotExist:
-        return redirect(email)
-    images = UserImage.objects.filter(submission=submission)
-    images = [tuple((image.image, image.tags)) for image in images if "final-" in image.image.name]
-    images_file = ["/media/" + image.name for image, tag in images if "final-" in image.name]
-    if not images_file:
-        redirect(upload)
-    tags = (images[0])[1]
-    if isinstance(tags, unicode):
-        tags = re.findall(r'\d+', str(tags))
-        tags = map(lambda x: str(x), tags)
-    else:
-        tags = []
-    return render_to_response('done.html', {'image': images_file[0], 'tags': tags},
-                              context_instance=RequestContext(request))
+    return HttpResponse(json.dumps({'image': "/media/" + image.image.name, "tags": tags_submit}),
+                        content_type="application/json")
 
 
 @csrf_exempt
@@ -131,6 +110,9 @@ def email(request):
 def finish(request):
     try:
         submission = UserSubmission.objects.get(pk=request.session["user"])
+        images = UserImage.objects.filter(submission=submission)
+        for image in images:
+            default_storage.delete(image.image.path)
         context = {"link": submission.submission_link, "user_id": submission.user_id}
     except KeyError as _:
         return redirect(email)

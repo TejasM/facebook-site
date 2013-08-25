@@ -268,9 +268,6 @@ var CSPhotoSelector = (function (module, $) {
          * Remove selections, clear disabled list, go to page 1, etc
          */
         reset = function () {
-            if (!albums || albums.length === 0) {
-                return;
-            }
             // hide the photo container
             $photosWrapper.removeClass('CSPhoto_container_active');
             $buttonOK.hide();
@@ -282,6 +279,9 @@ var CSPhotoSelector = (function (module, $) {
             $albums = null;
             $selectedCount.html("0");
             disabledPhotoIds = [];
+            if (!albums || albums.length === 0) {
+                return;
+            }
             updatePaginationButtons(1);
         };
 
@@ -678,8 +678,8 @@ var CSPhotoSelector = (function (module, $) {
             });
         }
         else {
-            var query = "SELECT object_id, src, caption_tags, images, aid FROM photo WHERE pid in (SELECT pid FROM photo_tag WHERE subject = '" + uid + "')";
-            if ($selected_album && $selected_album != null){
+            var query = "SELECT object_id, caption_tags, images, aid FROM photo WHERE pid in (SELECT pid FROM photo_tag WHERE subject = '" + uid + "')";
+            if ($selected_album && $selected_album != null) {
                 query += " AND album_object_id = '" + $selected_album.attr('data-id') + "'";
             }
             FB.api(
@@ -690,7 +690,8 @@ var CSPhotoSelector = (function (module, $) {
                 function (data) {
                     if (data) {
                         $.each(data, function () {
-                            this.picture = this.src;
+                            this.picture = this.images[0].source;
+                            this.source = this.images[0].source;
                             this.id = this.object_id;
                             this.tags = this.caption_tags;
                             this.alternate_tags = name;

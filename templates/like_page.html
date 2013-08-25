@@ -1,16 +1,42 @@
-{% load staticfiles %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
     <title>Benefit Cosmetics</title>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
 </head>
 <body>
+<div id="header"></div>
+<div id="main-nav">
+    <ul>
+        <li>What's New</li>
+        <li>Top Sellers</li>
+        <li>Beauty School</li>
+        <li>Gifts</li>
+        <li>Join Us</li>
+    </ul>
+</div>
+<div id="upper-content">
+    <h1>How to play</h1>
+
+    <p>Get that camera clicking by tagging the gorgeous girls (or guys!) that correspond to one of the
+        <em>#BENESELFIES</em> shown in the polaroids that are sitting in your lickers.</p>
+    <ul>
+        <li><span>1</span>Join the party on Facebook!</li>
+        <li><span>2</span>Open up your locker and begin tagging your friends that fit the <em>#BENESELFIES</em></li>
+        <li><span>3</span>Share your polaroids and invite your friends to enter too!</li>
+    </ul>
+    <p>To be on your way to enter our <em>#BENESELFIES</em> contest please sign in with Facebook and fill in your email
+        address. This will only be used to contact you if you're a lucky winner. You will no receive any other emails
+        from us!</p>
+</div>
 <div class="content" id="wrap"
-     style="width: 1000px; height:1333px; background: url('{% static 'images/Beneselfies-Locker-Back.png' %}') no-repeat">
+     style="width: 1000px; height:1333px; background: url('/static/images/Beneselfies-Locker-Back.png') no-repeat">
     <div style="padding-top: 100px; padding-left: 150px; padding-right: 115px; color: white; font-size: 20px; font-family: arial;">
-        <img src="{% static 'images/Beneselfies-Logo.png' %}" alt=""
+        <img src="/static/images/Beneselfies-Logo.png" alt=""
              style="display: block; margin-left: auto; margin-right: auto;">
 
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -29,17 +55,15 @@
 
             <div id="fb-root" style="text-align: center">
                 <div id="like-alternate"
-                     style="background: url('{% static 'images/Like-Black.png' %}'); width: 102px; height: 52px; margin-left: auto;margin-right: auto;display: none"></div>
+                     style="background: url('/static/images/Like-Black.png'); width: 102px; height: 52px; margin-left: auto;margin-right: auto; display: none;"></div>
                 <div id="login"
-                     style="background: url('{% static 'images/Like-Black.png' %}'); width: 102px; height: 52px; margin-left: auto;margin-right: auto;display: none"></div>
+                     style="background: url('/static/images/Like-Black.png'); width: 102px; height: 52px; margin-left: auto;margin-right: auto; display: none;"></div>
                 <div id="like-button" class="fb-like" data-width="450"
                      data-href="https://www.facebook.com/benefitcosmeticscanada"></div>
             </div>
         </div>
     </div>
 </div>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script>
@@ -57,8 +81,8 @@
         });
 
         FB.Event.subscribe('edge.create',
-                function (response) {
-                    window.location = "/upload?user_id=" + user_id;
+                function(){
+                    window.location = "/upload/" + user_id;
                 }
         );
         FB.Event.subscribe('auth.authResponseChange', function (response) {
@@ -97,7 +121,15 @@
         });
 
         $like.click(function () {
-            window.location = "/upload?user_id=" + user_id;
+            window.location = "/upload/" + user_id;
+        });
+
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+
+            } else {
+                $('#login').show();
+            }
         });
     });
 </script>

@@ -4,16 +4,41 @@
 <html>
 <head>
     <title>Benefit Cosmetics</title>
-    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
 </head>
 <body>
+<div id="header"></div>
+<div id="main-nav">
+    <ul>
+        <li>What's New</li>
+        <li>Top Sellers</li>
+        <li>Beauty School</li>
+        <li>Gifts</li>
+        <li>Join Us</li>
+    </ul>
+</div>
+<div id="upper-content">
+    <h1>How to play</h1>
+
+    <p>Get that camera clicking by tagging the gorgeous girls (or guys!) that correspond to one of the
+        <em>#BENESELFIES</em> shown in the polaroids that are sitting in your lickers.</p>
+    <ul>
+        <li><span>1</span>Join the party on Facebook!</li>
+        <li><span>2</span>Open up your locker and begin tagging your friends that fit the <em>#BENESELFIES</em></li>
+        <li><span>3</span>Share your polaroids and invite your friends to enter too!</li>
+    </ul>
+    <p>To be on your way to enter our <em>#BENESELFIES</em> contest please sign in with Facebook and fill in your email
+        address. This will only be used to contact you if you're a lucky winner. You will no receive any other emails
+        from us!</p>
+</div>
 <div class="content" id="wrap" style="width: 1000px; height: 1333px; position: relative">
     <img id="locker-back" src="{% static 'images/Beneselfies-Locker-Back.png' %}" alt=""
             style="position: relative">
     <img id="locker" src="{% static 'images/Beneselfies-Locker-Front.png' %}" alt="" style="position: absolute; top: 0; left: 0">
 </div>
-
-<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript">
 
