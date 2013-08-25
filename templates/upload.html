@@ -266,6 +266,7 @@ $(function () {
 
     $('#confirm').click(function () {
         var $image = $('#confirm_image');
+        $('div.loader').show();
         FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
             url: window.location.origin + $image.attr("src"),
             tags: tags_final,
