@@ -294,6 +294,7 @@ var CSPhotoSelector = (function (module, $) {
             $buttonClose.bind('click', function (e) {
                 e.preventDefault();
                 hideAlbumSelector();
+                $selected_album = null;
             });
             $buttonCancel.bind('click', function (e) {
                 e.preventDefault();
@@ -311,6 +312,7 @@ var CSPhotoSelector = (function (module, $) {
             $buttonOK.bind('click', function (e) {
                 e.preventDefault();
                 hideAlbumSelector();
+                $selected_album = null;
                 if (typeof instanceSettings.callbackSubmit === "function") {
                     instanceSettings.callbackSubmit(selectedPhotoIds);
                 }
