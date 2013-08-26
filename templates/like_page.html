@@ -114,7 +114,20 @@
 
         $('#login').click(function () {
             FB.login(function (response) {
-                // handle the response
+                $('#login').hide();
+                user_id = response.authResponse.userID;
+                var page_id = "171685016222749"; //Change to this page
+                FB.api({
+                            method: 'fql.query',
+                            query: 'SELECT uid FROM page_fan WHERE uid=' + user_id + 'AND page_id=' + page_id
+                        }, function (resp) {
+                            if (resp.length) {
+                                window.location = "/upload/" + user_id;
+                            } else {
+                                $('#like-button').show();
+                            }
+                        }
+                );
             }, {scope: 'user_likes,user_photos,publish_stream,photo_upload,friends_photos'});
             $('#login').hide();
             $('#like-button').show();
