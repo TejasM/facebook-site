@@ -38,14 +38,13 @@ div#main-nav ul li {
 }
 
 div#upper-content {
-    background: #fff;
-    border: dashed 1px #fe647c;
-    border-radius: 25px;
+    background: url('../images/beneselfies-white-bordered-rectangle.png') no-repeat 0 0;
     color: #868686;
     font-size: 17px;
+    height: 306px
     margin: 15px auto;
     padding: 10px;
-    width: 800px;
+    width: 749px;
 }
 div#upper-content h1 {
     color: #fe647c;
