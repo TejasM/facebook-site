@@ -117,7 +117,7 @@
                 <div class="CSPhotoSelector_photosContainer CSAlbum_container"></div>
             </div>
 
-            <div class="CSPhotoSelector_content CSPhotoSelector_wrapper">
+            <div class="CSPhotoSelector_content CSPhotoSelector_wrapper" style="overflow: visible">
                 <p>Select a new photo</p>
 
                 <div class="ui-widget">
@@ -133,7 +133,7 @@
                     </div>
                     <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
                 </div>
-                <div class="CSPhotoSelector_photosContainer CSPhoto_container"></div>
+                <div class="CSPhotoSelector_photosContainer CSPhoto_container" style="overflow-y: scroll; height: 300px;"></div>
             </div>
 
             <div id="CSPhotoSelector_loader"></div>
@@ -151,14 +151,6 @@
                 <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
 
             </div>
-            <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
-                <form action="/addimage/" method="post" enctype="multipart/form-data" id="upload-form">
-                    {% csrf_token %}
-                    <input type="hidden" value="" name="user_id" id="user_id">
-                    <input id="image-upload" type="file" name="image">
-                    <button type="submit" id="upload-image">Submit</button>
-                </form>
-            </div>
         </div>
     </div>
 </div>
@@ -170,7 +162,8 @@
 </div>
 
 <div id="dialog-warn" title="Sure love?">
-    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 60px 0;"></span>You have already selected this friend. Are you sure you don't want to share the love?</p>
+    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 60px 0;"></span>You have already selected
+        this friend. Are you sure you don't want to share the love?</p>
 </div>
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
@@ -212,8 +205,8 @@ $(function () {
 
 function previewPost($next) {
     $next.hide();
-    $('#wrap').find('.polaroid').each(function(index, element){
-        if (!(element in dict_for_each_clicked)){
+    $('#wrap').find('.polaroid').each(function (index, element) {
+        if (!(element in dict_for_each_clicked)) {
             console.log(element);
             // element.attr("src", "")
         }
@@ -283,37 +276,6 @@ $(function () {
     });
 
     $('div.loader').hide();
-    $('#upload-form').ajaxForm({
-        success: function (response) {
-            var imageObj = new Image();
-            imageObj.onload = function () {
-                drawImageDraggable(this);
-            };
-            imageObj.src = response['url'];
-            next++;
-            $('#next').show();
-            buttonOK.show();
-            buttonCancel.show();
-            selector.hideAlbumSelector();
-            var $clicked = $(clicked);
-            var tags = selector.$tags;
-            $clicked.find(".tag").remove();
-            var top = $clicked.position()["top"] + $clicked.height() / 4;
-            var left = $clicked.position()["left"] + $clicked.width() / 4;
-            var append = $('<div class="tag box"><div id="cross" style="float: right">x</div></div>').draggable({containment: "parent"}).resizable({containment: "parent"}).css({"position": "absolute", "top": top, "left": left});
-            var tag_box = $('<input type="text" value="" style="position:absolute; bottom:0; width=100px" placeholder="Tag"/>').autocomplete({source: tags, select: function (e, ui) {
-                $(this).next('input').val(ui.item.id);
-            }});
-            var hidden_box = $('<input class="hidden_input" type="hidden"/>');
-            if (tags && tags.length == 1) {
-                tag_box.val(tags[0].value);
-                hidden_box.val(tags[0].id);
-            }
-            $(clicked).append(append);
-            $(append).append(tag_box);
-            $(append).append(hidden_box);
-        }
-    });
     $next.click(function () {
         $("#dialog-confirm").dialog("open");
     });
@@ -355,7 +317,9 @@ $(function () {
                 } catch (e) {
                 }
             }
-            $('#tag_values').text($tags);
+            if ($tags && $tags != "undefined") {
+                $('#tag_values').text($tags);
+            }
             $('#tags').show();
             buttonOK.show();
         };
@@ -475,11 +439,9 @@ function drawImageDraggable(imageObj) {
     var width = 180;
     var height = 200;
     if (imageObj.width / imageObj.height > 0.9) {
-        width = 180;
-        height = GetHeight(180, imageObj.width, imageObj.height)
+        height = GetHeight(width, imageObj.width, imageObj.height)
     } else {
-        height = 200;
-        width = GetWidth(200, imageObj.width, imageObj.height)
+        width = GetWidth(height, imageObj.width, imageObj.height)
     }
     image_added = new Kinetic.Image({
         image: imageObj,
@@ -543,11 +505,11 @@ function selectPic(image_url, tags) {
     $clicked.find(".tag").remove();
     var top = $clicked.position()["top"] + $clicked.height() / 4;
     var left = $clicked.position()["left"] + $clicked.width() / 4;
-    var append = $('<div class="tag box"><div id="cross" style="float: right">x</div></div>').draggable({containment: "parent"}).resizable({containment: "parent"}).css({"position": "absolute", "top": top, "left": left});
+    var append = $('<div class="tag box"></div>').draggable({containment: "parent"}).resizable({containment: "parent"}).css({"position": "absolute", "top": top, "left": left});
     var tag_box = $('<input type="text" value="" style="position:absolute; bottom:0; width=100px" placeholder="Tag"/>').autocomplete({source: tags, select: function (e, ui) {
         $(this).next('input').val(ui.item.id);
         if (clicked in dict_for_each_clicked && dict_for_each_clicked[clicked] == ui.item.id) {
-            $("#dialog-warn").data("id",ui.item.id).dialog("open")
+            $("#dialog-warn").data("id", ui.item.id).dialog("open")
         } else {
             dict_for_each_clicked[clicked] = ui.item.id;
         }
@@ -557,7 +519,7 @@ function selectPic(image_url, tags) {
         tag_box.val(tags[0].value);
         hidden_box.val(tags[0].id);
         if (clicked in dict_for_each_clicked && dict_for_each_clicked[clicked] == tags[0].id) {
-            $("#dialog-warn").data("id",tags[0].id).dialog("open")
+            $("#dialog-warn").data("id", tags[0].id).dialog("open")
         } else {
             dict_for_each_clicked[clicked] = tags[0].id;
         }

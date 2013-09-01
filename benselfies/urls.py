@@ -7,7 +7,6 @@ from benselfies import settings
 
 urlpatterns = patterns('',
                        url(r'^$', 'benselfies.views.home', name='home'),
-                       url(r'^like/$', 'benselfies.views.like', name='like'),
                        url(r'^finish/$', 'benselfies.views.finish', name='finish'),
                        url(r'^upload/(?P<user_id>.*)$', 'benselfies.views.upload', name='upload'),
                        url(r'^post_pic/$', 'benselfies.views.add_media_file', name='post_pic'),

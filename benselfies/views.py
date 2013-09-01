@@ -18,14 +18,6 @@ def home(request):
     return render_to_response('home.html')
 
 
-def like(request):
-    try:
-        request.session["user"]
-    except KeyError as _:
-        return redirect(email)
-    return render_to_response('like_page.html')
-
-
 def upload(request, user_id):
     try:
         user = request.session["user"]
@@ -103,7 +95,7 @@ def email(request):
         submission = UserSubmission.objects.create(email=request.POST["email"], first_name=request.POST["first_name"],
                                                    last_name=request.POST["last_name"])
         request.session["user"] = submission.id
-        return redirect(like)
+        return redirect(upload, user_id=(request.POST["user_id"]))
     return render_to_response('email.html')
 
 
