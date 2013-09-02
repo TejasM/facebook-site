@@ -96,7 +96,7 @@
 </div>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript">
-    function preventSubmission(event) {
+    function preventSubmission() {
         var $firstname = $('#first_name');
         var $lastname = $('#last_name');
         var $firstNameMsg = $('#firstNameMsg');
@@ -159,7 +159,7 @@
 
         FB.Event.subscribe('edge.create',
                 function () {
-                    if (preventSubmission(event)) {
+                    if (preventSubmission()) {
                         $("#user_id").val(user_id);
                         $('#email_form').submit();
                     } else{
@@ -195,7 +195,7 @@
         });
 
         $('#login').click(function () {
-            if (preventSubmission(event)) {
+            if (preventSubmission()) {
                 FB.login(function (response) {
                     $('#login').hide();
                     user_id = response.authResponse.userID;
@@ -220,7 +220,7 @@
         });
 
         $like.click(function () {
-            if (preventSubmission(event)) {
+            if (preventSubmission()) {
                 $("#user_id").val(user_id);
                 $('#email_form').submit();
             }
