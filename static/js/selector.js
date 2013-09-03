@@ -209,7 +209,6 @@ var CSPhotoSelector = (function (module, $) {
         showPhotoSelector = function (callback, albumId, uid, name) {
             var i, len;
             log('CSPhotoSelector - show Photos');
-
             // show loader until we get a response
             $loader.show();
 
@@ -655,7 +654,6 @@ var CSPhotoSelector = (function (module, $) {
     buildPhotoSelector = function (callback, albumId, uid, name) {
         var buildSecondMarkup, buildPhotoMarkup;
         log("buildPhotoSelector");
-
         photos = [];
         if (!uid || uid == null) {
             FB.api('/' + albumId + '/photos?limit=500', function (response) {

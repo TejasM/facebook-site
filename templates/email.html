@@ -76,6 +76,12 @@
 
                     <div id="termsMsg"
                          style="color: white; background-color: pink; width: 70%; text-align: center; display: inline-block"></div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div id="errors"
+                                 style="color: white; background-color: pink; width: 70%; text-align: center; display: inline-block">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <div style="text-align: center; margin-top:20px;">
@@ -162,7 +168,7 @@
                     if (preventSubmission()) {
                         $("#user_id").val(user_id);
                         $('#email_form').submit();
-                    } else{
+                    } else {
                         $('#like-alternate').show();
                     }
                 }
