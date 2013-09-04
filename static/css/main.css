@@ -81,6 +81,31 @@ div#upper-content ul li span {
     width: 25px;
 }
 
+div.upper-content-2 {
+    background: url('../images/beneselfies-white-bordered-rectangle-small.png') no-repeat 0 0;
+    color: #868686;
+    font-size: 17px;
+    height: 286px;
+    margin: 15px auto;
+    padding: 10px 30px;
+    width: 305px;
+}
+div.upper-content-2 h1 {
+    color: #fe647c;
+    font-family: 'Stalemate', cursive;
+    font-size: 50px;
+    margin: 0;
+}
+
+div.upper-content-2 p {
+    margin: 0;
+}
+
+div.upper-content-2 em {
+    font-family: 'Englebert', Arial, sans-serif;
+    font-weight: bold;
+}
+
 #footer {
     background: url('../images/Background-1.png') 0 0 repeat;
     border-top: 10px solid #000;
