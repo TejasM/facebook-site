@@ -40,46 +40,208 @@
         <img src="{% static 'images/Beneselfies-Logo.png' %}" alt=""
              style="display: block; margin-left: auto; margin-right: auto;">
 
-        <div style="margin-top: 100px; text-align: center">
-            <p style="font-size: 30px; font-family: arial;">To be entered into the ballot, please
-                enter your name and e-mail
-                address below</p>
+        <div style="margin-top: 100px;">
+            <p style="font-size: 30px; font-family: arial;">To enter the contest, tell us who you are beautiful!</p>
 
-            <form action="/email/" method="post">
+            <form action="/email/" method="post" id="email_form">
                 {% csrf_token %}
-                <input type="text" id="first_name" placeholder="First Name" name="first_name" style="border-radius: 7px; text-align: center; width: 300px; height: 30px">
-                <input type="text" id="last_name" placeholder="Last Name" name="last_name" style="border-radius: 7px; text-align: center; width: 300px; height: 30px">
+                <input type="hidden" value="" name="user_id" id="user_id">
+                <input type="text" id="first_name" placeholder="First Name" name="first_name"
+                       style="text-align: center; width: 45%; height: 30px;">
+                <input type="text" id="last_name" placeholder="Last Name" name="last_name"
+                       style="text-align: center; width: 45%; height: 30px; float: right">
                 <br>
-                <input type="email" id="email" placeholder="Email" name="email" style="border-radius: 7px; margin-top: 20px; text-align: center; width: 300px; height: 30px">
+
+                <div id="firstNameMsg"
+                     style="color: white; background-color: pink; width: 45%; text-align: center; display: inline-block"></div>
+                <div id="lastNameMsg"
+                     style="color: white; background-color: pink; width: 45%; text-align: center; margin-left: 54%; display: inline-block"></div>
                 <br>
-                <div id="errorMsg" style="color: red"></div>
+
+                <div style="text-align: center">
+                    <input type="text" id="email" placeholder="Email" name="email"
+                           style="margin-top: 20px; text-align: center; width: 45%; height: 30px;">
+                    <br>
+
+                    <div id="emailMsg"
+                         style="color: white; background-color: pink; width: 45%; text-align: center; margin-left: 27%"></div>
+                </div>
                 <br>
-                <button type="submit" onclick="preventSubmission(event)"
-                       style="background: url('{% static 'images/Next-Black.png' %}'); width: 100px; height: 52px; border-radius: 7px; margin-top: 20px"></button>
+
+                <div style="text-align: center">
+                    <input type="checkbox" id="terms" name="terms" style="margin-right: 10px">Hey gorgeous, don’t forget
+                    to agree to our <a
+                        href="#">terms
+                    and conditions!</a>
+
+                    <div id="termsMsg"
+                         style="color: white; background-color: pink; width: 70%; text-align: center; display: inline-block"></div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div id="errors"
+                                 style="color: white; background-color: pink; width: 70%; text-align: center; display: inline-block">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div style="text-align: center; margin-top:20px;">
+                    <p>In order to continue, please like us on Facebook!</p>
+
+                    <div id="fb-root" style="text-align: center">
+                        <div id="like-alternate"
+                             style="background: url('/static/images/Like-Black.png'); width: 102px; height: 52px; margin-left: auto;margin-right: auto; display: none;"></div>
+                        <div id="login"
+                             style="background: url('/static/images/Like-Black.png'); width: 102px; height: 52px; margin-left: auto;margin-right: auto; display: none;"></div>
+                        <div id="like-button" class="fb-like" data-width="450"
+                             data-href="https://www.facebook.com/benefitcosmeticscanada"></div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
 </div>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript">
-    function preventSubmission(event){
-        if ($('#first_name').val() == ''){
-            $('#errorMsg').text('First Name cannot be empty');
+    function preventSubmission() {
+        var $firstname = $('#first_name');
+        var $lastname = $('#last_name');
+        var $firstNameMsg = $('#firstNameMsg');
+        var $lastNameMsg = $('#lastNameMsg');
+        var $email = $('#email');
+        var $emailMsg = $('#emailMsg');
+        var $termsMsg = $('#termsMsg');
+        $emailMsg.text('');
+        $firstNameMsg.text('');
+        $lastNameMsg.text('');
+        $firstname.css("border", "");
+        $lastname.css("border", "");
+        $email.css("border", "");
+        $termsMsg.text('');
+        if ($firstname.val() == '') {
+            $firstNameMsg.text('Required');
+            $firstname.css("border", "4px solid pink");
             event.preventDefault();
             return false;
         }
-        if ($('#last_name').val() == ''){
-            $('#errorMsg').text('Last Name cannot be empty');
+        if ($lastname.val() == '') {
+            $lastNameMsg.text('Required');
+            $lastname.css("border", "4px solid pink");
             event.preventDefault();
             return false;
         }
-        if ($('#email').val() == ''){
-            $('#errorMsg').text('Email cannot be empty');
+        if ($email.val() == '' || !validateEmail($email.val())) {
+            $email.css("border", "4px solid pink");
+            $emailMsg.text('Please enter a valid email address');
             event.preventDefault();
             return false;
         }
+        if (!$('#terms').is(":checked")) {
+            $termsMsg.text('Please accept the terms and conditions to continue');
+            event.preventDefault();
+            return false;
+        }
+
         return true;
     }
+    function validateEmail(email) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+
+</script>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<script>
+    $(function () {
+        var user_id = '';
+        var $like = $('#like-alternate');
+        $('#like-button').hide();
+        // init the FB JS SDK
+        FB.init({
+            appId: '151985691672341',                        // App ID from the app dashboard
+            cookie: true,
+            status: true,                                 // Check Facebook Login status
+            xfbml: true                                  // Look for social plugins on the page
+        });
+
+        FB.Event.subscribe('edge.create',
+                function () {
+                    if (preventSubmission()) {
+                        $("#user_id").val(user_id);
+                        $('#email_form').submit();
+                    } else {
+                        $('#like-alternate').show();
+                    }
+                }
+        );
+        FB.Event.subscribe('auth.authResponseChange', function (response) {
+            // Here we specify what we do with the response anytime this event occurs.
+            if (response.status === 'connected') {
+                // The response object is returned with a status field that lets the app know the current
+                // login status of the person. In this case, we're handling the situation where they
+                // have logged in to the app.
+                $('#login').hide();
+                user_id = response.authResponse.userID;
+                var page_id = "171685016222749"; //Change to this page
+                FB.api({
+                            method: 'fql.query',
+                            query: 'SELECT uid FROM page_fan WHERE uid=' + user_id + 'AND page_id=' + page_id
+                        }, function (resp) {
+                            if (resp.length) {
+                                $('#like-alternate').show();
+                            } else {
+                                $('#like-button').show();
+                            }
+                        }
+                );
+            } else if (response.status === 'not_authorized') {
+                $('#login').show();
+            } else {
+                $('#login').show();
+            }
+        });
+
+        $('#login').click(function () {
+            if (preventSubmission()) {
+                FB.login(function (response) {
+                    $('#login').hide();
+                    user_id = response.authResponse.userID;
+                    var page_id = "171685016222749"; //Change to this page
+                    FB.api({
+                                method: 'fql.query',
+                                query: 'SELECT uid FROM page_fan WHERE uid=' + user_id + 'AND page_id=' + page_id
+                            }, function (resp) {
+                                if (resp.length) {
+                                    $("#user_id").val(user_id);
+                                    $('#email_form').submit();
+                                } else {
+                                    var $like2 = $('#like-button');
+                                    $like2.show();
+                                    FB.XFBML.parse();
+                                }
+                            }
+                    );
+                }, {scope: 'user_likes,user_photos,publish_stream,photo_upload,friends_photos'});
+                $('#login').hide();
+            }
+        });
+
+        $like.click(function () {
+            if (preventSubmission()) {
+                $("#user_id").val(user_id);
+                $('#email_form').submit();
+            }
+        });
+
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+
+            } else if (response.status === 'not_authorized') {
+                $('#login').show();
+            } else {
+                $('#login').show();
+            }
+        });
+    });
 </script>
 </body>
 </html>
