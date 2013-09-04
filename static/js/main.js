@@ -4,14 +4,14 @@ var layers = [];
 
 $(document).ready(function() {
     var images = {
-        'shopaholic': '/static/images/The-Shopaholic-Transparent.png',
-        'independent': '/static/images/Miss-Independent-Transparent.png',
-        'sporty': '/static/images/Sporty-Girl-Transparent.png',
-        'badgal': '/static/images/The-Bad-Gal-Transparent.png',
-        'flirt': '/static/images/The-Flirt-Transparent.png',
-        'gorgeous': '/static/images/The-Gorgeous-Geek-Transparent.png',
-        'joker': '/static/images/The-Joker-Transparent.png',
-        'sexy': '/static/images/The-Sexy-One-Transparent.png'
+        'shopaholic': '/static/images/beneselfies-the-globetrotter.png',
+        'independent': '/static/images/beneselfies-miss-independent.png',
+        'sporty': '/static/images/beneselfies-miss-sporty-and-sassy.png',
+        'badgal': '/static/images/beneselfies-the-fashionista.png',
+        'flirt': '/static/images/beneselfies-the-shopaholic.png',
+        'gorgeous': '/static/images/beneselfies-the-gorgeous-geek.png',
+        'joker': '/static/images/beneselfies-the-comedian.png',
+        'sexy': '/static/images/beneselfies-the-sexy-one.png'
     };
 
     var i = 0, imageCount = 8;

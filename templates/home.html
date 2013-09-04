@@ -34,20 +34,25 @@
         address. This will only be used to contact you if you're a lucky winner. You will no receive any other emails
         from us!</p>
 </div>
-<div class="content" id="wrap" style="width: 1000px; height: 1333px; position: relative">
-    <img id="locker-back" src="{% static 'images/Beneselfies-Locker-Back.png' %}" alt=""
-            style="position: relative">
-    <img id="locker" src="{% static 'images/Beneselfies-Locker-Front.png' %}" alt="" style="position: absolute; top: 0; left: 0">
+<div class="content" id="wrap" style="width: 700px; height: 1062px; position: relative">
+    <img width="1160px" height="1062px" id="locker-back" src="{% static 'images/Locker-App-Open.png' %}" alt=""
+         style="position: relative; display: none">
+    <img width="700px" height="1062px" id="locker" src="{% static 'images/Locker-App-Closed.png' %}" alt=""
+         style="position: absolute; top: 0; left: 0">
 </div>
-<div id="footer"><a href="#"><img src="{% static 'images/beneselfies-footer-twitter.png' %}" /></a><a href="#"><img src="{% static 'images/beneselfies-footer-facebook.png' %}" /></a> <em>LIKE US TO GET STARTED!!</em></div>
+<div id="footer"><a href="#"><img src="{% static 'images/beneselfies-footer-twitter.png' %}"/></a><a href="#"><img
+        src="{% static 'images/beneselfies-footer-facebook.png' %}"/></a> <em>LIKE US TO GET STARTED!!</em></div>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript">
 
     $('#locker').click(function () {
-        $(this).fadeOut('slow', function(){
-            window.location = "/email"
+        $('#wrap').animate({ width: "1160px"}, 100, function(){
+             $('#locker').hide();
+            $('#locker-back').show();
+            setTimeout(function() {
+                window.location = "/email/";
+            }, 1000)
         });
-
     });
 </script>
 </body>

@@ -49,11 +49,12 @@
     </div>
 </div>
 <div class="content" id="wrap"
-     style="width: 1000px; height:1333px; background: url('/static/images/Beneselfies-Locker-Back.png') no-repeat">
-    <div style="padding-top: 100px; padding-left: 130px; padding-right: 115px; color: white; font-size: 20px; font-family: arial;">
+     style="width: 1160px; height:1062px; background: url('/static/images/Locker-App-Open.png'); background-size: 1160px 1062px">
+    <div style="margin-top: 75px; margin-right: 53px; padding-left: 20px; padding-right: 30px; color: white; font-size: 20px;
+            background:#000000; width: 47%; height: 89.7%; opacity: 0.8; float: right; vertical-align: middle">
         <div style="text-align: center">
-            <img src="/static/images/Beneselfies-Logo.png"
-                 style="width: 240px; height:48px;"/>
+            <img src="/static/images/beneselfies-logo.png" alt=""
+             style="display: block; margin-left: auto; margin-right: auto;">
         </div>
         <div class="polaroid" id="shopaholic-div">
             <div id="shopaholic" style="display: inline"></div>
@@ -133,7 +134,8 @@
                     </div>
                     <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
                 </div>
-                <div class="CSPhotoSelector_photosContainer CSPhoto_container" style="overflow-y: scroll; height: 300px;"></div>
+                <div class="CSPhotoSelector_photosContainer CSPhoto_container"
+                     style="overflow-y: scroll; height: 300px;"></div>
             </div>
 
             <div id="CSPhotoSelector_loader"></div>
@@ -489,11 +491,12 @@ function drawImage(imageObj, container, i) {
     layers[i] = layer;
 
     // Give the inner div's and canvas' the proper width and height values.
-    $('#wrap').find('.polaroid div').css({
+    var $wrap = $('#wrap');
+    $wrap.find('.polaroid div').css({
         height: "100%",
         width: "100%"
     });
-    $('#wrap').find('.polaroid canvas').css({
+    $wrap.find('.polaroid canvas').css({
         height: "100%",
         width: "100%"
     });

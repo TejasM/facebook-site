@@ -35,12 +35,10 @@
         from us!</p>
 </div>
 <div class="content" id="wrap"
-     style="width: 1000px; height:1333px; background: url('{% static 'images/Beneselfies-Locker-Back.png' %}') no-repeat">
-    <div style="padding-top: 100px; padding-left: 150px; padding-right: 115px; color: white; font-size: 20px; font-family: arial;">
-
-        <p style="text-align: center">Thank You</p>
-
-        <img src="{% static 'images/Beneselfies-Logo.png' %}" alt=""
+     style="width: 1160px; height:1062px; background: url('{% static 'images/Locker-App-Open.png' %}'); background-size: 1160px 1062px">
+    <div style="margin-top: 75px; margin-right: 53px; padding-left: 20px; padding-right: 30px; color: white; font-size: 20px;
+            background:#000000; width: 47%; height: 89.7%; opacity: 0.8; float: right; vertical-align: middle">
+        <img src="{% static 'images/beneselfies-logo.png' %}" alt=""
              style="display: block; margin-left: auto; margin-right: auto;">
 
         <div style="display: inline;">
@@ -50,7 +48,7 @@
                     friends. The more pictures you’re tagged in, the more
                     chances you have to win a prize! </p>
                 {% if user_id %}
-                    <a id="link" href="http://facebook.com/profile.php?id={{ user_id }}">POSTED HERE</a>
+                    <img src="{% static 'images/view.png' %}" id="link" id="view" style="margin-top: 150px">
                 {% endif %}
 
                 <p>Follow us on Twitter</p>
@@ -78,6 +76,9 @@
     $(function () {
         $('#twitter-follow').click(function(){
            window.location = "https://twitter.com/BenefitCanada";
+        });
+        $('#view').click(function(){
+            window.location = "http://facebook.com/profile.php?id={{ user_id }}";
         });
     });
 </script>
