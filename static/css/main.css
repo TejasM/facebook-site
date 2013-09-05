@@ -45,7 +45,7 @@ div#main-nav ul li {
     line-height: 30px;
     text-align: center;
     text-transform: uppercase;
-    width: 19%;
+    width: 30%;
 }
 
 div#upper-content {
@@ -103,7 +103,7 @@ div.upper-content-2 {
     float: left;
     font-size: 13px;
     height: 286px;
-    margin: 15px auto;
+    margin: 15px 4px;
     padding: 10px 30px;
     position: relative;
     width: 305px;
