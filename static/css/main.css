@@ -13,8 +13,13 @@ html, body {
 }
 
 div#header {
-    background: #fff url('../images/header_temp.jpg') top center no-repeat;
+    background: #fff url('../images/Beneselfies-Pattern-Header.png') top center no-repeat;
     height: 177px;
+}
+
+div#header-divider {
+    background: #fff url('../images/beneselfies-header-wood-border.png') top center repeat-x;
+    height: 26px;
 }
 
 div#main-nav {
