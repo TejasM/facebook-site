@@ -110,10 +110,14 @@ div.upper-content-2 {
 }
 
 div.upper-content-2 img#dotted-heart {
+    left: 170px;
     position: absolute;
+    top: 15px;
 }
 div.upper-content-2 img#xoxo {
+    left: 235px;
     position: absolute;
+    top: 260px;
 }
 
 div.upper-content-2 h1 {
