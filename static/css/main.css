@@ -6,15 +6,26 @@
 
 /* Styles for main layout */
 html, body {
-    background: url('../images/Background-2.png') 0 0 repeat;
+    background: url('../images/beneselfies-main-background.png') 0 0 repeat;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
 }
 
 div#header {
-    background: #fff url('../images/header_temp.jpg') top center no-repeat;
-    height: 177px;
+    background: #fff url('../images/Beneselfies-Pattern-Header.png') top center repeat;
+    height: 162px;
+    text-align: center;
+}
+
+div#header img {
+    position: relative;
+    top: 16px;
+}
+
+div#header-divider {
+    background: #fff url('../images/beneselfies-header-wood-border.png') top center repeat-x;
+    height: 26px;
 }
 
 div#main-nav {
@@ -34,7 +45,7 @@ div#main-nav ul li {
     line-height: 30px;
     text-align: center;
     text-transform: uppercase;
-    width: 19%;
+    width: 30%;
 }
 
 div#upper-content {
@@ -79,6 +90,65 @@ div#upper-content ul li span {
     font-weight: bold;
     text-indent: 8px;
     width: 25px;
+}
+
+div#upper-content-2 {
+    margin: 15px auto;
+    width: 749px;
+}
+
+div.upper-content-2 {
+    background: url('../images/beneselfies-white-bordered-rectangle-small.png') no-repeat 0 0;
+    color: #868686;
+    float: left;
+    font-size: 13px;
+    height: 286px;
+    margin: 15px 4px;
+    padding: 10px 30px;
+    position: relative;
+    width: 305px;
+}
+
+div.upper-content-2 img#dotted-heart {
+    left: 170px;
+    position: absolute;
+    top: 15px;
+}
+div.upper-content-2 img#xoxo {
+    left: 235px;
+    position: absolute;
+    top: 260px;
+}
+
+div.upper-content-2 h1 {
+    color: #fe647c;
+    font-family: 'Stalemate', cursive;
+    font-size: 30px;
+    margin: 0;
+}
+
+div.upper-content-2 h2 {
+    color: #fe647c;
+    font-size: 14px;
+    margin: 0;
+}
+
+div.upper-content-2 p {
+    margin: 0;
+}
+
+div.upper-content-2 p.top-padded {
+    margin: 0;
+    padding-top: 15px;
+}
+
+div.upper-content-2 em {
+    font-family: 'Englebert', Arial, sans-serif;
+    font-weight: bold;
+}
+
+div.clear {
+    clear: both;
 }
 
 #footer {
