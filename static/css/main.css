@@ -81,7 +81,7 @@ div#upper-content ul li span {
     width: 25px;
 }
 
-#footer {
+div#footer {
     background: url('../images/Background-1.png') 0 0 repeat;
     border-top: 10px solid #000;
     color: #868686;
@@ -90,6 +90,20 @@ div#upper-content ul li span {
     font-weight: bold;
     padding: 10px 50px;
     text-align: right;
+}
+
+div#footer div {
+    margin: auto;
+    width: 700px;
+}
+
+div#footer div a {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div#footer div em {
+    vertical-align: middle;
 }
 
 .content {
