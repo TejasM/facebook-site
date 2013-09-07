@@ -45,7 +45,7 @@ div#main-nav ul li {
     line-height: 30px;
     text-align: center;
     text-transform: uppercase;
-    width: 30%;
+    width: 33%;
 }
 
 div#upper-content {
@@ -118,6 +118,10 @@ div.upper-content-2 img#xoxo {
     left: 235px;
     position: absolute;
     top: 260px;
+}
+
+div.upper-content-2 img#dotted-heart {
+    
 }
 
 div.upper-content-2 h1 {
