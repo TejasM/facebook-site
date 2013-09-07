@@ -15,7 +15,9 @@ html, body {
 div#header {
     background: #fff url('../images/Beneselfies-Pattern-Header.png') top center repeat;
     height: 162px;
+    position: relative;
     text-align: center;
+    z-index: 2;
 }
 
 div#header img {
@@ -26,11 +28,15 @@ div#header img {
 div#header-divider {
     background: #fff url('../images/beneselfies-header-wood-border.png') top center repeat-x;
     height: 26px;
+    position: relative;
+    z-index: 2;
 }
 
 div#main-nav {
     background: #000;
     color: #fff;
+    position: relative;
+    z-index: 2;
 }
 
 div#main-nav ul {
@@ -50,13 +56,26 @@ div#main-nav ul li {
 
 div#left-lamp {
     position: absolute;
-    top: 218px;
+    top: 168px;
     width: 100%;
 }
 
 div#left-lamp img {
     display: block;
     left: -500px;
+    margin: auto;
+    position: relative;
+}
+
+div#left-book {
+    position: absolute;
+    top: 658px;
+    width: 100%;
+}
+
+div#left-book img {
+    display: block;
+    left: -489px;
     margin: auto;
     position: relative;
 }
@@ -68,6 +87,19 @@ div#right-lamp {
 }
 
 div#right-lamp img {
+    display: block;
+    left: 500px;
+    margin: auto;
+    position: relative;
+}
+
+div#right-book {
+    position: absolute;
+    top: 708px;
+    width: 100%;
+}
+
+div#right-box img {
     display: block;
     left: 500px;
     margin: auto;
