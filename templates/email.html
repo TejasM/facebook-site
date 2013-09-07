@@ -10,16 +10,19 @@
     <script type="text/javascript" src="/static/js/main.js"></script>
 </head>
 <body>
-<div id="header"></div>
+<div id="header"><img src="{% static 'images/beneselfies-header-spread-w-logo.png' %}" /></div>
+<div id="header-divider"></div>
 <div id="main-nav">
     <ul>
         <li>What's New</li>
-        <li>Top Sellers</li>
-        <li>Beauty School</li>
-        <li>Gifts</li>
-        <li>Join Us</li>
+        <li>Instagram</li>
+        <li>Twitter</li>
     </ul>
 </div>
+<div id="left-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}" /></div>
+<div id="right-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}" /></div>
+<div id="left-book"><img src="{% static 'images/book-left.png' %}" /></div>
+<div id="right-book"><img src="{% static 'images/book-right.png' %}" /></div>
 <div id="upper-content">
     <h1>How to play</h1>
 
@@ -101,6 +104,8 @@
         </div>
     </div>
 </div>
+<div id="footer"><div><a href="#"><img src="{% static 'images/beneselfies-footer-twitter.png' %}"/></a><a href="#"><img
+        src="{% static 'images/beneselfies-footer-facebook.png' %}"/></a> <em>SHARE THE LOVE!</em></div></div>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript">
     function preventSubmission() {
