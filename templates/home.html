@@ -10,7 +10,7 @@
     <script type="text/javascript" src="/static/js/main.js"></script>
 </head>
 <body>
-<div id="header"><img src="{% static 'images/beneselfies-header-spread-w-logo.png' %}" /></div>
+<div id="header"><img src="{% static 'images/beneselfies-header-spread-w-logo.png' %}"/></div>
 <div id="header-divider"></div>
 <div id="main-nav">
     <ul>
@@ -19,53 +19,73 @@
         <li>Twitter</li>
     </ul>
 </div>
-<div id="left-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}" /></div>
-<div id="right-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}" /></div>
-<div id="left-book"><img src="{% static 'images/book-left.png' %}" /></div>
-<div id="right-book"><img src="{% static 'images/book-right.png' %}" /></div>
+<div id="left-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
+<div id="right-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
+<div id="left-book"><img src="{% static 'images/book-left.png' %}"/></div>
+<div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
 <div id="upper-content-2">
     <div class="upper-content-2">
-        <img id="dotted-heart" src="{% static 'images/beneselfies-dotted-heart.png' %}" />
-        <img id="xoxo" src="{% static 'images/beneselfies-xoxo.png' %}" />
+        <img id="dotted-heart" src="{% static 'images/beneselfies-dotted-heart.png' %}"/>
+        <img id="xoxo" src="{% static 'images/beneselfies-xoxo.png' %}"/>
+
         <h1>Hello gorgeous!</h1>
-        <p>It's time to show off and share you shameless <em>#BENESELFIES</em> with your BFF's! Do you have a pal that makes you laugh 'til you cry? Or a gorgeous geek that's techy-chic? It's time to tag and spread the fun for a chance to win some BIG prizes for you and your friends!</p>
-        <p class="top-padded">Take our <em>#BENESELFIES</em> test and tag your friends with the personality that suits them best! Each week we'll pick on lucky winner to receive some wow-worthy prizes!</p>
+
+        <p>It's time to show off and share you shameless <em>#BENESELFIES</em> with your BFF's! Do you have a pal that
+            makes you laugh 'til you cry? Or a gorgeous geek that's techy-chic? It's time to tag and spread the fun for
+            a chance to win some BIG prizes for you and your friends!</p>
+
+        <p class="top-padded">Take our <em>#BENESELFIES</em> test and tag your friends with the personality that suits
+            them best! Each week we'll pick on lucky winner to receive some wow-worthy prizes!</p>
     </div>
     <div class="upper-content-2">
-        <img id="cheerleader" src="{% static 'images/beneselfies-cheerleader.png' %}" />
+        <img id="cheerleader" src="{% static 'images/beneselfies-cheerleader.png' %}"/>
+
         <h1>The Prizes!</h1>
+
         <h2>Two weekly draws, each include:</h2>
+
         <p>1 x 10 full size Benefit cosmetics products for you and your besties.</p>
+
         <p>1 x $50 West49 Gift card to keep you lookin' sharp and sassy.</p>
+
         <p><b><i>Total value: approx. $400</i></b></p>
+
         <h2>One Grand prize includes:</h2>
+
         <p>1 x Samsung Galaxy Note Smartphone with pink case &mdash; to shout about your winnings on social!</p>
+
         <p>1 x $500 worth of Benefit cosmetics &mdash; to help you get gorgeous in a flash.</p>
+
         <p>1 x $300 gift card for West49 &mdash; for a new fall outfit.</p>
+
         <p>1 x West49 backpack &mdash; to keep all your amazing winnings in.</p>
+
         <p><b><i>Total value: approx. $1400</i></b></p>
     </div>
     <div class="clear"></div>
 </div>
-<div class="content" id="wrap" style="width: 700px; height: 1062px; position: relative">
-    <img width="1160px" height="1062px" id="locker-back" src="{% static 'images/Locker-App-Open.png' %}" alt=""
+<div class="content" id="wrap" style="width: 801px; height: 1068px; position: relative">
+    <img width="801px" height="1068px" id="locker-door" src="{% static 'images/locker-app-door.png' %}" alt=""
          style="position: relative; display: none">
-    <img width="700px" height="1062px" id="locker" src="{% static 'images/Locker-App-Closed.png' %}" alt=""
+    <img width="801px" height="1068px" id="locker-back" src="{% static 'images/locker-app-open.png' %}" alt=""
+         style="position: relative; display: none">
+    <img width="801px" height="1068px" id="locker" src="{% static 'images/locker-app-closed.png' %}" alt=""
          style="position: absolute; top: 0; left: 0">
 </div>
-<div id="footer"><div><a href="#"><img src="{% static 'images/beneselfies-footer-twitter.png' %}"/></a><a href="#"><img
-        src="{% static 'images/beneselfies-footer-facebook.png' %}"/></a> <em>SHARE THE LOVE!</em></div></div>
+<div id="footer">
+    <div><a href="#"><img src="{% static 'images/beneselfies-footer-twitter.png' %}"/></a><a href="#"><img
+            src="{% static 'images/beneselfies-footer-facebook.png' %}"/></a> <em>SHARE THE LOVE!</em></div>
+</div>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript">
 
     $('#locker').click(function () {
-        $('#wrap').animate({ width: "1160px"}, 100, function(){
-             $('#locker').hide();
-            $('#locker-back').show();
-            setTimeout(function() {
-                window.location = "/email/";
-            }, 1000)
-        });
+        $('#locker').hide();
+        $('#locker-back').show();
+        $('#locker-door').show();
+        setTimeout(function () {
+            window.location = "/email/";
+        }, 1000)
     });
 </script>
 </body>
