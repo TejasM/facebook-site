@@ -175,6 +175,7 @@ div#footer div {
 
 div#footer div a {
     display: inline-block;
+    margin-right: 35px;
     vertical-align: middle;
 }
 
