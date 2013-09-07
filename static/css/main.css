@@ -120,8 +120,11 @@ div.upper-content-2 img#xoxo {
     top: 260px;
 }
 
-div.upper-content-2 img#dotted-heart {
-    
+div.upper-content-2 img#cheerleader {
+    left: 330px;
+    position: absolute;
+    top: 125px;
+}
 }
 
 div.upper-content-2 h1 {
