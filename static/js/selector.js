@@ -686,16 +686,15 @@ var CSPhotoSelector = (function (module, $) {
             FB.api(
                 {
                     method: 'fql.query',
-                    queries: {
+                    /*queries: {
                         'query1': query1,
                         'query2': query2
-                    }
+                    }*/
+                    query: query1
                 },
                 function (data) {
                     if (data) {
-                        query1 = data['query1'];
-                        query2 = data['query2'];
-                        $.each(query1, function () {
+                        $.each(data, function () {
                             if (this.images[0].source && this.images[0].source != null) {
                                 this.picture = this.images[0].source;
                                 this.source = this.images[0].source;
@@ -710,7 +709,7 @@ var CSPhotoSelector = (function (module, $) {
 
                             // Find pid in query2 with uid set x, y
                         });
-                        setPhotos(query1);
+                        setPhotos(data);
                         // Build the markup
                         buildSecondMarkup();
                         // Call the callback

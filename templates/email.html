@@ -95,7 +95,7 @@
 
                     <div id="fb-root" style="text-align: center">
                         <div id="like-alternate"
-                             style="background: url('/static/images/Like-Black.png'); width: 102px; height: 52px; margin-left: auto;margin-right: auto; display: none;"></div>
+                             style="background: url('/static/images/like.png'); width: 102px; height: 52px; margin-left: auto;margin-right: auto; display: none;"></div>
                         <div id="login"
                              style="background: url('/static/images/like.png'); width: 102px; height: 52px; margin-left: auto;margin-right: auto; display: none;"></div>
                         <div id="like-button" class="fb-like" data-width="450"
@@ -127,30 +127,30 @@
         $lastname.css("border", "");
         $email.css("border", "");
         $termsMsg.text('');
+        var flag = false;
         if ($firstname.val() == '') {
             $firstNameMsg.text('Required');
             $firstname.css("border", "4px solid pink");
-            event.preventDefault();
-            return false;
+            flag = true;
         }
         if ($lastname.val() == '') {
             $lastNameMsg.text('Required');
             $lastname.css("border", "4px solid pink");
-            event.preventDefault();
-            return false;
+            flag = true;
         }
         if ($email.val() == '' || !validateEmail($email.val())) {
             $email.css("border", "4px solid pink");
             $emailMsg.text('Please enter a valid email address');
-            event.preventDefault();
-            return false;
+            flag = true;
         }
         if (!$('#terms').is(":checked")) {
             $termsMsg.text('Please accept the terms and conditions to continue');
+            flag = true;
+        }
+        if (flag == true){
             event.preventDefault();
             return false;
         }
-
         return true;
     }
     function validateEmail(email) {

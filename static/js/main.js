@@ -90,8 +90,8 @@ function focusImage(event) {
             var newButtons = document.createElement('div');
             var newUpload = document.createElement('img');
             var newDone = document.createElement('img');
-            newUpload.src = "/static/images/Upload-Black.png";
-            newDone.src = "/static/images/Done-Black.png";
+            newUpload.src = "/static/images/upload.png";
+            newDone.src = "/static/images/done.png";
             $(newButtons).addClass("buttons");
             $(newButtons).append(newUpload);
             $(newButtons).append(newDone);
