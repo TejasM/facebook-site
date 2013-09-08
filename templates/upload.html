@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -9,17 +10,19 @@
     <script type="text/javascript" src="/static/js/main.js"></script>
 </head>
 <body>
-<div class="loader"></div>
-<div id="header"></div>
+<div id="header"><img src="{% static 'images/beneselfies-header-spread-w-logo.png' %}"/></div>
+<div id="header-divider"></div>
 <div id="main-nav">
     <ul>
         <li>What's New</li>
-        <li>Top Sellers</li>
-        <li>Beauty School</li>
-        <li>Gifts</li>
-        <li>Join Us</li>
+        <li>Instagram</li>
+        <li>Twitter</li>
     </ul>
 </div>
+<div id="left-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
+<div id="right-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
+<div id="left-book"><img src="{% static 'images/book-left.png' %}"/></div>
+<div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
 <div id="upper-content">
     <h1>How to play</h1>
 
@@ -34,8 +37,10 @@
         address. This will only be used to contact you if you're a lucky winner. You will no receive any other emails
         from us!</p>
 </div>
+<img width="801px" height="1068px" id="locker-door" src="{% static 'images/locker-app-door.png' %}" alt=""
+     style="position: relative; display: none">
 <div class="content wrap" id="confirm_page"
-     style="width: 1000px; height:1333px; display: none">
+     style="width: 801px; height:1068px; display: none">
     <div>
         <img src="" id="confirm_image"/>
 
@@ -50,11 +55,14 @@
 </div>
 <div class="content" id="wrap"
      style="width: 801px; height:1068px; background: url('/static/images/locker-app-open.png');">
-    <div style="margin-top: 75px; margin-right: 53px; padding-left: 20px; padding-right: 30px; color: white; font-size: 20px;
-            background:#000000; width: 47%; height: 89.7%; opacity: 0.8; float: right; vertical-align: middle">
-        <div style="text-align: center">
+    <div style="margin-top: 50px; margin-right: 53px; padding-left: 30px; padding-right: 30px; color: white; font-size: 20px;
+            background:rgba(0,0,0, 0.8); width: 80%; height: 92%; float: right; vertical-align: middle">
+        <div style="display: block; margin-left: auto; margin-right: auto;">
             <img src="/static/images/beneselfies-logo.png" alt=""
-             style="display: block; margin-left: auto; margin-right: auto;">
+                 style="display: block; margin-left: auto; margin-right: auto;">
+
+            <div id="next"
+                 style="background: url('/static/images/preview.png'); width: 135px; height: 46px; margin-top: -100px; float: right"></div>
         </div>
         <div class="polaroid" id="shopaholic-div">
             <div id="shopaholic" style="display: inline"></div>
@@ -71,6 +79,10 @@
 
         <div class="polaroid" id="badgal-div">
             <div id="badgal" style="display: inline"></div>
+        </div>
+
+        <div class="polaroid" id="middle_logo_div">
+            <div id="middle_logo" style="display: inline"></div>
         </div>
 
         <div class="polaroid" id="flirt-div">
@@ -93,8 +105,6 @@
 
         <div id="fb-root">
         </div>
-        <div id="next"
-             style="background: url('/static/images/Next-Black.png'); width: 102px; height: 52px; margin-top: 850px; border-radius: 15px; float: right"></div>
     </div>
 </div>
 <div id="CSPhotoSelector">
@@ -473,17 +483,17 @@ function drawImageDraggable(imageObj) {
 function drawImage(imageObj, container, i) {
     var stage = new Kinetic.Stage({
         container: container,
-        width: 240,
-        height: 264
+        width: 200,
+        height: 200
     });
     var layer = new Kinetic.Layer();
 
     var img = new Kinetic.Image({
         image: imageObj,
-        x: stage.getWidth() / 2 - 240 / 2,
-        y: stage.getHeight() / 2 - 264 / 2,
-        width: 240,
-        height: 264
+        x: stage.getWidth() / 2 - 200 / 2,
+        y: stage.getHeight() / 2 - 200 / 2,
+        width: 200,
+        height: 200
     });
 
     layer.add(img);
