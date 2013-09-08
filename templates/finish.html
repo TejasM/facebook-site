@@ -35,36 +35,30 @@
 </div>
 <div class="content" id="wrap"
      style="width: 700px; height:931.875px; background: url('/static/images/locker-app-open.png'); background-size: 700px 931.875px">
-    <div style="margin-top: 50px; margin-right: 53px; padding-left: 5px; padding-right: 5px; color: white; font-size: 20px;
+    <div style="margin-top: 44px; margin-right: 45px; padding-left: 5px; padding-right: 5px; color: white; font-size: 20px;
             background:rgba(0,0,0, 0.8); width: 85%; height: 92%; float: right; vertical-align: middle">
         <div style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px; margin-top: 5px;">
             <img src="/static/images/beneselfies-logo.png" alt="" width="200" height="128.8"
-                 style="display: block; margin-left: auto; margin-right: auto;">
-
+                 style="display: block; margin-left: auto; margin-right: auto; margin-top: 20px">
+        </div>
         <div style="display: inline;">
-            <div style="text-align: center;">
-                <p>Thank you, gorgeous! Your entry has been received.
+            <div style="text-align: center; margin-top: 70px">
+                <p style="padding-left: 40px; padding-right: 40px">Thank you, gorgeous! Your entry has been received.
                     Feel free to share your #BENESELFIES with your
                     friends. The more pictures you’re tagged in, the more
                     chances you have to win a prize! </p>
                 {% if user_id %}
-                    <img src="{% static 'images/view.png' %}" id="view" style="margin-top: 150px">
+                    <p style="margin-top: 55px">See your new #BENESELFIES</p>
+                    <img src="{% static 'images/view.png' %}" id="view">
                 {% endif %}
+                <p>Visit us on Facebook</p>
+
+                <img src="{% static 'images/beneselfies-facebook.png' %}" id="view" style="width: 50px; height: 44px">
 
                 <p>Follow us on Twitter</p>
 
-                <a id="twitter-follow" href="https://twitter.com/BenefitCanada" class="twitter-follow-button" data-show-count="false"
-                   data-size="large" data-show-screen-name="false">Follow @BenefitCanada</a>
-                <script>!function (d, s, id) {
-                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-                    if (!d.getElementById(id)) {
-                        js = d.createElement(s);
-                        js.id = id;
-                        js.src = p + '://platform.twitter.com/widgets.js';
-                        fjs.parentNode.insertBefore(js, fjs);
-                    }
-                }(document, 'script', 'twitter-wjs');
-                </script>
+                <div id="twitter-follow" href="https://twitter.com/BenefitCanada"
+                     style="background: url('{% static 'images/beneselfies-twitter.png' %}'); background-size: 50px 44px; width: 50px; height: 44px; margin-left: auto; margin-right: auto"></div>
             </div>
         </div>
     </div>
@@ -74,10 +68,10 @@
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script>
     $(function () {
-        $('#twitter-follow').click(function(){
-           window.location = "https://twitter.com/BenefitCanada";
+        $('#twitter-follow').click(function () {
+            window.location = "https://twitter.com/BenefitCanada";
         });
-        $('#view').click(function(){
+        $('#view').click(function () {
             window.location = "http://facebook.com/profile.php?id={{ user_id }}";
         });
     });

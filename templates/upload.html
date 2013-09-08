@@ -40,25 +40,28 @@
 </div>
 <img width="801px" height="1068px" id="locker-door" src="{% static 'images/locker-app-door.png' %}" alt=""
      style="position: relative; display: none">
+
 <div class="content wrap" id="confirm_page"
      style="width: 700px; height:931.875px; display: none">
     <div>
         <img src="" id="confirm_image"/>
 
         <div id="back"
-             style="background: url('/static/images/back.png'); width: 135px; position: absolute; height: 46px; margin-top: -820px; margin-left: 65px; z-index: 1000;"></div>
+             style="background: url('/static/images/back.png'); width: 80px; position: absolute; height: 27px; margin-top: -820px; margin-left: 65px; z-index: 1000;"></div>
 
         <div id="confirm"
-             style="background: url('/static/images/finish.png'); width: 135px; position: absolute; height: 46px; margin-top: -820px;  float: right; margin-left: 500px; z-index: 1000;"></div>
+             style="background: url('/static/images/finish.png'); width: 80px; position: absolute; height: 27px; margin-top: -820px;  float: right; margin-left: 560px; z-index: 1000;"></div>
     </div>
 </div>
 <div class="content" id="wrap"
      style="width: 700px; height:931.875px; background: url('/static/images/locker-app-open.png'); background-size: 700px 931.875px">
-    <div style="margin-top: 50px; margin-right: 53px; padding-left: 5px; padding-right: 5px; color: white; font-size: 20px;
+    <div style="margin-top: 44px; margin-right: 45px; padding-left: 5px; padding-right: 5px; color: white; font-size: 20px;
             background:rgba(0,0,0, 0.8); width: 85%; height: 92%; float: right; vertical-align: middle">
         <div style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px; margin-top: 5px;">
             <img src="/static/images/beneselfies-logo.png" alt="" width="200" height="128.8"
-                 style="display: block; margin-left: auto; margin-right: auto;">
+                 style="display: block; margin-left: auto; margin-right: auto; margin-top: 20px">
+            <img src="/static/images/beneselfies-help-button.png" alt="" width="30" height="30" id="help_button"
+                 style="float: right; margin-top: -130px; padding-right: 10px">
 
             <div id="next"
                  style="background: url('/static/images/preview.png') no-repeat; width: 135px; height: 46px; margin-top: -85px; padding-right:5px; float: right; display: none;"></div>
@@ -165,7 +168,10 @@
         </div>
     </div>
 </div>
-<div id="footer">Twitter, Facebook <em>LIKE US TO GET STARTED!!</em></div>
+<div id="footer">
+    <div><a href="#"><img src="{% static 'images/beneselfies-footer-twitter.png' %}"/></a><a href="#"><img
+            src="{% static 'images/beneselfies-footer-facebook.png' %}"/></a> <em>SHARE THE LOVE!</em></div>
+</div>
 
 <div id="dialog-confirm" title="Sure love?">
     <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span>You haven't selected 8
@@ -176,7 +182,17 @@
     <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 60px 0;"></span>You have already selected
         this friend. Are you sure you don't want to share the love?</p>
 </div>
+<div class="help_div" style="display: none">
+    <img src="/static/images/beneselfies-how-to-play.png" alt="">
 
+    <div id="help_close"
+         style="background: url('/static/images/got-it.png'); width: 80px; height: 27px; margin-top: 10px; margin-left: auto;margin-right: auto;"></div>
+</div>
+<div class="bene_help" style="display: none">
+    <img src="/static/images/beneselfies-pop-up-instructions.png" alt="">
+    <div id="bene_close"
+         style="background: url('/static/images/got-it.png'); width: 80px; height: 27px;margin-top: 10px; margin-left: auto;margin-right: auto;"></div>
+</div>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
@@ -188,6 +204,7 @@
 <link rel="stylesheet" href="/static/css/selector.css"/>
 <script src="/static/js/html2canvas.js"></script>
 <script src="/static/js/selector.js"></script>
+<script src="{% static 'js/jquery.lightbox_me.js' %}"></script>
 <script type="text/javascript">
 var options = [];
 var tags_all = {};
@@ -246,7 +263,7 @@ function previewPost($next) {
                     $image.attr("src", data["image"]);
                     tags_final = data["tags"];
                 },
-                error: function (jqXHR, textStatus, errorThrown ){
+                error: function (jqXHR, textStatus, errorThrown) {
                     console.log(textStatus);
                     console.log(errorThrown);
                 }
@@ -258,6 +275,18 @@ function previewPost($next) {
 
 
 $(function () {
+    var $helpbutton = $('#help_button');
+    $(".bene_help").lightbox_me({centered: true, closeClick: false});
+    $helpbutton.click(function () {
+        var $helpdiv = $(".help_div");
+        $helpdiv.lightbox_me({centered: true, closeClick: false});
+    });
+    $('#help_close').click(function () {
+        $(".help_div").trigger("close");
+    });
+    $('#bene_close').click(function () {
+        $(".bene_help").trigger("close");
+    });
     var $next = $('#next');
     $next.hide();
     $('#upload-image').hide();
@@ -453,7 +482,7 @@ function drawImageDraggable(imageObj) {
     var stage = $(clicked).find('canvas')[0];
     var width = 150;
     var height = 150;
-    if (imageObj.width / imageObj.height > 160/150) {
+    if (imageObj.width / imageObj.height > 160 / 150) {
         height = GetHeight(width, imageObj.width, imageObj.height)
     } else {
         width = GetWidth(height, imageObj.width, imageObj.height)
