@@ -678,18 +678,24 @@ var CSPhotoSelector = (function (module, $) {
             });
         }
         else {
-            var query = "SELECT object_id, caption_tags, images, src, aid FROM photo WHERE pid in (SELECT pid FROM photo_tag WHERE subject = '" + uid + "')";
+            var query1 = "SELECT object_id, caption_tags, images, src, aid, pid FROM photo WHERE pid in (SELECT pid FROM photo_tag WHERE subject = '" + uid + "')";
             if ($selected_album && $selected_album != null) {
-                query += " AND (album_object_id = " + $selected_album.attr('data-id') + " OR aid = '" + $selected_album.attr('data-id') + "')";
+                query1 += " AND (album_object_id = " + $selected_album.attr('data-id') + " OR aid = '" + $selected_album.attr('data-id') + "')";
             }
+            var query2 = "SELECT pid, xcoord, ycoord FROM photo_tag WHERE subject = '" + uid + "'";
             FB.api(
                 {
                     method: 'fql.query',
-                    query: query
+                    queries: {
+                        'query1': query1,
+                        'query2': query2
+                    }
                 },
                 function (data) {
                     if (data) {
-                        $.each(data, function () {
+                        query1 = data['query1'];
+                        query2 = data['query2'];
+                        $.each(query1, function () {
                             if (this.images[0].source && this.images[0].source != null) {
                                 this.picture = this.images[0].source;
                                 this.source = this.images[0].source;
@@ -701,8 +707,10 @@ var CSPhotoSelector = (function (module, $) {
                             this.tags = this.caption_tags;
                             this.alternate_tags = name;
                             this.uid = uid;
+
+                            // Find pid in query2 with uid set x, y
                         });
-                        setPhotos(data);
+                        setPhotos(query1);
                         // Build the markup
                         buildSecondMarkup();
                         // Call the callback

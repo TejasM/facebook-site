@@ -48,7 +48,7 @@ def add_media_file(request):
         return redirect(email)
     name = str(len(UserImage.objects.filter(submission=submission)))
     image = UserImage.objects.create(submission=submission)
-    file_content = ContentFile(urllib.urlopen(request.POST['image'] + "?type=large").read())
+    file_content = ContentFile(urllib.urlopen(request.POST['image']).read())
     image.image.save(name, file_content)
     image.save()
     return HttpResponse(json.dumps({'image': "/media/" + image.image.name}), content_type="application/json")
