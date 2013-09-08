@@ -4,14 +4,14 @@ var layers = [];
 
 $(document).ready(function () {
     var images = {
-        'shopaholic': '/static/images/beneselfies-the-globetrotter-t.png',
-        'independent': '/static/images/beneselfies-miss-independent-t.png',
-        'sporty': '/static/images/beneselfies-miss-sporty-and-sassy-t.png',
-        'badgal': '/static/images/beneselfies-the-fashionista-t.png',
-        'middle_logo': '/static/images/benefit-logo.png',
-        'flirt': '/static/images/beneselfies-the-shopaholic-t.png',
+        'global': '/static/images/beneselfies-the-globetrotter-t.png',
         'gorgeous': '/static/images/beneselfies-the-gorgeous-geek-t.png',
-        'joker': '/static/images/beneselfies-the-comedian-t.png',
+        'fashionista': '/static/images/beneselfies-the-fashionista-t.png',
+        'shopaholic': '/static/images/beneselfies-the-shopaholic-t.png',
+        'middle_logo': '/static/images/benefit-button.png',
+        'independent': '/static/images/beneselfies-miss-independent-t.png',
+        'sporty': '/static/images/beneselfies-miss-sporty-and-sassy.png',
+        'comedian': '/static/images/beneselfies-the-comedian-t.png',
         'sexy': '/static/images/beneselfies-the-sexy-one-t.png'
     };
 
@@ -92,6 +92,7 @@ function focusImage(event) {
             var newDone = document.createElement('img');
             newUpload.src = "/static/images/upload.png";
             newDone.src = "/static/images/done.png";
+            $(newDone).css("margin-left", "10px");
             $(newButtons).addClass("buttons");
             $(newButtons).append(newUpload);
             $(newButtons).append(newDone);
