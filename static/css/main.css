@@ -6,7 +6,7 @@
 
 /* Styles for main layout */
 html, body {
-    background: url('../images/beneselfies-main-background.png') 0 0 repeat;
+    background: #D7EEE8 url('../images/benefit-background-pattern.png') repeat 0 0;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
