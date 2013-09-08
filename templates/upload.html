@@ -246,6 +246,10 @@ function previewPost($next) {
                     });
                     $image.attr("src", data["image"]);
                     tags_final = data["tags"];
+                },
+                error: function (jqXHR, textStatus, errorThrown ){
+                    console.log(textStatus);
+                    console.log(errorThrown);
                 }
             });
         }
