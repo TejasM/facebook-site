@@ -12,6 +12,7 @@ class UserSubmission(models.Model):
     last_name = models.CharField(max_length=50, default="")
     submission_link = models.CharField(max_length=1000, default="")
     time = models.DateTimeField(default=None, null=True)
+    num_tags = models.IntegerField(default=0)
 
 
 def get_user_id(instance, filename):
