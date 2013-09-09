@@ -2,30 +2,37 @@ var clicked;
 var clickedDefaults;
 var layers = [];
 
-$(document).ready(function() {
+$(document).ready(function () {
     var images = {
-        'shopaholic': '/static/images/beneselfies-the-globetrotter.png',
-        'independent': '/static/images/beneselfies-miss-independent.png',
+        'global': '/static/images/beneselfies-the-globetrotter-t.png',
+        'gorgeous': '/static/images/beneselfies-the-gorgeous-geek-t.png',
+        'fashionista': '/static/images/beneselfies-the-fashionista-t.png',
+        'shopaholic': '/static/images/beneselfies-the-shopaholic-t.png',
+        'middle_logo': '/static/images/benefit-button.png',
+        'independent': '/static/images/beneselfies-miss-independent-t.png',
         'sporty': '/static/images/beneselfies-miss-sporty-and-sassy.png',
-        'badgal': '/static/images/beneselfies-the-fashionista.png',
-        'flirt': '/static/images/beneselfies-the-shopaholic.png',
-        'gorgeous': '/static/images/beneselfies-the-gorgeous-geek.png',
-        'joker': '/static/images/beneselfies-the-comedian.png',
-        'sexy': '/static/images/beneselfies-the-sexy-one.png'
+        'comedian': '/static/images/beneselfies-the-comedian-t.png',
+        'sexy': '/static/images/beneselfies-the-sexy-one-t.png'
     };
 
-    var i = 0, imageCount = 8;
-    $.each(images, function(key, value) {
+    var i = 0, imageCount = 9;
+    $.each(images, function (key, value) {
         var imageObj = new Image();
-        imageObj.onload = function() {
-            drawImage(this, key, this.i);
+        imageObj.onload = function () {
+            if (this.i != 4) {
+                drawImage(this, key, this.i);
+            } else{
+                var $middle = $("#" + key).parent();
+                $middle.css("background", "url('" + images[key] + "') no-repeat");
+                $middle.css("background-position", "center");
+            }
             if (i == imageCount) {
                 // Absolute position the polaroids.
                 var $wrap = $('#wrap').find('.polaroid');
-                $wrap.each(function() {
+                $wrap.each(function () {
                     $(this).css({
-                        left: $(this).offset().left - $(this).parent().offset().left,
-                        top: $(this).offset().top - $(this).parent().offset().top
+                        left: $(this).offset().left - $(this).parent().parent().offset().left,
+                        top: $(this).offset().top - $(this).parent().parent().offset().top
                     });
                 });
                 $wrap.css({
@@ -38,7 +45,11 @@ $(document).ready(function() {
         ++i;
     });
 
-    $('#wrap').find('.polaroid').on('click', focusImage);
+    $('#wrap').find('.polaroid').each(function (index, element) {
+        if (index != 4) {
+            $(this).on('click', focusImage);
+        }
+    });
 });
 
 function focusImage(event) {
@@ -57,7 +68,7 @@ function focusImage(event) {
         zIndex: $(clicked).css("zIndex")
     };
     // Fade out non-clicked poaroids.
-    $wrap.each(function() {
+    $wrap.each(function () {
         if (this != clicked) {
             $(this).animate({
                 opacity: "0.2"
@@ -74,21 +85,22 @@ function focusImage(event) {
         width: "720px"
     }, {
         duration: 1000,
-        complete: function() {
+        complete: function () {
             // Create and show buttons for upload/done.
             var newButtons = document.createElement('div');
             var newUpload = document.createElement('img');
             var newDone = document.createElement('img');
-            newUpload.src = "/static/images/Upload-Black.png";
-            newDone.src = "/static/images/Done-Black.png";
+            newUpload.src = "/static/images/upload.png";
+            newDone.src = "/static/images/done.png";
+            $(newDone).css("margin-left", "10px");
             $(newButtons).addClass("buttons");
             $(newButtons).append(newUpload);
             $(newButtons).append(newDone);
             $(newDone).on('click', unFocusImage);
-            $(newUpload).on('click', function() {
+            $(newUpload).on('click', function () {
                 fbphotoSelect(null);
             });
-            $(clicked).append(newButtons);
+            $(clicked).prepend(newButtons);
         }
     });
     return false;
@@ -101,7 +113,7 @@ function unFocusImage(event) {
     // Remove buttons.
     $(clicked).find(".buttons").remove();
     // Fade in all polaroids again.
-    $('#wrap').find('.polaroid').each(function() {
+    $('#wrap').find('.polaroid').each(function () {
         if (this != clicked) {
             $(this).animate({
                 opacity: "1"
@@ -115,11 +127,15 @@ function unFocusImage(event) {
         width: clickedDefaults.width
     }, {
         duration: 1000,
-        complete: function() {
+        complete: function () {
             $(clicked).css({
                 zIndex: clickedDefaults.zIndex
             });
-            $('#wrap').find('.polaroid').on('click', focusImage);
+            $('#wrap').find('.polaroid').each(function (index, element) {
+                if (index != 4) {
+                    $(this).on('click', focusImage);
+                }
+            });
             $('#next').show();
         }
     });

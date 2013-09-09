@@ -6,7 +6,7 @@
 
 /* Styles for main layout */
 html, body {
-    background: url('../images/beneselfies-main-background.png') 0 0 repeat;
+    background: #D7EEE8 url('../images/benefit-background-pattern.png') repeat 0 0;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
@@ -115,6 +115,7 @@ div#upper-content {
     padding: 10px 30px;
     width: 689px;
 }
+
 div#upper-content h1 {
     color: #fe647c;
     font-family: 'Stalemate', cursive;
@@ -172,6 +173,7 @@ div.upper-content-2 img#dotted-heart {
     position: absolute;
     top: 15px;
 }
+
 div.upper-content-2 img#xoxo {
     left: 235px;
     position: absolute;
@@ -251,8 +253,8 @@ div#footer div em {
 
 .polaroid {
     position: relative;
-    width: 245px;
-    height: 269px;
+    width: 192px;
+    height: 192px;
     display: inline-block;
 }
 
@@ -265,15 +267,15 @@ div#footer div em {
 }
 
 .loader {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 300%;
-	width: 100%;
-	background: url(../images/loader.gif) center center no-repeat rgba(255,255,255,0.5);
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	border-radius: 8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 300%;
+    width: 100%;
+    background: url(../images/loader.gif) center center no-repeat rgba(255, 255, 255, 0.5);
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
     z-index: 100000;
 }
 
@@ -321,4 +323,9 @@ div#footer div em {
     height: 100px;
     float: left;
     padding-right: 10px;
+}
+
+.help_div {
+    z-index: 100000;
+    margin: 0 auto;
 }

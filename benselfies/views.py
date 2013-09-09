@@ -34,6 +34,8 @@ def upload(request, user_id):
         user.save()
     except KeyError as _:
         return redirect(email)
+    except UserSubmission.DoesNotExist as _:
+        return redirect(email)
     return render_to_response('upload.html')
 
 
@@ -49,7 +51,7 @@ def add_media_file(request):
     file_content = ContentFile(urllib.urlopen(request.POST['image']).read())
     image.image.save(name, file_content)
     image.save()
-    return HttpResponse(json.dumps({'image': "/media/" + image.image.name}), content_type="application/json")
+    return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/media/')[1]}), content_type="application/json")
 
 
 @csrf_exempt
@@ -70,7 +72,7 @@ def add_custom_pic(request):
             split_tag = tag.split(',')
             tags_submit.append({'tag_uid': split_tag[0], 'x': split_tag[1], 'y': split_tag[2]})
     image.save()
-    return HttpResponse(json.dumps({'image': "/media/" + image.image.name, "tags": tags_submit}),
+    return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/media/')[1], "tags": tags_submit}),
                         content_type="application/json")
 
 
@@ -83,7 +85,7 @@ def add_image(request):
     image = UserImage.objects.create(submission=submission)
     image.image = request.FILES['image']
     image.save()
-    return HttpResponse(json.dumps({'url': "/media/" + image.image.name}), content_type="application/json")
+    return HttpResponse(json.dumps({'url': "/media/" + image.image.name.split('/media/')[1]}), content_type="application/json")
 
 
 @csrf_exempt

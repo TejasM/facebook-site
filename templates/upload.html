@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -10,81 +11,80 @@
 </head>
 <body>
 <div class="loader"></div>
-<div id="header"></div>
-<div id="main-nav">
+<div id="header"><img src="{% static 'images/beneselfies-header-spread-w-logo.png' %}"/></div>
+<div id="header-divider"></div>
+<div id="main-nav" style="margin-bottom: 25px">
     <ul>
         <li>What's New</li>
-        <li>Top Sellers</li>
-        <li>Beauty School</li>
-        <li>Gifts</li>
-        <li>Join Us</li>
+        <li>Instagram</li>
+        <li>Twitter</li>
     </ul>
 </div>
-<div id="upper-content">
-    <h1>How to play</h1>
+<div id="left-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
+<div id="right-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
+<div id="left-book"><img src="{% static 'images/book-left.png' %}"/></div>
+<div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
+<img width="801px" height="1068px" id="locker-door" src="{% static 'images/locker-app-door.png' %}" alt=""
+     style="position: relative; display: none">
 
-    <p>Get that camera clicking by tagging the gorgeous girls (or guys!) that correspond to one of the
-        <em>#BENESELFIES</em> shown in the polaroids that are sitting in your lickers.</p>
-    <ul>
-        <li><span>1</span>Join the party on Facebook!</li>
-        <li><span>2</span>Open up your locker and begin tagging your friends that fit the <em>#BENESELFIES</em></li>
-        <li><span>3</span>Share your polaroids and invite your friends to enter too!</li>
-    </ul>
-    <p>To be on your way to enter our <em>#BENESELFIES</em> contest please sign in with Facebook and fill in your email
-        address. This will only be used to contact you if you're a lucky winner. You will no receive any other emails
-        from us!</p>
-</div>
 <div class="content wrap" id="confirm_page"
-     style="width: 1000px; height:1333px; display: none">
+     style="width: 700px; height:931.875px; display: none">
     <div>
         <img src="" id="confirm_image"/>
 
         <div id="back"
-             style="color: white; width: 102px; position: absolute; height: 52px; margin-top: -300px;  float: left; margin-left: 150px; z-index: 1000; border-radius: 15px;">
-            Back
-        </div>
+             style="background: url('/static/images/back.png'); width: 80px; position: absolute; height: 27px; margin-top: -820px; margin-left: 65px; z-index: 1000;"></div>
 
         <div id="confirm"
-             style="background: url('/static/images/confirm.png'); width: 102px; position: absolute; height: 52px; margin-top: -300px;  float: right; margin-left: 750px; z-index: 1000; border-radius: 15px;"></div>
+             style="background: url('/static/images/finish.png'); width: 80px; position: absolute; height: 27px; margin-top: -820px;  float: right; margin-left: 560px; z-index: 1000;"></div>
     </div>
 </div>
 <div class="content" id="wrap"
-     style="width: 1160px; height:1062px; background: url('/static/images/Locker-App-Open.png'); background-size: 1160px 1062px">
-    <div style="margin-top: 75px; margin-right: 53px; padding-left: 20px; padding-right: 30px; color: white; font-size: 20px;
-            background:#000000; width: 47%; height: 89.7%; opacity: 0.8; float: right; vertical-align: middle">
-        <div style="text-align: center">
-            <img src="/static/images/beneselfies-logo.png" alt=""
-             style="display: block; margin-left: auto; margin-right: auto;">
+     style="width: 700px; height:931.875px; background: url('/static/images/locker-app-open.png'); background-size: 700px 931.875px">
+    <div style="margin-top: 44px; margin-right: 45px; padding-left: 5px; padding-right: 5px; color: white; font-size: 20px;
+            background:rgba(0,0,0, 0.8); width: 85%; height: 92%; float: right; vertical-align: middle">
+        <div style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px; margin-top: 5px;">
+            <img src="/static/images/beneselfies-logo.png" alt="" width="200" height="128.8"
+                 style="display: block; margin-left: auto; margin-right: auto; margin-top: 20px">
+            <img src="/static/images/beneselfies-help-button.png" alt="" width="30" height="30" id="help_button"
+                 style="float: right; margin-top: -130px; padding-right: 10px">
+
+            <div id="next"
+                 style="background: url('/static/images/preview.png') no-repeat; width: 135px; height: 46px; margin-top: -85px; padding-right:5px; float: right; display: none;"></div>
         </div>
         <div class="polaroid" id="shopaholic-div">
-            <div id="shopaholic" style="display: inline"></div>
+            <div id="global" style="display: inline"></div>
         </div>
 
         <div class="polaroid" id="independent-div">
-            <div id="independent" style="display: inline"></div>
+            <div id="gorgeous" style="display: inline"></div>
         </div>
 
         <div class="polaroid" id="sporty-div">
-            <div id="sporty" style="display: inline"></div>
+            <div id="fashionista" style="display: inline"></div>
         </div>
 
 
         <div class="polaroid" id="badgal-div">
-            <div id="badgal" style="display: inline"></div>
+            <div id="shopaholic" style="display: inline"></div>
+        </div>
+
+        <div class="polaroid" id="middle_logo_div">
+            <div id="middle_logo" style="display: inline"></div>
         </div>
 
         <div class="polaroid" id="flirt-div">
-            <div id="flirt" style="display: inline"></div>
+            <div id="independent" style="display: inline"></div>
         </div>
 
 
         <div class="polaroid" id="gorgeous-div">
-            <div id="gorgeous" style="display: inline"></div>
+            <div id="sporty" style="display: inline"></div>
         </div>
 
 
         <div class="polaroid" id="joker-div">
-            <div id="joker" style="display: inline"></div>
+            <div id="comedian" style="display: inline"></div>
         </div>
 
         <div class="polaroid" id="sexy-div">
@@ -93,8 +93,6 @@
 
         <div id="fb-root">
         </div>
-        <div id="next"
-             style="background: url('/static/images/Next-Black.png'); width: 102px; height: 52px; margin-top: 850px; border-radius: 15px; float: right"></div>
     </div>
 </div>
 <div id="CSPhotoSelector">
@@ -156,8 +154,7 @@
         </div>
     </div>
 </div>
-<div id="footer">Twitter, Facebook <em>LIKE US TO GET STARTED!!</em></div>
-
+{% include 'footer.html' %}
 <div id="dialog-confirm" title="Sure love?">
     <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span>You haven't selected 8
         friend yet! Are you sure your #BENESELFIES?</p>
@@ -167,7 +164,17 @@
     <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 60px 0;"></span>You have already selected
         this friend. Are you sure you don't want to share the love?</p>
 </div>
+<div class="help_div" style="display: none">
+    <img src="/static/images/beneselfies-how-to-play.png" alt="">
 
+    <div id="help_close"
+         style="background: url('/static/images/got-it.png'); width: 80px; height: 27px; margin-top: 10px; margin-left: auto;margin-right: auto;"></div>
+</div>
+<div class="bene_help" style="display: none">
+    <img src="/static/images/beneselfies-pop-up-instructions.png" alt="">
+    <div id="bene_close"
+         style="background: url('/static/images/got-it.png'); width: 80px; height: 27px;margin-top: 10px; margin-left: auto;margin-right: auto;"></div>
+</div>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
@@ -179,6 +186,7 @@
 <link rel="stylesheet" href="/static/css/selector.css"/>
 <script src="/static/js/html2canvas.js"></script>
 <script src="/static/js/selector.js"></script>
+<script src="{% static 'js/jquery.lightbox_me.js' %}"></script>
 <script type="text/javascript">
 var options = [];
 var tags_all = {};
@@ -207,6 +215,7 @@ $(function () {
 
 function previewPost($next) {
     $next.hide();
+    $('#help_button').hide();
     $('#wrap').find('.polaroid').each(function (index, element) {
         if (!(element in dict_for_each_clicked)) {
             console.log(element);
@@ -236,6 +245,10 @@ function previewPost($next) {
                     });
                     $image.attr("src", data["image"]);
                     tags_final = data["tags"];
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(errorThrown);
                 }
             });
         }
@@ -245,6 +258,18 @@ function previewPost($next) {
 
 
 $(function () {
+    var $helpbutton = $('#help_button');
+    $(".bene_help").lightbox_me({centered: true, closeClick: false});
+    $helpbutton.click(function () {
+        var $helpdiv = $(".help_div");
+        $helpdiv.lightbox_me({centered: true, closeClick: false});
+    });
+    $('#help_close').click(function () {
+        $(".help_div").trigger("close");
+    });
+    $('#bene_close').click(function () {
+        $(".bene_help").trigger("close");
+    });
     var $next = $('#next');
     $next.hide();
     $('#upload-image').hide();
@@ -438,9 +463,9 @@ function drawImageDraggable(imageObj) {
             i = index
     });
     var stage = $(clicked).find('canvas')[0];
-    var width = 180;
-    var height = 200;
-    if (imageObj.width / imageObj.height > 0.9) {
+    var width = 150;
+    var height = 150;
+    if (imageObj.width / imageObj.height > 160 / 150) {
         height = GetHeight(width, imageObj.width, imageObj.height)
     } else {
         width = GetWidth(height, imageObj.width, imageObj.height)
@@ -471,19 +496,21 @@ function drawImageDraggable(imageObj) {
 }
 
 function drawImage(imageObj, container, i) {
+    var width = 192;
+    var height = 192;
     var stage = new Kinetic.Stage({
         container: container,
-        width: 240,
-        height: 264
+        width: width,
+        height: height
     });
     var layer = new Kinetic.Layer();
 
     var img = new Kinetic.Image({
         image: imageObj,
-        x: stage.getWidth() / 2 - 240 / 2,
-        y: stage.getHeight() / 2 - 264 / 2,
-        width: 240,
-        height: 264
+        x: stage.getWidth() / 2 - width / 2,
+        y: stage.getHeight() / 2 - height / 2,
+        width: width,
+        height: height
     });
 
     layer.add(img);
@@ -519,7 +546,6 @@ function selectPic(image_url, tags) {
     }});
     var hidden_box = $('<input class="hidden_input" type="hidden"/>');
     if (tags && tags.length == 1) {
-        tag_box.val(tags[0].value);
         hidden_box.val(tags[0].id);
         if (clicked in dict_for_each_clicked && dict_for_each_clicked[clicked] == tags[0].id) {
             $("#dialog-warn").data("id", tags[0].id).dialog("open")
