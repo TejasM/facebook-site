@@ -78,7 +78,7 @@
     $('#locker').click(function () {
         $('#locker').hide();
         $('#locker-back').show();
-        $('#locker-door').show();
+        {% comment %}$('#locker-door').show();{% endcomment %}
         setTimeout(function () {
             window.location = "/email/";
         }, 1000)

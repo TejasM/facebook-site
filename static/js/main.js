@@ -100,7 +100,7 @@ function focusImage(event) {
             $(newUpload).on('click', function () {
                 fbphotoSelect(null);
             });
-            $(clicked).append(newButtons);
+            $(clicked).prepend(newButtons);
         }
     });
     return false;
