@@ -17,7 +17,7 @@ div#header {
     height: 162px;
     position: relative;
     text-align: center;
-    z-index: 2;
+    z-index: 3;
 }
 
 div#header img {
