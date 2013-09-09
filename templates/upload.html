@@ -24,20 +24,6 @@
 <div id="right-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
 <div id="left-book"><img src="{% static 'images/book-left.png' %}"/></div>
 <div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
-<div id="upper-content">
-    <h1>How to play</h1>
-
-    <p>Get that camera clicking by tagging the gorgeous girls (or guys!) that correspond to one of the
-        <em>#BENESELFIES</em> shown in the polaroids that are sitting in your lickers.</p>
-    <ul>
-        <li><span>1</span>Join the party on Facebook!</li>
-        <li><span>2</span>Open up your locker and begin tagging your friends that fit the <em>#BENESELFIES</em></li>
-        <li><span>3</span>Share your polaroids and invite your friends to enter too!</li>
-    </ul>
-    <p>To be on your way to enter our <em>#BENESELFIES</em> contest please sign in with Facebook and fill in your email
-        address. This will only be used to contact you if you're a lucky winner. You will no receive any other emails
-        from us!</p>
-</div>
 <img width="801px" height="1068px" id="locker-door" src="{% static 'images/locker-app-door.png' %}" alt=""
      style="position: relative; display: none">
 
@@ -168,11 +154,7 @@
         </div>
     </div>
 </div>
-<div id="footer">
-    <div><a href="#"><img src="{% static 'images/beneselfies-footer-twitter.png' %}"/></a><a href="#"><img
-            src="{% static 'images/beneselfies-footer-facebook.png' %}"/></a> <em>SHARE THE LOVE!</em></div>
-</div>
-
+{% include 'footer.html' %}
 <div id="dialog-confirm" title="Sure love?">
     <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span>You haven't selected 8
         friend yet! Are you sure your #BENESELFIES?</p>
