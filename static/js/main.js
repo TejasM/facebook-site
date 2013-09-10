@@ -108,8 +108,8 @@ function focusImage(event) {
             var newButtons = document.createElement('div');
             var newUpload = document.createElement('img');
             var newDone = document.createElement('img');
-            newUpload.src = "/static/images/upload.png";
-            newDone.src = "/static/images/done.png";
+            newUpload.src = "/static/images/choose-big.png";
+            newDone.src = "/static/images/done-big.png";
             $(newDone).css("margin-left", "10px");
             $(newButtons).addClass("buttons");
             $(newButtons).append(newUpload);
@@ -132,7 +132,7 @@ function unFocusImage(event) {
     $(clicked).find(".buttons").remove();
     // Fade in all polaroids again.
     var $wrap = $('#wrap').find('.polaroid');
-    $('#wrap').find('.polaroid').each(function () {
+    $wrap.each(function () {
         if (this != clicked) {
             $(this).animate({
                 opacity: "1"
