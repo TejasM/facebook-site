@@ -106,6 +106,19 @@ div#right-book img {
     position: relative;
 }
 
+div#locker-door {
+    position: absolute;
+    top: 218px;
+    width: 100%;
+}
+
+div#locker-door img {
+    display: block;
+    left: 500px;
+    margin: auto;
+    position: relative;
+}
+
 div#upper-content {
     background: url('../images/beneselfies-white-bordered-rectangle.png') no-repeat 0 0;
     color: #868686;
