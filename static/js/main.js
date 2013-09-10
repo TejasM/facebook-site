@@ -10,7 +10,7 @@ $(document).ready(function () {
         'shopaholic': '/static/images/beneselfies-the-shopaholic-t.png',
         'middle_logo': '/static/images/benefit-button.png',
         'independent': '/static/images/beneselfies-miss-independent-t.png',
-        'sporty': '/static/images/beneselfies-miss-sporty-and-sassy.png',
+        'sporty': '/static/images/beneselfies-miss-sporty-and-sassy-t.png',
         'comedian': '/static/images/beneselfies-the-comedian-t.png',
         'sexy': '/static/images/beneselfies-the-sexy-one-t.png'
     };
@@ -72,10 +72,19 @@ function focusImage(event) {
         if ($wrap[index] == clicked)
             i = index;
     });
-    layers[i].parent.setWidth(600);
-    layers[i].parent.setHeight(600);
-    layers[i].parent.setScale(3.125, 3.125);
-    layers[i].parent.draw();
+    var duration = 1000; // we set it to last 1s
+    var anim = new Kinetic.Animation(function (frame) {
+            if (frame.time >= duration) {
+                anim.stop();
+            } else {
+                layers[i].parent.setWidth((600 - 192) * frame.time / duration + 192);
+                layers[i].parent.setHeight((600 - 192) * frame.time / duration + 192);
+                layers[i].parent.setScale((3.125 - 1) * frame.time / duration + 1, (3.125 - 1) * frame.time / duration + 1);
+            }
+        },
+        layers[i].parent
+    );
+    anim.start();
     // Fade out non-clicked polaroids.
     $wrap.each(function () {
         if (this != clicked) {
@@ -90,7 +99,7 @@ function focusImage(event) {
     $(clicked).animate({
         height: "600px",
         left: "60px",
-        top: "200px",
+        top: "220px",
         width: "600px"
     }, {
         duration: 1000,
@@ -122,7 +131,7 @@ function unFocusImage(event) {
     // Remove buttons.
     $(clicked).find(".buttons").remove();
     // Fade in all polaroids again.
-    var $wrap = $('#wrap').find('.polaroid')
+    var $wrap = $('#wrap').find('.polaroid');
     $('#wrap').find('.polaroid').each(function () {
         if (this != clicked) {
             $(this).animate({
@@ -135,10 +144,21 @@ function unFocusImage(event) {
         if ($wrap[index] == clicked)
             i = index;
     });
-    layers[i].parent.setWidth(192);
-    layers[i].parent.setHeight(192);
-    layers[i].parent.setScale(1, 1);
-    layers[i].parent.draw();
+    var duration = 1000; // we set it to last 1s
+    var anim = new Kinetic.Animation(function (frame) {
+            if (frame.time >= duration) {
+                anim.stop();
+            } else {
+                layers[i].parent.setWidth((600 - 192) * (1- frame.time / duration) + 192);
+                layers[i].parent.setHeight((600 - 192) * (1- frame.time / duration) + 192);
+                layers[i].parent.setScale((3.125 - 1) * (1- frame.time / duration)+ 1, (3.125 - 1) * (1- frame.time / duration) + 1);
+            }
+        },
+        layers[i].parent
+    );
+    anim.start();
+
+
     $(clicked).animate({
         height: clickedDefaults.height,
         left: clickedDefaults.left,
