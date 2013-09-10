@@ -465,15 +465,15 @@ function drawImageDraggable(imageObj) {
     var stage = $(clicked).find('canvas')[0];
     var width = 150;
     var height = 150;
-    if (imageObj.width / imageObj.height > 160 / 150) {
+    if (imageObj.width / imageObj.height > 1) {
         height = GetHeight(width, imageObj.width, imageObj.height)
     } else {
         width = GetWidth(height, imageObj.width, imageObj.height)
     }
     image_added = new Kinetic.Image({
         image: imageObj,
-        x: stage.width / 2 - width / 2,
-        y: stage.height / 2 - height / 2,
+        x: stage.width / (2*3.125) - width / (2),
+        y: stage.height / (2*3.125) - height / (2),
         width: width,
         height: height,
         draggable: true

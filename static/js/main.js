@@ -21,7 +21,7 @@ $(document).ready(function () {
         imageObj.onload = function () {
             if (this.i != 4) {
                 drawImage(this, key, this.i);
-            } else{
+            } else {
                 var $middle = $("#" + key).parent();
                 $middle.css("background", "url('" + images[key] + "') no-repeat");
                 $middle.css("background-position", "center");
@@ -67,7 +67,16 @@ function focusImage(event) {
         width: $(clicked).css("width"),
         zIndex: $(clicked).css("zIndex")
     };
-    // Fade out non-clicked poaroids.
+    var i = 0;
+    $.each($wrap, function (index) {
+        if ($wrap[index] == clicked)
+            i = index;
+    });
+    layers[i].parent.setWidth(600);
+    layers[i].parent.setHeight(600);
+    layers[i].parent.setScale(3.125, 3.125);
+    layers[i].parent.draw();
+    // Fade out non-clicked polaroids.
     $wrap.each(function () {
         if (this != clicked) {
             $(this).animate({
@@ -79,10 +88,10 @@ function focusImage(event) {
         zIndex: 10
     });
     $(clicked).animate({
-        height: "790px",
-        left: "145px",
-        top: "140px",
-        width: "720px"
+        height: "600px",
+        left: "60px",
+        top: "200px",
+        width: "600px"
     }, {
         duration: 1000,
         complete: function () {
@@ -113,6 +122,7 @@ function unFocusImage(event) {
     // Remove buttons.
     $(clicked).find(".buttons").remove();
     // Fade in all polaroids again.
+    var $wrap = $('#wrap').find('.polaroid')
     $('#wrap').find('.polaroid').each(function () {
         if (this != clicked) {
             $(this).animate({
@@ -120,6 +130,15 @@ function unFocusImage(event) {
             }, 1000);
         }
     });
+    var i = 0;
+    $.each($wrap, function (index) {
+        if ($wrap[index] == clicked)
+            i = index;
+    });
+    layers[i].parent.setWidth(192);
+    layers[i].parent.setHeight(192);
+    layers[i].parent.setScale(1, 1);
+    layers[i].parent.draw();
     $(clicked).animate({
         height: clickedDefaults.height,
         left: clickedDefaults.left,
