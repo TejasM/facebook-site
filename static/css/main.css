@@ -287,7 +287,7 @@ div#footer div em {
     position: absolute;
     top: 0;
     left: 0;
-    height: 300%;
+    min-height: 100%;
     width: 100%;
     background: url(../images/loader.gif) center center no-repeat rgba(255, 255, 255, 0.5);
     -moz-border-radius: 8px;

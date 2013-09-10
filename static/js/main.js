@@ -1,6 +1,7 @@
 var clicked;
 var clickedDefaults;
 var layers = [];
+var images = [];
 
 $(document).ready(function () {
     var images = {
@@ -85,6 +86,9 @@ function focusImage(event) {
         layers[i].parent
     );
     anim.start();
+    if (images[i]) {
+        images[i].moveUp();
+    }
     // Fade out non-clicked polaroids.
     $wrap.each(function () {
         if (this != clicked) {
@@ -149,15 +153,17 @@ function unFocusImage(event) {
             if (frame.time >= duration) {
                 anim.stop();
             } else {
-                layers[i].parent.setWidth((600 - 192) * (1- frame.time / duration) + 192);
-                layers[i].parent.setHeight((600 - 192) * (1- frame.time / duration) + 192);
-                layers[i].parent.setScale((3.125 - 1) * (1- frame.time / duration)+ 1, (3.125 - 1) * (1- frame.time / duration) + 1);
+                layers[i].parent.setWidth((600 - 192) * (1 - frame.time / duration) + 192);
+                layers[i].parent.setHeight((600 - 192) * (1 - frame.time / duration) + 192);
+                layers[i].parent.setScale((3.125 - 1) * (1 - frame.time / duration) + 1, (3.125 - 1) * (1 - frame.time / duration) + 1);
             }
         },
         layers[i].parent
     );
     anim.start();
-
+    if (images[i]) {
+        images[i].moveDown();
+    }
 
     $(clicked).animate({
         height: clickedDefaults.height,

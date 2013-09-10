@@ -172,6 +172,7 @@
 </div>
 <div class="bene_help" style="display: none">
     <img src="/static/images/beneselfies-pop-up-instructions.png" alt="">
+
     <div id="bene_close"
          style="background: url('/static/images/got-it.png'); width: 80px; height: 27px;margin-top: 10px; margin-left: auto;margin-right: auto;"></div>
 </div>
@@ -463,22 +464,60 @@ function drawImageDraggable(imageObj) {
             i = index
     });
     var stage = $(clicked).find('canvas')[0];
-    var width = 150;
-    var height = 150;
-    if (imageObj.width / imageObj.height > 1) {
-        height = GetHeight(width, imageObj.width, imageObj.height)
+    var width = 137;
+    var height = 120;
+    if (imageObj.width / imageObj.height > 130 / 120) {
+        width = GetWidth(height, imageObj.width, imageObj.height);
+        function boundX(pos) {
+            return {
+                x: pos.x,
+                y: this.getAbsolutePosition().y
+            }
+        }
+
+        image_added = new Kinetic.Image({
+            image: imageObj,
+            x: stage.width / (2 * 3.125) - width / (2) + 4,
+            y: stage.height / (2 * 3.125) - height / (2) - 4,
+            width: width,
+            height: height,
+            draggable: true,
+            dragBoundFunc: boundX
+        });
     } else {
-        width = GetWidth(height, imageObj.width, imageObj.height)
+        height = GetHeight(width, imageObj.width, imageObj.height);
+        function boundY(pos) {
+            return {
+                x: this.getAbsolutePosition().x,
+                y: pos.y
+            }
+        }
+
+        image_added = new Kinetic.Image({
+            image: imageObj,
+            x: stage.width / (2 * 3.125) - width / (2) + 4,
+            y: stage.height / (2 * 3.125) - height / (2) - 4,
+            width: width,
+            height: height,
+            draggable: true,
+            dragBoundFunc: boundY
+        });
     }
-    image_added = new Kinetic.Image({
-        image: imageObj,
-        x: stage.width / (2*3.125) - width / (2),
-        y: stage.height / (2*3.125) - height / (2),
-        width: width,
-        height: height,
-        draggable: true
+
+    var group = new Kinetic.Group({
+        clip: [stage.width / (2 * 3.125) - 137 / (2) + 8, stage.height / (2 * 3.125) - 120 / (2) - 4, 137, 120]
     });
 
+
+    var rect = new Kinetic.Rect({
+        x: stage.width / (2 * 3.125) - 137 / (2),
+        y: stage.height / (2 * 3.125) - 120 / (2) - 4,
+        width: 145,
+        height: 145,
+        fill: 'black',
+        stroke: 'black',
+        strokeWidth: 0
+    });
     // add cursor styling
     image_added.on('mouseover', function () {
         document.body.style.cursor = 'pointer';
@@ -486,11 +525,15 @@ function drawImageDraggable(imageObj) {
     image_added.on('mouseout', function () {
         document.body.style.cursor = 'default';
     });
-    if (layers[i].children.length > 1) {
-        layers[i].children[0].remove();
+    if (images[i]) {
+        images[i].remove();
     }
-    layers[i].add(image_added);
-    image_added.moveDown();
+    images[i] = group;
+    group.add(image_added);
+    layers[i].add(group);
+    layers[i].add(rect);
+    rect.moveToBottom();
+    //image_added.moveDown();
     layers[i].draw();
     $('.loader').hide();
 }
@@ -546,6 +589,7 @@ function selectPic(image_url, tags) {
     }});
     var hidden_box = $('<input class="hidden_input" type="hidden"/>');
     if (tags && tags.length == 1) {
+        tag_box.val(tags[0].label);
         hidden_box.val(tags[0].id);
         if (clicked in dict_for_each_clicked && dict_for_each_clicked[clicked] == tags[0].id) {
             $("#dialog-warn").data("id", tags[0].id).dialog("open")
