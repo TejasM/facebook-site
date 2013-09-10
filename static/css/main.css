@@ -114,9 +114,12 @@ div#locker-door {
 
 div#locker-door img {
     display: block;
-    left: 500px;
+    height: 965px;
+    left: -588px;
     margin: auto;
     position: relative;
+    top: -9px;
+    z-index: 5
 }
 
 div#upper-content {
