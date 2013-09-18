@@ -585,7 +585,7 @@ function drawImageDraggable(imageObj) {
     $(okayButton).css({'margin-top': '-50px'});
     $(okayButton).append(newOkay);
     $(clicked).append(okayButton);
-    var $text = $('<img style="margin: 0 auto" src="/static/images/drag-to-reposition-your-polaroid.png"/>');
+    var $text = $('<img style="margin: 0 auto; display: block;" src="/static/images/drag-to-reposition-your-polaroid.png"/>');
     $(clicked).prepend($text);
     var d = rotateAngles[i];
     $(okayButton).css({'-moz-transform': 'rotate(' + d + 'deg)',
