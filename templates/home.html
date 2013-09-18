@@ -63,25 +63,16 @@
     </div>
     <div class="clear"></div>
 </div>
-<div class="content" id="wrap" style="width: 700px; height: 931.875px; position: relative">
-    <img width="700px" height="931.875px" id="locker-door" src="{% static 'images/locker-app-door.png' %}" alt=""
-         style="position: relative; display: none">
-    <img width="700px" height="931.875px" id="locker-back" src="{% static 'images/locker-app-open.png' %}" alt=""
-         style="position: relative; display: none">
-    <img width="700px" height="931.875px" id="locker" src="{% static 'images/locker-app-closed.png' %}" alt=""
-         style="position: absolute; top: 0; left: 0">
+<div class="content">
+    <div style="text-align: center">
+        <img id="start" src="/static/images/Pinboard%20Assets/Buttons/okay.png" alt="">
+    </div>
 </div>
 {% include 'footer.html' %}
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript">
-
-    $('#locker').click(function () {
-        $('#locker').hide();
-        $('#locker-back').show();
-        {% comment %}$('#locker-door').show();{% endcomment %}
-        setTimeout(function () {
-            window.location = "/email/";
-        }, 1000)
+    $('#start').click(function () {
+        window.location = "/email/";
     });
 </script>
 </body>

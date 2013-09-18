@@ -22,42 +22,33 @@
 <div id="right-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
 <div id="left-book"><img src="{% static 'images/book-left.png' %}"/></div>
 <div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
-<div class="content" id="wrap"
-     style="width: 700px; height:931.875px; background: url('/static/images/locker-app-open.png'); background-size: 700px 931.875px">
-    <div style="margin-top: 44px; margin-right: 45px; padding-left: 5px; padding-right: 5px; color: white; font-size: 20px;
-            background:rgba(0,0,0, 0.8); width: 85%; height: 92%; float: right; vertical-align: middle">
-        <div style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 15px; margin-top: 5px;">
-            <img src="/static/images/beneselfies-logo.png" alt="" width="200" height="128.8"
-                 style="display: block; margin-left: auto; margin-right: auto; margin-top: 20px">
-        </div>
-        <div style="display: inline;">
-            <div style="text-align: center; margin-top: 70px">
-                <p style="padding-left: 40px; padding-right: 40px">Thank you, gorgeous! Your entry has been received.
-                    Feel free to share your #BENESELFIES with your
-                    friends. The more pictures you’re tagged in, the more
-                    chances you have to win a prize! </p>
-                {% if user_id %}
-                    <p style="margin-top: 55px">See your new #BENESELFIES</p>
-                    <img src="{% static 'images/view.png' %}" id="view">
-                {% endif %}
-                <p>Visit us on Facebook</p>
+<div class="content" id="wrap">
+</div>
+<div class="finish" style="display: none;">
+    <img src="/static/images/Pinboard%20Assets/beneselfies-app-box-660x300.png" alt="">
 
-                <img src="{% static 'images/beneselfies-facebook.png' %}" id="view" style="width: 50px; height: 44px">
+    <div style="text-align: center; margin-top: -150px"><img src="/static/images/Pinboard%20Assets/Buttons/view.png" alt="" id="view">
+    </div>
 
-                <p>Follow us on Twitter</p>
-
-                <div id="twitter-follow" href="https://twitter.com/BenefitCanada"
-                     style="background: url('{% static 'images/beneselfies-twitter.png' %}'); background-size: 50px 44px; width: 50px; height: 44px; margin-left: auto; margin-right: auto"></div>
-            </div>
-        </div>
+    <div style="text-align: center; margin-top: 10px"><img src="/static/images/beneselfies-twitter.png" alt="" id="twitter-follow"><img
+            src="/static/images/beneselfies-facebook.png" style="margin-left: 300px" alt="" id="facebook"></div>
+    <div style="text-align: center; margin-top: 35px"><img src="/static/images/Pinboard%20Assets/Buttons/okay.png" alt="" class="close">
     </div>
 </div>
 {% include 'footer.html' %}
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="{% static 'js/jquery.lightbox_me.js' %}"></script>
 <script>
     $(function () {
+        var $finish = $(".finish");
+        $finish.lightbox_me({centered: true, closeClick: false, onClose: function(){
+            window.location = '/';
+        }});
+        $('#facebook').click(function () {
+            window.location = "https://www.facebook.com/benefitcosmeticscanada";
+        });
         $('#twitter-follow').click(function () {
             window.location = "https://twitter.com/BenefitCanada";
         });

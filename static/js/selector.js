@@ -687,17 +687,20 @@ var CSPhotoSelector = (function (module, $) {
                 {
                     method: 'fql.query',
                     /*queries: {
-                        'query1': query1,
-                        'query2': query2
-                    }*/
+                     'query1': query1,
+                     'query2': query2
+                     }*/
                     query: query1
                 },
                 function (data) {
                     if (data) {
                         $.each(data, function () {
-                            if (this.images[0].source && this.images[0].source != null) {
-                                this.picture = this.images[0].source;
-                                this.source = this.images[0].source;
+                            for (var i=0; i < this.images.length-3; i++){
+
+                            }
+                            if (this.images[i].source && this.images[i].source != null) {
+                                this.picture = this.images[i].source;
+                                this.source = this.images[i].source;
                             } else {
                                 this.picture = this.src;
                                 this.source = this.src;

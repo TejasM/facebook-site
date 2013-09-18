@@ -22,83 +22,77 @@
 <div id="right-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
 <div id="left-book"><img src="{% static 'images/book-left.png' %}"/></div>
 <div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
-<div id="locker-door"><img src="{% static 'images/locker-app-door.png' %}"/></div>
-<div class="content" id="wrap"
-     style="width: 700px; height:931.875px; background: url('/static/images/locker-app-open.png'); background-size: 700px 931.875px">
-    <div style="margin-top: 44px; margin-right: 45px; padding-left: 5px; padding-right: 5px; color: white; font-size: 20px;
-            background:rgba(0,0,0, 0.8); width: 85%; height: 92%; float: right; vertical-align: middle">
-        <div style="margin-top: 10px;">
-            <img src="/static/images/beneselfies-logo.png" alt="" width="200" height="128.8"
-                 style="display: block; margin-left: auto; margin-right: auto; margin-top: 20px">
-            <img src="/static/images/beneselfies-help-button.png" alt="" width="30" height="30" id="help_button"
-                 style="float: right; margin-top: -130px; padding-right: 10px">
-        </div>
+<div class="content" id="wrap">
+</div>
+<div class="how" style="display: none;">
+    <img src="/static/images/Pinboard%20Assets/beneselfies-app-box-660x300.png" alt="" width="660" height="350">
 
-        <div style="margin-top: 100px; padding-right: 5px; padding-left: 5px">
-            <p style="font-size: 30px; text-align: center;">To enter the contest, tell us who you are beautiful!</p>
-
-            <form action="/email/" method="post" id="email_form">
-                {% csrf_token %}
-                <input type="hidden" value="" name="user_id" id="user_id">
-                <input type="text" id="first_name" placeholder="First Name" name="first_name"
-                       style="text-align: center; width: 45%; height: 30px;">
-                <input type="text" id="last_name" placeholder="Last Name" name="last_name"
-                       style="text-align: center; width: 45%; height: 30px; float: right">
-                <br>
-
-                <div id="firstNameMsg"
-                     style="color: white; background-color: pink; width: 45%; text-align: center; display: inline-block"></div>
-                <div id="lastNameMsg"
-                     style="color: white; background-color: pink; width: 45%; text-align: center; margin-left: 54%; display: inline-block"></div>
-                <br>
-
-                <div style="text-align: center">
-                    <input type="text" id="email" placeholder="Email" name="email"
-                           style="margin-top: 20px; text-align: center; width: 45%; height: 30px;">
-                    <br>
-
-                    <div id="emailMsg"
-                         style="color: white; background-color: pink; width: 45%; text-align: center; margin-left: 27%"></div>
-                </div>
-                <br>
-
-                <div style="text-align: center">
-                    <input type="checkbox" id="terms" name="terms" style="margin-right: 10px">Hey gorgeous, don’t forget
-                    to agree to our <a
-                        href="#">terms
-                    and conditions!</a>
-
-                    <div id="termsMsg"
-                         style="color: white; background-color: pink; width: 70%; text-align: center; display: inline-block"></div>
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div id="errors"
-                                 style="color: white; background-color: pink; width: 70%; text-align: center; display: inline-block">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-
-                <div style="text-align: center; margin-top:20px;">
-                    <p>In order to continue, please like us on Facebook!</p>
-
-                    <div id="fb-root" style="text-align: center">
-                        <div id="like-alternate"
-                             style="background: url('/static/images/like.png'); width: 80px; height: 27px; margin-left: auto;margin-right: auto; display: none;"></div>
-                        <div id="login"
-                             style="background: url('/static/images/like.png'); width: 80px; height: 27px; margin-left: auto;margin-right: auto; display: none;"></div>
-                        <div id="like-button" class="fb-like" data-width="450"
-                             data-href="https://www.facebook.com/benefitcosmeticscanada"></div>
-                    </div>
-                </div>
-            </form>
-        </div>
+    <div style="text-align: center;"><img src="/static/images/Pinboard%20Assets/Buttons/okay.png"
+                                          alt="" class="close">
     </div>
 </div>
-<div class="help_div" style="display: none">
-    <img src="/static/images/beneselfies-how-to-play.png" alt="">
+<div class="email" style="display: none;">
+    <img src="/static/images/Pinboard%20Assets/beneselfies-app-box-660x300.png" alt="" width="660" height="350">
 
-    <div id="help_close"
-         style="background: url('/static/images/got-it.png'); width: 80px; height: 27px; margin-top:10px; margin-left: auto;margin-right: auto;"></div>
+    <div style="margin-top: -300px; padding-right: 5px; padding-left: 5px">
+
+        <form action="/email/" method="post" id="email_form" style="padding-left: 30px; width: 550px">
+            {% csrf_token %}
+            <input type="hidden" value="" name="user_id" id="user_id">
+
+            <div style="display: inline">
+                <input type="text" id="first_name" placeholder="First Name" name="first_name"
+                       style="text-align: center; width: 40%; height: 30px;">
+                <input type="text" id="last_name" placeholder="Last Name" name="last_name"
+                       style="text-align: center; width: 40%; height: 30px; margin-left:80px">
+            </div>
+            <br>
+
+            <div id="firstNameMsg"
+                 style="color: white; background-color: pink; width: 30%; text-align: center; display: inline-block"></div>
+            <div id="lastNameMsg"
+                 style="color: white; background-color: pink; width: 30%; text-align: center; margin-left: 26%; display: inline-block"></div>
+
+            <div style="text-align: center">
+                <input type="text" id="email" placeholder="Email" name="email"
+                       style="margin-top: 20px; text-align: center; width: 45%; height: 30px;">
+                <br>
+                <div id="emailMsg"
+                     style="color: white; background-color: pink; width: 45%; display:inline-block; text-align: center; margin-left: -12px"></div>
+            </div>
+            <br>
+
+            <div style="text-align: center">
+                <input type="checkbox" id="terms" name="terms" style="margin-right: 10px">Hey gorgeous, don’t forget
+                to agree to our <a
+                    href="#">terms
+                and conditions!</a>
+
+                <div id="termsMsg"
+                     style="color: white; background-color: pink; width: 70%; text-align: center; display: inline-block"></div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div id="errors"
+                             style="color: white; background-color: pink; width: 70%; text-align: center; display: inline-block">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div style="text-align: center">
+                <p>In order to continue, please like us on Facebook!</p>
+                <img id="like-alternate"
+                     src="/static/images/like.png"/>
+                <img id="login"
+                     src="/static/images/like.png"/>
+            </div>
+            <div style="text-align: center; margin-top:20px; width: 80px; height: 27px;">
+                <div id="fb-root" style="text-align: center">
+                    <div id="like-button" class="fb-like" data-width="450"
+                         data-href="https://www.facebook.com/benefitcosmeticscanada"></div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 {% include 'footer.html' %}
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -154,15 +148,13 @@
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script>
     $(function () {
-        var $helpbutton = $('#help_button');
-        $(".help_div").lightbox_me({centered: true, closeClick: false});
-        $helpbutton.click(function () {
-            var $helpdiv = $(".help_div");
-            $helpdiv.lightbox_me({centered: true, closeClick: false});
-        });
-        $('#help_close').click(function () {
-            $(".help_div").trigger("close");
-        });
+        var $how = $('.how');
+        var $email = $('.email');
+        $how.lightbox_me({centered: true, closeClick: false, onClose: function () {
+            $email.lightbox_me({centered: true, closeClick: false, onLoad: function () {
+                FB.XFBML.parse();
+            }});
+        }});
         var user_id = '';
         var $like = $('#like-alternate');
         $('#like-button').hide();
