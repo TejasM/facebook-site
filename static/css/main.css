@@ -361,3 +361,5 @@ div#footer div em {
     text-align: center;
     margin-bottom: 10px;
 }
+
+.ui-autocomplete { height: 200px; overflow-y: scroll;}
