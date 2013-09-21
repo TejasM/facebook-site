@@ -8,7 +8,7 @@
     <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 </head>
-<body>
+<body onload='location.href="#app"'>
 <div id="header"><img src="{% static 'images/beneselfies-header-spread-w-logo.png' %}"/></div>
 <div id="header-divider"></div>
 <div id="main-nav" style="margin-bottom: 25px">
@@ -23,6 +23,7 @@
 <div id="left-book"><img src="{% static 'images/book-left.png' %}"/></div>
 <div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
 <div class="content" id="wrap">
+    <a name="app"></a>
 </div>
 <div class="finish" style="display: none;">
     <img src="/static/images/Pinboard%20Assets/beneselfies-app-box-660x300.png" alt="">
