@@ -9,7 +9,7 @@
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script type="text/javascript" src="/static/js/main.js"></script>
 </head>
-<body>
+<body onload='location.href="#app"'>
 <div class="loader"></div>
 <div id="header"><img src="{% static 'images/beneselfies-header-spread-w-logo.png' %}"/></div>
 <div id="header-divider"></div>
@@ -25,38 +25,40 @@
 <div id="left-book"><img src="{% static 'images/book-left.png' %}"/></div>
 <div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
 <div class="content" id="wrap">
+    <a name="app"></a>
+
     <div id="overlay"
          style=" position: absolute; width: 100%; height: 100%; left: 0; top: 0; zIndex: 5; background: rgba(0, 0, 0, 0.8)"></div>
-    <div id="polaroids" style="padding-top: 130px; margin: 0 60px; ">
-        <div class="polaroid">
+    <div id="polaroids" style="padding-top: 130px; margin: 0 44px; ">
+        <div class="polaroid" id="0">
             <div id="shopaholic" style="display: inline"></div>
         </div>
 
-        <div class="polaroid">
+        <div class="polaroid" id="1">
             <div id="comedian" style="display: inline"></div>
         </div>
 
-        <div class="polaroid">
+        <div class="polaroid" id="2">
             <div id="sexy" style="display: inline"></div>
         </div>
 
-        <div class="polaroid">
+        <div class="polaroid" id="3">
             <div id="fashionista" style="display: inline"></div>
         </div>
 
-        <div class="polaroid">
+        <div class="polaroid" id="4">
             <div id="gorgeous" style="display: inline"></div>
         </div>
 
-        <div class="polaroid">
+        <div class="polaroid" id="5">
             <div id="independent" style="display: inline"></div>
         </div>
 
-        <div class="polaroid">
+        <div class="polaroid" id="6">
             <div id="sporty" style="display: inline"></div>
         </div>
 
-        <div class="polaroid">
+        <div class="polaroid" id="7">
             <div id="global" style="display: inline"></div>
         </div>
         <div style="margin: 20px auto; display: none; width: 350px" id="buttons">
@@ -68,11 +70,13 @@
         </div>
     </div>
     <div id="select_phase" style="margin: 0 auto; width: 525px; height: 470px; z-index: 5; padding-left: 25px">
-        <div style="width: 240px; height: 360px; background: url('/static/images/Pinboard%20Assets/Text/miss-independent.png'); float: right;"
-             id="select_text">
-            <div style=" padding-left: 25px; padding-right: 10px">
+        <div style="width: 240px; height: 360px; background: url('/static/images/Pinboard%20Assets/Text/instructions-box-choosing.png'); float: right;">
+            <div style=" padding-left: 25px; padding-right: 10px;">
+                <img id="select_text"
+                     style="margin: 200px auto 0;" height="72px"/>
+
                 <div id="zoom"
-                     style="background: url('/static/images/Pinboard%20Assets/Buttons/choose.png'); width: 103px; height: 40px; margin: 0 auto; margin-top: 300px"></div>
+                     style="background: url('/static/images/Pinboard%20Assets/Buttons/choose.png'); width: 103px; height: 40px; margin: 25px auto 0;"></div>
                 <div id="next"
                      style="background: url('/static/images/Pinboard%20Assets/Buttons/preview.png'); width: 103px; height: 40px; margin: 25px auto;"></div>
             </div>
@@ -91,14 +95,15 @@
             <li><img id="gorgeous_select" class="selects"
                      src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/geek.png"/></li>
             <li><img id="independent_select" class="selects"
-                     src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/independent.png"
-                     style="margin-left: -20px"/></li>
+                     src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/independent.png"/></li>
             <li><img id="sporty_select" class="selects"
                      src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/sporty.png"/></li>
             <li><img id="global_select" class="selects"
                      src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/globetrotter.png"/>
             </li>
         </ul>
+        <img id="hit_me" style="margin-top: 10px; margin-left: 110px"
+             src="/static/images/Pinboard%20Assets/text-hit-the-preview-button.png"/>
     </div>
     <div id="fb-root">
     </div>
@@ -131,7 +136,7 @@
                     <label for="filter" style="color: black">Filter by Tags: </label>
                     <input type="text" class="filter">
 
-                    <div id="tags" style="float: right">Tags: <span id="tag_values"></span></div>
+                    <div id="tags">Tags: <span id="tag_values"></span></div>
                 </div>
                 <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
                     <div class="CSPhotoSelector_selectedCountContainer"><span
@@ -211,7 +216,9 @@ var tag_offsets = [
 ];
 var current_tags = [];
 var tags_final = [];
-var dict_for_each_clicked = {};
+var dict_for_each_clicked = [];
+var names_for_each_clicked = [];
+var id_for_each_clicked = [];
 $(function () {
     // init the FB JS SDK
     FB.init({
@@ -222,7 +229,7 @@ $(function () {
     });
 });
 
-var mapping = [1, 6, 2, 5, 0, 4, 3, 7];
+var mapping = [1, 6, 2, 5, 0, 7, 4, 3];
 
 function swapNodes(a, b) {
     var aparent = a.parentNode;
@@ -237,19 +244,19 @@ function previewPost($next) {
     var $wrap = $('#wrap').find('.polaroid');
     $wrap.off('click');
     var count = 0;
-    var newSelected = [];
     selected = selected.reverse().filter(function (e, i, arr) {
         return arr.indexOf(e, i + 1) === -1;
     }).reverse();
     $wrap.each(function (index, element) {
         $(element).show();
-        if (selected.indexOf(index) > -1) {
+        var id = parseInt($(element).attr('id'));
+        if (selected.indexOf(id) > -1) {
+            $.each($wrap, function (i) {
+                if ($wrap[i] == clicked)
+                    index = i;
+            });
             if (index != mapping[count]) {
                 var newIndex = mapping[count];
-                var $selectedbene = $('#selected_bene');
-                if ($selectedbene.val() == index) {
-                    $selectedbene.val(newIndex);
-                }
                 swapNodes($wrap[newIndex], element);
                 var d = rotateAngles[newIndex];
                 $(element.children[0].children[0]).css({'-moz-transform': 'rotate(' + d + 'deg)',
@@ -264,28 +271,13 @@ function previewPost($next) {
                     '-o-transform': 'rotate(' + d + 'deg)',
                     '-ms-transform': 'rotate(' + d + 'deg)',
                     'transform': 'rotate(' + d + 'deg)'});
-                newSelected.push(newIndex);
-                var temp = images[index];
-                images[index] = images[newIndex];
-                images[newIndex] = temp;
-                temp = layers[index];
-                layers[index] = layers[newIndex];
-                layers[newIndex] = temp;
-                temp = centres[index];
-                centres[index] = centres[newIndex];
-                centres[newIndex] = temp;
-                temp = polaroids[index];
-                polaroids[index] = polaroids[newIndex];
-                polaroids[newIndex] = temp;
-            } else {
-                newSelected.push(index);
+                $wrap = $('#wrap').find('.polaroid');
             }
             count++;
         } else {
             $(element).css({'opacity': '0'});
         }
     });
-    selected = newSelected;
     $('#buttons').show();
     $('#help_button').hide();
 }
@@ -294,7 +286,6 @@ function previewPost($next) {
 $(function () {
     $('#overlay').hide();
     var $helpbutton = $('#help_button');
-    $(".bene_help").lightbox_me({centered: true, closeClick: false});
     $helpbutton.click(function () {
         var $helpdiv = $(".help_div");
         $helpdiv.lightbox_me({centered: true, closeClick: false});
@@ -306,6 +297,9 @@ $(function () {
         $(".bene_help").trigger("close");
     });
     var $next = $('#next');
+    $next.click(function () {
+        previewPost($(this));
+    });
     $('#upload-image').hide();
     $('#image-upload').change(function () {
         buttonCancel.hide();
@@ -326,6 +320,10 @@ $(function () {
     });
 
     $('#share').click(function () {
+        $("#dialog-confirm").dialog("open");
+    });
+
+    function share() {
         $('#buttons').hide();
 
         html2canvas(document.getElementById('wrap'), {
@@ -337,28 +335,37 @@ $(function () {
                         current_tags.push($(element).val().toString() + "," + tag_offsets[index].x.toString() + "," + tag_offsets[index].y.toString());
                     }
                 });
-                FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
-                    url: dataURL,
-                    tags: tags_final,
-                    message: "#BENESELFIES"
-                }, function (response) {
-                    if (response.post_id) {
-                        $.post('/post_id/', {post_id: response.post_id}).complete(function () {
-                            window.location = "/finish/"
+                $.ajax({
+                    type: "POST",
+                    url: "/upload_custom/",
+                    enctype: 'multipart/form-data',
+                    data: {'user_id': user_id, 'file': dataURL, 'tags': current_tags },
+                    success: function (data) {
+                        FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
+                            url: window.location.origin +  data["image"],
+                            tags: data["tags"],
+                            message: "#BENESELFIES"
+                        }, function (response) {
+                            if (response.post_id) {
+                                $.post('/post_id/', {post_id: response.post_id}).complete(function () {
+                                    window.location = "/finish/"
+                                });
+                            } else {
+                                window.location = "/finish/";
+                            }
                         });
-                    } else {
-                        window.location = "/finish/";
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                        console.log(errorThrown);
                     }
                 });
             }
         });
         $('div.loader').show();
-    });
+    }
 
     $('div.loader').hide();
-    $next.click(function () {
-        $("#dialog-confirm").dialog("open");
-    });
     var buttonOK = $('#CSPhotoSelector_buttonOK');
     var buttonCancel = $('#CSPhotoSelector_buttonCancel');
 
@@ -462,7 +469,7 @@ $(function () {
         modal: true,
         buttons: {
             "Yes": function () {
-                previewPost($next);
+                share();
                 $(this).dialog("close");
             },
             Cancel: function () {
@@ -478,7 +485,10 @@ $(function () {
         modal: true,
         buttons: {
             "Yes": function () {
-                dict_for_each_clicked[clicked] = $(this).data("id");
+                var index = parseInt($(clicked).attr('id'));
+                dict_for_each_clicked[index] = $(this).data("id");
+                names_for_each_clicked[index] = $(this).data("label");
+                id_for_each_clicked[index] = $(this).data("id");
                 $(this).dialog("close");
             },
             "No": function () {
@@ -510,16 +520,11 @@ function drawImageDraggable(imageObj) {
     var $filter = $('#filter');
     $filter.val('');
     $filter.change();
-    var $polaroids = $(clicked.parentElement).find('.polaroid');
-    var i = 0;
-    $.each($polaroids, function (index) {
-        if ($polaroids[index] == clicked)
-            i = index
-    });
+    var i = parseInt($(clicked).attr('id'));
     var stage = $(clicked).find('canvas')[0];
-    var width = 120;
-    var height = 120;
-    if (imageObj.width / imageObj.height > 120 / 120) {
+    var width = 130;
+    var height = 130;
+    if (imageObj.width / imageObj.height > 1) {
         width = GetWidth(height, imageObj.width, imageObj.height);
         function boundX(pos) {
             return {
@@ -558,7 +563,7 @@ function drawImageDraggable(imageObj) {
     }
 
     var group = new Kinetic.Group({
-        clip: [centres[i][0] - 60, centres[i][1] - 60, 120, 120]
+        clip: [centres[i][0] - 65, centres[i][1] - 65, 130, 130]
     });
 
 
@@ -580,9 +585,15 @@ function drawImageDraggable(imageObj) {
     $(newButtons).hide();
     var okayButton = document.createElement('div');
     var newOkay = document.createElement('img');
+    var newRechoose = document.createElement('img');
+    newRechoose.src = "/static/images/Pinboard%20Assets/Buttons/choose.png";
     newOkay.src = "/static/images/Pinboard%20Assets/Buttons/okay.png";
     $(okayButton).addClass("buttons");
     $(okayButton).css({'margin-top': '-50px'});
+    $(okayButton).append(newRechoose);
+    $(newRechoose).click(function () {
+        fbphotoSelect(null);
+    });
     $(okayButton).append(newOkay);
     $(clicked).append(okayButton);
     var $text = $('<img style="margin: 0 auto; display: block;" src="/static/images/drag-to-reposition-your-polaroid.png"/>');
@@ -599,8 +610,9 @@ function drawImageDraggable(imageObj) {
         '-o-transform': 'rotate(' + d + 'deg)',
         '-ms-transform': 'rotate(' + d + 'deg)',
         'transform': 'rotate(' + d + 'deg)'});
-    $(okayButton).on('click', {polaroid: polaroids[i], okayButton: okayButton, layer: layers[i], text: $text}, bringBackPolaroid);
+    $(newOkay).on('click', {polaroid: polaroids[i], okayButton: okayButton, layer: layers[i], text: $text}, bringBackPolaroid);
     layers[i].draw();
+    $('.descript').hide();
     $('.loader').hide();
 }
 
@@ -609,12 +621,45 @@ function bringBackPolaroid(event) {
     $(event.data.okayButton).remove();
     event.data.layer.draw();
     event.data.text.remove();
+    var i = parseInt($(clicked).attr('id'));
+    if (names_for_each_clicked[i].length == 0) {
+    }
+    else if (names_for_each_clicked[i].length == 1) {
+        var $newP = $('<p class="tags_in" style="color: white; text-align: center;">In this photo: ' + names_for_each_clicked[i] + '</p>');
+        $(newButtons).before($newP);
+        var d = rotateAngles[i];
+        $newP.css({'-moz-transform': 'rotate(' + d + 'deg)',
+            '-webkit-transform': 'rotate(' + d + 'deg)',
+            '-o-transform': 'rotate(' + d + 'deg)',
+            '-ms-transform': 'rotate(' + d + 'deg)',
+            'transform': 'rotate(' + d + 'deg)',
+            'padding-left': '20px'});
+    } else {
+        var $newP = $('<p class="tags_in" style="color: white; text-align: center;">In this photo:</p>');
+        var $newSelect = $('<select></select>');
+        for (var j = 0; j < names_for_each_clicked[i].length; j++) {
+            $newSelect.append('<option value="' + id_for_each_clicked[i][j] + '">' + names_for_each_clicked[i][j] + '</option>')
+        }
+        $($newSelect).change(function () {
+            $(clicked).find('.hidden_input').val($(this).val());
+        });
+        var d = rotateAngles[i];
+        $newP.css({'-moz-transform': 'rotate(' + d + 'deg)',
+            '-webkit-transform': 'rotate(' + d + 'deg)',
+            '-o-transform': 'rotate(' + d + 'deg)',
+            '-ms-transform': 'rotate(' + d + 'deg)',
+            'transform': 'rotate(' + d + 'deg)',
+            'padding-left': '20px'});
+        $newP.append($newSelect);
+        $(newButtons).before($newP);
+    }
+    $('.descript').show();
     $(newButtons).show();
 }
 
 function drawImage(imageObj, container, i) {
-    var width = 160;
-    var height = 160;
+    var width = 175;
+    var height = 175;
     var stage = new Kinetic.Stage({
         container: container,
         width: width,
@@ -650,30 +695,41 @@ function selectPic(image_url, tags) {
     bringForward(image_url);
     var $clicked = $(clicked);
     $clicked.find(".tag").remove();
-    var top = $clicked.position()["top"] + $clicked.height() / 4;
-    var left = $clicked.position()["left"] + $clicked.width() / 4;
-    var append = $('<div class="tag box" style="display: none"></div>').draggable({containment: "parent"}).resizable({containment: "parent"}).css({"position": "absolute", "top": top, "left": left});
-    var tag_box = $('<input type="text" value="" style="position:absolute; bottom:0; width=100px" placeholder="Tag"/>').autocomplete({source: tags, select: function (e, ui) {
-        $(this).next('input').val(ui.item.id);
-        if (clicked in dict_for_each_clicked && dict_for_each_clicked[clicked] == ui.item.id) {
-            $("#dialog-warn").data("id", ui.item.id).dialog("open")
-        } else {
-            dict_for_each_clicked[clicked] = ui.item.id;
-        }
-    }});
+    $(clicked).find('> .hidden_input').remove();
+    var index = parseInt($(clicked).attr('id'));
     var hidden_box = $('<input class="hidden_input" type="hidden"/>');
     if (tags && tags.length == 1) {
-        tag_box.val(tags[0].label);
         hidden_box.val(tags[0].id);
-        if (clicked in dict_for_each_clicked && dict_for_each_clicked[clicked] == tags[0].id) {
-            $("#dialog-warn").data("id", tags[0].id).dialog("open")
-        } else {
-            dict_for_each_clicked[clicked] = tags[0].id;
+        var tagged = false;
+        for (var i = 0; i < 8; i++) {
+            if (i != parseInt($(clicked).attr('id')) && dict_for_each_clicked[i]) {
+                if (dict_for_each_clicked[i] == tags[0].id) {
+                    tagged = true;
+                    break;
+                }
+            }
         }
+        if (tagged) {
+            $("#dialog-warn").data("id", tags[0].id).data("name", tags[0].label).dialog("open")
+        } else {
+            dict_for_each_clicked[index] = tags[0].id;
+            names_for_each_clicked[index] = [tags[0].label];
+            id_for_each_clicked[index] = [tags[0].id];
+        }
+    } else if (tags && tags.length == 0) {
+        names_for_each_clicked[index] = [];
+        id_for_each_clicked[index] = [];
+    } else {
+        var names = [];
+        var ids = [];
+        for (var j = 0; j < tags.length; j++) {
+            names.push(tags[j].label);
+            ids.push(tags[j].id);
+        }
+        names_for_each_clicked[index] = names;
+        id_for_each_clicked[index] = ids;
     }
-    $(clicked).append(append);
-    $(append).append(tag_box);
-    $(append).append(hidden_box);
+    $(clicked).append(hidden_box);
 }
 
 var photo_urls = [];

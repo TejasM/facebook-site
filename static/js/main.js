@@ -4,39 +4,50 @@ var layers = [];
 var images = [];
 var rotateAngles = [-6, 2, -2, 2, 4, -4, 4, -1];
 var selected = [];
-var original = [0, 1, 2, 3, 4, 5, 6, 7];
 var polaroids = [];
 var newButtons;
-var texts = ["url('/static/images/Pinboard%20Assets/Text/the-shopaholic.png')",
-    "url('/static/images/Pinboard%20Assets/Text/the-comedian.png')",
-    "url('/static/images/Pinboard%20Assets/Text/the-sexy-one.png')",
-    "url('/static/images/Pinboard%20Assets/Text/the-fashionista.png')",
-    "url('/static/images/Pinboard%20Assets/Text/the-gorgeous.png')",
-    "url('/static/images/Pinboard%20Assets/Text/miss-independent.png')",
-    "url('/static/images/Pinboard%20Assets/Text/miss-sporty-and-sassy.png')",
-    "url('/static/images/Pinboard%20Assets/Text/the-globetrotter.png')"];
+var texts = ["/static/images/Pinboard%20Assets/Text/the-shopaholic.png",
+    "/static/images/Pinboard%20Assets/Text/the-comedian.png",
+    "/static/images/Pinboard%20Assets/Text/the-sexy-one.png",
+    "/static/images/Pinboard%20Assets/Text/the-fashionista.png",
+    "/static/images/Pinboard%20Assets/Text/the-gorgeous.png",
+    "/static/images/Pinboard%20Assets/Text/miss-independent.png",
+    "/static/images/Pinboard%20Assets/Text/miss-sporty-and-sassy.png",
+    "/static/images/Pinboard%20Assets/Text/the-globetrotter.png"];
+
+var descriptions = ['/static/images/ZoomedPolaroidDescriptions/polaroid-text-the-shopaholic.png',
+    '/static/images/ZoomedPolaroidDescriptions/polaroid-text-the-comedian.png',
+    '/static/images/ZoomedPolaroidDescriptions/polaroid-text-the-sexy-one.png',
+    '/static/images/ZoomedPolaroidDescriptions/polaroid-text-the-fashionista.png',
+    '/static/images/ZoomedPolaroidDescriptions/polaroid-text-the-gorgeous-geek.png',
+    '/static/images/ZoomedPolaroidDescriptions/polaroid-text-miss-independent.png',
+    '/static/images/ZoomedPolaroidDescriptions/polaroid-text-miss-sporty-and-sassy.png',
+    '/static/images/ZoomedPolaroidDescriptions/polaroid-text-the-globetrotter.png'
+];
 
 var centres = [
-    [77, 70],
-    [79, 72],
-    [88, 70],
-    [87, 71],
-    [83, 70],
-    [84, 70],
-    [75, 68],
-    [75, 71]
+    [83, 77],
+    [86, 78],
+    [96, 75],
+    [95, 78],
+    [91, 76],
+    [91, 76],
+    [81, 74],
+    [82, 77]
 ];
+
+var choose = false;
 
 $(document).ready(function () {
     var images = {
-        'shopaholic': '/static/images/beneselfies-the-shopaholic-t.png',
-        'comedian': '/static/images/beneselfies-the-comedian-t.png',
-        'sexy': '/static/images/beneselfies-the-sexy-one-t.png',
-        'fashionista': '/static/images/beneselfies-the-fashionista-t.png',
-        'gorgeous': '/static/images/beneselfies-the-gorgeous-geek-t.png',
-        'independent': '/static/images/beneselfies-miss-independent-t.png',
-        'sporty': '/static/images/beneselfies-miss-sporty-and-sassy-t.png',
-        'global': '/static/images/beneselfies-the-globetrotter-t.png'
+        'shopaholic': '/static/images/Beneselfies/beneselfies-the-shopaholic-t.png',
+        'comedian': '/static/images/Beneselfies/beneselfies-the-comedian-t.png',
+        'sexy': '/static/images/Beneselfies/beneselfies-the-sexy-one-t.png',
+        'fashionista': '/static/images/Beneselfies/beneselfies-the-fashionista-t.png',
+        'gorgeous': '/static/images/Beneselfies/beneselfies-the-gorgeous-geek-t.png',
+        'independent': '/static/images/Beneselfies/beneselfies-miss-independent-t.png',
+        'sporty': '/static/images/Beneselfies/beneselfies-miss-sporty-and-sassy-t.png',
+        'global': '/static/images/Beneselfies/beneselfies-the-globetrotter-t.png'
     };
 
 
@@ -68,8 +79,12 @@ $(document).ready(function () {
                             }
                         }
                         $(this).css('margin-left', '-20px');
-                        $('#selected_bene').val(original[index]);
-                        $('#select_text').css({'background': texts[original[index]]});
+                        if (!choose) {
+                            $('#zoom').css({'opacity': 1});
+                            choose = true;
+                        }
+                        $('#selected_bene').val(index);
+                        $('#select_text').attr("src", texts[index]);
                     });
                 });
             }
@@ -83,10 +98,13 @@ $(document).ready(function () {
         $(this).on('click', focusImage);
         $(this).hide();
     });
-    $('#zoom').click(function () {
+    var $zoom = $('#zoom');
+    $zoom.css({'opacity': 0});
+    $zoom.click(function () {
         var index = $('#selected_bene').val();
-        $($wrap[original[index]]).trigger('click');
-        $($wrap[original[index]]).show();
+        var $bene = $("#" + index.toString());
+        $bene.trigger('click');
+        $bene.show();
     });
 });
 
@@ -94,7 +112,7 @@ function focusImage(event) {
     event.preventDefault();
     event.stopPropagation();
     $('#overlay').show();
-    $('#select_phase').css({'margin-top': '-480px'});
+    $('#select_phase').css({'margin-top': '-437.5px'});
     $('#next').hide();
     var $wrap = $('#wrap').find('.polaroid');
     $wrap.off('click');
@@ -107,11 +125,7 @@ function focusImage(event) {
         width: $(clicked).css("width"),
         zIndex: $(clicked).css("zIndex")
     };
-    var i = 0;
-    $.each($wrap, function (index) {
-        if ($wrap[index] == clicked)
-            i = index;
-    });
+    var i = parseInt($(clicked).attr('id'));
     if (images[i]) {
         images[i].moveUp();
     }
@@ -126,15 +140,15 @@ function focusImage(event) {
     $(clicked).css({
         zIndex: 10
     });
-    layers[i].parent.setWidth(480);
-    layers[i].parent.setHeight(480);
-    layers[i].parent.setScale(3, 3);
+    layers[i].parent.setWidth(437.5);
+    layers[i].parent.setHeight(437.5);
+    layers[i].parent.setScale(2.5, 2.5);
     var d = -rotateAngles[i];
     $(clicked).css({
-            height: "480px",
+            height: "437.5px",
             left: "110px",
             top: "-100px",
-            width: "480px",
+            width: "437.5px",
             '-moz-transform': 'rotate(' + d + 'deg)',
             '-webkit-transform': 'rotate(' + d + 'deg)',
             '-o-transform': 'rotate(' + d + 'deg)',
@@ -143,10 +157,10 @@ function focusImage(event) {
     );
     if (!images[i]) {
         var rect = new Kinetic.Rect({
-            x: centres[i][0] - 120 / (2),
-            y: centres[i][1] - 120 / (2),
-            width: 120,
-            height: 120,
+            x: centres[i][0] - 130 / (2),
+            y: centres[i][1] - 130 / (2),
+            width: 130,
+            height: 130,
             fill: 'black',
             stroke: 'black',
             strokeWidth: 0
@@ -156,6 +170,12 @@ function focusImage(event) {
         rect.moveToBottom();
     }
     layers[i].parent.draw();
+    var newDescription = document.createElement('img');
+    var newDescriptionDiv = document.createElement('div');
+    $(newDescriptionDiv).addClass('descript');
+    $(newDescriptionDiv).append(newDescription);
+    newDescription.src = descriptions[i];
+
     // Create and show buttons for upload/done.
     newButtons = document.createElement('div');
     var newUpload = document.createElement('img');
@@ -170,8 +190,14 @@ function focusImage(event) {
     $(newUpload).on('click', function () {
         fbphotoSelect(null);
     });
+    $(clicked).prepend(newDescriptionDiv);
     $(clicked).append(newButtons);
     $(newButtons).css({'-moz-transform': 'rotate(' + -d + 'deg)',
+        '-webkit-transform': 'rotate(' + -d + 'deg)',
+        '-o-transform': 'rotate(' + -d + 'deg)',
+        '-ms-transform': 'rotate(' + -d + 'deg)',
+        'transform': 'rotate(' + -d + 'deg)'});
+    $(newDescriptionDiv).css({'-moz-transform': 'rotate(' + -d + 'deg)',
         '-webkit-transform': 'rotate(' + -d + 'deg)',
         '-o-transform': 'rotate(' + -d + 'deg)',
         '-ms-transform': 'rotate(' + -d + 'deg)',
@@ -184,9 +210,11 @@ function unFocusImage(event) {
     event.preventDefault();
     event.stopPropagation();
     $('#overlay').hide();
+    $(clicked).find('.tags_in').hide();
     $(clicked).find(".tag").hide();
     // Remove buttons.
     $(clicked).find(".buttons").remove();
+    $(clicked).find('.descript').remove();
     // Fade in all polaroids again.
     var $wrap2 = $('#wrap');
     var $wrap = $wrap2.find('.polaroid');
@@ -198,13 +226,9 @@ function unFocusImage(event) {
             });
         }
     });
-    var i = 0;
-    $.each($wrap, function (index) {
-        if ($wrap[index] == clicked)
-            i = index;
-    });
-    layers[i].parent.setWidth(160);
-    layers[i].parent.setHeight(160);
+    var i = parseInt($(clicked).attr('id'));
+    layers[i].parent.setWidth(175);
+    layers[i].parent.setHeight(175);
     layers[i].parent.setScale(1, 1);
     layers[i].parent.draw();
     if (images[i]) {

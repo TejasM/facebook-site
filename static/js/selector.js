@@ -658,6 +658,20 @@ var CSPhotoSelector = (function (module, $) {
         if (!uid || uid == null) {
             FB.api('/' + albumId + '/photos?limit=500', function (response) {
                 if (response.data) {
+                    $.each(response.data, function () {
+                        for (var i = 0; i < this.images.length; i++) {
+                            if (this.images[i].height <= 360) {
+                                break;
+                            }
+                            if (this.images[i].width <= 360) {
+                                break;
+                            }
+                        }
+                        if (this.images[i].source && this.images[i].source != null) {
+                            this.picture = this.images[i].source;
+                            this.source = this.images[i].source;
+                        }
+                    });
                     setPhotos(response.data);
 
                     // Build the markup
@@ -682,21 +696,21 @@ var CSPhotoSelector = (function (module, $) {
             if ($selected_album && $selected_album != null) {
                 query1 += " AND (album_object_id = " + $selected_album.attr('data-id') + " OR aid = '" + $selected_album.attr('data-id') + "')";
             }
-            var query2 = "SELECT pid, xcoord, ycoord FROM photo_tag WHERE subject = '" + uid + "'";
             FB.api(
                 {
                     method: 'fql.query',
-                    /*queries: {
-                     'query1': query1,
-                     'query2': query2
-                     }*/
                     query: query1
                 },
                 function (data) {
                     if (data) {
                         $.each(data, function () {
-                            for (var i=0; i < this.images.length-3; i++){
-
+                            for (var i = 0; i < this.images.length; i++) {
+                                if (this.images[i].height <= 360) {
+                                    break;
+                                }
+                                if (this.images[i].width <= 360) {
+                                    break;
+                                }
                             }
                             if (this.images[i].source && this.images[i].source != null) {
                                 this.picture = this.images[i].source;
