@@ -1,6 +1,6 @@
 {% load staticfiles %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
     <title>Benefit Cosmetics</title>
@@ -27,12 +27,15 @@
 <div class="finish" style="display: none;">
     <img src="/static/images/Pinboard%20Assets/beneselfies-app-box-660x300.png" alt="">
 
-    <div style="text-align: center; margin-top: -150px"><img src="/static/images/Pinboard%20Assets/Buttons/view.png" alt="" id="view">
+    <div style="text-align: center; margin-top: -150px"><img src="/static/images/Pinboard%20Assets/Buttons/view.png"
+                                                             alt="" id="view">
     </div>
 
-    <div style="text-align: center; margin-top: 10px"><img src="/static/images/beneselfies-twitter.png" alt="" id="twitter-follow"><img
+    <div style="text-align: center; margin-top: 10px"><img src="/static/images/beneselfies-twitter.png" alt=""
+                                                           id="twitter-follow"><img
             src="/static/images/beneselfies-facebook.png" style="margin-left: 300px" alt="" id="facebook"></div>
-    <div style="text-align: center; margin-top: 35px"><img src="/static/images/Pinboard%20Assets/Buttons/okay.png" alt="" class="close">
+    <div style="text-align: center; margin-top: 35px"><img src="/static/images/Pinboard%20Assets/Buttons/okay.png"
+                                                           alt="" class="close">
     </div>
 </div>
 {% include 'footer.html' %}
@@ -43,7 +46,7 @@
 <script>
     $(function () {
         var $finish = $(".finish");
-        $finish.lightbox_me({centered: true, closeClick: false, onClose: function(){
+        $finish.lightbox_me({centered: true, closeClick: false, onClose: function () {
             window.location = '/';
         }});
         $('#facebook').click(function () {
