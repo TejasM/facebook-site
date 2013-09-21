@@ -157,7 +157,7 @@
         });
         var user_id = '';
         var $like = $('#like-alternate');
-        $('#like-button').hide();
+        $('#like-button').css("display", "none");
         // init the FB JS SDK
         FB.init({
             appId: '151985691672341',                        // App ID from the app dashboard
@@ -172,7 +172,7 @@
                         $("#user_id").val(user_id);
                         $('#email_form').submit();
                     } else {
-                        $('#like-alternate').show();
+                        $('#like-alternate').css("display", "inline");
                     }
                 }
         );
@@ -190,23 +190,23 @@
                             query: 'SELECT uid FROM page_fan WHERE uid=' + user_id + 'AND page_id=' + page_id
                         }, function (resp) {
                             if (resp.length) {
-                                $('#like-alternate').show();
+                                $('#like-alternate').css("display", "inline");
                             } else {
-                                $('#like-button').show();
+                                $('#like-button').css("display", "inline");
                             }
                         }
                 );
             } else if (response.status === 'not_authorized') {
-                $('#login').show();
+                $('#login').css("display", "inline");
             } else {
-                $('#login').show();
+                $('#login').css("display", "inline");
             }
         });
 
         $('#login').click(function () {
             if (preventSubmission()) {
                 FB.login(function (response) {
-                    $('#login').hide();
+                    $('#login').css("display", "none");
                     user_id = response.authResponse.userID;
                     var page_id = "171685016222749"; //Change to this page
                     FB.api({
@@ -218,7 +218,7 @@
                                     $('#email_form').submit();
                                 } else {
                                     var $like2 = $('#like-button');
-                                    $like2.show();
+                                    $like2.css("display", "inline");
                                     FB.XFBML.parse();
                                 }
                             }
@@ -239,9 +239,9 @@
             if (response.status === 'connected') {
 
             } else if (response.status === 'not_authorized') {
-                $('#login').show();
+                $('#login').css("display", "inline");
             } else {
-                $('#login').show();
+                $('#login').css("display", "inline");
             }
         });
     });
