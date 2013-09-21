@@ -112,7 +112,6 @@ function focusImage(event) {
     event.preventDefault();
     event.stopPropagation();
     $('#overlay').show();
-    $('#select_phase').css({'margin-top': '-437.5px'});
     $('#next').hide();
     var $wrap = $('#wrap').find('.polaroid');
     $wrap.off('click');

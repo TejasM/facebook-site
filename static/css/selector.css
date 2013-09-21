@@ -16,7 +16,6 @@
 	color: #333;
 	font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
 	font-size: 11px;
-	background: rgba(0,0,0,.9);
 }
 #CSPhotoSelector,
 #CSPhotoSelector * {
@@ -53,7 +52,7 @@
 	padding: 10px;
 	margin: 0 auto;
 	position: relative;
-	background: rgba(82, 82, 82, 0.7);
+	background: rgba(82, 82, 82, 1);
 	overflow: hidden;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;

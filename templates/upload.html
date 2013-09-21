@@ -1,6 +1,6 @@
 {% load staticfiles %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
     <title>Benefit Cosmetics</title>
@@ -27,8 +27,6 @@
 <div class="content" id="wrap">
     <a name="app"></a>
 
-    <div id="overlay"
-         style=" position: absolute; width: 100%; height: 100%; left: 0; top: 0; zIndex: 5; background: rgba(0, 0, 0, 0.8)"></div>
     <div id="polaroids" style="padding-top: 130px; margin: 0 44px; ">
         <div class="polaroid" id="0">
             <div id="shopaholic" style="display: inline"></div>
@@ -69,12 +67,13 @@
                  style="background: url('/static/images/Pinboard%20Assets/Buttons/share.png'); width: 103px; display: inline-block; height: 40px;"></div>
         </div>
     </div>
-    <div id="select_phase" style="margin: 0 auto; width: 525px; height: 470px; z-index: 5; padding-left: 25px">
+    <div id="select_phase" style="position: absolute; left: 130px; top:140px; width: 525px; height: 470px; padding-left: 25px">
         <div style="width: 240px; height: 360px; background: url('/static/images/Pinboard%20Assets/Text/instructions-box-choosing.png'); float: right;">
-            <div style=" padding-left: 25px; padding-right: 10px;">
-                <img id="select_text"
-                     style="margin: 200px auto 0;" height="72px"/>
-
+            <div style="margin-top: 200px; padding-left: 25px; padding-right: 10px;">
+                <div style="height: 72px">
+                    <img id="select_text"
+                         style="margin: 0 auto;"/>
+                </div>
                 <div id="zoom"
                      style="background: url('/static/images/Pinboard%20Assets/Buttons/choose.png'); width: 103px; height: 40px; margin: 25px auto 0;"></div>
                 <div id="next"
@@ -105,6 +104,8 @@
         <img id="hit_me" style="margin-top: 10px; margin-left: 110px"
              src="/static/images/Pinboard%20Assets/text-hit-the-preview-button.png"/>
     </div>
+    <div id="overlay"
+         style=" position: absolute; width: 100%; height: 100%; left: 0; top: 0; z-index: 5; background: rgba(0, 0, 0, 0.8)"></div>
     <div id="fb-root">
     </div>
 </div>
@@ -342,7 +343,7 @@ $(function () {
                     data: {'user_id': user_id, 'file': dataURL, 'tags': current_tags },
                     success: function (data) {
                         FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
-                            url: window.location.origin +  data["image"],
+                            url: window.location.origin + data["image"],
                             tags: data["tags"],
                             message: "#BENESELFIES"
                         }, function (response) {
@@ -487,8 +488,8 @@ $(function () {
             "Yes": function () {
                 var index = parseInt($(clicked).attr('id'));
                 dict_for_each_clicked[index] = $(this).data("id");
-                names_for_each_clicked[index] = $(this).data("label");
-                id_for_each_clicked[index] = $(this).data("id");
+                names_for_each_clicked[index] = [$(this).data("label")];
+                id_for_each_clicked[index] = [$(this).data("id")];
                 $(this).dialog("close");
             },
             "No": function () {
@@ -622,7 +623,7 @@ function bringBackPolaroid(event) {
     event.data.layer.draw();
     event.data.text.remove();
     var i = parseInt($(clicked).attr('id'));
-    if (names_for_each_clicked[i].length == 0) {
+    if (!names_for_each_clicked[i]) {
     }
     else if (names_for_each_clicked[i].length == 1) {
         var $newP = $('<p class="tags_in" style="color: white; text-align: center;">In this photo: ' + names_for_each_clicked[i] + '</p>');
@@ -710,7 +711,7 @@ function selectPic(image_url, tags) {
             }
         }
         if (tagged) {
-            $("#dialog-warn").data("id", tags[0].id).data("name", tags[0].label).dialog("open")
+            $("#dialog-warn").data("id", tags[0].id).data("label", tags[0].label).dialog("open")
         } else {
             dict_for_each_clicked[index] = tags[0].id;
             names_for_each_clicked[index] = [tags[0].label];
