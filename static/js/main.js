@@ -146,7 +146,7 @@ function focusImage(event) {
     $(clicked).css({
             height: "437.5px",
             left: "110px",
-            top: "-100px",
+            top: "-130px",
             width: "437.5px",
             '-moz-transform': 'rotate(' + d + 'deg)',
             '-webkit-transform': 'rotate(' + d + 'deg)',
@@ -201,6 +201,37 @@ function focusImage(event) {
         '-o-transform': 'rotate(' + -d + 'deg)',
         '-ms-transform': 'rotate(' + -d + 'deg)',
         'transform': 'rotate(' + -d + 'deg)'});
+    if (!names_for_each_clicked[i]) {
+    }
+    else if (names_for_each_clicked[i].length == 1) {
+        var $newP = $('<p class="tags_in" style="color: white; text-align: center;">In this photo: ' + names_for_each_clicked[i] + '</p>');
+        $(newButtons).before($newP);
+        var d = rotateAngles[i];
+        $newP.css({'-moz-transform': 'rotate(' + d + 'deg)',
+            '-webkit-transform': 'rotate(' + d + 'deg)',
+            '-o-transform': 'rotate(' + d + 'deg)',
+            '-ms-transform': 'rotate(' + d + 'deg)',
+            'transform': 'rotate(' + d + 'deg)',
+            'padding-left': '20px'});
+    } else {
+        var $newP = $('<p class="tags_in" style="color: white; text-align: center;">In this photo:</p>');
+        var $newSelect = $('<select></select>');
+        for (var j = 0; j < names_for_each_clicked[i].length; j++) {
+            $newSelect.append('<option value="' + id_for_each_clicked[i][j] + '">' + names_for_each_clicked[i][j] + '</option>')
+        }
+        $($newSelect).change(function () {
+            $(clicked).find('.hidden_input').val($(this).val());
+        });
+        var d = rotateAngles[i];
+        $newP.css({'-moz-transform': 'rotate(' + d + 'deg)',
+            '-webkit-transform': 'rotate(' + d + 'deg)',
+            '-o-transform': 'rotate(' + d + 'deg)',
+            '-ms-transform': 'rotate(' + d + 'deg)',
+            'transform': 'rotate(' + d + 'deg)',
+            'padding-left': '20px'});
+        $newP.append($newSelect);
+        $(newButtons).before($newP);
+    }
     $('#selected_opacity').show();
     return false;
 }

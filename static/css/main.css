@@ -362,4 +362,4 @@ div#footer div em {
     margin-bottom: 10px;
 }
 
-.ui-autocomplete { height: 200px; overflow-y: scroll;}
+.ui-autocomplete { max-height: 200px; overflow-y: scroll;}

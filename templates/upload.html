@@ -10,7 +10,6 @@
     <script type="text/javascript" src="/static/js/main.js"></script>
 </head>
 <body onload='location.href="#app"'>
-<div class="loader"></div>
 <div id="header"><img src="{% static 'images/beneselfies-header-spread-w-logo.png' %}"/></div>
 <div id="header-divider"></div>
 <div id="main-nav" style="margin-bottom: 25px">
@@ -26,7 +25,7 @@
 <div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
 <div class="content" id="wrap">
     <a name="app"></a>
-
+    <div class="loader"></div>
     <div id="polaroids" style="padding-top: 130px; margin: 0 44px; ">
         <div class="polaroid" id="0">
             <div id="shopaholic" style="display: inline"></div>
@@ -591,7 +590,10 @@ function drawImageDraggable(imageObj) {
     var newRechoose = document.createElement('img');
     newRechoose.src = "/static/images/Pinboard%20Assets/Buttons/choose.png";
     newOkay.src = "/static/images/Pinboard%20Assets/Buttons/okay.png";
+    $('.drag_text').remove();
+    $('.okay_buttons').remove();
     $(okayButton).addClass("buttons");
+    $(okayButton).addClass("okay_buttons");
     $(okayButton).css({'margin-top': '-50px'});
     $(okayButton).append(newRechoose);
     $(newRechoose).click(function () {
@@ -599,7 +601,7 @@ function drawImageDraggable(imageObj) {
     });
     $(okayButton).append(newOkay);
     $(clicked).append(okayButton);
-    var $text = $('<img style="margin: 0 auto; display: block;" src="/static/images/drag-to-reposition-your-polaroid.png"/>');
+    var $text = $('<img style="margin: 0 auto; display: block;" class="drag_text" src="/static/images/drag-to-reposition-your-polaroid.png"/>');
     $(clicked).prepend($text);
     var d = rotateAngles[i];
     $(okayButton).css({'-moz-transform': 'rotate(' + d + 'deg)',
