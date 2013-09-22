@@ -10,19 +10,7 @@
     <script type="text/javascript" src="/static/js/main.js"></script>
 </head>
 <body onload='location.href="#app"'>
-<div id="header"><img src="{% static 'images/beneselfies-header-spread-w-logo.png' %}"/></div>
-<div id="header-divider"></div>
-<div id="main-nav" style="margin-bottom: 25px">
-    <ul>
-        <li>What's New</li>
-        <li>Instagram</li>
-        <li>Twitter</li>
-    </ul>
-</div>
-<div id="left-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
-<div id="right-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
-<div id="left-book"><img src="{% static 'images/book-left.png' %}"/></div>
-<div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
+{% include 'header.html' %}
 <div class="content" id="wrap">
     <a name="app"></a>
 
@@ -262,14 +250,14 @@ function previewPost($next) {
                 var newIndex = mapping[count];
                 swapNodes($wrap[newIndex], element);
                 var d = rotateAngles[newIndex];
-                $(element.children[0].children[0]).css({'-moz-transform': 'rotate(' + d + 'deg)',
+                $(element).css({'-moz-transform': 'rotate(' + d + 'deg)',
                     '-webkit-transform': 'rotate(' + d + 'deg)',
                     '-o-transform': 'rotate(' + d + 'deg)',
                     '-ms-transform': 'rotate(' + d + 'deg)',
                     'transform': 'rotate(' + d + 'deg)'});
 
                 d = rotateAngles[index];
-                $($wrap[newIndex].children[0].children[0]).css({'-moz-transform': 'rotate(' + d + 'deg)',
+                $($wrap[newIndex]).css({'-moz-transform': 'rotate(' + d + 'deg)',
                     '-webkit-transform': 'rotate(' + d + 'deg)',
                     '-o-transform': 'rotate(' + d + 'deg)',
                     '-ms-transform': 'rotate(' + d + 'deg)',
@@ -586,6 +574,7 @@ function drawImageDraggable(imageObj) {
     group.add(image_added);
     layers[i].add(group);
     group.moveDown();
+    group.moveDown();
     polaroids[i].hide();
     $(newButtons).hide();
     var okayButton = document.createElement('div');
@@ -597,7 +586,7 @@ function drawImageDraggable(imageObj) {
     $('.okay_buttons').remove();
     $(okayButton).addClass("buttons");
     $(okayButton).addClass("okay_buttons");
-    $(okayButton).css({'margin-top': '-50px'});
+    $(okayButton).css({'margin-top': '-20px'});
     $(okayButton).append(newRechoose);
     $(newRechoose).click(function () {
         fbphotoSelect(null);
@@ -606,18 +595,6 @@ function drawImageDraggable(imageObj) {
     $(clicked).append(okayButton);
     var $text = $('<img style="margin: 0 auto; display: block;" class="drag_text" src="/static/images/drag-to-reposition-your-polaroid.png"/>');
     $(clicked).prepend($text);
-    var d = rotateAngles[i];
-    $(okayButton).css({'-moz-transform': 'rotate(' + d + 'deg)',
-        '-webkit-transform': 'rotate(' + d + 'deg)',
-        '-o-transform': 'rotate(' + d + 'deg)',
-        '-ms-transform': 'rotate(' + d + 'deg)',
-        'transform': 'rotate(' + d + 'deg)',
-        'padding-left': '20px'});
-    $text.css({'-moz-transform': 'rotate(' + d + 'deg)',
-        '-webkit-transform': 'rotate(' + d + 'deg)',
-        '-o-transform': 'rotate(' + d + 'deg)',
-        '-ms-transform': 'rotate(' + d + 'deg)',
-        'transform': 'rotate(' + d + 'deg)'});
     $(newOkay).on('click', {polaroid: polaroids[i], okayButton: okayButton, layer: layers[i], text: $text}, bringBackPolaroid);
     layers[i].draw();
     $('.descript').hide();
@@ -635,13 +612,6 @@ function bringBackPolaroid(event) {
     else if (names_for_each_clicked[i].length == 1) {
         var $newP = $('<p class="tags_in" style="color: white; text-align: center;">In this photo: ' + names_for_each_clicked[i] + '</p>');
         $(newButtons).before($newP);
-        var d = rotateAngles[i];
-        $newP.css({'-moz-transform': 'rotate(' + d + 'deg)',
-            '-webkit-transform': 'rotate(' + d + 'deg)',
-            '-o-transform': 'rotate(' + d + 'deg)',
-            '-ms-transform': 'rotate(' + d + 'deg)',
-            'transform': 'rotate(' + d + 'deg)',
-            'padding-left': '20px'});
     } else {
         var $newP = $('<p class="tags_in" style="color: white; text-align: center;">In this photo:</p>');
         if (names_for_each_clicked[i].length <= 10) {
@@ -661,13 +631,6 @@ function bringBackPolaroid(event) {
             });
             $newP.append($newInput);
         }
-        var d = rotateAngles[i];
-        $newP.css({'-moz-transform': 'rotate(' + d + 'deg)',
-            '-webkit-transform': 'rotate(' + d + 'deg)',
-            '-o-transform': 'rotate(' + d + 'deg)',
-            '-ms-transform': 'rotate(' + d + 'deg)',
-            'transform': 'rotate(' + d + 'deg)',
-            'padding-left': '20px'});
         $newP.append($newSelect);
         $(newButtons).before($newP);
     }
@@ -707,6 +670,21 @@ function drawImage(imageObj, container, i) {
         height: "100%",
         width: "100%"
     });
+}
+
+function drawPin(imageObj, container, i) {
+    var width = imageObj.width;
+    var height = imageObj.height;
+
+    var img = new Kinetic.Image({
+        image: imageObj,
+        x: pin_locations[i][0],
+        y: pin_locations[i][1],
+        width: width,
+        height: height
+    });
+    pins[i] = img;
+    layers[i].add(img);
 }
 
 function selectPic(image_url, tags) {

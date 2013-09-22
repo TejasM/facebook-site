@@ -9,19 +9,7 @@
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 </head>
 <body onload='location.href="#app"'>
-<div id="header"><img src="{% static 'images/beneselfies-header-spread-w-logo.png' %}"/></div>
-<div id="header-divider"></div>
-<div id="main-nav" style="margin-bottom: 25px">
-    <ul>
-        <li>What's New</li>
-        <li>Instagram</li>
-        <li>Twitter</li>
-    </ul>
-</div>
-<div id="left-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
-<div id="right-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
-<div id="left-book"><img src="{% static 'images/book-left.png' %}"/></div>
-<div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
+{% include 'header.html' %}
 <div class="content" id="wrap">
     <a name="app"></a>
 </div>

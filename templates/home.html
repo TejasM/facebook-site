@@ -9,66 +9,65 @@
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 </head>
 <body>
-<div id="header"><img src="{% static 'images/beneselfies-header-spread-w-logo.png' %}"/></div>
-<div id="header-divider"></div>
-<div id="main-nav">
-    <ul>
-        <li>What's New</li>
-        <li>Instagram</li>
-        <li>Twitter</li>
-    </ul>
-</div>
-<div id="left-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
-<div id="right-lamp"><img src="{% static 'images/beneselfies-lamp.png' %}"/></div>
-<div id="left-book"><img src="{% static 'images/book-left.png' %}"/></div>
-<div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
+{% include 'header.html' %}
 <div id="upper-content-2">
-    <div class="upper-content-2">
-        <img id="dotted-heart" src="{% static 'images/beneselfies-dotted-heart.png' %}"/>
-        <img id="xoxo" src="{% static 'images/beneselfies-xoxo.png' %}"/>
+    <img src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/beneselfies-logo.png' %}" alt="">
+    <br>
+    <img src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/share-your-shameless-selfies-for-a-chance-to-win.png' %}"
+         alt="">
+    <br>
+    <img src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/win-over-1500-worth-of-prizes.png' %}"
+         alt="" style="margin-top: 10px">
+    <br>
+    <img id="start" src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/play-now.png' %}"
+         alt="" style="margin-top: 20px; margin-bottom: 20px">
+    <br>
 
-        <h1>Hello gorgeous!</h1>
-
-        <p>It's time to show off and share you shameless <em>#BENESELFIES</em> with your BFF's! Do you have a pal that
-            makes you laugh 'til you cry? Or a gorgeous geek that's techy-chic? It's time to tag and spread the fun for
-            a chance to win some BIG prizes for you and your friends!</p>
-
-        <p class="top-padded">Take our <em>#BENESELFIES</em> test and tag your friends with the personality that suits
-            them best! Each week we'll pick on lucky winner to receive some wow-worthy prizes!</p>
+    <div class="wraptocenter">
+        <img class="group_plus"
+             src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/like-us.png' %}"
+             alt="">
+        <img class="group_plus"
+             src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/plus-icon.png' %}"
+             alt="">
+        <img class="group_plus"
+             src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/choose-your-friends.png' %}"
+             alt="">
+        <img class="group_plus"
+             src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/equals-icon.png' %}"
+             alt="">
+        <img class="group_plus"
+             src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/win-big.png' %}"
+             alt="">
     </div>
-    <div class="upper-content-2">
-        <img id="cheerleader" src="{% static 'images/beneselfies-cheerleader.png' %}"/>
+    <br>
 
-        <h1>The Prizes!</h1>
-
-        <h2>Two weekly draws, each include:</h2>
-
-        <p>1 x 10 full size Benefit cosmetics products for you and your besties.</p>
-
-        <p>1 x $50 West49 Gift card to keep you lookin' sharp and sassy.</p>
-
-        <p><b><i>Total value: approx. $400</i></b></p>
-
-        <h2>One Grand prize includes:</h2>
-
-        <p>1 x Samsung Galaxy Note Smartphone with pink case &mdash; to shout about your winnings on social!</p>
-
-        <p>1 x $500 worth of Benefit cosmetics &mdash; to help you get gorgeous in a flash.</p>
-
-        <p>1 x $300 gift card for West49 &mdash; for a new fall outfit.</p>
-
-        <p>1 x West49 backpack &mdash; to keep all your amazing winnings in.</p>
-
-        <p><b><i>Total value: approx. $1400</i></b></p>
+    <div class="wraptocenter" style="height: 70px">
+        <img class="group_plus" style="float: left"
+             src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/west-49-logo.png' %}"
+             alt="">
+        <img class="group_plus"
+             src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/share-the-love.png' %}"
+             alt="">
+        <img class="group_plus" style="float: right"
+             src="{% static 'images/Pinboard Assets/New Landing Page Assets/Image Grouping/samsung-logo.png' %}"
+             alt="">
     </div>
-    <div class="clear"></div>
+    <br>
+    <div style="margin-top: -40px"><a href="#"><img src="{% static 'images/Pinboard Assets/New Landing Page Assets/Single Images/beneselfies-footer-twitter.png' %}"/></a><a href="#"><img
+            style="margin-left: 60px" src="{% static 'images/Pinboard Assets/New Landing Page Assets/Single Images/beneselfies-footer-facebook.png' %}"/></a></div>
+    <p style="font-size: 8px">NO PURCHASE NECESSARY. Internet access and valid email account required. Contest starts on
+        September 23, 2013 at 9:00:00 AM ET and ends on October 13, 2013 at 11:59:59 PM ET. Open to legal residents of
+        Canada who have reached age of majority as of the date of entry. Three (3) prizes to be won as follows: two (2)
+        weekly prizes (one (1) per week for first two (2) weeks) consisting of various Benefit Cosmetics products and
+        one (1) $50Cdn West 49 gift card (ARV: $400 Cdn, each); and one (1) grand prize consisting of one (1) of each of
+        the following: Samsung Galaxy 8.0 Tablet, Benefit Cosmetics products, $300 Cdn West 49 gift card, Roxy backpack
+        from West 49 (ARV: $1,350 Cdn). Odds of being selected to win a weekly prize depend on the total number of
+        eligible Entries received during the applicable week. Odds of being selected to win the grand prize depend on
+        the total number of eligible Entries received during the Contest Period. Mathematical skill-testing question
+        required. Conditions & restrictions apply. For details and full contest rules, including how to enter, visit
+        https://www.facebook.com/benefitcosmeticscanada.</p>
 </div>
-<div class="content">
-    <div style="text-align: center">
-        <img id="start" src="/static/images/Pinboard%20Assets/Buttons/okay.png" alt="">
-    </div>
-</div>
-{% include 'footer.html' %}
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript">
     $('#start').click(function () {

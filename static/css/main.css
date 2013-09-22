@@ -2,13 +2,13 @@
 #wrap {
     margin: 0 auto;
     width: 800px;
-    height:600px;
+    height: 600px;
     background: url('/static/images/Pinboard%20Assets/benefit-pinboard-800px.png');
 }
 
 /* Styles for main layout */
 html, body {
-    background: #D7EEE8 url('../images/benefit-background-pattern.png') repeat 0 0;
+    background: #D7EEE8 url('../images/Pinboard%20Assets/New%20Landing%20Page%20Assets/beneselfies-pattern-footer.png') repeat 0 0;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
@@ -16,7 +16,7 @@ html, body {
 
 div#header {
     background: #fff url('../images/Beneselfies-Pattern-Header.png') top center repeat;
-    height: 162px;
+    height: 94px;
     position: relative;
     text-align: center;
     z-index: 3;
@@ -27,11 +27,10 @@ div#header img {
     top: 16px;
 }
 
-ul
-{
+ul {
     list-style-type: none;
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
     line-height: 0px;
 }
 
@@ -180,6 +179,7 @@ div#upper-content ul li span {
 div#upper-content-2 {
     margin: 15px auto;
     width: 749px;
+    text-align: center;
 }
 
 div.upper-content-2 {
@@ -251,7 +251,7 @@ div#footer {
     font-size: 30px;
     font-weight: bold;
     padding: 10px 50px;
-    text-align: right;
+    text-align: center;
 }
 
 div#footer div {
@@ -359,7 +359,20 @@ div#footer div em {
 
 .descript {
     text-align: center;
-    margin-bottom: 10px;
 }
 
-.ui-autocomplete { max-height: 200px; overflow-y: scroll;}
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.wraptocenter {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    width: 750px;
+    height: 247px;
+}
+.wraptocenter * {
+    vertical-align: middle;
+}

@@ -5,6 +5,7 @@ var images = [];
 var rotateAngles = [-6, 2, -2, 2, 4, -4, 4, -1];
 var selected = [];
 var polaroids = [];
+var pins = [];
 var newButtons;
 var texts = ["/static/images/Pinboard%20Assets/Text/the-shopaholic.png",
     "/static/images/Pinboard%20Assets/Text/the-comedian.png",
@@ -36,6 +37,17 @@ var centres = [
     [82, 77]
 ];
 
+var pin_locations = [
+    [78, 4],
+    [84, 6],
+    [90, 3],
+    [89, 3],
+    [89, 3],
+    [84, 5],
+    [77, 2],
+    [77, 0]
+];
+
 var choose = false;
 
 $(document).ready(function () {
@@ -49,6 +61,16 @@ $(document).ready(function () {
         'sporty': '/static/images/Beneselfies/beneselfies-miss-sporty-and-sassy-t.png',
         'global': '/static/images/Beneselfies/beneselfies-the-globetrotter-t.png'
     };
+    var pins = {
+        'shopaholic': '/static/images/Pinboard%20Assets/Pins/pin-01.png',
+        'comedian': '/static/images/Pinboard%20Assets/Pins/pin-02.png',
+        'sexy': '/static/images/Pinboard%20Assets/Pins/pin-03.png',
+        'fashionista': '/static/images/Pinboard%20Assets/Pins/pin-04.png',
+        'gorgeous': '/static/images/Pinboard%20Assets/Pins/pin-05.png',
+        'independent': '/static/images/Pinboard%20Assets/Pins/pin-06.png',
+        'sporty': '/static/images/Pinboard%20Assets/Pins/pin-07.png',
+        'global': '/static/images/Pinboard%20Assets/Pins/pin-08.png'
+    };
 
 
     var i = 0, imageCount = 8;
@@ -57,11 +79,18 @@ $(document).ready(function () {
         var imageObj = new Image();
         imageObj.onload = function () {
             drawImage(this, key, this.i);
+            var newPin = new Image();
+            newPin.onload = function () {
+                drawPin(this, this.key, this.i);
+            };
+            newPin.i = this.i;
+            newPin.key = key;
+            newPin.src = pins[key];
             if (i == imageCount) {
                 // Absolute position the polaroids.
                 $wrap.each(function (index, element) {
                     var d = rotateAngles[index];
-                    $(this.children[0].children[0]).css({'-moz-transform': 'rotate(' + d + 'deg)',
+                    $(element).css({'-moz-transform': 'rotate(' + d + 'deg)',
                         '-webkit-transform': 'rotate(' + d + 'deg)',
                         '-o-transform': 'rotate(' + d + 'deg)',
                         '-ms-transform': 'rotate(' + d + 'deg)',
@@ -128,6 +157,7 @@ function focusImage(event) {
     if (images[i]) {
         images[i].moveUp();
     }
+    pins[i].hide();
     // Fade out non-clicked polaroids.
     $wrap.each(function () {
         if (this != clicked) {
@@ -146,13 +176,13 @@ function focusImage(event) {
     $(clicked).css({
             height: "437.5px",
             left: "110px",
-            top: "-130px",
+            top: "-110px",
             width: "437.5px",
-            '-moz-transform': 'rotate(' + d + 'deg)',
-            '-webkit-transform': 'rotate(' + d + 'deg)',
-            '-o-transform': 'rotate(' + d + 'deg)',
-            '-ms-transform': 'rotate(' + d + 'deg)',
-            'transform': 'rotate(' + d + 'deg)'}
+            '-moz-transform': 'rotate(' + 0 + 'deg)',
+            '-webkit-transform': 'rotate(' + 0 + 'deg)',
+            '-o-transform': 'rotate(' + 0 + 'deg)',
+            '-ms-transform': 'rotate(' + 0 + 'deg)',
+            'transform': 'rotate(' + 0 + 'deg)'}
     );
     if (!images[i]) {
         var rect = new Kinetic.Rect({
@@ -191,16 +221,6 @@ function focusImage(event) {
     });
     $(clicked).prepend(newDescriptionDiv);
     $(clicked).append(newButtons);
-    $(newButtons).css({'-moz-transform': 'rotate(' + -d + 'deg)',
-        '-webkit-transform': 'rotate(' + -d + 'deg)',
-        '-o-transform': 'rotate(' + -d + 'deg)',
-        '-ms-transform': 'rotate(' + -d + 'deg)',
-        'transform': 'rotate(' + -d + 'deg)'});
-    $(newDescriptionDiv).css({'-moz-transform': 'rotate(' + -d + 'deg)',
-        '-webkit-transform': 'rotate(' + -d + 'deg)',
-        '-o-transform': 'rotate(' + -d + 'deg)',
-        '-ms-transform': 'rotate(' + -d + 'deg)',
-        'transform': 'rotate(' + -d + 'deg)'});
     $(clicked).find('.tags_in').show();
     $('#selected_opacity').show();
     return false;
@@ -227,14 +247,16 @@ function unFocusImage(event) {
         }
     });
     var i = parseInt($(clicked).attr('id'));
+    pins[i].show();
+
+    var d = rotateAngles[i];
     layers[i].parent.setWidth(175);
     layers[i].parent.setHeight(175);
     layers[i].parent.setScale(1, 1);
+
+    pins[i].moveToTop();
     layers[i].parent.draw();
-    if (images[i]) {
-        images[i].moveDown();
-    }
-    var d = rotateAngles[i];
+    layers[i].draw();
     $(clicked).css({
         height: clickedDefaults.height,
         left: clickedDefaults.left,
