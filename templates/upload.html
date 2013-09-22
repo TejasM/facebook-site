@@ -25,6 +25,7 @@
 <div id="right-book"><img src="{% static 'images/book-right.png' %}"/></div>
 <div class="content" id="wrap">
     <a name="app"></a>
+
     <div class="loader"></div>
     <div id="polaroids" style="padding-top: 130px; margin: 0 44px; ">
         <div class="polaroid" id="0">
@@ -66,7 +67,8 @@
                  style="background: url('/static/images/Pinboard%20Assets/Buttons/share.png'); width: 103px; display: inline-block; height: 40px;"></div>
         </div>
     </div>
-    <div id="select_phase" style="position: absolute; left: 130px; top:140px; width: 525px; height: 470px; padding-left: 25px">
+    <div id="select_phase"
+         style="position: absolute; left: 130px; top:140px; width: 525px; height: 470px; padding-left: 25px">
         <div style="width: 240px; height: 360px; background: url('/static/images/Pinboard%20Assets/Text/instructions-box-choosing.png'); float: right;">
             <div style="margin-top: 200px; padding-left: 25px; padding-right: 10px;">
                 <div style="height: 72px">
@@ -107,62 +109,62 @@
          style=" position: absolute; width: 100%; height: 100%; left: 0; top: 0; z-index: 5; background: rgba(0, 0, 0, 0.8)"></div>
     <div id="fb-root">
     </div>
-</div>
-<div id="CSPhotoSelector">
-    <div class="CSPhotoSelector_dialog">
-        <a href="#" id="CSPhotoSelector_buttonClose">x</a>
+    <div id="CSPhotoSelector">
+        <div class="CSPhotoSelector_dialog">
+            <a href="#" id="CSPhotoSelector_buttonClose">x</a>
 
-        <div class="CSPhotoSelector_form">
-            <div class="CSPhotoSelector_header">
-                <p>Choose from Photos</p>
-            </div>
-            <div class="ui-widget">
-                <label for="filter" style="color: #ffffff">Filter by Friends: </label>
-                <input type="text" class="filter">
-            </div>
-            <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
-                <p>Browse your albums until you find a picture you want to use</p>
-
-                <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
-                    <div class="CSPhotoSelector_selectedCountContainer">Select an album</div>
+            <div class="CSPhotoSelector_form">
+                <div class="CSPhotoSelector_header">
+                    <p>Choose from Photos</p>
                 </div>
-                <div class="CSPhotoSelector_photosContainer CSAlbum_container"></div>
-            </div>
-
-            <div class="CSPhotoSelector_content CSPhotoSelector_wrapper" style="overflow: visible">
-                <p>Select a new photo</p>
-
                 <div class="ui-widget">
-                    <label for="filter" style="color: black">Filter by Tags: </label>
+                    <label for="filter" style="color: #ffffff">Filter by Friends: </label>
                     <input type="text" class="filter">
-
-                    <div id="tags">Tags: <span id="tag_values"></span></div>
                 </div>
-                <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
-                    <div class="CSPhotoSelector_selectedCountContainer"><span
-                            class="CSPhotoSelector_selectedPhotoCount">0</span> / <span
-                            class="CSPhotoSelector_selectedPhotoCountMax">0</span> photos selected
+                <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
+                    <p>Browse your albums until you find a picture you want to use</p>
+
+                    <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+                        <div class="CSPhotoSelector_selectedCountContainer">Select an album</div>
                     </div>
-                    <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
+                    <div class="CSPhotoSelector_photosContainer CSAlbum_container"></div>
                 </div>
-                <div class="CSPhotoSelector_photosContainer CSPhoto_container"
-                     style="overflow-y: scroll; height: 300px;"></div>
-            </div>
 
-            <div id="CSPhotoSelector_loader"></div>
+                <div class="CSPhotoSelector_content CSPhotoSelector_wrapper" style="overflow: visible">
+                    <p>Select a new photo</p>
 
+                    <div class="ui-widget">
+                        <label for="filter" style="color: black">Filter by Tags: </label>
+                        <input type="text" class="filter">
 
-            <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
-                <a href="#" id="CSPhotoSelector_pagePrev" class="CSPhotoSelector_disabled">Previous</a>
-                <a href="#" id="CSPhotoSelector_pageNext">Next</a>
-
-                <div class="CSPhotoSelector_pageNumberContainer">
-                    Page <span id="CSPhotoSelector_pageNumber">1</span> / <span
-                        id="CSPhotoSelector_pageNumberTotal">1</span>
+                        <div id="tags">Tags: <span id="tag_values"></span></div>
+                    </div>
+                    <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+                        <div class="CSPhotoSelector_selectedCountContainer"><span
+                                class="CSPhotoSelector_selectedPhotoCount">0</span> / <span
+                                class="CSPhotoSelector_selectedPhotoCountMax">0</span> photos selected
+                        </div>
+                        <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
+                    </div>
+                    <div class="CSPhotoSelector_photosContainer CSPhoto_container"
+                         style="overflow-y: scroll; height: 300px;"></div>
                 </div>
-                <a href="#" id="CSPhotoSelector_buttonOK">OK</a>
-                <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
 
+                <div id="CSPhotoSelector_loader"></div>
+
+
+                <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
+                    <a href="#" id="CSPhotoSelector_pagePrev" class="CSPhotoSelector_disabled">Previous</a>
+                    <a href="#" id="CSPhotoSelector_pageNext">Next</a>
+
+                    <div class="CSPhotoSelector_pageNumberContainer">
+                        Page <span id="CSPhotoSelector_pageNumber">1</span> / <span
+                            id="CSPhotoSelector_pageNumberTotal">1</span>
+                    </div>
+                    <a href="#" id="CSPhotoSelector_buttonOK">OK</a>
+                    <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
+
+                </div>
             </div>
         </div>
     </div>
@@ -198,6 +200,7 @@
 <script src="http://malsup.github.io/min/jquery.form.min.js"></script>
 <link rel="stylesheet" href="/static/css/image-picker.css"/>
 <link rel="stylesheet" href="/static/css/selector.css"/>
+<script src="/static/js/chosen.jquery.min.js"></script>
 <script src="/static/js/html2canvas.js"></script>
 <script src="/static/js/selector.js"></script>
 <script src="{% static 'js/jquery.lightbox_me.js' %}"></script>
@@ -406,7 +409,7 @@ $(function () {
             }
             if ($tags && $tags != "undefined") {
                 $('#tag_values').text($tags);
-            } else{
+            } else {
                 $('#tag_values').text('');
             }
             $('#tags').show();
@@ -641,13 +644,23 @@ function bringBackPolaroid(event) {
             'padding-left': '20px'});
     } else {
         var $newP = $('<p class="tags_in" style="color: white; text-align: center;">In this photo:</p>');
-        var $newSelect = $('<select></select>');
-        for (var j = 0; j < names_for_each_clicked[i].length; j++) {
-            $newSelect.append('<option value="' + id_for_each_clicked[i][j] + '">' + names_for_each_clicked[i][j] + '</option>')
+        if (names_for_each_clicked[i].length <= 10) {
+            var $newSelect = $('<select></select>');
+            for (var j = 0; j < names_for_each_clicked[i].length; j++) {
+                $newSelect.append('<option value="' + id_for_each_clicked[i][j] + '">' + names_for_each_clicked[i][j] + '</option>')
+            }
+            $($newSelect).change(function () {
+                $(clicked).find('.hidden_input').val($(this).val());
+            });
+        } else {
+            var $newInput = $('<input type="text"></input>');
+            $($newInput).autocomplete({source: selector.$tags,
+                select: function (e, ui) {
+                    $(clicked).find('.hidden_input').val(ui.item.id);
+                }
+            });
+            $newP.append($newInput);
         }
-        $($newSelect).change(function () {
-            $(clicked).find('.hidden_input').val($(this).val());
-        });
         var d = rotateAngles[i];
         $newP.css({'-moz-transform': 'rotate(' + d + 'deg)',
             '-webkit-transform': 'rotate(' + d + 'deg)',
