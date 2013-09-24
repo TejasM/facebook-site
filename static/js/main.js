@@ -6,6 +6,18 @@ var rotateAngles = [-6, 2, -2, 2, 4, -4, 4, -1];
 var selected = [];
 var polaroids = [];
 var pins = [];
+var tag_positions = [
+    [17.50, 40.00],
+    [40.13, 40.17],
+    [61.25, 40.00],
+    [81.88, 40.50],
+    [18.75, 71.00],
+    [40.38, 70.83],
+    [56.00, 70.50],
+    [81.88, 71.00]
+
+
+];
 var newButtons;
 var texts = ["/static/images/Pinboard%20Assets/Text/the-shopaholic.png",
     "/static/images/Pinboard%20Assets/Text/the-comedian.png",
@@ -154,9 +166,6 @@ function focusImage(event) {
         zIndex: $(clicked).css("zIndex")
     };
     var i = parseInt($(clicked).attr('id'));
-    if (images[i]) {
-        images[i].moveUp();
-    }
     pins[i].hide();
     // Fade out non-clicked polaroids.
     $wrap.each(function () {

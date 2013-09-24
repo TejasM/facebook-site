@@ -195,16 +195,6 @@
 <script type="text/javascript">
 var options = [];
 var tags_all = {};
-var tag_offsets = [
-    {"x": 14, "y": 21},
-    {"x": 40, "y": 21},
-    {"x": 66, "y": 21},
-    {"x": 14, "y": 42},
-    {"x": 40, "y": 42},
-    {"x": 66, "y": 42},
-    {"x": 14, "y": 62},
-    {"x": 40, "y": 62}
-];
 var current_tags = [];
 var tags_final = [];
 var dict_for_each_clicked = [];
@@ -321,9 +311,10 @@ $(function () {
             onrendered: function (canvas) {
                 var dataURL = canvas.toDataURL();
                 current_tags = [];
-                $.each($('.hidden_input'), function (index, element) {
-                    if ($(element).val() != '') {
-                        current_tags.push($(element).val().toString() + "," + tag_offsets[index].x.toString() + "," + tag_offsets[index].y.toString());
+                $.each($('#wrap').find('.polaroid'), function (index, element) {
+                    var tag_element = $(element).find('.hidden_input');
+                    if (tag_element && tag_element.length > 0 && $(tag_element).val() != '') {
+                        current_tags.push($(element).val().toString() + "," + tag_positions[index][0].toString() + "," + tag_positions[index][1].toString());
                     }
                 });
                 $.ajax({
