@@ -3,6 +3,7 @@ import cStringIO
 import re
 import urllib
 from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.http import HttpResponse
@@ -131,3 +132,25 @@ def post_id(request):
         return HttpResponse({}, content_type="application/json")
     except UserSubmission.DoesNotExist as _:
         return HttpResponse({}, content_type="application/json")
+
+
+def preview(request):
+    if request.user.is_authenticated():
+        return render_to_response('coming_soon.html')
+    else:
+        return redirect(login_user)
+
+
+@csrf_exempt
+def login_user(request):
+    if request.user.is_authenticated():
+        return redirect(preview)
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect(preview)
+    return render_to_response('login.html')
