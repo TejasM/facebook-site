@@ -588,6 +588,7 @@ function drawImageDraggable(imageObj) {
     var $text = $('<img style="margin: 0 auto; display: block;" class="drag_text" src="/static/images/drag-to-reposition-your-polaroid.png"/>');
     $(clicked).prepend($text);
     $(newOkay).on('click', {polaroid: polaroids[i], okayButton: okayButton, layer: layers[i], text: $text}, bringBackPolaroid);
+    $(clicked).find('.tags_in').remove();
     layers[i].draw();
     $('.descript').hide();
     $('.loader').hide();
