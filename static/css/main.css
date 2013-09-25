@@ -254,12 +254,15 @@ div.clear {
 div#footer {
     background: url('../images/Background-1.png') 0 0 repeat;
     border-top: 10px solid #000;
+    bottom: 0;
     color: #868686;
     font-family: 'Englebert', Arial, sans-serif;
     font-size: 30px;
     font-weight: bold;
     padding: 10px 50px;
+    position: absolute;
     text-align: center;
+    width: 100%;
 }
 
 div#footer div {
