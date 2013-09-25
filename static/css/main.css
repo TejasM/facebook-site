@@ -14,6 +14,10 @@ html, body {
     padding: 0;
 }
 
+img {
+    border: 0;
+}
+
 div#header {
     background: #fff url('../images/Beneselfies-Pattern-Header.png') top center repeat;
     height: 94px;
@@ -60,7 +64,7 @@ div#main-nav ul li {
     line-height: 30px;
     text-align: center;
     text-transform: uppercase;
-    width: 33%;
+    width: 32%;
 }
 
 div#left-lamp {
@@ -180,6 +184,10 @@ div#upper-content-2 {
     margin: 15px auto;
     width: 749px;
     text-align: center;
+}
+
+div#upper-content-2 #start {
+    cursor: pointer;
 }
 
 div.upper-content-2 {
