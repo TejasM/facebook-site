@@ -729,6 +729,8 @@ var CSPhotoSelector = (function (module, $) {
                                         this.picture = this.pic_big;
                                         this.source = this.pic_big;
                                         this.id = uid;
+                                        this.alternate_tags = name;
+                                        this.uid = uid;
                                     } else {
                                         this.id = this.object_id;
                                         this.tags = this.caption_tags;
