@@ -725,15 +725,16 @@ var CSPhotoSelector = (function (module, $) {
                                             this.source = this.src;
                                         }
                                     }
-                                    if (this.pic_big){
+                                    if (this.pic_big) {
                                         this.picture = this.pic_big;
                                         this.source = this.pic_big;
                                         this.id = uid;
+                                    } else {
+                                        this.id = this.object_id;
+                                        this.tags = this.caption_tags;
+                                        this.alternate_tags = name;
+                                        this.uid = uid;
                                     }
-                                    this.id = this.object_id;
-                                    this.tags = this.caption_tags;
-                                    this.alternate_tags = name;
-                                    this.uid = uid;
 
                                     // Find pid in query2 with uid set x, y
                                 }

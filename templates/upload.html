@@ -47,6 +47,24 @@
         <div class="polaroid" id="7">
             <div id="global" style="display: inline"></div>
         </div>
+
+{#        <img id="pin_01"#}
+{#             src="/static/images/Pinboard%20Assets/Pins/pin-01.png"/>#}
+{#        <img id="pin_02"#}
+{#             src="/static/images/Pinboard%20Assets/Pins/pin-02.png"/>#}
+{#        <img id="pin_03"#}
+{#             src="/static/images/Pinboard%20Assets/Pins/pin-03.png"/>#}
+{#        <img id="pin_04"#}
+{#             src="/static/images/Pinboard%20Assets/Pins/pin-04.png"/>#}
+{#        <img id="pin_05"#}
+{#             src="/static/images/Pinboard%20Assets/Pins/pin-05.png"/>#}
+{#        <img id="pin_06"#}
+{#             src="/static/images/Pinboard%20Assets/Pins/pin-06.png"/>#}
+{#        <img id="pin_07"#}
+{#             src="/static/images/Pinboard%20Assets/Pins/pin-07.png"/>#}
+{#        <img id="pin_08"#}
+{#             src="/static/images/Pinboard%20Assets/Pins/pin-08.png"/>#}
+
         <div style="margin: 20px auto; display: none; width: 350px" id="buttons">
             <div id="back"
                  style="background: url('/static/images/Pinboard%20Assets/Buttons/back.png'); width: 103px; display: inline-block; height: 40px;"></div>
@@ -54,6 +72,8 @@
             <div id="share"
                  style="background: url('/static/images/Pinboard%20Assets/Buttons/share.png'); width: 103px; display: inline-block; height: 40px;"></div>
         </div>
+        <img src="/static/images/Pinboard%20Assets/benefit-white-logo-small.png" id="white_logo"
+             style="display: none; z-index: 5; position: absolute; top: 525px; left: 330px" alt="">
     </div>
     <div id="select_phase"
          style="position: absolute; left: 130px; top:140px; width: 525px; height: 470px; padding-left: 25px">
@@ -306,7 +326,7 @@ $(function () {
 
     function share() {
         $('#buttons').hide();
-
+        $('#white_logo').show();
         html2canvas(document.getElementById('wrap'), {
             onrendered: function (canvas) {
                 $('div.loader').show();

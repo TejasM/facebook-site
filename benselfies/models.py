@@ -1,12 +1,20 @@
 import os
 from django.db import models
+from django.utils import timezone
 from benselfies import settings
 
 __author__ = 'tmehta'
 
 
+class Submission(models.Model):
+    user_id = models.CharField(max_length=50, default="")
+    last_submitted = models.DateTimeField(default=timezone.now())
+    eligible = models.BooleanField(default=True)
+    email = models.CharField(max_length=200, default="")
+
+
 class UserSubmission(models.Model):
-    email = models.CharField(max_length=100, default="")
+    email = models.CharField(max_length=200, default="")
     user_id = models.CharField(max_length=50, default="")
     first_name = models.CharField(max_length=50, default="")
     last_name = models.CharField(max_length=50, default="")

@@ -1,5 +1,6 @@
 import json
 import cStringIO
+import random
 import re
 import urllib
 from django.contrib import messages
@@ -13,7 +14,7 @@ from django.template import RequestContext
 from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import csrf_exempt
-from benselfies.models import UserSubmission, UserImage
+from benselfies.models import UserSubmission, UserImage, Submission
 
 __author__ = 'tmehta'
 
@@ -103,15 +104,12 @@ def add_image(request):
 @login_required()
 def email(request):
     if request.method == "POST":
-        # try:
-        #     submission = UserSubmission.objects.filter(email=request.POST["email"],
-        #                                                user_id=request.POST["user_id"]).latest('time')
-        #     if submission.time and (submission.time - timezone.now()).total_seconds() < 24 * 60 * 60:
-        #         messages.error(request, "You have already posted less 24 hours before. Try again in " + str(
-        #             submission.time - timezone.now()))
-        #         return redirect(email)
-        # except UserSubmission.DoesNotExist:
-        #     pass
+        user = Submission.objects.filter(user_id=request.POST["user_id"]).latest('last_submitted')
+        if (user.time - timezone.now()).total_seconds() < 24 * 60 * 60:
+            messages.error(request, "You have already posted less 24 hours before. Try again in " + str(
+                user.time - timezone.now()))
+            return redirect(email)
+        Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
         submission = UserSubmission.objects.create(email=request.POST["email"], first_name=request.POST["first_name"],
                                                    last_name=request.POST["last_name"], num_tags=0)
         request.session["user"] = submission.id
@@ -129,6 +127,7 @@ def finish(request):
         submission.time = timezone.now()
         submission.save()
         context = {"link": submission.submission_link, "user_id": submission.user_id}
+        Submission.objects.create(user_id=submission.user_id, email=submission.email)
     except KeyError as _:
         return redirect(email)
     return render_to_response('finish.html', context)
@@ -164,3 +163,10 @@ def login_user(request):
                 login(request, user)
                 return redirect(home)
     return render_to_response('login.html')
+
+
+@login_required()
+def get_random_winner(request):
+    submissions = Submission.objects.filter(eligible=True)
+    submission = random.choice(submissions)
+    return render_to_response('something.html', {"submission": submission})
