@@ -309,6 +309,7 @@ $(function () {
 
         html2canvas(document.getElementById('wrap'), {
             onrendered: function (canvas) {
+                $('div.loader').show();
                 var dataURL = canvas.toDataURL();
                 current_tags = [];
                 $.each($('#wrap').find('.polaroid'), function (index, element) {
@@ -344,7 +345,6 @@ $(function () {
                 });
             }
         });
-        $('div.loader').show();
     }
 
     $('div.loader').hide();
@@ -506,6 +506,7 @@ function drawImageDraggable(imageObj) {
     $filter.change();
     var i = parseInt($(clicked).attr('id'));
     var stage = $(clicked).find('canvas')[0];
+    $('.selects')[i].src = done_labels[i];
     var width = 130;
     var height = 130;
     if (imageObj.width / imageObj.height > 1) {

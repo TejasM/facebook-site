@@ -28,6 +28,15 @@ var texts = ["/static/images/Pinboard%20Assets/Text/the-shopaholic.png",
     "/static/images/Pinboard%20Assets/Text/miss-sporty-and-sassy.png",
     "/static/images/Pinboard%20Assets/Text/the-globetrotter.png"];
 
+var done_labels = ["/static/images/Pinboard%20Assets/Beneselfie%20Labels/shopaholic-b.png",
+    "/static/images/Pinboard%20Assets/Beneselfie%20Labels/comedian-b.png",
+    "/static/images/Pinboard%20Assets/Beneselfie%20Labels/sexy-b.png",
+    "/static/images/Pinboard%20Assets/Beneselfie%20Labels/fashionista-b.png",
+    "/static/images/Pinboard%20Assets/Beneselfie%20Labels/geek-b.png",
+    "/static/images/Pinboard%20Assets/Beneselfie%20Labels/independent-b.png",
+    "/static/images/Pinboard%20Assets/Beneselfie%20Labels/sporty-b.png",
+    "/static/images/Pinboard%20Assets/Beneselfie%20Labels/globetrotter-b.png"];
+
 var descriptions = ['/static/images/ZoomedPolaroidDescriptions/polaroid-text-the-shopaholic.png',
     '/static/images/ZoomedPolaroidDescriptions/polaroid-text-the-comedian.png',
     '/static/images/ZoomedPolaroidDescriptions/polaroid-text-the-sexy-one.png',

@@ -692,7 +692,7 @@ var CSPhotoSelector = (function (module, $) {
             });
         }
         else {
-            var query1 = "SELECT object_id, caption_tags, images, src, aid, pid FROM photo WHERE (pid in (SELECT pid FROM photo_tag WHERE subject = '" + uid + "') OR owner = '" + uid + "')";
+            var query1 = "SELECT object_id, caption_tags, images, src, aid, pid FROM photo WHERE pid in (SELECT pid FROM photo_tag WHERE subject = '" + uid + "') OR owner = '" + uid + "'";
             if ($selected_album && $selected_album != null) {
                 query1 += " AND (album_object_id = " + $selected_album.attr('data-id') + " OR aid = '" + $selected_album.attr('data-id') + "')";
             }
