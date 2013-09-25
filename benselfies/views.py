@@ -104,11 +104,14 @@ def add_image(request):
 @login_required()
 def email(request):
     if request.method == "POST":
-        user = Submission.objects.filter(user_id=request.POST["user_id"]).latest('last_submitted')
-        if (user.time - timezone.now()).total_seconds() < 24 * 60 * 60:
-            messages.error(request, "You have already posted less 24 hours before. Try again in " + str(
-                user.time - timezone.now()))
-            return redirect(email)
+        try:
+            user = Submission.objects.filter(user_id=request.POST["user_id"]).latest('last_submitted')
+            if (user.time - timezone.now()).total_seconds() < 24 * 60 * 60:
+                messages.error(request, "You have already posted less 24 hours before. Try again in " + str(
+                    user.time - timezone.now()))
+                return redirect(email)
+        except Submission.DoesNotExist:
+            pass
         Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
         submission = UserSubmission.objects.create(email=request.POST["email"], first_name=request.POST["first_name"],
                                                    last_name=request.POST["last_name"], num_tags=0)
