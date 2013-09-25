@@ -78,6 +78,8 @@ def add_custom_pic(request):
         for tag in tags:
             split_tag = tag.split(',')
             tags_submit.append({'tag_uid': split_tag[0], 'x': split_tag[1], 'y': split_tag[2]})
+    submission.num_tags = len(tags_submit)
+    submission.save()
     image.save()
     return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/media/')[1], "tags": tags_submit}),
                         content_type="application/json")
@@ -152,7 +154,7 @@ def preview(request):
 @csrf_exempt
 def login_user(request):
     if request.user.is_authenticated():
-        return redirect(preview)
+        return redirect(home)
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -160,5 +162,5 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect(preview)
+                return redirect(home)
     return render_to_response('login.html')
