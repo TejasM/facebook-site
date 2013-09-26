@@ -295,6 +295,8 @@ div#footer div em {
 .first-name div {
     background: #ffc0cb;
     color: #fff;
+    height: 20px;
+    padding: 0 4px;
     text-align: center;
     width: 100%;
 }
@@ -312,6 +314,8 @@ div#footer div em {
 .last-name div {
     background: #ffc0cb;
     color: #fff;
+    height: 20px;
+    padding: 0 4px;
     text-align: center;
     width: 100%;
 }
@@ -329,6 +333,8 @@ div#footer div em {
 .email-input div {
     background: #ffc0cb;
     color: #fff;
+    height: 20px;
+    padding: 0 4px;
     text-align: center;
     width: 100%;
 }
