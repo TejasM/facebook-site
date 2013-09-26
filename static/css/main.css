@@ -283,6 +283,7 @@ div#footer div em {
 
 .first-name {
     display: inline-block;
+    padding: 0 10px;
     width: 40%;
 }
 .first-name input {
@@ -293,6 +294,7 @@ div#footer div em {
 }
 .last-name {
     display: inline-block;
+    padding: 0 10px;
     width: 40%;
 }
 .last-name input {
