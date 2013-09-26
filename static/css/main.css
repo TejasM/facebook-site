@@ -283,6 +283,7 @@ div#footer div em {
 
 .first-name {
     display: inline-block;
+    height: 65px;
     padding: 0 10px;
     width: 40%;
 }
@@ -294,14 +295,15 @@ div#footer div em {
 }
 .first-name div {
     background: #ffc0cb;
-    color: #fff;
-    height: 20px;
+    color: #fff;;
+    margin-bottom: 5px;
     padding: 0 4px;
     text-align: center;
     width: 100%;
 }
 .last-name {
     display: inline-block;
+    height: 65px;
     padding: 0 10px;
     width: 40%;
 }
@@ -314,13 +316,14 @@ div#footer div em {
 .last-name div {
     background: #ffc0cb;
     color: #fff;
-    height: 20px;
+    margin-bottom: 5px;
     padding: 0 4px;
     text-align: center;
     width: 100%;
 }
 .email-input {
     display: inline-block;
+    height: 65px;
     padding: 0 10px;
     width: 60%;
 }
@@ -333,7 +336,7 @@ div#footer div em {
 .email-input div {
     background: #ffc0cb;
     color: #fff;
-    height: 20px;
+    margin-bottom: 5px;
     padding: 0 4px;
     text-align: center;
     width: 100%;
