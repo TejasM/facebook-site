@@ -263,6 +263,7 @@ div#footer {
     position: absolute;
     text-align: center;
     width: 100%;
+    display: none;
 }
 
 div#footer div {
