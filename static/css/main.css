@@ -251,6 +251,12 @@ div.clear {
     clear: both;
 }
 
+div#footer {
+    margin: 0 auto;
+    text-align: center;
+    width: 749px;
+}
+
 .first-name {
     display: inline-block;
     height: 65px;
