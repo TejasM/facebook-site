@@ -106,7 +106,7 @@ def email(request):
     if request.method == "POST":
         try:
             user = Submission.objects.filter(user_id=request.POST["user_id"]).latest('last_submitted')
-            if (user.time - timezone.now()).total_seconds() < 24 * 60 * 60:
+            if (user.last_submitted - timezone.now()).total_seconds() < 24 * 60 * 60:
                 messages.error(request, "You have already posted less 24 hours before. Try again in " + str(
                     user.time - timezone.now()))
                 return redirect(email)
