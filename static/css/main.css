@@ -282,23 +282,26 @@ div#footer div em {
 }
 
 .first-name {
+    display: inline-block;
     width: 40%;
 }
 .first-name input {
     border: 4px solid #ffc0cb;
     height: 30px;
     text-align: center;
-    width: 100%:
+    width: 100%;
 }
 .last-name {
+    display: inline-block;
     width: 40%;
 }
 .last-name input {
     border: 4px solid #ffc0cb;
     height: 30px;
     text-align: center;
+    width: 100%;
 }
-.email input {
+.email-input input {
     border: 4px solid #ffc0cb;
     height: 30px;
     text-align: center;
