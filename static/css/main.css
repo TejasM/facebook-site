@@ -1,6 +1,6 @@
 /* "auto" makes the left and right margins center the wrapper */
 #wrap {
-    margin: 0 auto;
+    margin: 25px auto;
     width: 800px;
     height: 600px;
     background: url('/static/images/Pinboard%20Assets/benefit-pinboard-800px.png');
@@ -249,36 +249,6 @@ div.upper-content-2 em {
 
 div.clear {
     clear: both;
-}
-
-div#footer {
-    background: url('../images/Background-1.png') 0 0 repeat;
-    border-top: 10px solid #000;
-    bottom: 0;
-    color: #868686;
-    font-family: 'Englebert', Arial, sans-serif;
-    font-size: 30px;
-    font-weight: bold;
-    padding: 10px 0px;
-    position: absolute;
-    text-align: center;
-    width: 100%;
-    display: none;
-}
-
-div#footer div {
-    margin: auto;
-    width: 700px;
-}
-
-div#footer div a {
-    display: inline-block;
-    margin-right: 35px;
-    vertical-align: middle;
-}
-
-div#footer div em {
-    vertical-align: middle;
 }
 
 .first-name {
