@@ -375,7 +375,7 @@ div#enter-to-win {
 }
 div#enter-to-win form {
     margin: 0 25px;
-    padding-top: 75px;
+    padding-top: 66px;
 }
 div#enter-to-win form div.first-name {
     display: inline-block;
@@ -440,4 +440,7 @@ div#enter-to-win form div.email-input div {
     padding: 0 4px;
     text-align: center;
     width: 60%;
+}
+div#enter-to-win form div.terms-check p {
+    margin: 5px 0;
 }
