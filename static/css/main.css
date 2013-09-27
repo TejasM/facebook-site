@@ -375,8 +375,7 @@ div#enter-to-win {
 }
 div#enter-to-win form {
     margin: 0 25px;
-    position: relative;
-    top: 75px;
+    padding-top: 75px;
 }
 div#enter-to-win form div.first-name {
     display: inline-block;
