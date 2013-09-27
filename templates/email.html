@@ -16,8 +16,7 @@
     <div id="overlay"
          style=" position: absolute; width: 100%; height: 100%; left: 0; top: 0; background: rgba(0, 0, 0, 0.8)"></div>
     <div class="email" style="position: absolute; top: 100px; left: 75px; display: none">
-        <img src="/static/images/Pinboard%20Assets/Text/enter-to-win.png" alt="" />
-        <div>
+        <div id="enter-to-win">
             <form action="/email/" method="post" id="email_form">
                 {% csrf_token %}
                 <input type="hidden" value="" name="user_id" id="user_id">

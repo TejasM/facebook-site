@@ -428,3 +428,8 @@ div#footer {
 .wraptocenter * {
     vertical-align: middle;
 }
+
+/*---- Enter to Win ----*/
+div#enter-to-win {
+    background: url('../images/Pinboard Assets/Text/enter-to-win.png') top center no-repeat;
+}
