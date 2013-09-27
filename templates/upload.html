@@ -347,7 +347,7 @@ $(function () {
                         FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
                             url: window.location.origin + data["image"],
                             tags: data["tags"],
-                            message: "#BENESELFIES"
+                            message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to Beneselfies.com."
                         }, function (response) {
                             if (response.post_id) {
                                 $.post('/post_id/', {post_id: response.post_id}).complete(function () {
