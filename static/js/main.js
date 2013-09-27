@@ -193,9 +193,9 @@ function focusImage(event) {
     var d = -rotateAngles[i];
     $(clicked).css({
             height: "437.5px",
-            left: "110px",
+            text-align: "center",
             top: "-110px",
-            width: "437.5px",
+            width: "100%",
             '-moz-transform': 'rotate(' + 0 + 'deg)',
             '-webkit-transform': 'rotate(' + 0 + 'deg)',
             '-o-transform': 'rotate(' + 0 + 'deg)',
