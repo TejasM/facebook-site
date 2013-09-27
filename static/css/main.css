@@ -369,6 +369,7 @@ div#footer {
 div#enter-to-win {
     background: url('../images/Pinboard Assets/Text/enter-to-win.png') top center no-repeat;
     color: #878686;
+    font-size: 12px;
     margin: auto;
     width: 442px;
 }
@@ -379,7 +380,7 @@ div#enter-to-win form {
 }
 div#enter-to-win form div.first-name {
     display: inline-block;
-    height: 60px;
+    height: 55px;
     padding: 0 10px;
     width: 44%;
 }
@@ -400,7 +401,7 @@ div#enter-to-win form div.first-name div {
 }
 div#enter-to-win form div.last-name {
     display: inline-block;
-    height: 60px;
+    height: 55px;
     padding: 0 10px;
     width: 44%;
 }
@@ -421,7 +422,7 @@ div#enter-to-win form div.last-name div {
 }
 div#enter-to-win form div.email-input {
     display: inline-block;
-    height: 60px;
+    height: 55px;
     padding: 0 10px;
     text-align: center;
     width: 95%;
