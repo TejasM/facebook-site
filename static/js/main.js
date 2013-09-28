@@ -227,8 +227,8 @@ function focusImage(event) {
     newButtons = document.createElement('div');
     var newUpload = document.createElement('img');
     var newDone = document.createElement('img');
-    newUpload.src = "/static/images/choose-big.png";
-    newDone.src = "/static/images/done-big.png";
+    newUpload.src = "/static/images/Pinboard%20Assets/Buttons/choose.png";
+    newDone.src = "/static/images/Pinboard%20Assets/Buttons/done.png";
     $(newDone).css("margin-left", "10px");
     $(newButtons).addClass("buttons");
     $(newButtons).append(newUpload);

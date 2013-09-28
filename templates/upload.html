@@ -48,22 +48,22 @@
             <div id="global" style="display: inline"></div>
         </div>
 
-{#        <img id="pin_01"#}
-{#             src="/static/images/Pinboard%20Assets/Pins/pin-01.png"/>#}
-{#        <img id="pin_02"#}
-{#             src="/static/images/Pinboard%20Assets/Pins/pin-02.png"/>#}
-{#        <img id="pin_03"#}
-{#             src="/static/images/Pinboard%20Assets/Pins/pin-03.png"/>#}
-{#        <img id="pin_04"#}
-{#             src="/static/images/Pinboard%20Assets/Pins/pin-04.png"/>#}
-{#        <img id="pin_05"#}
-{#             src="/static/images/Pinboard%20Assets/Pins/pin-05.png"/>#}
-{#        <img id="pin_06"#}
-{#             src="/static/images/Pinboard%20Assets/Pins/pin-06.png"/>#}
-{#        <img id="pin_07"#}
-{#             src="/static/images/Pinboard%20Assets/Pins/pin-07.png"/>#}
-{#        <img id="pin_08"#}
-{#             src="/static/images/Pinboard%20Assets/Pins/pin-08.png"/>#}
+        {#        <img id="pin_01"#}
+        {#             src="/static/images/Pinboard%20Assets/Pins/pin-01.png"/>#}
+        {#        <img id="pin_02"#}
+        {#             src="/static/images/Pinboard%20Assets/Pins/pin-02.png"/>#}
+        {#        <img id="pin_03"#}
+        {#             src="/static/images/Pinboard%20Assets/Pins/pin-03.png"/>#}
+        {#        <img id="pin_04"#}
+        {#             src="/static/images/Pinboard%20Assets/Pins/pin-04.png"/>#}
+        {#        <img id="pin_05"#}
+        {#             src="/static/images/Pinboard%20Assets/Pins/pin-05.png"/>#}
+        {#        <img id="pin_06"#}
+        {#             src="/static/images/Pinboard%20Assets/Pins/pin-06.png"/>#}
+        {#        <img id="pin_07"#}
+        {#             src="/static/images/Pinboard%20Assets/Pins/pin-07.png"/>#}
+        {#        <img id="pin_08"#}
+        {#             src="/static/images/Pinboard%20Assets/Pins/pin-08.png"/>#}
 
         <div style="margin: 20px auto; display: none; width: 350px" id="buttons">
             <div id="back"
@@ -338,31 +338,34 @@ $(function () {
                         current_tags.push($(element).val().toString() + "," + tag_positions[index][0].toString() + "," + tag_positions[index][1].toString());
                     }
                 });
+                var final_tags = [];
                 $.ajax({
                     type: "POST",
                     url: "/upload_custom/",
                     enctype: 'multipart/form-data',
-                    data: {'user_id': user_id, 'file': dataURL, 'tags': current_tags },
-                    success: function (data) {
-                        FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
-                            url: window.location.origin + data["image"],
-                            tags: data["tags"],
-                            message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to Beneselfies.com."
-                        }, function (response) {
-                            if (response.post_id) {
-                                $.post('/post_id/', {post_id: response.post_id}).complete(function () {
-                                    window.location = "/finish/"
-                                });
-                            } else {
-                                window.location = "/finish/";
-                            }
+                    data: {'user_id': user_id, 'file': dataURL, 'tags': current_tags }
+                }).success(function (data) {
+                            final_tags = data["tags"];
+                            FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
+                                url: window.location.origin + data["image"],
+                                tags: data["tags"],
+                                message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to Beneselfies.com."
+                            }, function (response) {
+                                if (response.post_id) {
+                                    FB.api('/' + response.post_id.toString() + '/tags?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', final_tags,
+                                            function () {
+                                                window.location = "/finish/";
+                                            });
+                                    $.post('/post_id/', {post_id: response.post_id});
+                                } else {
+                                    window.location = "/finish/";
+                                }
+                            });
+                        }).error(function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus);
+                            console.log(errorThrown);
                         });
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus);
-                        console.log(errorThrown);
-                    }
-                });
+
             }
         });
     }
@@ -529,6 +532,7 @@ function drawImageDraggable(imageObj) {
     $('.selects')[i].src = done_labels[i];
     var width = 130;
     var height = 130;
+    $('.arrows').remove();
     if (imageObj.width / imageObj.height > 1) {
         width = GetWidth(height, imageObj.width, imageObj.height);
         function boundX(pos) {
@@ -547,6 +551,8 @@ function drawImageDraggable(imageObj) {
             draggable: true,
             dragBoundFunc: boundX
         });
+        var arrow = $('<img style="margin: 0 auto; display: block;" class="arrows" src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/adjust-arrow-horizontal.png"/>');
+        $(clicked).prepend(arrow);
     } else {
         height = GetHeight(width, imageObj.width, imageObj.height);
         function boundY(pos) {
@@ -565,6 +571,8 @@ function drawImageDraggable(imageObj) {
             draggable: true,
             dragBoundFunc: boundY
         });
+        var arrow = $('<img style="margin-top:85px; right: -25px; float: right; position: absolute; display: block;" class="arrows" src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/adjust-arrow-vertical.png"/>');
+        $(clicked).find('.kineticjs-content').append(arrow);
     }
 
     var group = new Kinetic.Group({
@@ -619,6 +627,7 @@ function bringBackPolaroid(event) {
     $(event.data.okayButton).remove();
     event.data.layer.draw();
     event.data.text.remove();
+    $('.arrows').remove();
     var i = parseInt($(clicked).attr('id'));
     if (!names_for_each_clicked[i]) {
     }
