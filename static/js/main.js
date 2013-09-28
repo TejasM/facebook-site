@@ -160,7 +160,7 @@ $(document).ready(function () {
     }
 
     // Add hove/click/active button images.
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share').on('mouseover', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, .buttons img').on('mouseover', function() {
         // Add -on at the end of the image (before the .png).
         if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") == -1) {
             var src = $(this).attr('src');
@@ -178,7 +178,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share').on('mouseout', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, .buttons img').on('mouseout', function() {
         // Add -on at the end of the image (before the .png).
         if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") != -1) {
             var src = $(this).attr('src');
@@ -196,7 +196,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share').on('click', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, .buttons img').on('click', function() {
         // Add -on at the end of the image (before the .png).
         if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") == -1) {
             var src = $(this).attr('src');
