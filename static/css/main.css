@@ -486,7 +486,7 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* Reposition button links. */
-#okay_fine img, #post, #close {
+#okay_fine img, #post, #close, #okay {
     position: relative;
     top: -65px;
 }
