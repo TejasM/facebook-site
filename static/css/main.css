@@ -47,7 +47,6 @@ div#header-divider {
 
 div#main-nav {
     background: #000;
-    color: #fff;
     position: relative;
     z-index: 2;
 }
@@ -61,10 +60,20 @@ div#main-nav ul {
 
 div#main-nav ul li {
     display: inline-block;
+}
+
+div#main-nav ul li a {
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
     line-height: 30px;
     text-align: center;
+    text-decoration: none;
     text-transform: uppercase;
     width: 32%;
+}
+
+div#main-nav ul li a:hover, div#main-nav ul li a:active {
 }
 
 div#left-lamp {
