@@ -160,7 +160,7 @@ $(document).ready(function () {
     }
     
     // Add hove/click/active button images.
-    $('.close, #login, #like-alternate').on('mouseover', function() {
+    $('.close, #login, #like-alternate, #zoom').on('mouseover', function() {
     	// Add -on at the end of the image (before the .png).
     	var src = $(this).attr('src');
     	if (src.indexOf("-on") == -1) {
@@ -168,8 +168,15 @@ $(document).ready(function () {
 	    	var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
 	    	$(this).attr('src', newSrc);
     	}
+    	// Check if background image is used.
+    	var bgImage = $(this).css('backgroundImage');
+    	if (bgImage.indexOf("-on") == -1) {
+    		var addIndex = src.indexOf(".png");
+	    	var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
+	    	$(this).attr('src', newSrc);
+    	}
     });
-    $('.close, #login, #like-alternate').on('mouseout', function() {
+    $('.close, #login, #like-alternate, #zoom').on('mouseout', function() {
     	// Add -on at the end of the image (before the .png).
     	var src = $(this).attr('src');
     	if (src.indexOf("-on") != -1) {
@@ -178,7 +185,7 @@ $(document).ready(function () {
 	    	$(this).attr('src', newSrc);
     	}
     });
-    $('.close, #login, #like-alternate').on('click', function() {
+    $('.close, #login, #like-alternate, #zoom').on('click', function() {
     	// Add -on at the end of the image (before the .png).
     	var src = $(this).attr('src');
     	if (src.indexOf("-on") == -1) {
