@@ -15,6 +15,29 @@
     <a name="app"></a>
 
     <div class="loader"></div>
+    <div id="dialog-confirm" style="position: absolute; top: 150px; width: 100%; display: none; z-index: 5;">
+        <div style="margin: auto; width: 422px; text-align: center;">
+            <img src="/static/images/sure-love.png" alt="">
+
+            <div style="text-align: center;"><img style="cursor: pointer;"
+                                                  src="/static/images/Pinboard%20Assets/Buttons/yes.png" id="post"
+                                                  alt="">
+                <img style="cursor: pointer;" src="/static/images/Pinboard%20Assets/Buttons/back.png" id="close"
+                     alt="">
+            </div>
+        </div>
+    </div>
+
+    <div id="dialog-confirm-2" style="position: absolute; top: 150px; width: 100%; display: none; z-index: 5; display: none">
+        <div style="margin: auto; width: 422px; text-align: center;">
+            <img src="/static/images/hold-on-1.png" alt="">
+
+            <div style="text-align: center;" id="okay_fine"><img style="cursor: pointer;"
+                                                  src="/static/images/Pinboard%20Assets/Buttons/okay.png"
+                                                  alt="">
+            </div>
+        </div>
+    </div>
     <div id="polaroids" style="padding-top: 130px; margin: 0 43px; ">
         <div class="polaroid" id="0">
             <div id="shopaholic" style="display: inline"></div>
@@ -178,11 +201,6 @@
     </div>
 </div>
 {% include 'footer.html' %}
-<div id="dialog-confirm" title="Sure love?">
-    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 50px 0;"></span>You haven't selected 8
-        friend yet! Are you sure your #BENESELFIES?</p>
-</div>
-
 <div id="dialog-warn" title="Sure love?">
     <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 60px 0;"></span>You have already selected
         this friend. Are you sure you don't want to share the love?</p>
@@ -321,15 +339,32 @@ $(function () {
     });
 
     $('#share').click(function () {
-        $("#dialog-confirm").dialog("open");
+        if ($('.hidden_input').length == 0) {
+            $("#dialog-confirm-2").show();
+        } else {
+            $("#dialog-confirm").show();
+        }
+    });
+
+    $('#post').click(share);
+
+    $('#close').click(function () {
+        $("#dialog-confirm").hide();
+    });
+
+    $('#okay_fine').click(function(){
+        $("#dialog-confirm-2").hide();
     });
 
     function share() {
+        $('#dialog-confirm').hide();
         $('#buttons').hide();
         $('#white_logo').show();
         html2canvas(document.getElementById('wrap'), {
             onrendered: function (canvas) {
-                $('div.loader').show();
+                var $div = $('div.loader');
+                $div.css("background", "url(../images/please-wait-2.png) center center no-repeat rgba(255,255,255,0.5)");
+                $div.show();
                 var dataURL = canvas.toDataURL();
                 current_tags = [];
                 $.each($('#wrap').find('.polaroid'), function (index, element) {
@@ -467,22 +502,6 @@ $(function () {
         selector.reset();
         selector.showAlbumSelector(id);
     };
-
-    $("#dialog-confirm").dialog({
-        resizable: false,
-        height: 250,
-        autoOpen: false,
-        modal: true,
-        buttons: {
-            "Yes": function () {
-                share();
-                $(this).dialog("close");
-            },
-            Cancel: function () {
-                $(this).dialog("close");
-            }
-        }
-    });
 
     $("#dialog-warn").dialog({
         resizable: false,
