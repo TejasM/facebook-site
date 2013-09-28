@@ -484,3 +484,9 @@ div#enter-to-win form div.terms-check p {
 #selects img, #zoom, #next, #back, #share {
 	cursor: pointer;
 }
+
+/* Reposition button links. */
+#okay_fine img, #post, #close {
+    position: relative;
+    top: -65px;
+}
