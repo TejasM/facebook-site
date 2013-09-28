@@ -26,7 +26,7 @@
                                                                id="twitter-follow"><img
                 src="/static/images/beneselfies-facebook.png" style="margin-left: 300px" alt="" id="facebook"></div>
         <div style="text-align: center; margin-top: 35px"><img src="/static/images/Pinboard%20Assets/Buttons/okay.png"
-                                                               alt="" class="close">
+                                                               alt="" id="okay">
         </div>
     </div>
 </div>
@@ -41,6 +41,9 @@
         });
         $('#twitter-follow').click(function () {
             window.location = "https://twitter.com/BenefitCanada";
+        });
+        $('#okay').click(function () {
+            window.location = "/";
         });
         $('#view').click(function () {
             window.location = "http://facebook.com/profile.php?id={{ user_id }}";
