@@ -179,7 +179,7 @@ $(document).ready(function () {
     $('.close, #login, #like-alternate, #zoom').on('mouseout', function() {
     	// Add -on at the end of the image (before the .png).
     	var src = $(this).attr('src');
-    	if (src.indexOf("-on") != -1) {
+    	if (src.length > 0 && src.indexOf("-on") != -1) {
 	    	var addIndex = src.indexOf("-on");
 	    	var newSrc = src.slice(0, addIndex) + src.slice(addIndex + 3, src.length);
 	    	$(this).attr('src', newSrc);
@@ -188,7 +188,7 @@ $(document).ready(function () {
     $('.close, #login, #like-alternate, #zoom').on('click', function() {
     	// Add -on at the end of the image (before the .png).
     	var src = $(this).attr('src');
-    	if (src.indexOf("-on") == -1) {
+    	if (src.length > 0 && src.indexOf("-on") == -1) {
 	    	var addIndex = src.indexOf(".png");
 	    	var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
 	    	$(this).attr('src', newSrc);
