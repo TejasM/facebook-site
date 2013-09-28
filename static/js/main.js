@@ -97,122 +97,140 @@ $(document).ready(function () {
     var i = 0, imageCount = 8;
     var $wrap = $('#wrap').find('.polaroid');
     if ($wrap.length > 0) {
-	    $.each(images, function (key, value) {
-	        var imageObj = new Image();
-	        imageObj.onload = function () {
-	            drawImage(this, key, this.i);
-	            var newPin = new Image();
-	            newPin.onload = function () {
-	                drawPin(this, this.key, this.i);
-	            };
-	            newPin.i = this.i;
-	            newPin.key = key;
-	            newPin.src = pins[key];
-	            if (i == imageCount) {
-	                // Absolute position the polaroids.
-	                $wrap.each(function (index, element) {
-	                    var d = rotateAngles[index];
-	                    $(element).css({'-moz-transform': 'rotate(' + d + 'deg)',
-	                        '-webkit-transform': 'rotate(' + d + 'deg)',
-	                        '-o-transform': 'rotate(' + d + 'deg)',
-	                        '-ms-transform': 'rotate(' + d + 'deg)',
-	                        'transform': 'rotate(' + d + 'deg)'});
-	                });
-	                var $selects = $('#selects').find('.selects');
-	                $selects.each(function () {
-	                    $(this).click(function () {
-	                        var index = 0;
-	                        for (var i = 0; i < $selects.length; i++) {
-	                            if (this == $selects[i]) {
-	                                index = i;
-	                            } else {
-	                                $($selects[i]).css('margin-left', '0px');
-	                            }
-	                        }
-	                        $(this).css('margin-left', '-20px');
-	                        if (!choose) {
-	                            $('#zoom').css({'opacity': 1});
-	                            choose = true;
-	                        }
-	                        $('#selected_bene').val(index);
-	                        $('#select_text').attr("src", texts[index]);
-	                    });
-	                });
-	            }
-	        };
-	        imageObj.i = i;
-	        imageObj.src = value;
-	        ++i;
-	    });
-	
-	    $wrap.each(function (index, element) {
-	        $(this).on('click', focusImage);
-	        $(this).hide();
-	    });
-	    var $zoom = $('#zoom');
-	    $zoom.css({'opacity': 0});
-	    $zoom.click(function () {
-	        var index = $('#selected_bene').val();
-	        var $bene = $("#" + index.toString());
-	        $bene.trigger('click');
-	        $bene.show();
-	    });
+        $.each(images, function (key, value) {
+            var imageObj = new Image();
+            imageObj.onload = function () {
+                drawImage(this, key, this.i);
+                var newPin = new Image();
+                newPin.onload = function () {
+                    drawPin(this, this.key, this.i);
+                };
+                newPin.i = this.i;
+                newPin.key = key;
+                newPin.src = pins[key];
+                if (i == imageCount) {
+                    // Absolute position the polaroids.
+                    $wrap.each(function (index, element) {
+                        var d = rotateAngles[index];
+                        $(element).css({'-moz-transform': 'rotate(' + d + 'deg)',
+                            '-webkit-transform': 'rotate(' + d + 'deg)',
+                            '-o-transform': 'rotate(' + d + 'deg)',
+                            '-ms-transform': 'rotate(' + d + 'deg)',
+                            'transform': 'rotate(' + d + 'deg)'});
+                    });
+                    var $selects = $('#selects').find('.selects');
+                    $selects.each(function () {
+                        $(this).click(function () {
+                            var index = 0;
+                            for (var i = 0; i < $selects.length; i++) {
+                                if (this == $selects[i]) {
+                                    index = i;
+                                } else {
+                                    $($selects[i]).css('margin-left', '0px');
+                                }
+                            }
+                            $(this).css('margin-left', '-20px');
+                            if (!choose) {
+                                $('#zoom').css({'opacity': 1});
+                                choose = true;
+                            }
+                            $('#selected_bene').val(index);
+                            $('#select_text').attr("src", texts[index]);
+                        });
+                    });
+                }
+            };
+            imageObj.i = i;
+            imageObj.src = value;
+            ++i;
+        });
+
+        $wrap.each(function (index, element) {
+            $(this).on('click', focusImage);
+            $(this).hide();
+        });
+        var $zoom = $('#zoom');
+        $zoom.css({'opacity': 0});
+        $zoom.click(function () {
+            var index = $('#selected_bene').val();
+            var $bene = $("#" + index.toString());
+            $bene.trigger('click');
+            $bene.show();
+        });
     }
-    
+
     // Add hove/click/active button images.
     $('.close, #login, #like-alternate, #zoom').on('mouseover', function() {
-    	// Add -on at the end of the image (before the .png).
-    	if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") == -1) {
-    		var src = $(this).attr('src');
-	    	var addIndex = src.indexOf(".png");
-	    	var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
-	    	$(this).attr('src', newSrc);
-    	}
-    	// Check if background image is used.
-    	if ($(this).css('backgroundImage').length > 0 && $(this).css('backgroundImage').indexOf("-on") == -1) {
-    		var bgImage = $(this).css('backgroundImage');
-    		var addIndex = bgImage.indexOf(".png");
-	    	var newSrc = bgImage.slice(0, addIndex) + "-on" + bgImage.slice(addIndex, bgImage.length);
-	    	$(this).css({
-	    		'backgroundImage': newSrc
-    		});
-    	}
+        // Add -on at the end of the image (before the .png).
+        if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") == -1) {
+            var src = $(this).attr('src');
+            var addIndex = src.indexOf(".png");
+            var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
+            $(this).attr('src', newSrc);
+        }
+        // Check if background image is used.
+        if ($(this).css('backgroundImage').length > 0 && $(this).css('backgroundImage').indexOf("-on") == -1) {
+            var bgImage = $(this).css('backgroundImage');
+            var addIndex = bgImage.indexOf(".png");
+            var newSrc = bgImage.slice(0, addIndex) + "-on" + bgImage.slice(addIndex, bgImage.length);
+            $(this).css({
+                'backgroundImage': newSrc
+            });
+        }
     });
     $('.close, #login, #like-alternate, #zoom').on('mouseout', function() {
-    	// Add -on at the end of the image (before the .png).
-    	if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") != -1) {
-    		var src = $(this).attr('src');
-	    	var addIndex = src.indexOf("-on");
-	    	var newSrc = src.slice(0, addIndex) + src.slice(addIndex + 3, src.length);
-	    	$(this).attr('src', newSrc);
-    	}
+        // Add -on at the end of the image (before the .png).
+        if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") != -1) {
+            var src = $(this).attr('src');
+            var addIndex = src.indexOf("-on");
+            var newSrc = src.slice(0, addIndex) + src.slice(addIndex + 3, src.length);
+            $(this).attr('src', newSrc);
+        }
+        // Check if background image is used.
+        if ($(this).css('backgroundImage').length > 0 && $(this).css('backgroundImage').indexOf("-on") != -1) {
+            var bgImage = $(this).css('backgroundImage');
+            var addIndex = bgImage.indexOf("-on");
+            var newSrc = bgImage.slice(0, addIndex) + bgImage.slice(addIndex + 3, bgImage.length);
+            $(this).css({
+                'backgroundImage': newSrc
+            });
+        }
     });
     $('.close, #login, #like-alternate, #zoom').on('click', function() {
-    	// Add -on at the end of the image (before the .png).
-    	if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") == -1) {
-    		var src = $(this).attr('src');
-	    	var addIndex = src.indexOf(".png");
-	    	var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
-	    	$(this).attr('src', newSrc);
-    	}
+        // Add -on at the end of the image (before the .png).
+        if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") == -1) {
+            var src = $(this).attr('src');
+            var addIndex = src.indexOf(".png");
+            var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
+            $(this).attr('src', newSrc);
+        }
+        // Check if background image is used.
+        if ($(this).css('backgroundImage').length > 0 && $(this).css('backgroundImage').indexOf("-on") == -1) {
+            var bgImage = $(this).css('backgroundImage');
+            var addIndex = bgImage.indexOf(".png");
+            var newSrc = bgImage.slice(0, addIndex) + "-on" + bgImage.slice(addIndex, bgImage.length);
+            $(this).css({
+                'backgroundImage': newSrc
+            });
+        }
     });
-    
+
     // Add slight movement to personality images on hover.
     $('#selects').find('img').each(function() {
-    	$(this).on('mouseover', function() {
-    		if ($(this).css("marginLeft") != "-20px") {
-	    		$(this).css({
-	    			marginLeft: "-10px"
-	    		});
-    		}
-    	});
-    	$(this).on('mouseout', function() {
-    		if ($(this).css("marginLeft") != "-20px") {
-	    		$(this).css({
-	    			marginLeft: "0px"
-	    		});
-	    	}
-    	});
+        $(this).on('mouseover', function() {
+            if ($(this).css("marginLeft") != "-20px") {
+                $(this).css({
+                    marginLeft: "-10px"
+                });
+            }
+        });
+        $(this).on('mouseout', function() {
+            if ($(this).css("marginLeft") != "-20px") {
+                $(this).css({
+                    marginLeft: "0px"
+                });
+            }
+        });
     });
 });
 
