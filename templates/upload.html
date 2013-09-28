@@ -335,7 +335,7 @@ $(function () {
                 $.each($('#wrap').find('.polaroid'), function (index, element) {
                     var tag_element = $(element).find('.hidden_input');
                     if (tag_element && tag_element.length > 0 && $(tag_element).val() != '') {
-                        current_tags.push($(element).val().toString() + "," + tag_positions[index][0].toString() + "," + tag_positions[index][1].toString());
+                        current_tags.push($(element).find('.hidden_input').val().toString() + "," + tag_positions[index][0].toString() + "," + tag_positions[index][1].toString());
                     }
                 });
                 var final_tags = [];
@@ -352,8 +352,8 @@ $(function () {
                                 message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to Beneselfies.com."
                             }, function (response) {
                                 if (response.post_id) {
-                                    $.post('/post_id/', {post_id: response.post_id}).success(
-                                            function (response) {
+                                    $.post('/post_id/', {post_id: response.post_id}).done(
+                                            function () {
                                                 window.location = "/finish/";
                                             });
                                 } else {
