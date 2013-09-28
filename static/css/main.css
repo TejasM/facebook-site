@@ -500,3 +500,7 @@ div#enter-to-win form div.terms-check p {
     position: relative;
     top: -80px;
 }
+
+#twitter-follow, #facebook {
+    width: 80%;
+}
