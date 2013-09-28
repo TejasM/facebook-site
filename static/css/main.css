@@ -498,9 +498,10 @@ div#enter-to-win form div.terms-check p {
 
 #okay {
     position: relative;
-    top: -80px;
+    top: -68px;
 }
 
 #twitter-follow, #facebook {
-    width: 80%;
+    margin-top: 10px;
+    width: 55px;
 }
