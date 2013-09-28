@@ -160,7 +160,7 @@ $(document).ready(function () {
     }
 
     // Add hove/click/active button images.
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done').on('mouseover', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done').live('mouseover', function() {
         // Add -on at the end of the image (before the .png).
         if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") == -1) {
             var src = $(this).attr('src');
@@ -178,7 +178,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done').on('mouseout', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done').live('mouseout', function() {
         // Add -on at the end of the image (before the .png).
         if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") != -1) {
             var src = $(this).attr('src');
@@ -196,7 +196,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done').on('click', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done').live('click', function() {
         // Add -on at the end of the image (before the .png).
         if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") == -1) {
             var src = $(this).attr('src');
