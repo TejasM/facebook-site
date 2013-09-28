@@ -173,7 +173,9 @@ $(document).ready(function () {
     		var bgImage = $(this).css('backgroundImage');
     		var addIndex = bgImage.indexOf(".png");
 	    	var newSrc = bgImage.slice(0, addIndex) + "-on" + bgImage.slice(addIndex, bgImage.length);
-	    	$(this).attr('src', newSrc);
+	    	$(this).css({
+	    		'backgroundImage': newSrc
+    		});
     	}
     });
     $('.close, #login, #like-alternate, #zoom').on('mouseout', function() {
