@@ -160,7 +160,7 @@ $(document).ready(function () {
     }
 
     // Add hove/click/active button images.
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, .buttons img').on('mouseover', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done').on('mouseover', function() {
         // Add -on at the end of the image (before the .png).
         if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") == -1) {
             var src = $(this).attr('src');
@@ -178,7 +178,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, .buttons img').on('mouseout', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done').on('mouseout', function() {
         // Add -on at the end of the image (before the .png).
         if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") != -1) {
             var src = $(this).attr('src');
@@ -196,7 +196,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, .buttons img').on('click', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done').on('click', function() {
         // Add -on at the end of the image (before the .png).
         if ($(this).attr('src') > 0 && $(this).attr('src').indexOf("-on") == -1) {
             var src = $(this).attr('src');
@@ -306,6 +306,8 @@ function focusImage(event) {
     newUpload.src = "/static/images/Pinboard%20Assets/Buttons/choose.png";
     newDone.src = "/static/images/Pinboard%20Assets/Buttons/done.png";
     $(newDone).css("margin-left", "10px");
+    $(newDone).attr('id', "btn_done");
+    $(newUpload).attr('id', "btn_choose");
     $(newButtons).addClass("buttons");
     $(newButtons).append(newUpload);
     $(newButtons).append(newDone);
