@@ -169,10 +169,10 @@ $(document).ready(function () {
 	    	$(this).attr('src', newSrc);
     	}
     	// Check if background image is used.
-    	var bgImage = $(this).css('backgroundImage');
-    	if (bgImage.length > 0 && bgImage.indexOf("-on") == -1) {
-    		var addIndex = src.indexOf(".png");
-	    	var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
+    	if ($(this).css('backgroundImage').length > 0 && $(this).css('backgroundImage').indexOf("-on") == -1) {
+    		var bgImage = $(this).css('backgroundImage');
+    		var addIndex = bgImage.indexOf(".png");
+	    	var newSrc = bgImage.slice(0, addIndex) + "-on" + bgImage.slice(addIndex, bgImage.length);
 	    	$(this).attr('src', newSrc);
     	}
     });
