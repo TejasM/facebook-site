@@ -160,7 +160,7 @@ $(document).ready(function () {
     }
 
     // Add hove/click/active button images.
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay').live('mouseover', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay').on('mouseover', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on")) {
@@ -180,7 +180,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay').live('mouseout', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay').on('mouseout', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") != -1) {
@@ -200,7 +200,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay').live('click', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay').on('click', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") == -1) {

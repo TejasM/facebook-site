@@ -388,6 +388,7 @@ div#enter-to-win {
     background: url('../images/Pinboard Assets/Text/enter-to-win.png') top center no-repeat;
     color: #878686;
     font-size: 12px;
+    height: 312px;
     margin: auto;
     width: 612px;
 }
