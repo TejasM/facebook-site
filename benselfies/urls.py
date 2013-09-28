@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+
 admin.autodiscover()
 from benselfies import settings
 
@@ -16,6 +17,10 @@ urlpatterns = patterns('',
                        url(r'^post_id/$', 'benselfies.views.post_id', name='post_id'),
                        url(r'^preview/$', 'benselfies.views.home', name='preview'),
                        url(r'^login/$', 'benselfies.views.login_user', name='login'),
+                       url(r'^random/$', 'benselfies.views.random_page', name='random_page'),
+                       url(r'^smallrandom/$', 'benselfies.views.get_small_random_winner', name='small_random'),
+                       url(r'^bigrandom/$', 'benselfies.views.get_big_random_winner', name='big_random'),
+
                        # url(r'^benselfies/', include('benselfies.foo.urls')),
 
                        # Uncomment the admin/doc line below to enable admin documentation:

@@ -11,6 +11,12 @@ class Submission(models.Model):
     last_submitted = models.DateTimeField(default=timezone.now())
     eligible = models.BooleanField(default=True)
     email = models.CharField(max_length=200, default="")
+    first_name = models.CharField(max_length=50, default="")
+    last_name = models.CharField(max_length=50, default="")
+
+    def __unicode__(self):
+        return "Winner is: " + self.first_name + " " + self.last_name + "\nEmail: " + \
+               self.email + "\nSubmitted: " + self.last_submitted.strftime("%c")
 
 
 class UserSubmission(models.Model):

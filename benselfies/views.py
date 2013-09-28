@@ -170,7 +170,21 @@ def login_user(request):
 
 
 @login_required()
-def get_random_winner(request):
+def get_small_random_winner(request):
+    submissions = Submission.objects.filter()
+    submission = random.choice(submissions)
+    return render_to_response('random_page.html', {"submission": submission})
+
+
+@login_required()
+def get_big_random_winner(request):
     submissions = Submission.objects.filter(eligible=True)
     submission = random.choice(submissions)
-    return render_to_response('something.html', {"submission": submission})
+    submission.eligible = False
+    submission.save()
+    return render_to_response('random_page.html', {"submission": submission})
+
+
+@login_required()
+def random_page(request):
+    return render_to_response('random_page.html')

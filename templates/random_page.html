@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Winner</title>
+    <link rel="stylesheet" href="/static/css/main.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div class="wraptocenter">
+    {% if submission %}
+        {{ submission }}
+    {% else %}
+    <button><a href="/smallrandom/">Random Small Winner</a></button>
+    <button><a href="/bigrandom/">Random Small Winner</a></button>
+    {% endif %}
+</div>
+</body>
+</html>
