@@ -23,9 +23,12 @@
                                                                  alt="" id="view">
         </div>
 
-        <div style="text-align: center; margin-top: 10px"><img src="/static/images/beneselfies-twitter.png" alt=""
-                                                               id="twitter-follow"><img
-                src="/static/images/beneselfies-facebook.png" style="margin-left: 345px" alt="" id="facebook"></div>
+
+        <div style="text-align: center; margin-top: 10px"><a class="twitter popup" href="http://twitter.com/share?text=I%20just%20entered%20to%20win%20the%20ULTIMATE%20fashion,%20beauty%20and%20tech%20prizes%20with%20@BenefitCanada!%20Pick%20your%20BENESELFIES%20too!&url=http://www.beneselfies.com">
+            <img src="/static/images/beneselfies-twitter.png" alt=""
+                 id="twitter-follow"></a>
+            <img
+                    src="/static/images/beneselfies-facebook.png" style="margin-left: 345px" alt="" id="facebook"></div>
         <div style="text-align: center; margin-top: 35px"><img src="/static/images/Pinboard%20Assets/Buttons/okay.png"
                                                                alt="" id="okay">
         </div>
@@ -40,14 +43,27 @@
         $('#facebook').click(function () {
             window.location = "https://www.facebook.com/benefitcosmeticscanada";
         });
-        $('#twitter-follow').click(function () {
-            window.location = "https://twitter.com/BenefitCanada";
-        });
         $('#okay').click(function () {
             window.location = "/";
         });
         $('#view').click(function () {
             window.location = "http://facebook.com/profile.php?id={{ user_id }}";
+        });
+        $('.popup').click(function (event) {
+            var width = 575,
+                    height = 400,
+                    left = ($(window).width() - width) / 2,
+                    top = ($(window).height() - height) / 2,
+                    url = this.href,
+                    opts = 'status=1' +
+                            ',width=' + width +
+                            ',height=' + height +
+                            ',top=' + top +
+                            ',left=' + left;
+
+            window.open(url, 'twitter', opts);
+
+            return false;
         });
     });
 </script>

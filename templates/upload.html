@@ -377,7 +377,7 @@ $(function () {
         html2canvas(document.getElementById('wrap'), {
             onrendered: function (canvas) {
                 var $div = $('div.loader');
-                $div.css("background", "url(../images/please-wait-2.png) center center no-repeat rgba(255,255,255,0.5)");
+                $div.css("background", "url(/static/images/please-wait-2.png) center center no-repeat rgba(255,255,255,0.5)");
                 $div.show();
                 var dataURL = canvas.toDataURL();
                 current_tags = [];
@@ -398,7 +398,7 @@ $(function () {
                             FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', {
                                 url: window.location.origin + data["image"],
                                 tags: data["tags"],
-                                message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to Beneselfies.com."
+                                message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to www.beneselfies.com."
                             }, function (response) {
                                 if (response.post_id) {
                                     $.post('/post_id/', {post_id: response.post_id}).done(
