@@ -481,12 +481,22 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* Add pointer to image links. */
-#selects img, #zoom, #next, #back, #share {
+#selects img, #zoom, #next, #back, #share, #view, #okay, #twitter-follow, #facebook {
 	cursor: pointer;
 }
 
 /* Reposition button links. */
-#okay_fine img, #post, #close, #okay {
+#okay_fine img, #post, #close {
     position: relative;
     top: -65px;
+}
+
+#view {
+    position: relative;
+    top: -10px;
+}
+
+#okay {
+    position: relative;
+    top: -80px;
 }
