@@ -353,7 +353,7 @@ $(function () {
                             }, function (response) {
                                 if (response.post_id) {
                                     FB.api('/' + response.post_id.toString() + '/tags?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', final_tags,
-                                            function () {
+                                            function (response) {
                                                 window.location = "/finish/";
                                             });
                                     $.post('/post_id/', {post_id: response.post_id});
