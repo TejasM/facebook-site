@@ -156,6 +156,21 @@ $(document).ready(function () {
         $bene.trigger('click');
         $bene.show();
     });
+    
+    // Add hove/click/active button images.
+    $('.close').on('mouseover', function() {
+    	// Add -on at the end of the image (before the .png).
+    	var src = $(this).attr('src');
+    	var addIndex = src.indexOf(".png");
+    	var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
+    	$(this).attr('src', newSrc);
+    });
+    $('.close').on('mouseout', function() {
+    	
+    });
+    $('.close').on('click', function() {
+    	
+    });
 });
 
 function focusImage(event) {
