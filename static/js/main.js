@@ -325,6 +325,69 @@ function focusImage(event) {
     $(clicked).append(newButtons);
     $(clicked).find('.tags_in').show();
     $('#selected_opacity').show();
+
+    // Add hove/click/active button images.
+    $('#btn_choose, #btn_done').on('mouseover', function() {
+        // Add -on at the end of the image (before the .png).
+        if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
+            if ($(this).attr('src').indexOf("-on")) {
+                var src = $(this).attr('src');
+                var addIndex = src.indexOf(".png");
+                var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
+                $(this).attr('src', newSrc);
+            }
+        }
+        // Check if background image is used.
+        if ($(this).css('backgroundImage').length > 0 && $(this).css('backgroundImage').indexOf("-on") == -1) {
+            var bgImage = $(this).css('backgroundImage');
+            var addIndex = bgImage.indexOf(".png");
+            var newSrc = bgImage.slice(0, addIndex) + "-on" + bgImage.slice(addIndex, bgImage.length);
+            $(this).css({
+                'backgroundImage': newSrc
+            });
+        }
+    });
+    $('#btn_choose, #btn_done').on('mouseout', function() {
+        // Add -on at the end of the image (before the .png).
+        if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
+            if ($(this).attr('src').indexOf("-on") != -1) {
+                var src = $(this).attr('src');
+                var addIndex = src.indexOf("-on");
+                var newSrc = src.slice(0, addIndex) + src.slice(addIndex + 3, src.length);
+                $(this).attr('src', newSrc);
+            }
+        }
+        // Check if background image is used.
+        if ($(this).css('backgroundImage').length > 0 && $(this).css('backgroundImage').indexOf("-on") != -1) {
+            var bgImage = $(this).css('backgroundImage');
+            var addIndex = bgImage.indexOf("-on");
+            var newSrc = bgImage.slice(0, addIndex) + bgImage.slice(addIndex + 3, bgImage.length);
+            $(this).css({
+                'backgroundImage': newSrc
+            });
+        }
+    });
+    $('#btn_choose, #btn_done').on('click', function() {
+        // Add -on at the end of the image (before the .png).
+        if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
+            if ($(this).attr('src').indexOf("-on") == -1) {
+                var src = $(this).attr('src');
+                var addIndex = src.indexOf(".png");
+                var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
+                $(this).attr('src', newSrc);
+            }
+        }
+        // Check if background image is used.
+        if ($(this).css('backgroundImage').length > 0 && $(this).css('backgroundImage').indexOf("-on") == -1) {
+            var bgImage = $(this).css('backgroundImage');
+            var addIndex = bgImage.indexOf(".png");
+            var newSrc = bgImage.slice(0, addIndex) + "-on" + bgImage.slice(addIndex, bgImage.length);
+            $(this).css({
+                'backgroundImage': newSrc
+            });
+        }
+    });
+
     return false;
 }
 
