@@ -60,20 +60,22 @@ div#main-nav ul {
 
 div#main-nav ul li {
     display: inline-block;
+    width: 32%;
 }
 
 div#main-nav ul li a {
     color: #fff;
+    display: inline-block;
     font-size: 12px;
     font-weight: bold;
     line-height: 30px;
     text-align: center;
     text-decoration: none;
     text-transform: uppercase;
-    width: 32%;
+    width: 100%;
 }
-
 div#main-nav ul li a:hover, div#main-nav ul li a:active {
+    background: #f964a2;
 }
 
 div#left-lamp {
