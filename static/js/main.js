@@ -161,15 +161,29 @@ $(document).ready(function () {
     $('.close').on('mouseover', function() {
     	// Add -on at the end of the image (before the .png).
     	var src = $(this).attr('src');
-    	var addIndex = src.indexOf(".png");
-    	var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
-    	$(this).attr('src', newSrc);
+    	if (src.indexOf("-on") == -1) {
+	    	var addIndex = src.indexOf(".png");
+	    	var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
+	    	$(this).attr('src', newSrc);
+    	}
     });
     $('.close').on('mouseout', function() {
-    	
+    	// Add -on at the end of the image (before the .png).
+    	var src = $(this).attr('src');
+    	if (src.indexOf("-on") != -1) {
+	    	var addIndex = src.indexOf("-on");
+	    	var newSrc = src.slice(0, addIndex) + src.slice(addIndex + 3, src.length);
+	    	$(this).attr('src', newSrc);
+    	}
     });
     $('.close').on('click', function() {
-    	
+    	// Add -on at the end of the image (before the .png).
+    	var src = $(this).attr('src');
+    	if (src.indexOf("-on") == -1) {
+	    	var addIndex = src.indexOf(".png");
+	    	var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
+	    	$(this).attr('src', newSrc);
+    	}
     });
 });
 
