@@ -460,3 +460,8 @@ div#enter-to-win form div.terms-check p {
 .ui-autocomplete .ui-menu-item {
     font-size: x-small;
 }
+
+/* Add pointer to image links. */
+#selects img {
+	cursor: pointer;
+}

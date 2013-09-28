@@ -187,6 +187,24 @@ $(document).ready(function () {
 	    	$(this).attr('src', newSrc);
     	}
     });
+    
+    // Add slight movement to personality images on hover.
+    $('#selects').find('img').each(function() {
+    	$(this).on('mouseover', function() {
+    		if ($(this).css("marginLeft") != "-20px") {
+	    		$(this).css({
+	    			marginLeft: "-10px"
+	    		});
+    		}
+    	});
+    	$(this).on('mouseout', function() {
+    		if ($(this).css("marginLeft") != "-20px") {
+	    		$(this).css({
+	    			marginLeft: "0px"
+	    		});
+	    	}
+    	});
+    });
 });
 
 function focusImage(event) {
