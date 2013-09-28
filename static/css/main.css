@@ -296,7 +296,7 @@ div#footer {
     left: 0;
     min-height: 100%;
     width: 100%;
-    background: url(../images/loader.gif) center center no-repeat rgba(255, 255, 255, 0.5);
+    background: url(../images/hold-on-1.png) center center no-repeat;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     border-radius: 8px;
