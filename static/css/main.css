@@ -384,6 +384,7 @@ div#enter-to-win form div.first-name {
     display: inline-block;
     height: 55px;
     padding: 0 10px;
+    vertical-align: top;
     width: 44%;
 }
 
@@ -408,6 +409,7 @@ div#enter-to-win form div.last-name {
     display: inline-block;
     height: 55px;
     padding: 0 10px;
+    vertical-align: top;
     width: 44%;
 }
 
