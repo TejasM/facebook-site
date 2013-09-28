@@ -462,6 +462,6 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* Add pointer to image links. */
-#selects img {
+#selects img, #zoom, #next {
 	cursor: pointer;
 }
