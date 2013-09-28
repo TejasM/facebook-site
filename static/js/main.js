@@ -96,66 +96,68 @@ $(document).ready(function () {
 
     var i = 0, imageCount = 8;
     var $wrap = $('#wrap').find('.polaroid');
-    $.each(images, function (key, value) {
-        var imageObj = new Image();
-        imageObj.onload = function () {
-            drawImage(this, key, this.i);
-            var newPin = new Image();
-            newPin.onload = function () {
-                drawPin(this, this.key, this.i);
-            };
-            newPin.i = this.i;
-            newPin.key = key;
-            newPin.src = pins[key];
-            if (i == imageCount) {
-                // Absolute position the polaroids.
-                $wrap.each(function (index, element) {
-                    var d = rotateAngles[index];
-                    $(element).css({'-moz-transform': 'rotate(' + d + 'deg)',
-                        '-webkit-transform': 'rotate(' + d + 'deg)',
-                        '-o-transform': 'rotate(' + d + 'deg)',
-                        '-ms-transform': 'rotate(' + d + 'deg)',
-                        'transform': 'rotate(' + d + 'deg)'});
-                });
-                var $selects = $('#selects').find('.selects');
-                $selects.each(function () {
-                    $(this).click(function () {
-                        var index = 0;
-                        for (var i = 0; i < $selects.length; i++) {
-                            if (this == $selects[i]) {
-                                index = i;
-                            } else {
-                                $($selects[i]).css('margin-left', '0px');
-                            }
-                        }
-                        $(this).css('margin-left', '-20px');
-                        if (!choose) {
-                            $('#zoom').css({'opacity': 1});
-                            choose = true;
-                        }
-                        $('#selected_bene').val(index);
-                        $('#select_text').attr("src", texts[index]);
-                    });
-                });
-            }
-        };
-        imageObj.i = i;
-        imageObj.src = value;
-        ++i;
-    });
-
-    $wrap.each(function (index, element) {
-        $(this).on('click', focusImage);
-        $(this).hide();
-    });
-    var $zoom = $('#zoom');
-    $zoom.css({'opacity': 0});
-    $zoom.click(function () {
-        var index = $('#selected_bene').val();
-        var $bene = $("#" + index.toString());
-        $bene.trigger('click');
-        $bene.show();
-    });
+    if ($wrap.length > 0) {
+	    $.each(images, function (key, value) {
+	        var imageObj = new Image();
+	        imageObj.onload = function () {
+	            drawImage(this, key, this.i);
+	            var newPin = new Image();
+	            newPin.onload = function () {
+	                drawPin(this, this.key, this.i);
+	            };
+	            newPin.i = this.i;
+	            newPin.key = key;
+	            newPin.src = pins[key];
+	            if (i == imageCount) {
+	                // Absolute position the polaroids.
+	                $wrap.each(function (index, element) {
+	                    var d = rotateAngles[index];
+	                    $(element).css({'-moz-transform': 'rotate(' + d + 'deg)',
+	                        '-webkit-transform': 'rotate(' + d + 'deg)',
+	                        '-o-transform': 'rotate(' + d + 'deg)',
+	                        '-ms-transform': 'rotate(' + d + 'deg)',
+	                        'transform': 'rotate(' + d + 'deg)'});
+	                });
+	                var $selects = $('#selects').find('.selects');
+	                $selects.each(function () {
+	                    $(this).click(function () {
+	                        var index = 0;
+	                        for (var i = 0; i < $selects.length; i++) {
+	                            if (this == $selects[i]) {
+	                                index = i;
+	                            } else {
+	                                $($selects[i]).css('margin-left', '0px');
+	                            }
+	                        }
+	                        $(this).css('margin-left', '-20px');
+	                        if (!choose) {
+	                            $('#zoom').css({'opacity': 1});
+	                            choose = true;
+	                        }
+	                        $('#selected_bene').val(index);
+	                        $('#select_text').attr("src", texts[index]);
+	                    });
+	                });
+	            }
+	        };
+	        imageObj.i = i;
+	        imageObj.src = value;
+	        ++i;
+	    });
+	
+	    $wrap.each(function (index, element) {
+	        $(this).on('click', focusImage);
+	        $(this).hide();
+	    });
+	    var $zoom = $('#zoom');
+	    $zoom.css({'opacity': 0});
+	    $zoom.click(function () {
+	        var index = $('#selected_bene').val();
+	        var $bene = $("#" + index.toString());
+	        $bene.trigger('click');
+	        $bene.show();
+	    });
+    }
     
     // Add hove/click/active button images.
     $('.close').on('mouseover', function() {
