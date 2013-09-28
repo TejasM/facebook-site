@@ -147,6 +147,7 @@ def post_id(request):
         return HttpResponse({}, content_type="application/json")
     except UserSubmission.DoesNotExist as _:
         return HttpResponse({}, content_type="application/json")
+    return HttpResponse({}, content_type="application/json")
 
 
 def preview(request):
