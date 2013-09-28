@@ -160,7 +160,7 @@ $(document).ready(function () {
     }
     
     // Add hove/click/active button images.
-    $('.close').on('mouseover', function() {
+    $('.close, #login, #like-alternate').on('mouseover', function() {
     	// Add -on at the end of the image (before the .png).
     	var src = $(this).attr('src');
     	if (src.indexOf("-on") == -1) {
@@ -169,7 +169,7 @@ $(document).ready(function () {
 	    	$(this).attr('src', newSrc);
     	}
     });
-    $('.close').on('mouseout', function() {
+    $('.close, #login, #like-alternate').on('mouseout', function() {
     	// Add -on at the end of the image (before the .png).
     	var src = $(this).attr('src');
     	if (src.indexOf("-on") != -1) {
@@ -178,7 +178,7 @@ $(document).ready(function () {
 	    	$(this).attr('src', newSrc);
     	}
     });
-    $('.close').on('click', function() {
+    $('.close, #login, #like-alternate').on('click', function() {
     	// Add -on at the end of the image (before the .png).
     	var src = $(this).attr('src');
     	if (src.indexOf("-on") == -1) {
