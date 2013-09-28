@@ -377,18 +377,24 @@ div#footer {
     vertical-align: middle;
 }
 
+/*---- How to Play ----*/
+img.close {
+    position: relative;
+    top: -15px;
+}
+
 /*---- Enter to Win ----*/
 div#enter-to-win {
     background: url('../images/Pinboard Assets/Text/enter-to-win.png') top center no-repeat;
     color: #878686;
     font-size: 12px;
     margin: auto;
-    width: 442px;
+    width: 612px;
 }
 
 div#enter-to-win form {
     margin: 0 25px;
-    padding-top: 93px;
+    padding-top: 78px;
 }
 
 div#enter-to-win form div.first-name {
