@@ -12,199 +12,211 @@
 <body onload='location.href="#app"'>
 {% include 'header.html' %}
 <div class="content" id="wrap">
-    <a name="app"></a>
+<a name="app"></a>
 
-    <div class="loader"></div>
-    <div id="dialog-confirm" style="position: absolute; top: 150px; width: 100%; display: none; z-index: 5;">
-        <div style="margin: auto; width: 422px; text-align: center;">
-            <img src="/static/images/sure-love.png" alt="">
+<div class="loader"></div>
+<div id="dialog-confirm" style="position: absolute; top: 150px; width: 100%; display: none; z-index: 5;">
+    <div style="margin: auto; width: 422px; text-align: center;">
+        <img src="/static/images/sure-love.png" alt="">
 
-            <div style="text-align: center;"><img style="cursor: pointer;"
-                                                  src="/static/images/Pinboard%20Assets/Buttons/yes.png" id="post"
-                                                  alt="">
-                <img style="cursor: pointer;" src="/static/images/Pinboard%20Assets/Buttons/back.png" id="close"
-                     alt="">
+        <div style="text-align: center;"><img style="cursor: pointer;"
+                                              src="/static/images/Pinboard%20Assets/Buttons/yes.png" id="post"
+                                              alt="">
+            <img style="cursor: pointer;" src="/static/images/Pinboard%20Assets/Buttons/back.png" id="close"
+                 alt="">
+        </div>
+    </div>
+</div>
+
+<div id="dialog-confirm-2"
+     style="position: absolute; top: 150px; width: 100%; display: none; z-index: 5; display: none">
+    <div style="margin: auto; width: 422px; text-align: center;">
+        <img src="/static/images/hold-on-1.png" alt="">
+
+        <div style="text-align: center;" id="okay_fine"><img style="cursor: pointer;"
+                                                             src="/static/images/Pinboard%20Assets/Buttons/okay.png"
+                                                             alt="">
+        </div>
+    </div>
+</div>
+
+<div id="dialog-warn"
+     style="position: absolute; top: 150px; width: 100%; display: none; z-index: 20; display: none">
+    <div style="margin: auto; width: 422px; text-align: center;">
+        <img src="/static/images/hold-on-2.png" alt="">
+
+        <div style="text-align: center;"><img style="cursor: pointer;"
+                                              src="/static/images/Pinboard%20Assets/Buttons/yes.png" id="yes_sure"
+                                              alt="">
+            <img style="cursor: pointer;" src="/static/images/Pinboard%20Assets/Buttons/back.png" id="no_back"
+                 alt="">
+        </div>
+
+    </div>
+</div>
+<div id="polaroids" style="padding-top: 130px; margin: 0 43px; ">
+    <div class="polaroid" id="0">
+        <div id="shopaholic" style="display: inline"></div>
+    </div>
+
+    <div class="polaroid" id="1">
+        <div id="comedian" style="display: inline"></div>
+    </div>
+
+    <div class="polaroid" id="2">
+        <div id="sexy" style="display: inline"></div>
+    </div>
+
+    <div class="polaroid" id="3">
+        <div id="fashionista" style="display: inline"></div>
+    </div>
+
+    <div class="polaroid" id="4">
+        <div id="gorgeous" style="display: inline"></div>
+    </div>
+
+    <div class="polaroid" id="5">
+        <div id="independent" style="display: inline"></div>
+    </div>
+
+    <div class="polaroid" id="6">
+        <div id="sporty" style="display: inline"></div>
+    </div>
+
+    <div class="polaroid" id="7">
+        <div id="global" style="display: inline"></div>
+    </div>
+
+    {#        <img id="pin_01"#}
+    {#             src="/static/images/Pinboard%20Assets/Pins/pin-01.png"/>#}
+    {#        <img id="pin_02"#}
+    {#             src="/static/images/Pinboard%20Assets/Pins/pin-02.png"/>#}
+    {#        <img id="pin_03"#}
+    {#             src="/static/images/Pinboard%20Assets/Pins/pin-03.png"/>#}
+    {#        <img id="pin_04"#}
+    {#             src="/static/images/Pinboard%20Assets/Pins/pin-04.png"/>#}
+    {#        <img id="pin_05"#}
+    {#             src="/static/images/Pinboard%20Assets/Pins/pin-05.png"/>#}
+    {#        <img id="pin_06"#}
+    {#             src="/static/images/Pinboard%20Assets/Pins/pin-06.png"/>#}
+    {#        <img id="pin_07"#}
+    {#             src="/static/images/Pinboard%20Assets/Pins/pin-07.png"/>#}
+    {#        <img id="pin_08"#}
+    {#             src="/static/images/Pinboard%20Assets/Pins/pin-08.png"/>#}
+
+    <div style="margin: 20px auto; display: none; width: 350px" id="buttons">
+        <div id="back"
+             style="background: url('/static/images/Pinboard%20Assets/Buttons/back.png'); width: 103px; display: inline-block; height: 40px;"></div>
+        <div style="background: url('/static/images/Pinboard%20Assets/text-if-you-like-it-share-it.png'); width: 103px;display: inline-block; height: 40px;"></div>
+        <div id="share"
+             style="background: url('/static/images/Pinboard%20Assets/Buttons/share.png'); width: 103px; display: inline-block; height: 40px;"></div>
+    </div>
+    <img src="/static/images/Pinboard%20Assets/benefit-white-logo-small.png" id="white_logo"
+         style="display: none; z-index: 5; position: absolute; top: 525px; left: 400px" alt="">
+</div>
+<div id="select_phase"
+     style="position: absolute; left: 130px; top:140px; width: 525px; height: 470px; padding-left: 25px">
+    <div style="width: 246px; height: 366px; background: url('/static/images/Pinboard%20Assets/Text/instructions-box-choosing.png'); float: right;">
+        <div style="margin-top: 200px; padding-left: 25px; padding-right: 10px;">
+            <div style="height: 72px">
+                <img id="select_text"
+                     style="margin: 0 auto;"/>
             </div>
+            <div id="zoom"
+                 style="background: url('/static/images/Pinboard%20Assets/Buttons/choose.png'); width: 103px; height: 40px; margin: 25px auto 0;"></div>
+            <div id="next"
+                 style="background: url('/static/images/Pinboard%20Assets/Buttons/preview.png'); width: 103px; height: 40px; margin: 40px auto;"></div>
         </div>
     </div>
+    <input type="hidden" value="5" id="selected_bene">
+    <ul id="selects">
+        <li><img id="shopaholic_select" class="selects"
+                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/shopaholic.png"/>
+        </li>
+        <li><img id="comedian_select" class="selects"
+                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/comedian.png"/></li>
+        <li><img id="sexy_select" class="selects"
+                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/sexy.png"/></li>
+        <li><img id="fashionista_select" class="selects"
+                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/fashionista.png"/></li>
+        <li><img id="gorgeous_select" class="selects"
+                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/geek.png"/></li>
+        <li><img id="independent_select" class="selects"
+                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/independent.png"/></li>
+        <li><img id="sporty_select" class="selects"
+                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/sporty.png"/></li>
+        <li><img id="global_select" class="selects"
+                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/globetrotter.png"/>
+        </li>
+    </ul>
+    <img id="hit_me" style="margin-top: 10px; margin-left: 110px"
+         src="/static/images/Pinboard%20Assets/text-hit-the-preview-button.png"/>
+</div>
+<div id="overlay"
+     style=" position: absolute; width: 100%; height: 100%; left: 0; top: 0; z-index: 5; background: rgba(0, 0, 0, 0.8)"></div>
+<div id="fb-root">
+</div>
+<div id="CSPhotoSelector">
+    <div class="CSPhotoSelector_dialog">
+        <a href="#" id="CSPhotoSelector_buttonClose">x</a>
 
-    <div id="dialog-confirm-2" style="position: absolute; top: 150px; width: 100%; display: none; z-index: 5; display: none">
-        <div style="margin: auto; width: 422px; text-align: center;">
-            <img src="/static/images/hold-on-1.png" alt="">
-
-            <div style="text-align: center;" id="okay_fine"><img style="cursor: pointer;"
-                                                  src="/static/images/Pinboard%20Assets/Buttons/okay.png"
-                                                  alt="">
+        <div class="CSPhotoSelector_form">
+            <div class="CSPhotoSelector_header">
+                <p>Choose from Photos</p>
             </div>
-        </div>
-    </div>
-    <div id="polaroids" style="padding-top: 130px; margin: 0 43px; ">
-        <div class="polaroid" id="0">
-            <div id="shopaholic" style="display: inline"></div>
-        </div>
+            <div class="ui-widget">
+                <label for="filter" style="color: #ffffff">Filter by Friends: </label>
+                <input type="text" class="filter">
+            </div>
+            <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
+                <p>Browse your albums until you find a picture you want to use</p>
 
-        <div class="polaroid" id="1">
-            <div id="comedian" style="display: inline"></div>
-        </div>
-
-        <div class="polaroid" id="2">
-            <div id="sexy" style="display: inline"></div>
-        </div>
-
-        <div class="polaroid" id="3">
-            <div id="fashionista" style="display: inline"></div>
-        </div>
-
-        <div class="polaroid" id="4">
-            <div id="gorgeous" style="display: inline"></div>
-        </div>
-
-        <div class="polaroid" id="5">
-            <div id="independent" style="display: inline"></div>
-        </div>
-
-        <div class="polaroid" id="6">
-            <div id="sporty" style="display: inline"></div>
-        </div>
-
-        <div class="polaroid" id="7">
-            <div id="global" style="display: inline"></div>
-        </div>
-
-        {#        <img id="pin_01"#}
-        {#             src="/static/images/Pinboard%20Assets/Pins/pin-01.png"/>#}
-        {#        <img id="pin_02"#}
-        {#             src="/static/images/Pinboard%20Assets/Pins/pin-02.png"/>#}
-        {#        <img id="pin_03"#}
-        {#             src="/static/images/Pinboard%20Assets/Pins/pin-03.png"/>#}
-        {#        <img id="pin_04"#}
-        {#             src="/static/images/Pinboard%20Assets/Pins/pin-04.png"/>#}
-        {#        <img id="pin_05"#}
-        {#             src="/static/images/Pinboard%20Assets/Pins/pin-05.png"/>#}
-        {#        <img id="pin_06"#}
-        {#             src="/static/images/Pinboard%20Assets/Pins/pin-06.png"/>#}
-        {#        <img id="pin_07"#}
-        {#             src="/static/images/Pinboard%20Assets/Pins/pin-07.png"/>#}
-        {#        <img id="pin_08"#}
-        {#             src="/static/images/Pinboard%20Assets/Pins/pin-08.png"/>#}
-
-        <div style="margin: 20px auto; display: none; width: 350px" id="buttons">
-            <div id="back"
-                 style="background: url('/static/images/Pinboard%20Assets/Buttons/back.png'); width: 103px; display: inline-block; height: 40px;"></div>
-            <div style="background: url('/static/images/Pinboard%20Assets/text-if-you-like-it-share-it.png'); width: 103px;display: inline-block; height: 40px;"></div>
-            <div id="share"
-                 style="background: url('/static/images/Pinboard%20Assets/Buttons/share.png'); width: 103px; display: inline-block; height: 40px;"></div>
-        </div>
-        <img src="/static/images/Pinboard%20Assets/benefit-white-logo-small.png" id="white_logo"
-             style="display: none; z-index: 5; position: absolute; top: 525px; left: 400px" alt="">
-    </div>
-    <div id="select_phase"
-         style="position: absolute; left: 130px; top:140px; width: 525px; height: 470px; padding-left: 25px">
-        <div style="width: 246px; height: 366px; background: url('/static/images/Pinboard%20Assets/Text/instructions-box-choosing.png'); float: right;">
-            <div style="margin-top: 200px; padding-left: 25px; padding-right: 10px;">
-                <div style="height: 72px">
-                    <img id="select_text"
-                         style="margin: 0 auto;"/>
+                <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+                    <div class="CSPhotoSelector_selectedCountContainer">Select an album</div>
                 </div>
-                <div id="zoom"
-                     style="background: url('/static/images/Pinboard%20Assets/Buttons/choose.png'); width: 103px; height: 40px; margin: 25px auto 0;"></div>
-                <div id="next"
-                     style="background: url('/static/images/Pinboard%20Assets/Buttons/preview.png'); width: 103px; height: 40px; margin: 40px auto;"></div>
+                <div class="CSPhotoSelector_photosContainer CSAlbum_container"></div>
             </div>
-        </div>
-        <input type="hidden" value="5" id="selected_bene">
-        <ul id="selects">
-            <li><img id="shopaholic_select" class="selects"
-                     src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/shopaholic.png"/>
-            </li>
-            <li><img id="comedian_select" class="selects"
-                     src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/comedian.png"/></li>
-            <li><img id="sexy_select" class="selects"
-                     src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/sexy.png"/></li>
-            <li><img id="fashionista_select" class="selects"
-                     src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/fashionista.png"/></li>
-            <li><img id="gorgeous_select" class="selects"
-                     src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/geek.png"/></li>
-            <li><img id="independent_select" class="selects"
-                     src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/independent.png"/></li>
-            <li><img id="sporty_select" class="selects"
-                     src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/sporty.png"/></li>
-            <li><img id="global_select" class="selects"
-                     src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/globetrotter.png"/>
-            </li>
-        </ul>
-        <img id="hit_me" style="margin-top: 10px; margin-left: 110px"
-             src="/static/images/Pinboard%20Assets/text-hit-the-preview-button.png"/>
-    </div>
-    <div id="overlay"
-         style=" position: absolute; width: 100%; height: 100%; left: 0; top: 0; z-index: 5; background: rgba(0, 0, 0, 0.8)"></div>
-    <div id="fb-root">
-    </div>
-    <div id="CSPhotoSelector">
-        <div class="CSPhotoSelector_dialog">
-            <a href="#" id="CSPhotoSelector_buttonClose">x</a>
 
-            <div class="CSPhotoSelector_form">
-                <div class="CSPhotoSelector_header">
-                    <p>Choose from Photos</p>
-                </div>
+            <div class="CSPhotoSelector_content CSPhotoSelector_wrapper" style="overflow: visible">
+                <p>Select a new photo</p>
+
                 <div class="ui-widget">
-                    <label for="filter" style="color: #ffffff">Filter by Friends: </label>
+                    <label for="filter" style="color: black">Filter by Tags: </label>
                     <input type="text" class="filter">
+
+                    <div id="tags">Tags: <span id="tag_values"></span></div>
                 </div>
-                <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
-                    <p>Browse your albums until you find a picture you want to use</p>
-
-                    <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
-                        <div class="CSPhotoSelector_selectedCountContainer">Select an album</div>
+                <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+                    <div class="CSPhotoSelector_selectedCountContainer"><span
+                            class="CSPhotoSelector_selectedPhotoCount">0</span> / <span
+                            class="CSPhotoSelector_selectedPhotoCountMax">0</span> photos selected
                     </div>
-                    <div class="CSPhotoSelector_photosContainer CSAlbum_container"></div>
+                    <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
                 </div>
+                <div class="CSPhotoSelector_photosContainer CSPhoto_container"
+                     style="overflow-y: scroll; height: 300px;"></div>
+            </div>
 
-                <div class="CSPhotoSelector_content CSPhotoSelector_wrapper" style="overflow: visible">
-                    <p>Select a new photo</p>
+            <div id="CSPhotoSelector_loader"></div>
 
-                    <div class="ui-widget">
-                        <label for="filter" style="color: black">Filter by Tags: </label>
-                        <input type="text" class="filter">
 
-                        <div id="tags">Tags: <span id="tag_values"></span></div>
-                    </div>
-                    <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
-                        <div class="CSPhotoSelector_selectedCountContainer"><span
-                                class="CSPhotoSelector_selectedPhotoCount">0</span> / <span
-                                class="CSPhotoSelector_selectedPhotoCountMax">0</span> photos selected
-                        </div>
-                        <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
-                    </div>
-                    <div class="CSPhotoSelector_photosContainer CSPhoto_container"
-                         style="overflow-y: scroll; height: 300px;"></div>
+            <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
+                <a href="#" id="CSPhotoSelector_pagePrev" class="CSPhotoSelector_disabled">Previous</a>
+                <a href="#" id="CSPhotoSelector_pageNext">Next</a>
+
+                <div class="CSPhotoSelector_pageNumberContainer">
+                    Page <span id="CSPhotoSelector_pageNumber">1</span> / <span
+                        id="CSPhotoSelector_pageNumberTotal">1</span>
                 </div>
+                <a href="#" id="CSPhotoSelector_buttonOK">OK</a>
+                <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
 
-                <div id="CSPhotoSelector_loader"></div>
-
-
-                <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
-                    <a href="#" id="CSPhotoSelector_pagePrev" class="CSPhotoSelector_disabled">Previous</a>
-                    <a href="#" id="CSPhotoSelector_pageNext">Next</a>
-
-                    <div class="CSPhotoSelector_pageNumberContainer">
-                        Page <span id="CSPhotoSelector_pageNumber">1</span> / <span
-                            id="CSPhotoSelector_pageNumberTotal">1</span>
-                    </div>
-                    <a href="#" id="CSPhotoSelector_buttonOK">OK</a>
-                    <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
-
-                </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 {% include 'footer.html' %}
-<div id="dialog-warn" title="Sure love?">
-    <p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 60px 0;"></span>You have already selected
-        this friend. Are you sure you don't want to share the love?</p>
-</div>
 <div class="help_div" style="display: none">
     <img src="/static/images/beneselfies-how-to-play.png" alt="">
 
@@ -238,6 +250,8 @@ var tags_final = [];
 var dict_for_each_clicked = [];
 var names_for_each_clicked = [];
 var id_for_each_clicked = [];
+var pass_over_id = null;
+var pass_over_label = null;
 $(function () {
     // init the FB JS SDK
     FB.init({
@@ -352,7 +366,7 @@ $(function () {
         $("#dialog-confirm").hide();
     });
 
-    $('#okay_fine').click(function(){
+    $('#okay_fine').click(function () {
         $("#dialog-confirm-2").hide();
     });
 
@@ -503,24 +517,12 @@ $(function () {
         selector.showAlbumSelector(id);
     };
 
-    $("#dialog-warn").dialog({
-        resizable: false,
-        height: 250,
-        autoOpen: false,
-        modal: true,
-        buttons: {
-            "Yes": function () {
-                var index = parseInt($(clicked).attr('id'));
-                dict_for_each_clicked[index] = $(this).data("id");
-                names_for_each_clicked[index] = [$(this).data("label")];
-                id_for_each_clicked[index] = [$(this).data("id")];
-                $(this).dialog("close");
-            },
-            "No": function () {
-                fbphotoSelect(null);
-                $(this).dialog("close");
-            }
-        }
+    $('#yes_sure').click(function () {
+        $("#dialog-warn").hide();
+    });
+    $('#no_back').click(function () {
+        fbphotoSelect(null);
+        $("#dialog-warn").hide();
     });
 });
 
@@ -746,12 +748,11 @@ function selectPic(image_url, tags) {
             }
         }
         if (tagged) {
-            $("#dialog-warn").data("id", tags[0].id).data("label", tags[0].label).dialog("open")
-        } else {
-            dict_for_each_clicked[index] = tags[0].id;
-            names_for_each_clicked[index] = [tags[0].label];
-            id_for_each_clicked[index] = [tags[0].id];
+            $("#dialog-warn").show();
         }
+        dict_for_each_clicked[index] = tags[0].id;
+        names_for_each_clicked[index] = [tags[0].label];
+        id_for_each_clicked[index] = [tags[0].id];
     } else if (tags && tags.length == 0) {
         names_for_each_clicked[index] = [];
         id_for_each_clicked[index] = [];
