@@ -90,7 +90,9 @@ def add_custom_pic(request):
             user = submissions.order_by('last_submitted')
             if len(user) > 1:
                 user = user[1]
-                if (timezone.now() - user.last_submitted).total_seconds() > 24 * 60 * 60:
+                td = (timezone.now() - user.last_submitted)
+                duration = td.seconds + (td.days * 24 * 3600)
+                if duration > 24 * 60 * 60:
                     Submission.objects.create(user_id=submission.user_id, email=submission.email)
     except Submission.DoesNotExist:
         Submission.objects.create(user_id=submission.user_id, email=submission.email)
@@ -122,7 +124,9 @@ def email(request):
             is_eligible = reduce(lambda x, y: x or y, is_eligible)
             if is_eligible:
                 user = submissions.latest('last_submitted')
-                if (timezone.now() - user.last_submitted).total_seconds() > 24 * 60 * 60:
+                td = (timezone.now() - user.last_submitted)
+                duration = td.seconds + (td.days * 24 * 3600)
+                if duration > 24 * 60 * 60:
                     Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
         except Submission.DoesNotExist:
             Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
