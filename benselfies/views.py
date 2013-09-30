@@ -82,6 +82,18 @@ def add_custom_pic(request):
     submission.num_tags = len(tags_submit)
     submission.save()
     image.save()
+    try:
+        submissions = Submission.objects.filter(user_id=submission.user_id)
+        is_eligible = map(lambda x: x.eligible, submissions)
+        is_eligible = reduce(lambda x, y: x or y, is_eligible)
+        if is_eligible:
+            user = submissions.order_by('last_submitted')
+            if len(user) > 1:
+                user = user[1]
+                if (timezone.now() - user.last_submitted).total_seconds() > 24 * 60 * 60:
+                    Submission.objects.create(user_id=submission.user_id, email=submission.email)
+    except Submission.DoesNotExist:
+        Submission.objects.create(user_id=submission.user_id, email=submission.email)
     return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/media/')[1], "tags": tags_submit}),
                         content_type="application/json")
 
@@ -104,15 +116,16 @@ def add_image(request):
 @login_required()
 def email(request):
     if request.method == "POST":
-        # try:
-        #     user = Submission.objects.filter(user_id=request.POST["user_id"]).latest('last_submitted')
-        #     # if (user.last_submitted - timezone.now()) < 24 * 60 * 60:
-        #     #     messages.error(request, "You have already posted less 24 hours before. Try again in " + str(
-        #     #         user.time - timezone.now()))
-        #     #     return redirect(email)
-        # except Submission.DoesNotExist:
-        #     pass
-        Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
+        try:
+            submissions = Submission.objects.filter(user_id=request.POST["user_id"])
+            is_eligible = map(lambda x: x.eligible, submissions)
+            is_eligible = reduce(lambda x, y: x or y, is_eligible)
+            if is_eligible:
+                user = submissions.latest('last_submitted')
+                if (timezone.now() - user.last_submitted).total_seconds() > 24 * 60 * 60:
+                    Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
+        except Submission.DoesNotExist:
+            Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
         submission = UserSubmission.objects.create(email=request.POST["email"], first_name=request.POST["first_name"],
                                                    last_name=request.POST["last_name"], num_tags=0)
         request.session["user"] = submission.id
@@ -180,8 +193,10 @@ def get_small_random_winner(request):
 def get_big_random_winner(request):
     submissions = Submission.objects.filter(eligible=True)
     submission = random.choice(submissions)
-    submission.eligible = False
-    submission.save()
+    submissions = Submission.objects.filter(user_id=submission.user_id)
+    for sub in submissions:
+        sub.eligible = False
+        sub.save()
     return render_to_response('random_page.html', {"submission": submission})
 
 
