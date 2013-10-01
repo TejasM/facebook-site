@@ -14,6 +14,7 @@ from django.template import RequestContext
 from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import csrf_exempt
+import requests
 from benselfies.models import UserSubmission, UserImage, Submission
 
 __author__ = 'tmehta'
@@ -54,7 +55,8 @@ def add_media_file(request):
         return redirect(email)
     name = str(len(UserImage.objects.filter(submission=submission)))
     image = UserImage.objects.create(submission=submission)
-    file_content = ContentFile(urllib.urlopen(request.POST['image']).read())
+    response = requests.get(request.POST['image'])
+    file_content = ContentFile(response.content)
     image.image.save(name, file_content)
     image.save()
     return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/media/')[1]}),
