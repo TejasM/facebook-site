@@ -90,7 +90,10 @@ def add_custom_pic(request):
     try:
         submissions = Submission.objects.filter(user_id=submission.user_id)
         is_eligible = map(lambda x: x.eligible, submissions)
-        is_eligible = reduce(lambda x, y: x or y, is_eligible)
+        if is_eligible:
+            is_eligible = reduce(lambda x, y: x or y, is_eligible)
+        else:
+            is_eligible = True
         if is_eligible:
             user = submissions.order_by('last_submitted')
             if len(user) > 1:
@@ -126,7 +129,10 @@ def email(request):
         try:
             submissions = Submission.objects.filter(user_id=request.POST["user_id"])
             is_eligible = map(lambda x: x.eligible, submissions)
-            is_eligible = reduce(lambda x, y: x or y, is_eligible)
+            if is_eligible:
+                is_eligible = reduce(lambda x, y: x or y, is_eligible)
+            else:
+                is_eligible = True
             if is_eligible:
                 user = submissions.latest('last_submitted')
                 td = (timezone.now() - user.last_submitted)

@@ -507,14 +507,14 @@ $(function () {
         $("#dialog-warn").hide();
         if ($(clicked).find('.descript').is(":visible")) {
             $(newButtons).show();
-        } else{
-            $(okayButton).show();
+        } else {
+            $('.okay-buttons').show();
         }
     });
     $('#no_back').click(function () {
         fbphotoSelect(null);
         $("#dialog-warn").hide();
-        $(okayButton).show();
+        $('.okay-buttons').show();
     });
 });
 
@@ -611,15 +611,13 @@ function drawImageDraggable(imageObj) {
     group.moveDown();
     polaroids[i].hide();
     $(newButtons).hide();
-    okayButton = document.createElement('div');
+    okayButton = $('<div class="okay-buttons"></div>');
     var newOkay = document.createElement('img');
     var newRechoose = document.createElement('img');
     newRechoose.src = "/static/images/Pinboard%20Assets/Buttons/choose.png";
     newOkay.src = "/static/images/Pinboard%20Assets/Buttons/okay.png";
     $('.drag_text').remove();
-    $('.okay_buttons').remove();
-    $(okayButton).addClass("buttons");
-    $(okayButton).addClass("okay_buttons");
+    $('.okay-buttons').remove();
     $(okayButton).css({'display': 'block', 'margin': '-10px auto 0', 'z-index': 20});
     var $text = $('<img style="margin: 0 auto; display: block;" class="drag_text" src="/static/images/drag-to-reposition-your-polaroid.png"/>');
     $(newRechoose).click(function () {
@@ -632,6 +630,9 @@ function drawImageDraggable(imageObj) {
     $(clicked).prepend($text);
     $(clicked).find('.tags_in').remove();
     layers[i].draw();
+    if ($('#dialog-warn').is(":visible")){
+        $('.okay-buttons').hide();
+    }
     $('.descript').hide();
     $('.loader').hide();
 }
@@ -643,6 +644,7 @@ function bringBackPolaroid(event) {
     event.data.text.remove();
     $('.arrows').remove();
     var i = parseInt($(clicked).attr('id'));
+    var tagged = false;
     if (!names_for_each_clicked[i]) {
     }
     else if (names_for_each_clicked[i].length == 1) {
@@ -662,7 +664,6 @@ function bringBackPolaroid(event) {
             var $newInput = $('<input type="text"></input>');
             $($newInput).autocomplete({source: selector.$tags,
                 select: function (e, ui) {
-                    var tagged = false;
                     for (var i = 0; i < 8; i++) {
                         if (i != parseInt($(clicked).attr('id')) && dict_for_each_clicked[i]) {
                             if (dict_for_each_clicked[i] == ui.item.id) {
@@ -673,7 +674,6 @@ function bringBackPolaroid(event) {
                     }
                     if (tagged) {
                         $("#dialog-warn").show();
-                        $(okayButton).hide();
                     }
                     $(clicked).find('.hidden_input').val(ui.item.id);
                     var index = parseInt($(clicked).attr('id'));
@@ -684,6 +684,9 @@ function bringBackPolaroid(event) {
         }
         $newP.append($newSelect);
         $(newButtons).before($newP);
+    }
+    if (tagged) {
+        $('.okay-buttons').hide();
     }
     $('.descript').show();
     $(newButtons).show();
@@ -743,11 +746,12 @@ function selectPic(image_url, tags) {
     var $clicked = $(clicked);
     $clicked.find(".tag").remove();
     $(clicked).find('> .hidden_input').remove();
+    var tagged = false;
     var index = parseInt($(clicked).attr('id'));
     var hidden_box = $('<input class="hidden_input" type="hidden"/>');
     if (tags && tags.length == 1) {
         hidden_box.val(tags[0].id);
-        var tagged = false;
+
         for (var i = 0; i < 8; i++) {
             if (i != parseInt($(clicked).attr('id')) && dict_for_each_clicked[i]) {
                 if (dict_for_each_clicked[i] == tags[0].id) {
@@ -758,7 +762,6 @@ function selectPic(image_url, tags) {
         }
         if (tagged) {
             $("#dialog-warn").show();
-            $(okayButton).hide();
         }
         dict_for_each_clicked[index] = tags[0].id;
         names_for_each_clicked[index] = [tags[0].label];
