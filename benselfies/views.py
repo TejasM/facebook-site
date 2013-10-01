@@ -143,7 +143,7 @@ def finish(request):
         submission = UserSubmission.objects.get(pk=request.session["user"])
         images = UserImage.objects.filter(submission=submission)
         for image in images:
-            default_storage.delete(image.image.path)
+            image.delete()
         submission.time = timezone.now()
         submission.save()
         context = {"link": submission.submission_link, "user_id": submission.user_id}
