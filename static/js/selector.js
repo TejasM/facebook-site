@@ -660,10 +660,10 @@ var CSPhotoSelector = (function (module, $) {
                     if (response.data) {
                         $.each(response.data, function () {
                             for (var i = 0; i < this.images.length; i++) {
-                                if (this.images[i].height <= 360) {
+                                if (this.images[i].height <= 260) {
                                     break;
                                 }
-                                if (this.images[i].width <= 360) {
+                                if (this.images[i].width <= 260) {
                                     break;
                                 }
                             }
@@ -710,10 +710,10 @@ var CSPhotoSelector = (function (module, $) {
                             $.each(data, function () {
                                     if (this.images) {
                                         for (var i = 0; i < this.images.length; i++) {
-                                            if (this.images[i].height <= 360) {
+                                            if (this.images[i].height <= 260) {
                                                 break;
                                             }
-                                            if (this.images[i].width <= 360) {
+                                            if (this.images[i].width <= 260) {
                                                 break;
                                             }
                                         }
