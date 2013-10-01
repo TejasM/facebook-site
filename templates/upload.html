@@ -507,11 +507,14 @@ $(function () {
         $("#dialog-warn").hide();
         if ($(clicked).find('.descript').is(":visible")) {
             $(newButtons).show();
+        } else{
+            $(okayButton).show();
         }
     });
     $('#no_back').click(function () {
         fbphotoSelect(null);
         $("#dialog-warn").hide();
+        $(okayButton).show();
     });
 });
 
@@ -531,6 +534,8 @@ function GetHeight(newWidth, currentWidth, currentHeight) {
     var aspectRatio = currentWidth / currentHeight;
     return newWidth / aspectRatio;
 }
+
+var okayButton;
 
 function drawImageDraggable(imageObj) {
     var $filter = $('#filter');
@@ -606,7 +611,7 @@ function drawImageDraggable(imageObj) {
     group.moveDown();
     polaroids[i].hide();
     $(newButtons).hide();
-    var okayButton = document.createElement('div');
+    okayButton = document.createElement('div');
     var newOkay = document.createElement('img');
     var newRechoose = document.createElement('img');
     newRechoose.src = "/static/images/Pinboard%20Assets/Buttons/choose.png";
@@ -668,7 +673,7 @@ function bringBackPolaroid(event) {
                     }
                     if (tagged) {
                         $("#dialog-warn").show();
-                        $(newButtons).hide();
+                        $(okayButton).hide();
                     }
                     $(clicked).find('.hidden_input').val(ui.item.id);
                     var index = parseInt($(clicked).attr('id'));
@@ -753,7 +758,7 @@ function selectPic(image_url, tags) {
         }
         if (tagged) {
             $("#dialog-warn").show();
-            $(newButtons).hide();
+            $(okayButton).hide();
         }
         dict_for_each_clicked[index] = tags[0].id;
         names_for_each_clicked[index] = [tags[0].label];
