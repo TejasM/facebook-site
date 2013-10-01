@@ -77,10 +77,13 @@ def add_custom_pic(request):
     image.tags = request.POST.getlist('tags[]')
     tags = image.tags
     tags_submit = []
+    already_tagged = []
     if isinstance(tags, list):
         for tag in tags:
             split_tag = tag.split(',')
-            tags_submit.append({'tag_uid': split_tag[0], 'x': split_tag[1], 'y': split_tag[2]})
+            if split_tag[0] not in already_tagged:
+                tags_submit.append({'tag_uid': split_tag[0], 'x': split_tag[1], 'y': split_tag[2]})
+                already_tagged.append(split_tag[0])
     submission.num_tags = len(tags_submit)
     submission.save()
     image.save()
