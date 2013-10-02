@@ -697,7 +697,7 @@ function drawImageDraggable(imageObj) {
     newOkay.src = "/static/images/Pinboard%20Assets/Buttons/okay.png";
     $('.drag_text').remove();
     $('.okay-buttons').remove();
-    $(okayButton).css({'display': 'block', 'margin': '-35px auto 0', 'z-index': 20, });
+    $(okayButton).css({'display': 'block', 'margin': '0 auto', 'z-index': 20, 'position': 'relative', 'top': '-30px'});
     var $text = $('<img style="margin: 0 auto; display: block;" class="drag_text" src="/static/images/drag-to-reposition-your-polaroid.png"/>');
     $(newRechoose).click(function () {
         fbphotoSelect(null);
