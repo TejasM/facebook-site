@@ -47,17 +47,17 @@
                     <div id="emailMsg"></div>
                 </div>
                 <br>
-                <div class="terms-check" style="text-align: center">
+                <div class="terms-check" style="text-align: center; width: 95%; padding: 0 10px;">
                     <input type="checkbox" id="terms" name="terms" style="margin-right: 10px">Hey gorgeous, don’t forget
                     to agree to our <a
                         href="#">terms
                     and conditions!</a>
                     <div id="termsMsg"
-                         style="color: white; background-color: pink; width: 60%; text-align: center; display: inline-block"></div>
+                         style="color: white; background-color: pink; width: 62%; text-align: center; display: inline-block; padding: 0 4px;"></div>
                     {% if messages %}
                         {% for message in messages %}
                             <div id="errors"
-                                 style="color: white; background-color: pink; width: 70%; text-align: center; display: inline-block">{{ message }}</div>
+                                 style="color: white; background-color: pink; width: 62%; text-align: center; display: inline-block; padding: 0 4px;">{{ message }}</div>
                         {% endfor %}
                     {% endif %}
                     <p><strong>In order to continue, please like us on Facebook!</strong></p>
