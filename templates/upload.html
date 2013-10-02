@@ -580,24 +580,7 @@ $(function () {
         $('.okay-buttons').show();
     });
 
-    var canvas = document.createElement("canvas");
-    var ctx = canvas.getContext('2d');
-    var img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = 'https://lh3.googleusercontent.com/-LAFgeyNL894/AAAAAAAAAAI/AAAAAAAAAAA/-CWBGs9xLXI/s96-c/photo.jpg';
-
-    img.onload = function () {
-        ctx.drawImage(img, 0, 0);
-        try {
-            var imgData = ctx.getImageData(0, 0, 100, 100);
-            allowed = true;
-        } catch (err) {
-            allowed = false;
-            $('body').append("Access denied");
-        }
-    };
 });
-var allowed = false;
 var next = 0;
 var stageCentral = null;
 var imageLayer = null;
@@ -672,7 +655,6 @@ function drawImageDraggable(imageObj) {
     var group = new Kinetic.Group({
         clip: [centres[i][0] - 65, centres[i][1] - 65, 130, 130]
     });
-
 
     // add cursor styling
     image_added.on('mouseover', function () {
@@ -933,34 +915,30 @@ var current_open = null;
 
 function bringForward(url) {
     var imageObj = new Image();
-    imageObj.crossOrigin = 'anonymous';
     imageObj.onload = function () {
         drawImageDraggable(this);
     };
 
-    if (!allowed) {
-        $.ajax({
-            type: "POST",
-            url: "/post_pic/",
-            data: {
-                image: url,
-                user_id: user_id
-            },
-            async: false,
-            timeout: 30000,
-            success: function (data) {
-                imageObj.src = data["image"];
-            },
-            error: function (x, t, m) {
-                if (t === "timeout") {
-                    //Alert timeout happened.
-                } else {
-                }
+
+    $.ajax({
+        type: "POST",
+        url: "/post_pic/",
+        data: {
+            image: url,
+            user_id: user_id
+        },
+        async: false,
+        timeout: 30000,
+        success: function (data) {
+            imageObj.src = data["image"];
+        },
+        error: function (x, t, m) {
+            if (t === "timeout") {
+                //Alert timeout happened.
+            } else {
             }
-        });
-    } else {
-        imageObj.src = url;
-    }
+        }
+    });
     //current_loading.push(index);
     //var index = parseInt($(clicked).attr('id'));
 
