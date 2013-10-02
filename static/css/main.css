@@ -508,10 +508,16 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* Terms and conditions popup. */
+#terms-and-conditions-popup-container {
+    position: absolute;
+    width: 100%;
+}
 #terms-and-conditions-popup {
     display: none;
-    position: absolute;
+    margin: auto;
+    position: relative;
     text-align: center;
+    top: 125px;
     width: 612px;
     z-index: 20;
 }
@@ -526,6 +532,7 @@ div#enter-to-win form div.terms-check p {
     top: 88px;
 }
 #terms-and-conditions-popup-button {
+    cursor: pointer;
     position: relative;
-    top: -68px;
+    top: -69px;
 }
