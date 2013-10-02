@@ -102,21 +102,21 @@
         <div id="global" style="display: inline"></div>
     </div>
 
-    <img id="pin_06" class="pin" style="position: absolute; left: 130px; top: 162px; display: none"
+    <img id="pin_06" class="pin" style="position: absolute; left: 110px; top: 137px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-06.png"/>
-    <img id="pin_04" class="pin" style="position: absolute; left: 324px; top: 128px; display: none"
+    <img id="pin_04" class="pin" style="position: absolute; left: 304px; top: 128px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-04.png"/>
-    <img id="pin_05" class="pin" style="position: absolute; left: 447px; top: 149px; display: none"
+    <img id="pin_05" class="pin" style="position: absolute; left: 486px; top: 125px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-05.png"/>
-    <img id="pin_03" class="pin" style="position: absolute; left: 662px; top: 158px; display: none"
+    <img id="pin_03" class="pin" style="position: absolute; left: 675px; top: 120px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-03.png"/>
-    <img id="pin_02" class="pin" style="position: absolute; left: 152px; top: 335px; display: none"
+    <img id="pin_02" class="pin" style="position: absolute; left: 132px; top: 300px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-02.png"/>
-    <img id="pin_01" class="pin" style="position: absolute; left: 315px; top: 340px; display: none"
+    <img id="pin_01" class="pin" style="position: absolute; left: 305px; top: 300px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-01.png"/>
-    <img id="pin_08" class="pin" style="position: absolute; left: 496px; top: 308px; display: none"
+    <img id="pin_08" class="pin" style="position: absolute; left: 486px; top: 300px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-08.png"/>
-    <img id="pin_07" class="pin" style="position: absolute; left: 645px; top: 345px; display: none"
+    <img id="pin_07" class="pin" style="position: absolute; left: 655px; top: 300px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-07.png"/>
 
 
@@ -307,7 +307,7 @@ function previewPost($next) {
             });
             if (index != mapping[count]) {
                 var newIndex = mapping[count];
-                //$($pins[newIndex]).show();
+                $($pins[newIndex]).show();
                 swapNodes($wrap[newIndex], element);
                 var d = rotateAngles[newIndex];
                 $(element).css({'-moz-transform': 'rotate(' + d + 'deg)',
@@ -324,7 +324,7 @@ function previewPost($next) {
                     'transform': 'rotate(' + d + 'deg)'});
                 $wrap = $('#wrap').find('.polaroid');
             } else {
-                //$($pins[index]).show();
+                $($pins[index]).show();
             }
             count++;
         } else {
@@ -579,9 +579,25 @@ $(function () {
         $("#dialog-warn").hide();
         $('.okay-buttons').show();
     });
-})
-;
 
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext('2d');
+    var img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = 'https://lh3.googleusercontent.com/-LAFgeyNL894/AAAAAAAAAAI/AAAAAAAAAAA/-CWBGs9xLXI/s96-c/photo.jpg';
+
+    img.onload = function () {
+        ctx.drawImage(img, 0, 0);
+        try {
+            var imgData = ctx.getImageData(0, 0, 100, 100);
+            allowed = true;
+        } catch (err) {
+            allowed = false;
+            $('body').append("Access denied");
+        }
+    };
+});
+var allowed = false;
 var next = 0;
 var stageCentral = null;
 var imageLayer = null;
@@ -852,32 +868,40 @@ var user_id = null;
 var album_list = {};
 var current_loading = [];
 var current_open = null;
+
 function bringForward(url) {
     var imageObj = new Image();
+    imageObj.crossOrigin = 'anonymous';
     imageObj.onload = function () {
         drawImageDraggable(this);
     };
+
+    if (!allowed) {
+        $.ajax({
+            type: "POST",
+            url: "/post_pic/",
+            data: {
+                image: url,
+                user_id: user_id
+            },
+            async: false,
+            timeout: 30000,
+            success: function (data) {
+                imageObj.src = data["image"];
+            },
+            error: function (x, t, m) {
+                if (t === "timeout") {
+                    //Alert timeout happened.
+                } else {
+                }
+            }
+        });
+    } else {
+        imageObj.src = url;
+    }
     //current_loading.push(index);
     //var index = parseInt($(clicked).attr('id'));
-    $.ajax({
-        type: "POST",
-        url: "/post_pic/",
-        data: {
-            image: url,
-            user_id: user_id
-        },
-        async: false,
-        timeout: 30000,
-        success: function (data) {
-            imageObj.src = data["image"];
-        },
-        error: function (x, t, m) {
-            if (t === "timeout") {
-                //Alert timeout happened.
-            } else {
-            }
-        }
-    });
+
     next++;
 }
 </script>
