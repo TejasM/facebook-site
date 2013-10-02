@@ -141,7 +141,7 @@ $(document).ready(function () {
     }
 
     // Add hove/click/active button images.
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back').on('mouseover', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img').on('mouseover', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on")) {
@@ -161,7 +161,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back').on('mouseout', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img').on('mouseout', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") != -1) {
@@ -181,7 +181,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back').on('click', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img').on('click', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") == -1) {

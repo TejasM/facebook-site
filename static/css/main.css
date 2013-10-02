@@ -482,7 +482,7 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* Add pointer to image links. */
-#selects img, #zoom, #next, #back, #share, #view, #okay, #twitter-follow, #facebook {
+#selects img, #zoom, #next, #back, #share, #view, #okay, #twitter-follow, #facebook, .okay-buttons img {
 	cursor: pointer;
 }
 
