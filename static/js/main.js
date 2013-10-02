@@ -5,7 +5,6 @@ var images = [];
 var rotateAngles = [-6, 2, -2, 2, 4, -4, 4, -1];
 var selected = [];
 var polaroids = [];
-var pins = [];
 var tag_positions = [
     [17.50, 40.00],
     [40.13, 40.17],
@@ -82,17 +81,6 @@ $(document).ready(function () {
         'sporty': '/static/images/Beneselfies/beneselfies-miss-sporty-and-sassy-t.png',
         'global': '/static/images/Beneselfies/beneselfies-the-globetrotter-t.png'
     };
-    var pins = {
-        'shopaholic': '/static/images/Pinboard%20Assets/Pins/pin-01.png',
-        'comedian': '/static/images/Pinboard%20Assets/Pins/pin-02.png',
-        'sexy': '/static/images/Pinboard%20Assets/Pins/pin-03.png',
-        'fashionista': '/static/images/Pinboard%20Assets/Pins/pin-04.png',
-        'gorgeous': '/static/images/Pinboard%20Assets/Pins/pin-05.png',
-        'independent': '/static/images/Pinboard%20Assets/Pins/pin-06.png',
-        'sporty': '/static/images/Pinboard%20Assets/Pins/pin-07.png',
-        'global': '/static/images/Pinboard%20Assets/Pins/pin-08.png'
-    };
-
 
     var i = 0, imageCount = 8;
     var $wrap = $('#wrap').find('.polaroid');
@@ -101,13 +89,6 @@ $(document).ready(function () {
             var imageObj = new Image();
             imageObj.onload = function () {
                 drawImage(this, key, this.i);
-                var newPin = new Image();
-                newPin.onload = function () {
-                    drawPin(this, this.key, this.i);
-                };
-                newPin.i = this.i;
-                newPin.key = key;
-                newPin.src = pins[key];
                 if (i == imageCount) {
                     // Absolute position the polaroids.
                     $wrap.each(function (index, element) {
@@ -257,7 +238,6 @@ function focusImage(event) {
         zIndex: $(clicked).css("zIndex")
     };
     var i = parseInt($(clicked).attr('id'));
-    pins[i].hide();
     // Fade out non-clicked polaroids.
     $wrap.each(function () {
         if (this != clicked) {
@@ -412,14 +392,12 @@ function unFocusImage(event) {
         }
     });
     var i = parseInt($(clicked).attr('id'));
-    pins[i].show();
 
     var d = rotateAngles[i];
     layers[i].parent.setWidth(175);
     layers[i].parent.setHeight(175);
     layers[i].parent.setScale(1, 1);
 
-    pins[i].moveToTop();
     layers[i].parent.draw();
     layers[i].draw();
     $(clicked).css({

@@ -609,7 +609,6 @@ var CSPhotoSelector = (function (module, $) {
                                         }
                                     });
                                 });
-                                console.log(selector.$tags);
                             } else {
                             }
                         });
@@ -802,7 +801,6 @@ var CSPhotoSelector = (function (module, $) {
 
         log = function () {
             if (settings && settings.debug && window.console) {
-                console.log(Array.prototype.slice.call(arguments));
             }
         };
 
