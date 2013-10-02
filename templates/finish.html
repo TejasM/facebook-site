@@ -47,7 +47,7 @@
             window.location = "/";
         });
         $('#view').click(function () {
-            window.location = "http://facebook.com/profile.php?id={{ user_id }}";
+            window.open("http://facebook.com/profile.php?id={{ user_id }}", "_blank");
         });
         $('.popup').click(function (event) {
             var width = 575,
