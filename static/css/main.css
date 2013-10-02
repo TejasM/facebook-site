@@ -1,6 +1,6 @@
 /* "auto" makes the left and right margins center the wrapper */
 #wrap {
-    margin: 25px auto;
+    margin: 25px auto 0 auto;
     width: 800px;
     height: 600px;
     background: url('/static/images/Pinboard%20Assets/benefit-pinboard-800px.png');
