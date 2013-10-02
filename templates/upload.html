@@ -136,7 +136,7 @@
         <div style="margin-top: 200px; padding-left: 25px; padding-right: 10px;">
             <div style="height: 72px">
                 <img id="select_text"
-                     style="margin: 0 auto;" src="/static/images/Pinboard%20Assets/img-placeholder.png" />
+                     style="margin: 0 auto;" src="/static/images/Pinboard%20Assets/img-placeholder.png"/>
             </div>
             <div id="zoom"
                  style="background: url('/static/images/Pinboard%20Assets/Buttons/choose.png'); width: 103px; height: 40px; margin: 25px auto 0;"></div>
@@ -406,11 +406,14 @@ $(function () {
     });
 
     var data_post = null;
+    if (!window.location.origin) {
+        window.location.origin = window.location.protocol + "//" + window.location.hostname
+    }
 
     function postFinal(tags) {
         if (data_post != null) {
             $('div.loader').show();
-            if (tags) {
+            if (tags && data_post["tags"].length != 0) {
                 var data = {
                     url: window.location.origin + data_post["image"],
                     tags: data_post["tags"],
@@ -698,7 +701,7 @@ function drawImageDraggable(imageObj) {
     $('.loader').hide();
 
     // Add hove/click/active button images.
-    $('.okay-buttons img').on('mouseover', function() {
+    $('.okay-buttons img').on('mouseover', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on")) {
@@ -718,7 +721,7 @@ function drawImageDraggable(imageObj) {
             });
         }
     });
-    $('.okay-buttons img').on('mouseout', function() {
+    $('.okay-buttons img').on('mouseout', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") != -1) {
@@ -738,7 +741,7 @@ function drawImageDraggable(imageObj) {
             });
         }
     });
-    $('.okay-buttons img').on('click', function() {
+    $('.okay-buttons img').on('click', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") == -1) {

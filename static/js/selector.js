@@ -695,7 +695,7 @@ var CSPhotoSelector = (function (module, $) {
                 if ($selected_album && $selected_album != null) {
                     query1 += " AND (album_object_id = " + $selected_album.attr('data-id') + " OR aid = '" + $selected_album.attr('data-id') + "')";
                 }
-                var query2 = "SELECT pic_big FROM user WHERE uid = '" + uid + "'";
+                var query2 = "SELECT url FROM profile_pic WHERE id = '" + uid + "' and width=240 and height=240";
                 FB.api(
                     {
                         method: 'fql.multiquery',
@@ -724,9 +724,9 @@ var CSPhotoSelector = (function (module, $) {
                                             this.source = this.src;
                                         }
                                     }
-                                    if (this.pic_big) {
-                                        this.picture = this.pic_big;
-                                        this.source = this.pic_big;
+                                    if (this.url) {
+                                        this.picture = this.url;
+                                        this.source = this.url;
                                         this.id = uid;
                                         this.alternate_tags = name;
                                         this.uid = uid;
