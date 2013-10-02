@@ -141,7 +141,7 @@ $(document).ready(function () {
     }
 
     // Add hove/click/active button images.
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay').on('mouseover', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button').on('mouseover', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on")) {
@@ -161,7 +161,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay').on('mouseout', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button').on('mouseout', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") != -1) {
@@ -181,7 +181,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay').on('click', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button').on('click', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") == -1) {
@@ -218,6 +218,19 @@ $(document).ready(function () {
                 });
             }
         });
+    });
+
+    // Add terms and conditions pop-up.
+    $('.terms-check a').on('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        $('#terms-and-conditions-popup').show();
+
+        return false;
+    });
+    $('#terms-and-conditions-popup-button').on('click', function() {
+        $('#terms-and-conditions-popup').hide();
     });
 });
 

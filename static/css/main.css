@@ -506,3 +506,8 @@ div#enter-to-win form div.terms-check p {
     margin-top: 10px;
     width: 55px;
 }
+
+/* Terms and conditions popup. */
+#terms-and-conditions-popup {
+    display: none;
+}
