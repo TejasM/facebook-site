@@ -510,4 +510,22 @@ div#enter-to-win form div.terms-check p {
 /* Terms and conditions popup. */
 #terms-and-conditions-popup {
     display: none;
+    position: absolute;
+    text-align: center;
+    width: 612px;
+    z-index: 20;
+}
+#terms-and-conditions-popup > div {
+    color: #878686;
+    font-size: 12px;
+    height: 158px;
+    margin: 0 30px;
+    overflow-y: scroll;
+    position: absolute;
+    text-align: left;
+    top: 88px;
+}
+#terms-and-conditions-popup-button {
+    position: relative;
+    top: -68px;
 }
