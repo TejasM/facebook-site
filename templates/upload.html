@@ -398,10 +398,12 @@ $(function () {
     });
 
     $('#yes_tags').click(function () {
+        $('#dialog-tags').hide();
         postFinal(true);
     });
 
     $('#no_tags').click(function () {
+        $('#dialog-tags').hide();
         postFinal(false);
     });
 
@@ -413,6 +415,7 @@ $(function () {
     function postFinal(tags) {
         if (data_post != null) {
             $('div.loader').show();
+            $('#overlay').show();
             if (tags && data_post["tags"].length != 0) {
                 var data = {
                     url: window.location.origin + data_post["image"],
@@ -447,6 +450,7 @@ $(function () {
                 var $div = $('div.loader');
                 $div.css("background", "url(/static/images/please-wait-2.png) center center no-repeat rgba(255,255,255,0.5)");
                 $div.show();
+                $('#overlay').show();
                 var dataURL = canvas.toDataURL();
                 current_tags = [];
                 $.each($('#wrap').find('.polaroid'), function (index, element) {
