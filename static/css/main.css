@@ -523,6 +523,7 @@ div#enter-to-win form div.terms-check p {
 
 /* Terms and conditions popup. */
 #terms-and-conditions-popup-container, #ie-warning {
+    left: 0;
     position: absolute;
     width: 100%;
 }
