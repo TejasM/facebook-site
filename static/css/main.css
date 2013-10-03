@@ -522,7 +522,7 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* Terms and conditions popup. */
-#terms-and-conditions-popup-container, #ie-warning {
+#terms-and-conditions-popup-container {
     left: 0;
     position: absolute;
     width: 100%;
@@ -553,12 +553,20 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* IE Warning */
-#ie-warning-popup {
+#ie-warning {
+    background: rgba(0, 0, 0, 0.9);
     display: none;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+}
+#ie-warning-popup {
     margin: auto;
     position: relative;
     text-align: center;
-    top: 125px;
+    top: 250px;
     width: 356px;
     z-index: 20;
 }
