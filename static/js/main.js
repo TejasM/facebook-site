@@ -265,7 +265,7 @@ $(document).ready(function () {
     
     // IE Warning popup.
     $('#ie-warning-popup-button').on('click', function() {
-        $('#ie-warning').hide();
+        $('#ie-warning-popup').hide();
     });
 });
 
