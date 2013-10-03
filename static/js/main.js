@@ -87,8 +87,8 @@ $(document).ready(function () {
     var preloadbuttons = [
         "/static/images/Pinboard Assets/Buttons/back.png",
         "/static/images/Pinboard Assets/Buttons/back-on.png",
-        "/static/images/Pinboard Assets/Buttons/choose.png",
-        "/static/images/Pinboard Assets/Buttons/choose-on.png",
+        "/static/images/Pinboard Assets/Buttons/select-friend.png",
+        "/static/images/Pinboard Assets/Buttons/select-friend-on.png",
         "/static/images/Pinboard Assets/Buttons/done.png",
         "/static/images/Pinboard Assets/Buttons/done-on.png",
         "/static/images/Pinboard Assets/Buttons/like.png",
@@ -337,7 +337,7 @@ function focusImage(event) {
     newButtons = document.createElement('div');
     var newUpload = document.createElement('img');
     var newDone = document.createElement('img');
-    newUpload.src = "/static/images/Pinboard%20Assets/Buttons/choose.png";
+    newUpload.src = "/static/images/Pinboard%20Assets/Buttons/select-friend.png";
     newDone.src = "/static/images/Pinboard%20Assets/Buttons/done.png";
     $(newDone).css("margin-left", "10px");
     $(newDone).attr('id', "btn_done");
