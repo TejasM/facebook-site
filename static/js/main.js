@@ -82,6 +82,35 @@ $(document).ready(function () {
         'sporty': '/static/images/Beneselfies/beneselfies-miss-sporty-and-sassy-t.png',
         'global': '/static/images/Beneselfies/beneselfies-the-globetrotter-t.png'
     };
+    
+    // Preload button images.
+    var buttons = [
+        "/static/images/Pinboard Assets/Buttons/back.png",
+        "/static/images/Pinboard Assets/Buttons/back-on.png",
+        "/static/images/Pinboard Assets/Buttons/choose.png",
+        "/static/images/Pinboard Assets/Buttons/choose-on.png",
+        "/static/images/Pinboard Assets/Buttons/done.png",
+        "/static/images/Pinboard Assets/Buttons/done-on.png",
+        "/static/images/Pinboard Assets/Buttons/like.png",
+        "/static/images/Pinboard Assets/Buttons/like-on.png",
+        "/static/images/Pinboard Assets/Buttons/no.png",
+        "/static/images/Pinboard Assets/Buttons/no-on.png",
+        "/static/images/Pinboard Assets/Buttons/okay.png",
+        "/static/images/Pinboard Assets/Buttons/okay-on.png",
+        "/static/images/Pinboard Assets/Buttons/preview.png",
+        "/static/images/Pinboard Assets/Buttons/preview-on.png",
+        "/static/images/Pinboard Assets/Buttons/share.png",
+        "/static/images/Pinboard Assets/Buttons/share-on.png",
+        "/static/images/Pinboard Assets/Buttons/view.png",
+        "/static/images/Pinboard Assets/Buttons/view-on.png",
+        "/static/images/Pinboard Assets/Buttons/yes.png",
+        "/static/images/Pinboard Assets/Buttons/yes-on.png"
+    ];
+    $(buttons).each(function() {
+        $.ajax({
+            url: this
+        });
+    });
 
     var i = 0, imageCount = 8;
     var $wrap = $('#wrap').find('.polaroid');
