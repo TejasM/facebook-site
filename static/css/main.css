@@ -550,8 +550,3 @@ div#enter-to-win form div.terms-check p {
     position: relative;
     top: -69px;
 }
-
-/* IE Warning */
-#ie-warning {
-    display: none;
-}
