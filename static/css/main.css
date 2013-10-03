@@ -60,12 +60,15 @@ div#main-nav ul {
 
 div#main-nav ul li {
     display: inline-block;
+    *display: inline;
     width: 196px;
+    zoom: 1;
 }
 
 div#main-nav ul li a {
     color: #fff;
     display: inline-block;
+    *display: inline;
     font-size: 12px;
     font-weight: bold;
     line-height: 30px;
@@ -73,6 +76,7 @@ div#main-nav ul li a {
     text-decoration: none;
     text-transform: uppercase;
     width: 100%;
+    zoom: 1;
 }
 div#main-nav ul li a:hover, div#main-nav ul li a:active {
     background: #f964a2;
@@ -186,9 +190,11 @@ div#upper-content ul li span {
     background-repeat: no-repeat;
     background-position: 0 0;
     display: inline-block;
+    *display: inline;
     font-weight: bold;
     text-indent: 8px;
     width: 25px;
+    zoom: 1;
 }
 
 div#upper-content-2 {
@@ -281,6 +287,8 @@ div#footer {
     width: 175px;
     height: 175px;
     display: inline-block;
+    *display: inline;
+    zoom: 1;
 }
 
 .polaroid div.buttons {
@@ -400,10 +408,12 @@ div#enter-to-win form {
 
 div#enter-to-win form div.first-name {
     display: inline-block;
+    *display: inline;
     height: 55px;
     padding: 0 10px;
     vertical-align: top;
     width: 44%;
+    zoom: 1;
 }
 
 div#enter-to-win form div.first-name input {
@@ -425,10 +435,12 @@ div#enter-to-win form div.first-name div {
 
 div#enter-to-win form div.last-name {
     display: inline-block;
+    *display: inline;
     height: 55px;
     padding: 0 10px;
     vertical-align: top;
     width: 44%;
+    zoom: 1;
 }
 
 div#enter-to-win form div.last-name input {
@@ -450,10 +462,12 @@ div#enter-to-win form div.last-name div {
 
 div#enter-to-win form div.email-input {
     display: inline-block;
+    *display: inline;
     height: 55px;
     padding: 0 10px;
     text-align: center;
     width: 95%;
+    zoom: 1;
 }
 
 div#enter-to-win form div.email-input input {
@@ -509,6 +523,7 @@ div#enter-to-win form div.terms-check p {
 
 /* Terms and conditions popup. */
 #terms-and-conditions-popup-container {
+    left: 0;
     position: absolute;
     width: 100%;
 }
@@ -535,4 +550,30 @@ div#enter-to-win form div.terms-check p {
     cursor: pointer;
     position: relative;
     top: -69px;
+}
+
+/* IE Warning */
+#ie-warning {
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+}
+#ie-warning-popup {
+    margin: auto;
+    position: relative;
+    text-align: center;
+    top: 250px;
+    width: 356px;
+    z-index: 20;
+}
+#ie-warning-popup-button {
+    cursor: pointer;
+    position: relative;
+    top: -60px;
 }

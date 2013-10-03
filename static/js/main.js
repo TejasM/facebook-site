@@ -5,6 +5,7 @@ var images = [];
 var rotateAngles = [-6, 2, -2, 2, 4, -4, 4, -1];
 var selected = [];
 var polaroids = [];
+var rects = [];
 var tag_positions = [
     [17.50, 40.00],
     [40.13, 40.17],
@@ -81,6 +82,35 @@ $(document).ready(function () {
         'sporty': '/static/images/Beneselfies/beneselfies-miss-sporty-and-sassy-t.png',
         'global': '/static/images/Beneselfies/beneselfies-the-globetrotter-t.png'
     };
+    
+    // Preload button images.
+    var preloadbuttons = [
+        "/static/images/Pinboard Assets/Buttons/back.png",
+        "/static/images/Pinboard Assets/Buttons/back-on.png",
+        "/static/images/Pinboard Assets/Buttons/choose.png",
+        "/static/images/Pinboard Assets/Buttons/choose-on.png",
+        "/static/images/Pinboard Assets/Buttons/done.png",
+        "/static/images/Pinboard Assets/Buttons/done-on.png",
+        "/static/images/Pinboard Assets/Buttons/like.png",
+        "/static/images/Pinboard Assets/Buttons/like-on.png",
+        "/static/images/Pinboard Assets/Buttons/no.png",
+        "/static/images/Pinboard Assets/Buttons/no-on.png",
+        "/static/images/Pinboard Assets/Buttons/okay.png",
+        "/static/images/Pinboard Assets/Buttons/okay-on.png",
+        "/static/images/Pinboard Assets/Buttons/preview.png",
+        "/static/images/Pinboard Assets/Buttons/preview-on.png",
+        "/static/images/Pinboard Assets/Buttons/share.png",
+        "/static/images/Pinboard Assets/Buttons/share-on.png",
+        "/static/images/Pinboard Assets/Buttons/view.png",
+        "/static/images/Pinboard Assets/Buttons/view-on.png",
+        "/static/images/Pinboard Assets/Buttons/yes.png",
+        "/static/images/Pinboard Assets/Buttons/yes-on.png"
+    ];
+    $(preloadbuttons).each(function() {
+        $.ajax({
+            url: this.toString()
+        });
+    });
 
     var i = 0, imageCount = 8;
     var $wrap = $('#wrap').find('.polaroid');
@@ -141,7 +171,7 @@ $(document).ready(function () {
     }
 
     // Add hove/click/active button images.
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags').on('mouseover', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button').on('mouseover', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on")) {
@@ -161,7 +191,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags').on('mouseout', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button').on('mouseout', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") != -1) {
@@ -181,7 +211,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags').on('click', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button').on('click', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") == -1) {
@@ -231,6 +261,11 @@ $(document).ready(function () {
     });
     $('#terms-and-conditions-popup-button').on('click', function() {
         $('#terms-and-conditions-popup').hide();
+    });
+    
+    // IE Warning popup.
+    $('#ie-warning-popup-button').on('click', function() {
+        $('#ie-warning').hide();
     });
 });
 
@@ -287,7 +322,7 @@ function focusImage(event) {
             stroke: 'black',
             strokeWidth: 0
         });
-
+        rects[i] = rect;
         layers[i].add(rect);
         rect.moveToBottom();
     }

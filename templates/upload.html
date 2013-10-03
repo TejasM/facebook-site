@@ -136,7 +136,7 @@
         <div style="margin-top: 200px; padding-left: 25px; padding-right: 10px;">
             <div style="height: 72px">
                 <img id="select_text"
-                     style="margin: 0 auto;" src="/static/images/Pinboard%20Assets/img-placeholder.png" />
+                     style="margin: 0 auto;" src="/static/images/Pinboard%20Assets/img-placeholder.png"/>
             </div>
             <div id="zoom"
                  style="background: url('/static/images/Pinboard%20Assets/Buttons/choose.png'); width: 103px; height: 40px; margin: 25px auto 0;"></div>
@@ -398,19 +398,25 @@ $(function () {
     });
 
     $('#yes_tags').click(function () {
+        $('#dialog-tags').hide();
         postFinal(true);
     });
 
     $('#no_tags').click(function () {
+        $('#dialog-tags').hide();
         postFinal(false);
     });
 
     var data_post = null;
+    if (!window.location.origin) {
+        window.location.origin = window.location.protocol + "//" + window.location.hostname
+    }
 
     function postFinal(tags) {
         if (data_post != null) {
             $('div.loader').show();
-            if (tags) {
+            $('#overlay').show();
+            if (tags && data_post["tags"].length != 0) {
                 var data = {
                     url: window.location.origin + data_post["image"],
                     tags: data_post["tags"],
@@ -444,6 +450,7 @@ $(function () {
                 var $div = $('div.loader');
                 $div.css("background", "url(/static/images/please-wait-2.png) center center no-repeat rgba(255,255,255,0.5)");
                 $div.show();
+                $('#overlay').show();
                 var dataURL = canvas.toDataURL();
                 current_tags = [];
                 $.each($('#wrap').find('.polaroid'), function (index, element) {
@@ -461,11 +468,24 @@ $(function () {
                             data_post = data;
                             $('#dialog-tags').show();
                             $div.hide();
+                            location.hash = "#app";
+                            gotoHASH();
                         });
 
             }
         });
     }
+
+    function gotoHASH() {
+        if (location.hash) {
+            if ($.browser.webkit == false) {
+                window.location.hash = location.hash
+            } else {
+                window.location.href = location.hash;
+                window.location.href = location.hash
+            }
+        }
+    };
 
     $('div.loader').hide();
     var buttonOK = $('#CSPhotoSelector_buttonOK');
@@ -613,8 +633,18 @@ function drawImageDraggable(imageObj) {
     if (imageObj.width / imageObj.height > 1) {
         width = GetWidth(height, imageObj.width, imageObj.height);
         function boundX(pos) {
+            var rect = rects[i];
+            var X = pos.x;
+            var minX = rect.getX() - this.getWidth() + 20;
+            var maxX = rect.getX() + rect.getWidth() - 20;
+            if (X < minX) {
+                X = minX;
+            }
+            if (X > maxX) {
+                X = maxX;
+            }
             return {
-                x: pos.x,
+                x: X,
                 y: this.getAbsolutePosition().y
             }
         }
@@ -633,9 +663,19 @@ function drawImageDraggable(imageObj) {
     } else {
         height = GetHeight(width, imageObj.width, imageObj.height);
         function boundY(pos) {
+            var rect = rects[i];
+            var Y = pos.y;
+            var minY = rect.getY() - this.getHeight() + 20;
+            var maxY = rect.getY() + rect.getHeight() - 20;
+            if (Y < minY) {
+                Y = minY;
+            }
+            if (Y > maxY) {
+                Y = maxY;
+            }
             return {
                 x: this.getAbsolutePosition().x,
-                y: pos.y
+                y: Y
             }
         }
 
@@ -698,7 +738,7 @@ function drawImageDraggable(imageObj) {
     $('.loader').hide();
 
     // Add hove/click/active button images.
-    $('.okay-buttons img').on('mouseover', function() {
+    $('.okay-buttons img').on('mouseover', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on")) {
@@ -718,7 +758,7 @@ function drawImageDraggable(imageObj) {
             });
         }
     });
-    $('.okay-buttons img').on('mouseout', function() {
+    $('.okay-buttons img').on('mouseout', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") != -1) {
@@ -738,7 +778,7 @@ function drawImageDraggable(imageObj) {
             });
         }
     });
-    $('.okay-buttons img').on('click', function() {
+    $('.okay-buttons img').on('click', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") == -1) {
