@@ -84,7 +84,7 @@ $(document).ready(function () {
     };
     
     // Preload button images.
-    var buttons = [
+    var preloadbuttons = [
         "/static/images/Pinboard Assets/Buttons/back.png",
         "/static/images/Pinboard Assets/Buttons/back-on.png",
         "/static/images/Pinboard Assets/Buttons/choose.png",
@@ -106,7 +106,7 @@ $(document).ready(function () {
         "/static/images/Pinboard Assets/Buttons/yes.png",
         "/static/images/Pinboard Assets/Buttons/yes-on.png"
     ];
-    $(buttons).each(function() {
+    $(preloadbuttons).each(function() {
         $.ajax({
             url: this
         });
