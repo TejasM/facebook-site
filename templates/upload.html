@@ -468,11 +468,24 @@ $(function () {
                             data_post = data;
                             $('#dialog-tags').show();
                             $div.hide();
+                            location.hash = "#app";
+                            gotoHASH();
                         });
 
             }
         });
     }
+
+    function gotoHASH() {
+        if (location.hash) {
+            if ($.browser.webkit == false) {
+                window.location.hash = location.hash
+            } else {
+                window.location.href = location.hash;
+                window.location.href = location.hash
+            }
+        }
+    };
 
     $('div.loader').hide();
     var buttonOK = $('#CSPhotoSelector_buttonOK');
@@ -620,8 +633,18 @@ function drawImageDraggable(imageObj) {
     if (imageObj.width / imageObj.height > 1) {
         width = GetWidth(height, imageObj.width, imageObj.height);
         function boundX(pos) {
+            var rect = rects[i];
+            var X = pos.x;
+            var minX = rect.getX() - this.getWidth() + 20;
+            var maxX = rect.getX() + rect.getWidth() - 20;
+            if (X < minX) {
+                X = minX;
+            }
+            if (X > maxX) {
+                X = maxX;
+            }
             return {
-                x: pos.x,
+                x: X,
                 y: this.getAbsolutePosition().y
             }
         }
@@ -640,9 +663,19 @@ function drawImageDraggable(imageObj) {
     } else {
         height = GetHeight(width, imageObj.width, imageObj.height);
         function boundY(pos) {
+            var rect = rects[i];
+            var Y = pos.y;
+            var minY = rect.getY() - this.getHeight() + 20;
+            var maxY = rect.getY() + rect.getHeight() - 20;
+            if (Y < minY) {
+                Y = minY;
+            }
+            if (Y > maxY) {
+                Y = maxY;
+            }
             return {
                 x: this.getAbsolutePosition().x,
-                y: pos.y
+                y: Y
             }
         }
 

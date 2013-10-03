@@ -5,6 +5,7 @@ var images = [];
 var rotateAngles = [-6, 2, -2, 2, 4, -4, 4, -1];
 var selected = [];
 var polaroids = [];
+var rects = [];
 var tag_positions = [
     [17.50, 40.00],
     [40.13, 40.17],
@@ -287,7 +288,7 @@ function focusImage(event) {
             stroke: 'black',
             strokeWidth: 0
         });
-
+        rects[i] = rect;
         layers[i].add(rect);
         rect.moveToBottom();
     }
