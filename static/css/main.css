@@ -60,12 +60,14 @@ div#main-nav ul {
 
 div#main-nav ul li {
     display: inline-block;
+    *display: inline;
     width: 196px;
 }
 
 div#main-nav ul li a {
     color: #fff;
     display: inline-block;
+    *display: inline;
     font-size: 12px;
     font-weight: bold;
     line-height: 30px;
@@ -186,6 +188,7 @@ div#upper-content ul li span {
     background-repeat: no-repeat;
     background-position: 0 0;
     display: inline-block;
+    *display: inline;
     font-weight: bold;
     text-indent: 8px;
     width: 25px;
@@ -281,6 +284,7 @@ div#footer {
     width: 175px;
     height: 175px;
     display: inline-block;
+    *display: inline;
 }
 
 .polaroid div.buttons {
@@ -400,6 +404,7 @@ div#enter-to-win form {
 
 div#enter-to-win form div.first-name {
     display: inline-block;
+    *display: inline;
     height: 55px;
     padding: 0 10px;
     vertical-align: top;
@@ -425,6 +430,7 @@ div#enter-to-win form div.first-name div {
 
 div#enter-to-win form div.last-name {
     display: inline-block;
+    *display: inline;
     height: 55px;
     padding: 0 10px;
     vertical-align: top;
@@ -450,6 +456,7 @@ div#enter-to-win form div.last-name div {
 
 div#enter-to-win form div.email-input {
     display: inline-block;
+    *display: inline;
     height: 55px;
     padding: 0 10px;
     text-align: center;
