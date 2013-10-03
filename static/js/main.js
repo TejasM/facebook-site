@@ -108,7 +108,7 @@ $(document).ready(function () {
     ];
     $(preloadbuttons).each(function() {
         $.ajax({
-            url: this
+            url: this.toString()
         });
     });
 
