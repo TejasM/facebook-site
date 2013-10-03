@@ -62,6 +62,7 @@ div#main-nav ul li {
     display: inline-block;
     *display: inline;
     width: 196px;
+    zoom: 1;
 }
 
 div#main-nav ul li a {
@@ -75,6 +76,7 @@ div#main-nav ul li a {
     text-decoration: none;
     text-transform: uppercase;
     width: 100%;
+    zoom: 1;
 }
 div#main-nav ul li a:hover, div#main-nav ul li a:active {
     background: #f964a2;
@@ -192,6 +194,7 @@ div#upper-content ul li span {
     font-weight: bold;
     text-indent: 8px;
     width: 25px;
+    zoom: 1;
 }
 
 div#upper-content-2 {
@@ -285,6 +288,7 @@ div#footer {
     height: 175px;
     display: inline-block;
     *display: inline;
+    zoom: 1;
 }
 
 .polaroid div.buttons {
@@ -409,6 +413,7 @@ div#enter-to-win form div.first-name {
     padding: 0 10px;
     vertical-align: top;
     width: 44%;
+    zoom: 1;
 }
 
 div#enter-to-win form div.first-name input {
@@ -435,6 +440,7 @@ div#enter-to-win form div.last-name {
     padding: 0 10px;
     vertical-align: top;
     width: 44%;
+    zoom: 1;
 }
 
 div#enter-to-win form div.last-name input {
@@ -461,6 +467,7 @@ div#enter-to-win form div.email-input {
     padding: 0 10px;
     text-align: center;
     width: 95%;
+    zoom: 1;
 }
 
 div#enter-to-win form div.email-input input {
