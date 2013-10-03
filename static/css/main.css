@@ -526,7 +526,7 @@ div#enter-to-win form div.terms-check p {
     position: absolute;
     width: 100%;
 }
-#terms-and-conditions-popup, #ie-warning-popup {
+#terms-and-conditions-popup {
     display: none;
     margin: auto;
     position: relative;
@@ -545,8 +545,24 @@ div#enter-to-win form div.terms-check p {
     text-align: left;
     top: 88px;
 }
-#terms-and-conditions-popup-button, #ie-warning-popup-button {
+#terms-and-conditions-popup-button {
     cursor: pointer;
     position: relative;
     top: -69px;
+}
+
+/* IE Warning */
+#ie-warning-popup {
+    display: none;
+    margin: auto;
+    position: relative;
+    text-align: center;
+    top: 125px;
+    width: 356px;
+    z-index: 20;
+}
+#ie-warning-popup-button {
+    cursor: pointer;
+    position: relative;
+    top: -60px;
 }
