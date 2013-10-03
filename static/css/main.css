@@ -508,11 +508,11 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* Terms and conditions popup. */
-#terms-and-conditions-popup-container {
+#terms-and-conditions-popup-container, #ie-warning {
     position: absolute;
     width: 100%;
 }
-#terms-and-conditions-popup {
+#terms-and-conditions-popup, #ie-warning-popup {
     display: none;
     margin: auto;
     position: relative;
@@ -531,8 +531,13 @@ div#enter-to-win form div.terms-check p {
     text-align: left;
     top: 88px;
 }
-#terms-and-conditions-popup-button {
+#terms-and-conditions-popup-button, #ie-warning-popup-button {
     cursor: pointer;
     position: relative;
     top: -69px;
+}
+
+/* IE Warning */
+#ie-warning {
+    display: none;
 }
