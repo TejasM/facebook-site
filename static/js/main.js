@@ -121,14 +121,6 @@ $(document).ready(function () {
                 drawImage(this, key, this.i);
                 if (i == imageCount) {
                     // Absolute position the polaroids.
-                    $wrap.each(function (index, element) {
-                        var d = rotateAngles[index];
-                        $(element).css({'-moz-transform': 'rotate(' + d + 'deg)',
-                            '-webkit-transform': 'rotate(' + d + 'deg)',
-                            '-o-transform': 'rotate(' + d + 'deg)',
-                            '-ms-transform': 'rotate(' + d + 'deg)',
-                            'transform': 'rotate(' + d + 'deg)'});
-                    });
                     var $selects = $('#selects').find('.selects');
                     $selects.each(function () {
                         $(this).click(function () {
@@ -452,12 +444,7 @@ function unFocusImage(event) {
         height: clickedDefaults.height,
         left: clickedDefaults.left,
         top: clickedDefaults.top,
-        width: clickedDefaults.width,
-        '-moz-transform': 'rotate(' + d + 'deg)',
-        '-webkit-transform': 'rotate(' + d + 'deg)',
-        '-o-transform': 'rotate(' + d + 'deg)',
-        '-ms-transform': 'rotate(' + d + 'deg)',
-        'transform': 'rotate(' + d + 'deg)'});
+        width: clickedDefaults.width});
 
     $(clicked).css({
         zIndex: clickedDefaults.zIndex
