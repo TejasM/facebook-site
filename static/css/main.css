@@ -618,6 +618,7 @@ div#enter-to-win form div.terms-check p {
     top: -65px;
 }
 #landing-page #start {
+    cursor: pointer;
     left: 115px;
     position: relative;
     top: -50px;
