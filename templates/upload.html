@@ -132,6 +132,9 @@
 </div>
 <div id="select_phase"
      style="position: absolute; left: 130px; top:140px; width: 525px; height: 470px; padding-left: 25px">
+    <div>
+        <img id="head" src="" style="position: absolute; top: 250px; left: 500px">
+    </div>
     <div style="width: 246px; height: 366px; background: url('/static/images/Pinboard%20Assets/Text/instructions-box-choosing.png'); float: right;">
         <div style="margin-top: 200px; padding-left: 25px; padding-right: 10px;">
             <div style="height: 72px">
@@ -632,8 +635,8 @@ function drawImageDraggable(imageObj) {
         function boundX(pos) {
             var rect = rects[i];
             var X = pos.x;
-            var minX = rect.getX() - (this.getWidth() - rect.getWidth());
-            var maxX = rect.getX();
+            var minX = rect.getX() - (this.getWidth() - rect.getWidth()) - 10;
+            var maxX = rect.getX() + (this.getWidth() - rect.getWidth()) + 10;
             if (X < minX) {
                 X = minX;
             }
@@ -662,8 +665,8 @@ function drawImageDraggable(imageObj) {
         function boundY(pos) {
             var rect = rects[i];
             var Y = pos.y;
-            var minY = rect.getY() + rect.getHeight() - this.getHeight();
-            var maxY = rect.getY();
+            var minY = rect.getY() + rect.getHeight() - this.getHeight() - 10;
+            var maxY = rect.getY() - rect.getHeight() + this.getHeight() + 10;
             if (Y < minY) {
                 Y = minY;
             }
