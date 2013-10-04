@@ -296,7 +296,7 @@ function focusImage(event) {
     $(clicked).css({
             height: "437.5px",
             textAlign: "center",
-            top: "-110px",
+            top: "-135px",
             width: "100%",
             '-moz-transform': 'rotate(' + 0 + 'deg)',
             '-webkit-transform': 'rotate(' + 0 + 'deg)',
