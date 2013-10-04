@@ -320,8 +320,7 @@ function previewPost($next) {
     });
     $wrap.each(function (index, element) {
         var d = rotateAngles[index];
-        layers[index].setScale(0.90);
-        layers[index].move(5, 5);
+        layers[index].setScale(0.93);
         layers[index].rotateDeg(d);
         layers[index].draw();
     });
@@ -364,7 +363,6 @@ $(function () {
             $(this).css({'opacity': '1'});
             var d = rotateAngles[index];
             layers[index].setScale(1);
-            layers[index].move(-5, -5);
             layers[index].rotateDeg(-d);
             layers[index].draw();
         });
