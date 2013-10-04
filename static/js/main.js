@@ -174,7 +174,7 @@ $(document).ready(function () {
     }
 
     // Add hove/click/active button images.
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button').on('mouseover', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('mouseover', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on")) {
@@ -194,7 +194,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button').on('mouseout', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('mouseout', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") != -1) {
@@ -214,7 +214,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button').on('click', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('click', function() {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") == -1) {
@@ -261,6 +261,14 @@ $(document).ready(function () {
         $('#terms-and-conditions-popup').show();
 
         return false;
+    });
+    $('#terms-and-conditions-popup-button').on('click', function() {
+        $('#terms-and-conditions-popup').hide();
+    });
+    
+    // Add prizes pop-up.
+    $('#prizes-button').on('click', function(event) {
+        $('#terms-and-conditions-popup').show();
     });
     $('#terms-and-conditions-popup-button').on('click', function() {
         $('#terms-and-conditions-popup').hide();

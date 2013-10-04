@@ -498,7 +498,7 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* Add pointer to image links. */
-#selects img, #zoom, #next, #back, #share, #view, #okay, #twitter-follow, #facebook, .okay-buttons img {
+#selects img, #zoom, #next, #back, #share, #view, #okay, #twitter-follow, #facebook, .okay-buttons img, #prizes-button {
 	cursor: pointer;
 }
 
@@ -549,6 +549,38 @@ div#enter-to-win form div.terms-check p {
     top: 88px;
 }
 #terms-and-conditions-popup-button {
+    cursor: pointer;
+    position: relative;
+    top: -69px;
+}
+
+/* Prizes */
+/* Terms and conditions popup. */
+#prizes-popup-container {
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+#prizes-popup {
+    display: none;
+    margin: auto;
+    position: relative;
+    text-align: center;
+    top: 125px;
+    width: 612px;
+    z-index: 20;
+}
+#prizes-popup > div {
+    color: #333;
+    font-size: 12px;
+    height: 158px;
+    margin: 0 30px;
+    overflow-y: scroll;
+    position: absolute;
+    text-align: left;
+    top: 88px;
+}
+#prizes-popup-button {
     cursor: pointer;
     position: relative;
     top: -69px;
