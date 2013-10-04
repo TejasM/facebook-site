@@ -34,7 +34,10 @@ def upload(request, user_id):
         try:
             submission = UserSubmission.objects.get(user_id=user_id)
             if user != submission:
-                submission.delete()
+                try:
+                    submission.delete()
+                except:
+                    pass
         except UserSubmission.DoesNotExist as _:
             pass
         user.user_id = user_id
