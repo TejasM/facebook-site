@@ -389,8 +389,9 @@ div#footer {
 
 /*---- How to Play ----*/
 img.close {
+    left: 65px;
     position: relative;
-    top: -72px;
+    top: -116px;
 }
 
 /*---- Enter to Win ----*/
@@ -555,7 +556,14 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* Prizes */
-/* Terms and conditions popup. */
+$prizes-button-container {
+    text-align: center;
+}
+#prizes-button {
+    left: -65px;
+    position: relative;
+    top: -72px;
+}
 #prizes-popup-container {
     left: 0;
     position: absolute;
