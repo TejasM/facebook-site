@@ -582,6 +582,43 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* New Landing Page */
+#landing-page-container {
+    overflow: hidden;
+    position: relative;
+}
 #landing-page {
-    
+    height: 100%;
+    margin: 15px auto 0 auto;
+    text-align: center;
+    width: 749px;
+}
+#landing-page > div {
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+}
+#landing-page > div > img {
+    left: -295px;
+    position: relative;
+    top: 230px;
+}
+#landing-page #share-grouping {
+    left: -30px;
+    position: relative;
+    top: 15px;
+}
+#landing-page #like-grouping {
+    left: 70px;
+    position: relative;
+    top: -110px;
+}
+#landing-page #logo-grouping {
+    position: relative;
+    top: -65px;
+}
+#landing-page #start {
+    left: 115px;
+    position: relative;
+    top: -50px;
 }
