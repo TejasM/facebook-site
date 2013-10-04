@@ -603,9 +603,9 @@ div#enter-to-win form div.terms-check p {
     top: 230px;
 }
 #landing-page #share-grouping {
-    left: -30px;
+    left: -135px;
     position: relative;
-    top: 15px;
+    top: 20px;
 }
 #landing-page #like-grouping {
     left: 70px;
@@ -613,6 +613,7 @@ div#enter-to-win form div.terms-check p {
     top: -110px;
 }
 #landing-page #logo-grouping {
+    left: 40px;
     position: relative;
     top: -65px;
 }
