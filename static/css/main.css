@@ -396,7 +396,7 @@ img.close {
 /*---- Enter to Win ----*/
 div#enter-to-win {
     background: url('../images/Pinboard Assets/Text/enter-to-win.png') top center no-repeat;
-    color: #878686;
+    color: #333;
     font-size: 12px;
     height: 312px;
     margin: auto;
@@ -539,7 +539,7 @@ div#enter-to-win form div.terms-check p {
     z-index: 20;
 }
 #terms-and-conditions-popup > div {
-    color: #878686;
+    color: #333;
     font-size: 12px;
     height: 158px;
     margin: 0 30px;
