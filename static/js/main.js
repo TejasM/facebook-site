@@ -47,6 +47,16 @@ var descriptions = ['/static/images/ZoomedPolaroidDescriptions/polaroid-text-the
     '/static/images/ZoomedPolaroidDescriptions/polaroid-text-the-globetrotter.png'
 ];
 
+var heads = ["/static/images/Pinboard%20Assets/Heads/head-shopaholic.png",
+    "/static/images/Pinboard%20Assets/Heads/head-comedian.png",
+    "/static/images/Pinboard%20Assets/Heads/head-sexy.png",
+    "/static/images/Pinboard%20Assets/Heads/head-fashionista.png",
+    "/static/images/Pinboard%20Assets/Heads/head-geek.png",
+    "/static/images/Pinboard%20Assets/Heads/head-independent.png",
+    "/static/images/Pinboard%20Assets/Heads/head-sporty.png",
+    "/static/images/Pinboard%20Assets/Heads/head-globetrotter.png"];
+
+
 var centres = [
     [83, 77],
     [86, 78],
@@ -139,6 +149,7 @@ $(document).ready(function () {
                             }
                             $('#selected_bene').val(index);
                             $('#select_text').attr("src", texts[index]);
+                            $('#head').attr("src", heads[index]);
                         });
                     });
                 }
