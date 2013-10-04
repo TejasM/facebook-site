@@ -63,6 +63,15 @@ def add_media_file(request):
                         content_type="application/json")
 
 
+from PIL import ImageEnhance, Image
+
+
+def sharpen(image, sharpness=1.6):
+    sharpener = ImageEnhance.Sharpness(image)
+    sharpened_image = sharpener.enhance(sharpness)
+    return sharpened_image
+
+
 @csrf_exempt
 @login_required()
 def add_custom_pic(request):
@@ -73,7 +82,8 @@ def add_custom_pic(request):
     name = str(len(UserImage.objects.filter(submission=submission)))
     image = UserImage.objects.create(submission=submission)
     file_content = ContentFile(str(request.POST['file']).split(',')[1].decode('base64'))
-    image.image.save("final-" + name + ".png", file_content)
+    file_content = sharpen(Image.open(file_content))
+    image.image.save("final-" + name + ".png", ContentFile(file_content))
     image.tags = request.POST.getlist('tags[]')
     tags = image.tags
     tags_submit = []
