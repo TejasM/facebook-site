@@ -2,7 +2,7 @@ var clicked;
 var clickedDefaults;
 var layers = [];
 var images = [];
-var rotateAngles = [-6, 2, -2, 2, 4, -4, 4, -1];
+var rotateAngles = [-4, 2, -2, 2, 4, -4, 4, -1];
 var selected = [];
 var polaroids = [];
 var rects = [];
@@ -87,8 +87,8 @@ $(document).ready(function () {
     var preloadbuttons = [
         "/static/images/Pinboard Assets/Buttons/back.png",
         "/static/images/Pinboard Assets/Buttons/back-on.png",
-        "/static/images/Pinboard Assets/Buttons/choose.png",
-        "/static/images/Pinboard Assets/Buttons/choose-on.png",
+        "/static/images/Pinboard Assets/Buttons/select-friend.png",
+        "/static/images/Pinboard Assets/Buttons/select-friend-on.png",
         "/static/images/Pinboard Assets/Buttons/done.png",
         "/static/images/Pinboard Assets/Buttons/done-on.png",
         "/static/images/Pinboard Assets/Buttons/like.png",
@@ -121,14 +121,6 @@ $(document).ready(function () {
                 drawImage(this, key, this.i);
                 if (i == imageCount) {
                     // Absolute position the polaroids.
-                    $wrap.each(function (index, element) {
-                        var d = rotateAngles[index];
-                        $(element).css({'-moz-transform': 'rotate(' + d + 'deg)',
-                            '-webkit-transform': 'rotate(' + d + 'deg)',
-                            '-o-transform': 'rotate(' + d + 'deg)',
-                            '-ms-transform': 'rotate(' + d + 'deg)',
-                            'transform': 'rotate(' + d + 'deg)'});
-                    });
                     var $selects = $('#selects').find('.selects');
                     $selects.each(function () {
                         $(this).click(function () {
@@ -337,7 +329,7 @@ function focusImage(event) {
     newButtons = document.createElement('div');
     var newUpload = document.createElement('img');
     var newDone = document.createElement('img');
-    newUpload.src = "/static/images/Pinboard%20Assets/Buttons/choose.png";
+    newUpload.src = "/static/images/Pinboard%20Assets/Buttons/select-friend.png";
     newDone.src = "/static/images/Pinboard%20Assets/Buttons/done.png";
     $(newDone).css("margin-left", "10px");
     $(newDone).attr('id', "btn_done");
@@ -452,12 +444,7 @@ function unFocusImage(event) {
         height: clickedDefaults.height,
         left: clickedDefaults.left,
         top: clickedDefaults.top,
-        width: clickedDefaults.width,
-        '-moz-transform': 'rotate(' + d + 'deg)',
-        '-webkit-transform': 'rotate(' + d + 'deg)',
-        '-o-transform': 'rotate(' + d + 'deg)',
-        '-ms-transform': 'rotate(' + d + 'deg)',
-        'transform': 'rotate(' + d + 'deg)'});
+        width: clickedDefaults.width});
 
     $(clicked).css({
         zIndex: clickedDefaults.zIndex

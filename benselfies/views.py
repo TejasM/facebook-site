@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
@@ -63,6 +64,15 @@ def add_media_file(request):
                         content_type="application/json")
 
 
+from PIL import ImageEnhance, Image
+
+
+def sharpen(image, sharpness=1.6):
+    sharpener = ImageEnhance.Sharpness(image)
+    sharpened_image = sharpener.enhance(sharpness)
+    return sharpened_image
+
+
 @csrf_exempt
 @login_required()
 def add_custom_pic(request):
@@ -73,6 +83,10 @@ def add_custom_pic(request):
     name = str(len(UserImage.objects.filter(submission=submission)))
     image = UserImage.objects.create(submission=submission)
     file_content = ContentFile(str(request.POST['file']).split(',')[1].decode('base64'))
+    file_content = sharpen(Image.open(file_content))
+    thumb_io = cStringIO.StringIO()
+    file_content.save(thumb_io, format='JPEG')
+    file_content = ContentFile(thumb_io.getvalue())
     image.image.save("final-" + name + ".png", file_content)
     image.tags = request.POST.getlist('tags[]')
     tags = image.tags
