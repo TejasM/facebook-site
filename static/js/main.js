@@ -2,7 +2,7 @@ var clicked;
 var clickedDefaults;
 var layers = [];
 var images = [];
-var rotateAngles = [-4, 2, -2, 2, 4, -4, 4, -1];
+var rotateAngles = [-2, 2, -2, 2, 2, -2, 2, -1];
 var selected = [];
 var polaroids = [];
 var rects = [];
