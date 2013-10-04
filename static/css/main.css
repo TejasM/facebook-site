@@ -556,7 +556,7 @@ div#enter-to-win form div.terms-check p {
 }
 
 /* Prizes */
-$prizes-button-container {
+#prizes-button-container {
     text-align: center;
 }
 #prizes-button {
