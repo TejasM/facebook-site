@@ -10,6 +10,7 @@
 html, body {
     background: #FCD2BB url('../images/background-150px-width.png') repeat center center;
     font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
     margin: 0;
     padding: 0;
 }
@@ -47,6 +48,7 @@ div#header-divider {
 
 div#main-nav {
     background: #000;
+    height: 15px;
     position: relative;
     z-index: 2;
 }
@@ -198,7 +200,8 @@ div#upper-content ul li span {
 }
 
 div#upper-content-2 {
-    margin: 15px auto;
+    height: 100%;
+    margin: 15px auto 0 auto;
     width: 749px;
     text-align: center;
 }
@@ -576,4 +579,9 @@ div#enter-to-win form div.terms-check p {
     cursor: pointer;
     position: relative;
     top: -60px;
+}
+
+/* New Landing Page */
+#landing-page {
+    
 }
