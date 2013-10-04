@@ -635,8 +635,8 @@ function drawImageDraggable(imageObj) {
         function boundX(pos) {
             var rect = rects[i];
             var X = pos.x;
-            var minX = rect.getX() - (this.getWidth() - rect.getWidth()) - 5;
-            var maxX = rect.getX() + 5;
+            var minX = rect.getX() - (this.getWidth() - rect.getWidth()) - 10;
+            var maxX = rect.getX() + (this.getWidth() - rect.getWidth()) + 10;
             if (X < minX) {
                 X = minX;
             }
@@ -665,8 +665,8 @@ function drawImageDraggable(imageObj) {
         function boundY(pos) {
             var rect = rects[i];
             var Y = pos.y;
-            var minY = rect.getY() + rect.getHeight() - this.getHeight() - 5;
-            var maxY = rect.getY() + 5;
+            var minY = rect.getY() + rect.getHeight() - this.getHeight() - 10;
+            var maxY = rect.getY() - rect.getHeight() + this.getHeight() + 10;
             if (Y < minY) {
                 Y = minY;
             }
