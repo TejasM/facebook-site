@@ -268,7 +268,7 @@ $(document).ready(function () {
     
     // Add prizes pop-up.
     $('#prizes-button').on('click', function(event) {
-        $('#terms-and-conditions-popup').show();
+        $('#prizes-popup').show();
     });
     $('#terms-and-conditions-popup-button').on('click', function() {
         $('#terms-and-conditions-popup').hide();
