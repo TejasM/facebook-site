@@ -270,8 +270,8 @@ $(document).ready(function () {
     $('#prizes-button').on('click', function(event) {
         $('#prizes-popup').show();
     });
-    $('#terms-and-conditions-popup-button').on('click', function() {
-        $('#terms-and-conditions-popup').hide();
+    $('#prizes-popup-button').on('click', function() {
+        $('#prizes-popup').hide();
     });
     
     // IE Warning popup.
