@@ -161,6 +161,9 @@ def email(request):
                 duration = td.seconds + (td.days * 24 * 3600)
                 if duration > 24 * 60 * 60:
                     Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
+                # else:
+                #     messages.error(request, 'You have entered in the last 24 hours')
+                #     return redirect(email)
         except Submission.DoesNotExist:
             Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
         submission = UserSubmission.objects.create(email=request.POST["email"], first_name=request.POST["first_name"],

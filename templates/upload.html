@@ -472,17 +472,16 @@ $(function () {
             layer.draw();
             // add the layer to the stage
         };
-        imageObj.src = '/static/images/Pinboard%20Assets/benefit-pinboard-800px.png';
+        imageObj.src = '/static/images/Pinboard%20Assets/benefit-pinboard-800px-with-beneselfies-logo.png';
         selected = selected.reverse().filter(function (e, i, arr) {
             return arr.indexOf(e, i + 1) === -1;
         }).reverse();
         var $wrap = $('#wrap').find('.polaroid');
         var pins = [];
-        var last_elem = 0;
+        var count = selected.length;
         $.each([ 0, 1, 2, 3, 4, 5, 6, 7 ], function (i, value) {
             var id = parseInt($($wrap[i]).attr('id'));
             if (selected.indexOf(id) > -1) {
-                last_elem = i;
                 stageCentral.add(layers[id].clone({
                     x: bene_positions[i][0],
                     y: bene_positions[i][1],
@@ -501,9 +500,18 @@ $(function () {
                     layer.add(pin);
                     pin.moveToTop();
                     layer.draw();
-                    if (index == last_elem) {
+                    count--;
+
+                    if (count == 0) {
                         stageCentral.toDataURL({
                             callback: function (dataUrl) {
+                                current_tags = [];
+                                $.each($('#wrap').find('.polaroid'), function (index, element) {
+                                    var tag_element = $(element).find('.hidden_input');
+                                    if (tag_element && tag_element.length > 0 && $(tag_element).val() != '') {
+                                        current_tags.push($(element).find('.hidden_input').val().toString() + "," + tag_positions[index][0].toString() + "," + tag_positions[index][1].toString());
+                                    }
+                                });
                                 $.ajax({
                                     type: "POST",
                                     url: "/upload_custom/",
