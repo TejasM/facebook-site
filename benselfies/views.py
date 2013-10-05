@@ -1,3 +1,4 @@
+from datetime import date, datetime
 import json
 import cStringIO
 import random
@@ -160,10 +161,10 @@ def email(request):
                 td = (timezone.now() - user.last_submitted)
                 duration = td.seconds + (td.days * 24 * 3600)
                 if duration > 24 * 60 * 60:
-                    Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
-                # else:
-                #     messages.error(request, 'You have entered in the last 24 hours')
-                #     return redirect(email)
+                    pass
+                    # else:
+                    #     messages.error(request, 'You have entered in the last 24 hours')
+                    #     return redirect(email)
         except Submission.DoesNotExist:
             Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
         submission = UserSubmission.objects.create(email=request.POST["email"], first_name=request.POST["first_name"],
@@ -222,21 +223,27 @@ def login_user(request):
     return render_to_response('login.html')
 
 
+week_starts = [
+    [datetime.strptime("7/10/13 09:00", "%d/%m/%y %H:%M"), datetime.strptime("14/10/13 23:59", "%d/%m/%y %H:%M")],
+    [datetime.strptime("15/10/13 09:00", "%d/%m/%y %H:%M"), datetime.strptime("20/10/13 23:59", "%d/%m/%y %H:%M")],
+    [datetime.strptime("21/10/13 09:00", "%d/%m/%y %H:%M"), datetime.strptime("27/10/13 23:59", "%d/%m/%y %H:%M")]]
+
+
 @login_required()
-def get_small_random_winner(request):
-    submissions = Submission.objects.filter()
-    submission = random.choice(submissions)
-    return render_to_response('random_page.html', {"submission": submission})
+def get_small_random_winners(request):
+    submissions = Submission.objects.filter(last_submitted__gte=week_starts[0][0], last_submitted__lt=week_starts[0][1])
+    submission1 = random.choice(submissions)
+    submissions = Submission.objects.filter(last_submitted__gte=week_starts[1][0], last_submitted__lt=week_starts[1][1])
+    submission2 = random.choice(submissions)
+    submissions = Submission.objects.filter(last_submitted__gte=week_starts[2][0], last_submitted__lt=week_starts[2][1])
+    submission3 = random.choice(submissions)
+    return render_to_response('random_page.html', {"submissions": [submission1, submission2, submission3]})
 
 
 @login_required()
 def get_big_random_winner(request):
-    submissions = Submission.objects.filter(eligible=True)
+    submissions = Submission.objects.filter()
     submission = random.choice(submissions)
-    submissions = Submission.objects.filter(user_id=submission.user_id)
-    for sub in submissions:
-        sub.eligible = False
-        sub.save()
     return render_to_response('random_page.html', {"submission": submission})
 
 

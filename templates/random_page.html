@@ -10,6 +10,11 @@
 <div class="wraptocenter">
     {% if submission %}
         {{ submission }}
+    {% elif submissions %}
+        {% for submission in submissions %}
+            {{ submission }}
+            <br>
+        {% endfor %}
     {% else %}
         <button><a href="/smallrandom/">Random Small Winner</a></button>
         <button><a href="/bigrandom/">Random Big Winner</a></button>
