@@ -18,7 +18,7 @@ urlpatterns = patterns('',
                        url(r'^preview/$', 'benselfies.views.home', name='preview'),
                        url(r'^login/$', 'benselfies.views.login_user', name='login'),
                        url(r'^random/$', 'benselfies.views.random_page', name='random_page'),
-                       url(r'^smallrandom/$', 'benselfies.views.get_small_random_winner', name='small_random'),
+                       url(r'^smallrandom/$', 'benselfies.views.get_small_random_winners', name='small_random'),
                        url(r'^bigrandom/$', 'benselfies.views.get_big_random_winner', name='big_random'),
 
                        # url(r'^benselfies/', include('benselfies.foo.urls')),
