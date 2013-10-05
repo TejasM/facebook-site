@@ -85,12 +85,9 @@ def add_custom_pic(request):
         return redirect(email)
     name = str(len(UserImage.objects.filter(submission=submission)))
     image = UserImage.objects.create(submission=submission)
-    file_content = ContentFile(str(request.POST['file']).split(',')[1].decode('base64'))
-    file_content = sharpen(Image.open(file_content))
-    thumb_io = cStringIO.StringIO()
-    file_content.save(thumb_io, format='JPEG')
-    file_content = ContentFile(thumb_io.getvalue())
-    image.image.save("final-" + name + ".png", file_content)
+    if 'file' in request.POST:
+        file_content = ContentFile(str(request.POST['file']).split(',')[1].decode('base64'))
+        image.image.save("final-" + name + ".png", file_content)
     image.tags = request.POST.getlist('tags[]')
     tags = image.tags
     tags_submit = []
@@ -121,7 +118,11 @@ def add_custom_pic(request):
                     Submission.objects.create(user_id=submission.user_id, email=submission.email)
     except Submission.DoesNotExist:
         Submission.objects.create(user_id=submission.user_id, email=submission.email)
-    return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/media/')[1], "tags": tags_submit}),
+    if image.image:
+        context = {'image': "/media/" + image.image.name.split('/media/')[1], "tags": tags_submit}
+    else:
+        context = {"tags": tags_submit}
+    return HttpResponse(json.dumps(context),
                         content_type="application/json")
 
 

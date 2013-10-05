@@ -91,14 +91,14 @@ var centres = [
 ];
 
 var pin_locations = [
-    [78, 0],
-    [84, 0],
-    [90, 0],
-    [89, 0],
-    [89, 0],
-    [84, 0],
-    [77, 0],
-    [77, 0]
+    [130, 152],
+    [324, 151],
+    [447, 139],
+    [662, 148],
+    [152, 325],
+    [315, 330],
+    [496, 338],
+    [645, 335]
 ];
 
 var images_polar = [
@@ -111,6 +111,16 @@ var images_polar = [
     '/static/images/Beneselfies/beneselfies-miss-sporty-and-sassy-t.png',
     '/static/images/Beneselfies/beneselfies-the-globetrotter-t.png'
 ];
+
+var pins_src = [
+    "/static/images/Pinboard%20Assets/Pins/pin-06.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-04.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-05.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-03.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-02.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-01.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-08.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-07.png"]
 
 var choose = false;
 
@@ -207,7 +217,7 @@ $(document).ready(function () {
     }
 
     // Add hove/click/active button images.
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('mouseover', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('mouseover', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on")) {
@@ -227,7 +237,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('mouseout', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('mouseout', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") != -1) {
@@ -247,7 +257,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('click', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('click', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") == -1) {
@@ -300,13 +310,13 @@ $(document).ready(function () {
     });
 
     // Add prizes pop-up.
-    $('#prizes-button').on('click', function(event) {
+    $('#prizes-button').on('click', function (event) {
         $('#prizes-popup').show();
     });
-    $('#prizes-popup-button').on('click', function() {
+    $('#prizes-popup-button').on('click', function () {
         $('#prizes-popup').hide();
     });
-    
+
     // IE Warning popup.
     $('#ie-warning-popup-button').on('click', function () {
         $('#ie-warning').hide();

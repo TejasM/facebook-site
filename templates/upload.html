@@ -133,7 +133,8 @@
 <div id="select_phase"
      style="position: absolute; left: 130px; top:140px; width: 525px; height: 470px; padding-left: 25px">
     <div>
-        <img id="head" src="/static/images/Pinboard%20Assets/1x1-pixel-placeholder.png" style="position: absolute; top: 250px; left: 500px">
+        <img id="head" src="/static/images/Pinboard%20Assets/1x1-pixel-placeholder.png"
+             style="position: absolute; top: 250px; left: 500px">
     </div>
     <div style="width: 246px; height: 366px; background: url('/static/images/Pinboard%20Assets/Text/instructions-box-choosing.png'); float: right;">
         <div style="margin-top: 200px; padding-left: 25px; padding-right: 10px;">
@@ -235,7 +236,7 @@
     </div>
 </div>
 </div>
-<div id="final_upload" style="">
+<div id="final_upload" style="display: none">
 
 </div>
 {% include 'footer.html' %}
@@ -451,130 +452,77 @@ $(function () {
         $div.css("background", "url(/static/images/please-wait-2.png) center center no-repeat rgba(255,255,255,0.5)");
         $div.show();
         $('#overlay').show();
-        var width = 800;
-        var height = 600;
-        var stage = new Kinetic.Stage({
+        stageCentral = new Kinetic.Stage({
             container: 'final_upload',
-            width: width,
-            height: height
+            width: 800,
+            height: 600
         });
         var layer = new Kinetic.Layer();
+        stageCentral.add(layer);
         var imageObj = new Image();
-        stageCentral = stage;
-
-        imageObj.onload = (function (stage) {
+        imageObj.onload = function () {
             var pinboard = new Kinetic.Image({
                 x: 0,
                 y: 0,
-                image: imageObj,
-                width: width,
-                height: height
+                image: imageObj
             });
-
             // add the shape to the layer
             layer.add(pinboard);
-
+            pinboard.moveToBottom();
+            layer.draw();
             // add the layer to the stage
-            stage.add(layer);
-        })(stageCentral);
-        layer.draw();
+        };
         imageObj.src = '/static/images/Pinboard%20Assets/benefit-pinboard-800px.png';
         selected = selected.reverse().filter(function (e, i, arr) {
             return arr.indexOf(e, i + 1) === -1;
         }).reverse();
         var $wrap = $('#wrap').find('.polaroid');
-        for (var i = 0; i < 8; i++) {
+        var pins = [];
+        var last_elem = 0;
+        $.each([ 0, 1, 2, 3, 4, 5, 6, 7 ], function (i, value) {
             var id = parseInt($($wrap[i]).attr('id'));
             if (selected.indexOf(id) > -1) {
-                var new_layer = new Kinetic.Layer({
+                last_elem = i;
+                stageCentral.add(layers[id].clone({
                     x: bene_positions[i][0],
                     y: bene_positions[i][1],
-                    width: 175,
-                    height: 175,
                     offset: [175 / 2, 175 / 2]
-                });
-                var new_imageObj = new Image();
-                new_imageObj.onload = (function (i, new_image, new_layer) {
-                    var bene = new Kinetic.Image({
-                        x: 0,
-                        y: 0,
-                        image: new_image,
-                        width: 175,
-                        height: 175
+                }));
+                pins[i] = new Image();
+                pins[i].onload = (function () {
+                    var index = pins.indexOf(this);
+                    var layer = new Kinetic.Layer();
+                    var pin = new Kinetic.Image({
+                        image: pins[index],
+                        x: pin_locations[index][0],
+                        y: pin_locations[index][1]
                     });
-                    // add the shape to the layer
-                    new_layer.add(bene);
-                })(id, new_imageObj, new_layer);
-                new_imageObj.src = images_polar[id];
-                var rect = new Kinetic.Rect({
-                    x: centres[id][0] - 130 / (2),
-                    y: centres[id][1] - 130 / (2),
-                    width: 130,
-                    height: 130,
-                    fill: 'black',
-                    stroke: 'black',
-                    strokeWidth: 0
-                });
-                new_layer.add(rect);
-                var group = new Kinetic.Group({
-                    clip: [centres[id][0] - 65, centres[id][1] - 65, 130, 130]
-                });
-                var new_image = new Image();
-                new_image.onload = (function (i, new_image, new_layer) {
-                    var height_image = 130;
-                    var width_image = 130;
-                    if (new_image.width / new_image.height > 1) {
-                        width_image = GetWidth(height_image, new_image.width, new_image.height);
-                    } else {
-                        height_image = GetHeight(width_image, imageObj.width, imageObj.height);
+                    stageCentral.add(layer);
+                    layer.add(pin);
+                    pin.moveToTop();
+                    layer.draw();
+                    if (index == last_elem) {
+                        stageCentral.toDataURL({
+                            callback: function (dataUrl) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/upload_custom/",
+                                    enctype: 'multipart/form-data',
+                                    data: {'user_id': user_id, 'file': dataUrl, 'tags': current_tags }
+                                }).success(function (data) {
+                                            data_post = data;
+                                            $('#dialog-tags').show();
+                                            $div.hide();
+                                            location.hash = "#app";
+                                            gotoHASH();
+                                        });
+                            }
+                        });
                     }
-                    var bene = new Kinetic.Image({
-                        x: image_poss[i][0],
-                        y: image_poss[i][1],
-                        image: new_image,
-                        width: width_image,
-                        height: height_image
-                    });
-                    // add the shape to the layer
-                    new_layer.add(bene);
-
-                })(id, new_image, new_layer);
-                new_image.src = image_urls[id];
-                stageCentral.add(new_layer);
-                new_layer.moveToTop();
-                new_layer.draw();
+                });
+                pins[i].src = pins_src[i];
             }
-        }
-
-        {% comment %} html2canvas(document.getElementById('wrap'), {
-             onrendered: function (canvas) {
-
-                 var dataURL = canvas.toDataURL();
-                 current_tags = [];
-                 $.each($('#wrap').find('.polaroid'), function (index, element) {
-                     var tag_element = $(element).find('.hidden_input');
-                     if (tag_element && tag_element.length > 0 && $(tag_element).val() != '') {
-                         current_tags.push($(element).find('.hidden_input').val().toString() + "," + tag_positions[index][0].toString() + "," + tag_positions[index][1].toString());
-                     }
-                 });
-                 $.ajax({
-                     type: "POST",
-                     url: "/upload_custom/",
-                     enctype: 'multipart/form-data',
-                     data: {'user_id': user_id, 'file': dataURL, 'tags': current_tags }
-                 }).success(function (data) {
-                             data_post = data;
-                             $('#dialog-tags').show();
-                             $div.hide();
-                             location.hash = "#app";
-                             gotoHASH();
-                         });
-
-             }
-    }
-
-    )
-    ;{% endcomment %}
+        });
     }
 
     function gotoHASH() {
