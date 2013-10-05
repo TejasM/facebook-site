@@ -87,6 +87,10 @@ def add_custom_pic(request):
     image = UserImage.objects.create(submission=submission)
     if 'file' in request.POST:
         file_content = ContentFile(str(request.POST['file']).split(',')[1].decode('base64'))
+        file_content = sharpen(Image.open(file_content))
+        thumb_io = cStringIO.StringIO()
+        file_content.save(thumb_io, format='JPEG')
+        file_content = ContentFile(thumb_io.getvalue())
         image.image.save("final-" + name + ".png", file_content)
     image.tags = request.POST.getlist('tags[]')
     tags = image.tags
