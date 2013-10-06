@@ -101,6 +101,17 @@ var pin_locations = [
     [645, 335]
 ];
 
+var pin_locations_alt = [
+    [130, 147],
+    [315, 145],
+    [465, 142],
+    [645, 142],
+    [130, 325],
+    [315, 325],
+    [465, 338],
+    [645, 335]
+];
+
 var images_polar = [
     '/static/images/Beneselfies/beneselfies-the-shopaholic-t.png',
     '/static/images/Beneselfies/beneselfies-the-comedian-t.png',
