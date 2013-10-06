@@ -145,7 +145,7 @@
         <div id="global" style="display: inline"></div>
     </div>
 
-    <img id="pin_06" class="pin" style="position: absolute; left: 110px; top: 157px; display: none"
+    <img id="pin_06" class="pin" style="position: absolute; left: 110px; top: 145px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-06.png"/>
     <img id="pin_04" class="pin" style="position: absolute; left: 304px; top: 148px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-04.png"/>
@@ -357,11 +357,10 @@ function previewPost($next) {
             });
             if (index != mapping[count]) {
                 var newIndex = mapping[count];
-                $($pins[newIndex]).show();
                 swapNodes($wrap[newIndex], element);
                 $wrap = $('#wrap').find('.polaroid');
             } else {
-                $($pins[index]).show();
+
             }
             count++;
         } else {
@@ -376,6 +375,7 @@ function previewPost($next) {
             '-ms-transform': 'rotate(' + d + 'deg)',
             'transform': 'rotate(' + d + 'deg)'});
         layers[index].draw();
+        $($pins[index]).show();
     });
     $('#buttons').show();
     $('#help_button').hide();
