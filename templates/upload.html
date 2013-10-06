@@ -279,7 +279,7 @@
     </div>
 </div>
 </div>
-<div id="final_upload" style="display: none">
+<div id="final_upload" style="">
 
 </div>
 {% include 'footer.html' %}
@@ -370,8 +370,11 @@ function previewPost($next) {
     });
     $wrap.each(function (index, element) {
         var d = rotateAngles[index];
-        layers[index].setScale(0.93);
-        layers[index].rotateDeg(d);
+        $(this).css({'-moz-transform': 'rotate(' + d + 'deg)',
+            '-webkit-transform': 'rotate(' + d + 'deg)',
+            '-o-transform': 'rotate(' + d + 'deg)',
+            '-ms-transform': 'rotate(' + d + 'deg)',
+            'transform': 'rotate(' + d + 'deg)'});
         layers[index].draw();
     });
     $('#buttons').show();
@@ -411,8 +414,11 @@ $(function () {
                     $(this).hide();
                     $(this).css({'opacity': '1'});
                     var d = rotateAngles[index];
-                    layers[index].setScale(1);
-                    layers[index].rotateDeg(-d);
+                    $(this).css({'-moz-transform': 'rotate(' + -d + 'deg)',
+                        '-webkit-transform': 'rotate(' + -d + 'deg)',
+                        '-o-transform': 'rotate(' + -d + 'deg)',
+                        '-ms-transform': 'rotate(' + -d + 'deg)',
+                        'transform': 'rotate(' + -d + 'deg)'});
                     layers[index].draw();
                 });
                 var $pins = $('.pin');
@@ -555,7 +561,8 @@ $(function () {
                         stageCentral.add(layers[id].clone({
                             x: bene_positions[i][0],
                             y: bene_positions[i][1],
-                            offset: [175 / 2, 175 / 2]
+                            offset: [175 / 2, 175 / 2],
+                            rotationDeg: rotateAngles[i]
                         }));
                         pins[i] = new Image();
                         pins[i].onload = (function () {
