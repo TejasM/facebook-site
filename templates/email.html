@@ -1,9 +1,11 @@
 {% load staticfiles %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<html xmlns:fb="http://ogp.me/ns/fb#">
 <head>
-    <title>Benefit Cosmetics</title>
+    <title>Beneselfies by Benefit Cosmetics Canada - Tag Your Friends and Win!</title>
+    <meta name="description"
+          content="Tag your friends and share your shameless BENESELFIES on Facebook! Enter to win the ULTIMATE fashion, beauty and tech prizes with Benefit Cosmetics Canada!">
     <link rel="stylesheet" href="/static/css/main.css"/>
     <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -17,34 +19,673 @@
     <![endif]-->
 </head>
 <body onload='location.href="#app"'>
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151985691672341";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 {% include 'header.html' %}
 <div id="terms-and-conditions-popup-container">
-    <div id="terms-and-conditions-popup">
-        <img src="/static/images/Pinboard%20Assets/Text/terms-and-conditions.png" />
-        <div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam commodo mollis tempus. Nulla convallis in elit at placerat. Aliquam erat volutpat. In venenatis, est id mollis ullamcorper, eros orci sagittis erat, ac consectetur ligula augue et quam. Maecenas euismod dui id orci vulputate, eu lobortis nulla pretium. Quisque tortor ligula, pharetra et ligula eu, mattis volutpat augue. Integer egestas pharetra sapien ut facilisis.</p>
-            <p>Nullam congue, sem in tempor mattis, nunc magna vehicula est, nec vulputate elit felis quis purus. Etiam et lectus at tellus lacinia sollicitudin. Nam vulputate turpis non mattis ullamcorper. Pellentesque sed nisi non enim tincidunt ultrices non nec odio. Maecenas rhoncus erat nibh, a tincidunt dui lacinia congue. Cras porttitor ipsum ligula, et lobortis augue venenatis in. Nunc nec turpis vulputate urna tincidunt congue. Integer ac nisl nibh. Fusce gravida dapibus odio quis dignissim. Mauris sit amet elementum mauris. Nullam fermentum tellus quis lectus consequat, eu gravida purus eleifend. Ut tincidunt tortor nec justo vulputate consequat. Nullam ac venenatis nibh, non suscipit arcu. Aenean libero erat, ultricies ac sodales quis, vulputate sed nunc. In elementum odio et elit bibendum pellentesque.</p>
-            <p>Praesent varius iaculis ligula eget laoreet. Phasellus laoreet ligula nibh, vel posuere lacus auctor sed. Curabitur pharetra fringilla tellus, ac consequat tellus placerat ac. Nulla sit amet eros sit amet nunc pulvinar suscipit. Vivamus ac faucibus erat. Nullam ornare augue pharetra ligula luctus bibendum. Integer vel lorem metus. Nulla ornare dolor luctus, pellentesque risus at, fringilla urna. Donec faucibus justo et vestibulum euismod.</p>
-            <p>Suspendisse blandit, eros ac feugiat auctor, tellus dui malesuada purus, et eleifend justo erat sed nisi. Phasellus facilisis ipsum metus, id consequat erat lacinia sit amet. Maecenas fringilla dui vitae massa mattis sollicitudin. Nam non rutrum urna. Suspendisse diam nunc, dapibus eget sagittis in, porta eu lacus. Donec imperdiet dolor nec risus porttitor bibendum. Suspendisse consequat velit luctus tincidunt placerat. Suspendisse consequat, augue vel sodales pretium, orci tellus iaculis augue, id aliquet massa ligula nec diam.</p>
-            <p>Pellentesque ut mauris odio. Vivamus sed libero iaculis, dignissim justo nec, blandit leo. Nam in leo hendrerit, suscipit nunc ultrices, mattis leo. Mauris quam tortor, ullamcorper mollis nunc vel, tempor convallis ante. Curabitur porttitor libero quam, sed fermentum velit accumsan non. Praesent enim sem, molestie eget mauris eget, lacinia rutrum nibh. Cras quis interdum tortor, nec adipiscing erat. Sed vulputate augue lacus, a consectetur lorem tincidunt id.</p>
-        </div>
-        <img id="terms-and-conditions-popup-button" src="/static/images/Pinboard%20Assets/Buttons/back.png" />
-    </div>
+<div id="terms-and-conditions-popup">
+<img src="/static/images/Pinboard%20Assets/Text/terms-and-conditions.png"/>
+
+<div style="width: 530px; padding: 0 10px">
+<p lang="en-US" align="CENTER">
+    <strong>#BeneSelfies</strong>
+</p>
+
+<p lang="en-US" align="CENTER">
+    <strong>OFFICIAL CONTEST RULES</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>NO PURCHASE NECESSARY TO ENTER OR WIN. A PURCHASE WILL NOT INCREASE YOUR CHANCES OF WINNING. </strong>
+    The BeneSelfies contest (the "<strong>Contest</strong>") is sponsored by Benefit Cosmetics Services Canada Inc. (the
+    “<strong>Sponsor</strong>”). For the
+    purposes of the Contest, the “<strong>Contest Group</strong>” is composed of the Sponsor, Samsung Electronics Canada
+    Inc., West 49 Inc. together with their
+    respective affiliates and related companies, including without limitation their parent, sister and subsidiary
+    companies, advertising and promotion
+    agencies, suppliers of material and services related to the Contest, and any other corporation, partnership, sole
+    proprietorship or other legal entity
+    directly involved in the Contest and their respective officers, directors, employees, agents, and other
+    representatives.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>1. CONTEST PERIOD</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    The Contest starts on October 7, 2013 at 9:00:00 AM Eastern Time ("<strong>ET</strong>") and ends on November 3,
+    2013 at 11:59:59 PM ET (the " <strong>Contest Period</strong>").
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>2. ELIGIBILITY</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    The Contest is open to legal residents of Canada who have reached the age of majority in the province or territory
+    in which they reside as of the date of
+    entry. Excluded from eligibility are officers, directors, employees, agents and representatives of Sponsor, any
+    independent contest judging organization,
+    each of their respective parent, affiliated and related companies, agencies, suppliers of the materials and services
+    related to this Contest, and members
+    of any immediate families (defined as parents, siblings, children and spouses, regardless of where they live) or
+    households (whether or not related) of
+    such officers, directors, employees, agents and representatives.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>3. HOW TO ENTER</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    NO PURCHASE NECESSARY. Internet access and valid email account required. Online entry through the Contest WebPage
+    (as defined below) only; no other means
+    of submission will be accepted. You can enter the Contest by visiting the Benefit Cosmetic Canada’s BeneSelfies
+    webpage at <u><a href="http://www.beneselfies.com/">www.beneselfies.com</a></u> (the “<strong>Contest
+    WebPage</strong>”). To enter the Contest, go to the Contest
+    WebPage and follow these steps:
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <u>Step One</u>
+    : On the landing page, click “play now!”
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <u>Step Two</u>
+    : Under “How to Play” click “okay!”
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <u>Step Three</u>
+    : Enter your first name, last name and email address in the fields provided.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <u>Step Four</u>
+    : Confirm that you have read and agree to these Official Contest Rules.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <a name="heenanlock"></a>
+    <u>Step Five</u>
+    : Click on the “Like” button to Like the Benefit Cosmetics Canada’s Facebook page (the
+    “<strong>Registration</strong>”).
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <u>Limit</u>
+    : One (1) Registration per person during the Contest Period. For clarity, you will receive one (1) Entry (as defined
+    below) into the Contest upon
+    Registration, but Registration need only be completed once when you initially register for the Contest; thereafter,
+    to enter the Contest you will not be
+    required to perform Step Four above (each an “<strong>Entry</strong>” and collectively, the
+    “<strong>Entries</strong>”). For the purposes of this Contest
+    and these Official Contest Rules an “<strong>Entry</strong>” and collectively, the “<strong>Entries</strong>”, shall
+    include the “ <strong>Registration</strong>”, as each term is defined herein.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <u>Limit</u>
+    : one (1) Entry per person per day during the Contest Period. You can only use one (1) email address and one (1)
+    Facebook account in connection with the
+    Contest. Each Entry must be submitted by the entrant him or herself. Entries must comply with Facebook.com terms and
+    conditions to be eligible. Any Entries
+    that are made, or suspected to have been made, through automated means or scripts will be disqualified in Sponsor’s
+    sole discretion. The clock used by the
+    Sponsor in connection with the receipt of the Entries will be the official clock to determine the date and time the
+    Entry was received. Entries must be
+    received during the Contest Period. For the purposes of submitting an Entry in this Contest in accordance with these
+    Official Contest Rules, a “day” shall
+    mean any 24-hour period from the last time entrant submits an Entry during the Contest Period.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    By entering this Contest, you agree to be bound by these Official Contest Rules and the decisions of the Sponsor
+    and/or Contest judges.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>4. SHARE YOUR BENESELFIES</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    After you enter the Contest, you can create and share your BeneSelfies by clicking on any ‘#Beneselfie” personality,
+    click “choose” to choose one (1) of
+    your own Facebook photos or one (1) of your Facebook friends (“<strong>Friend</strong>”) photos (each a “<strong>Photo</strong>”
+    and collectively, the “ <strong>Photos</strong>”) that you think fits best within one (1) of the eight (8)
+    BeneSelfies personalities listed below and then tag one (1) of your
+    Friends in that Photo:
+</p>
+<ul>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            <em><strong>The Shopaholic</strong></em>
+        </p>
+    </li>
+</ul>
+<p lang="en-US">
+    <em>If the shoe fits…buy the other one!</em>
+</p>
+<ul>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            <em><strong>The Comedian</strong></em>
+        </p>
+    </li>
+</ul>
+<p lang="en-US">
+    <em>Laughter is the best cosmetic, so grin and wear it!</em>
+</p>
+<ul>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            <em><strong>The Sexy One</strong></em>
+        </p>
+    </li>
+</ul>
+<p lang="en-US" align="JUSTIFY">
+    <em>Whistle while you work it!</em>
+</p>
+<ul>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            <em><strong>The Fashionista</strong></em>
+        </p>
+    </li>
+</ul>
+<p lang="en-US">
+    <em>These heels were made for walkin' the runway!</em>
+</p>
+<ul>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            <em><strong>The Gorgeous Geek</strong></em>
+        </p>
+    </li>
+</ul>
+<p lang="en-US">
+    <em>Tech-savvy and book club chic!</em>
+</p>
+<ul>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            <em><strong>Miss Independent</strong></em>
+        </p>
+    </li>
+</ul>
+<p lang="en-US">
+    <em>Men may come and go but lipstick is forever!</em>
+</p>
+<ul>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            <em><strong>Miss Sassy and Sporty</strong></em>
+        </p>
+    </li>
+</ul>
+<p lang="en-US" align="JUSTIFY">
+    <em>The balls are always in your court!</em>
+</p>
+<ul>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            <em><strong>The Globetrotter</strong></em>
+        </p>
+    </li>
+</ul>
+<p lang="en-US" align="JUSTIFY">
+    <em>Pack up your beauty bag, baby we're leaving on a jet plane!</em>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    Enter the name of the Friend tagged in the Photo and click “done”. Once your BeneSelfies are completed, click
+    “finished” to see your completed pinboard
+    containing all of your BeneSelfies. You can then share your pinboard on your Facebook Wall by clicking “share”.
+    Entrants must use tags appropriately. Do
+    not tag yourself or a friend in any content in which you or they are not actually depicted. Please only tag those
+    Friends with whom you have a personal
+    relationship and who would not object to being tagged in the Photos in connection with this Contest. All Photos must
+    adhere to the Submission Guidelines
+    outlined in Rule 5 below.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>5</strong>
+    <strong>. PHOTO SUBMISSION GUIDELINES (the “Submission Guidelines”)</strong>
+    <strong> </strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    By participating in this Contest, each entrant represents and warrants that the Photos tagged by the entrant shall
+    comply with the following.
+</p>
+<ol>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            Does not include the brand names, trade names, or trade-marks of any third parties;
+        </p>
+    </li>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            Does not include any reference to or likeness of any celebrity or any identifiable third parties other than
+            the entrant and his/her Friends;
+        </p>
+    </li>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            Is suitable for family audiences and for display and publication on the Contest WebPage, in the sole
+            determination of the Sponsor. Without
+            limitation, Photos shall <u>not</u> contain any content that is or contains: the promotion of unlawful
+            behaviour, profanity, nudity, explicit
+            sexuality, harmful, threatening, abusive, harassing, tortious, defamatory, vulgar, obscene, libelous, or is
+            hatefully, racially, ethnically or
+            otherwise offensive or objectionable;
+        </p>
+    </li>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            Does not depict illegal activities or promotion thereof;
+        </p>
+    </li>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            Is consistent with the Sponsor’s corporate image; and
+        </p>
+    </li>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            Complies with these Official Contest Rules.
+        </p>
+    </li>
+</ol>
+<p lang="en-US" align="JUSTIFY">
+    The Sponsor reserves the right to deem ineligible and exclude from the Contest any Photo that the Sponsor, in its
+    sole and absolute discretion, determines
+    is not befitting or compliant with the Submission Guidelines and/or these Official Contest Rules.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    By entering this Contest and tagging a Photo, you acknowledge and agree that the tagged Photo will be used on the
+    Contest WebPage for public viewing,
+    including, without limitation, by showing up in your and your Friends news feed. You hereby irrevocably,
+    perpetually, and without limitation, grant the
+    Sponsor the unlimited right and permission to use, post, publish, adapt, edit and/or modify such Photo (and name in
+    connection with your Photo) and waive
+    all your rights, including moral rights, in and to the Photo, without notice or compensation.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>6. HOW TO WIN </strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <u>Weekly Prizes</u>
+    :
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    On Monday, October 28, 2013, at 12:00 PM (i.e. noon) ET in Toronto, Ontario, a random draw will be conducted from
+    among all eligible Entries received by
+    11:59:59 PM ET on the last day of the following Weekly Prize Periods:
+</p>
+<table width="520" cellpadding="7" cellspacing="0">
+    <colgroup>
+        <col width="155"/>
+        <col width="155"/>
+        <col width="155"/>
+    </colgroup>
+    <tbody>
+    <tr valign="TOP">
+        <td width="155">
+            <p lang="en-US" align="JUSTIFY">
+                <strong>First Weekly Prize Period</strong>
+            </p>
+        </td>
+        <td width="155">
+            <p lang="en-US" align="JUSTIFY">
+                <strong>Second Weekly Prize Period</strong>
+            </p>
+        </td>
+        <td width="155">
+            <p lang="en-US" align="JUSTIFY">
+                <strong>Third Weekly Prize Period</strong>
+            </p>
+        </td>
+    </tr>
+    <tr valign="TOP">
+        <td width="155">
+            <p lang="en-US" align="JUSTIFY">
+                Monday, October 7, 2013 at 9:00:00 AM ET to Sunday, October 14, 2013 at 11:59:59 PM ET.
+            </p>
+        </td>
+        <td width="155">
+            <p lang="en-US" align="JUSTIFY">
+                Tuesday, October 15, 2013 at 9:00:00 AM ET to Sunday, October 20, 2013 at 11:59:59 PM ET.
+            </p>
+        </td>
+        <td width="155">
+            <p lang="en-US" align="JUSTIFY">
+                Tuesday, October 21, 2013 at 9:00:00 AM ET to Sunday, October 27, 2013 at 11:59:59 PM ET.
+            </p>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p lang="en-US" align="JUSTIFY">
+    There is one (1) weekly prize (as defined below) to be awarded for each of those weeks, for a total of three (3)
+    prizes. Entries received during a given
+    week will not carry forward into subsequent weekly draws. All Entries received will be eligible for the grand prize
+    draw described below. Odds of being
+    selected as eligible to win a weekly prize will depend on the total number of eligible Entries received during the
+    applicable week.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <u>Grand Prize</u>
+    :
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    On Monday, November 4, 2013, at 12:00 PM (i.e. noon) ET in Toronto, Ontario, a random draw will be conducted from
+    among all eligible Entries received
+    during the Contest Period. There is one (1) grand prize available to be won. See Prize Claim Conditions in Rule 6
+    below. Odds of being selected as eligible
+    to win the grand prize in this Contest will depend on the total number of eligible Entries received during the
+    Contest Period.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>7. </strong>
+    <strong>PRIZE CLAIM CONDITIONS</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    Selected entrant will be notified by email within approximately forty-eight hours (48) of the applicable draw to
+    obtain his/her contact information and
+    with information on how to claim the prize. Before being declared a winner, selected entrant must first correctly
+    answer without assistance of any kind,
+    whether mechanical or otherwise, a time-limited mathematical skill-testing question to be administered at a mutually
+    convenient time by telephone. Selected
+    entrant may also be required to complete and return to Sponsor (or its authorized agent) by the deadline specified
+    in the documents a written declaration
+    and release form, releasing the Contest Group from any liability in connection with this Contest or the acceptance,
+    possession, use or misuse of any prize,
+    or the merchandise in which it is redeemed. Return of any prize or winner notification as undeliverable, inability
+    to reach selected entrant or failure of
+    selected entrant to respond to notification within seven (7) business days of first attempt by Sponsor or Sponsor’s
+    agent<em><strong>, </strong></em>
+    failure to provide proof of eligibility (if requested), release documents, or other required documentation in a
+    timely manner, failure to correctly answer
+    the skill-testing question, or other non-compliance with these Official Contest Rules may result in
+    disqualification, forfeiture of the prize and, at
+    Sponsor’s sole discretion, selection of an alternate eligible entrant for the forfeited prize, who will be subject
+    to disqualification in the same manner.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>8</strong>
+    <strong>. PRIZES</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    There are three (3) weekly prizes available to be won, each consisting of the following:
+</p>
+<ul>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            One (1) $350 gift basket containing various Benefit Cosmetics products; and
+        </p>
+    </li>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            One (1) $50 CDN West 49 gift card.
+        </p>
+    </li>
+</ul>
+<p lang="en-US" align="JUSTIFY">
+    Approximate Retail Value (“<strong>ARV</strong>”) of each weekly prize is $400 CDN.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    There is one (1) grand prize available to be won, consisting of the following:
+</p>
+<ul>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            One (1) Samsung Galaxy 8.0 Tablet with pink case;
+        </p>
+    </li>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            One (1) $500 gift basket containing various Benefit Cosmetics products; and
+        </p>
+    </li>
+    <li>
+        <p lang="en-US" align="JUSTIFY">
+            One (1) $300 CDN West 49 gift card.
+        </p>
+    </li>
+</ul>
+<p lang="en-US" align="JUSTIFY">
+    ARV of the grand prize is $1,300 CDN.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    Colour and style of cosmetics products may vary and will be determined by Sponsor at its sole discretion. Additional
+    cardholder terms and conditions will
+    apply with gift card. Prizes will be awarded only to verified winners in Canada. Prize must be accepted as awarded
+    and may not be substituted, transferred
+    or redeemed for cash or otherwise; however, the Sponsor reserves the right to substitute a prize of equal or greater
+    monetary value, in cash or otherwise,
+    at its sole discretion, if a prize, or any component of any prize, cannot be awarded for any reason. Sponsor will
+    not replace any lost or stolen prizes.
+    Sponsor makes no representations or warranties with respect to any prize, including, but not limited to, any item(s)
+    purchased with the gift card.
+</p>
+
+<p lang="en-US">
+    <strong>9. PERSONAL INFORMATION</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    Sponsor and its authorized agents will collect, use, and disclose the personal information you provide for the
+    purposes of administering the Contest and
+    prize fulfillment. By entering this Contest, you consent to such collection, use, and disclosure of your personal
+    information. The personal information you
+    provide may be stored on servers in the United States, and may therefore also be subject to the laws of the United
+    States.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    By accepting a prize, winner agrees to Sponsor's use of his/her first and last name, city/province of residence,
+    picture,<em><strong> </strong></em>
+    biographical information, statements, voice and likeness in any advertising and publicity Sponsor may conduct
+    relating to the Contest in any media or
+    format, whether now known or hereafter developed, including but not limited to the World Wide Web, at any time or
+    times in perpetuity, without further
+    compensation or notice.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>10. RIGHT TO VOID / TERMINATE / SUSPEND / MODIFY</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    Sponsor reserves the right, subject to the approval of the <em>Régie des alcools, des courses et des jeux</em> (the
+    “<strong>Régie</strong>”) with respect
+    to residents of Quebec, to terminate, suspend or modify this Contest, or these Official Contest Rules, in whole or
+    in part, at any time and without notice
+    or obligation if, in Sponsor's sole opinion, any factor interferes with its proper conduct as contemplated by these
+    Official Contest Rules. Without
+    limiting the generality of the foregoing, if the Contest, or any part thereof, is not capable of running as planned
+    for any reason, including but not
+    limited to infection by computer virus, bugs, tampering, unauthorized intervention, fraud, programming errors, or
+    technical failures, which, in the sole
+    opinion of Sponsor, corrupt or affect the administration, security, fairness, integrity or proper conduct of this
+    Contest, Sponsor may, in its sole
+    discretion, and subject only to the approval of the Régie in Quebec, void any suspect Entries and: (a) terminate the
+    Contest, or any portion thereof; (b)
+    modify or suspend the Contest, or any portion thereof, to address the impairment and then resume the Contest, or
+    relevant portion, in a manner that best
+    conforms to the spirit of these Official Contest Rules; and/or (c) award the prize from among the eligible,
+    non-suspect Entries received up to the time of
+    the impairment in accordance with the winner selection criteria discussed above.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>11. GENERAL CONDITIONS</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    Winning a prize is contingent on fulfilling all the requirements set forth herein. All Entries become the property
+    of Sponsor and none will be returned or
+    acknowledged. Mass Entries, automated Entries, Entries submitted by third parties, and any Entries or prize claims
+    that are late, incomplete, fraudulent,
+    illegible, unidentified or delayed will be void. All Entries and prize claims are subject to verification. Proof of
+    Entry submission does not constitute
+    proof of receipt. Entrants agree to abide by these Official Contest Rules. Decisions of Sponsor and/or any
+    independent contest judging organization will be
+    final and binding on all matters pertaining to this Contest. Contest is subject to all applicable federal,
+    provincial and municipal laws. Void where
+    prohibited. Sponsor reserves the right to correct any typographical, printing, computer programming or operator
+    errors. Sponsor's failure to enforce any
+    term of these Official Contest Rules shall not constitute a waiver of that provision. The invalidity or
+    unenforceability of any provision of these Official
+    Contest Rules shall not affect the validity or enforceability of any other provision. If any provision of the
+    Official Contest Rules is determined to be
+    invalid or otherwise unenforceable, then the Official Contest Rules shall be construed in accordance with their
+    terms as if the invalid or unenforceable
+    provision was not contained therein. Should a winner make any false statement(s) in any document referenced above,
+    the winner will be required to promptly
+    return to Sponsor his/her prize, or the cash value thereof. Sponsor reserves the right at its sole discretion to
+    disqualify any individual who tampers or
+    attempts to tamper with, or is suspected of tampering with, the entry process, the operation of the Contest,
+    violates the Official Contest Rules, or acts
+    with intent to annoy, abuse, threaten or harass any other person. WARNING: ANY ATTEMPT BY AN ENTRANT OR ANY OTHER
+    INDIVIDUAL TO DELIBERATELY DAMAGE ANY
+    WEBSITE ASSOCIATED WITH THIS CONTEST OR UNDERMINE THE LEGITIMATE OPERATION OF THE CONTEST IS A VIOLATION OF CRIMINAL
+    AND CIVIL LAWS, AND SPONSOR RESERVES
+    THE RIGHT TO PROSECUTE AND SEEK DAMAGES TO THE FULLEST EXTENT PERMITTED BY LAW. In the event of a dispute as to the
+    identity of the person who submitted
+    any Entry, the authorized account holder of the e-mail address submitted at entry will be deemed to be the entrant.
+    The "authorized account holder" is the
+    natural person assigned an e-mail address by an access provider, service provider, or other person or organization
+    responsible for assigning e-mail
+    addresses for the account associated with the submitted address. The potential winner may be required to show proof
+    of being the authorized account holder.
+</p>
+
+<p lang="en-US">
+    <strong>12. LIMITATIONS OF LIABILITY AND RELEASES</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    BY PARTICIPATING IN THIS CONTEST, ENTRANTS AGREE THAT CONTEST GROUP HAS NO LIABILITY WHATSOEVER FOR, AND SHALL BE
+    HELD HARMLESS AGAINST, ANY LIABILITY FOR
+    ANY INJURIES, CLAIMS, LOSSES, DAMAGES, COSTS OR EXPENSES OF ANY KIND (INCLUDING WITHOUT LIMITATION DIRECT, INDIRECT,
+    INCIDENTAL, CONSEQUENTIAL OR PUNITIVE
+    DAMAGES) TO PERSONS OR PROPERTY RESULTING FROM (A) ENTRY OR PARTICIPATION IN THIS CONTEST, (B) ANY CLAIMS BASED ON
+    PERSONALITY OR PRIVACY RIGHTS,
+    DEFAMATION OR PRIZE DELIVERY, OR (C) THE ACCEPTANCE, POSSESSION, USE OR MISUSE OF ANY PRIZE, INCLUDING THE
+    MERCHANDISE FOR WHICH IT IS REDEEMED. Some
+    jurisdictions do not allow the exclusion or limitation of incidental or consequential damages, therefore such
+    exclusions may not apply to you.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    Without limiting the foregoing, the Contest Group and any of Sponsor's other agencies, suppliers or contractors,
+    shall not be responsible for: (a) any
+    incomplete or inaccurate information that is caused by entrants, or by any of the equipment or programming
+    associated with or utilized in the Contest, or
+    by any technical or human error which may occur in the processing of submissions in the Contest; (b) lost,
+    interrupted, or unavailable network, server,
+    service provider, on-line systems, telephone networks or telephone lines, or any other connections; (c) the theft,
+    destruction, loss or unauthorized access
+    to, or alteration of, Entries; (d) any problems with, or malfunctions or failures of, telephone networks or lines,
+    computers or computer on-line systems,
+    servers or providers, computer equipment, software, viruses or bugs; (e) garbled transmissions or miscommunications;
+    (f) failure of any e-mail to be
+    received by or from the Contest judging organization or Sponsor for any reason, including but not limited to traffic
+    congestion on the Internet or at any
+    website or combination thereof or technical incompatibility; (g) damage to a user's computer equipment (software or
+    hardware) occasioned by participation
+    or downloading of materials related to this Contest; (h) printing, distribution, programming or production errors,
+    and any other errors or malfunctions of
+    any kind, whether human, mechanical, electronic or otherwise; or (i) technical, pictorial, typographical or
+    editorial errors or omissions contained herein.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    This Contest is in no way sponsored, endorsed or administered by, or associated with Facebook. Facebook is
+    completely released of all liability by each
+    participant in this Contest. You understand that you are providing your information to the Sponsor and not to
+    Facebook. Any questions, comments or
+    complaints regarding the Contest should be directed to the Sponsor and not Facebook.
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    <strong>13. QUEBEC RESIDENTS ONLY</strong>
+</p>
+
+<p lang="en-US" align="JUSTIFY">
+    Any litigation respecting the conduct or organization of a publicity contest may be submitted to the <em>Régie des
+    alcools, des courses et des jeux</em>
+    for a ruling. Any litigation respecting the awarding of a prize may be submitted to the Régie only for the purpose
+    of helping the parties reach a
+    settlement.
+</p>
+</div>
+<img id="terms-and-conditions-popup-button" src="/static/images/Pinboard%20Assets/Buttons/back.png"/>
+</div>
 </div>
 <div id="prizes-popup-container">
     <div id="prizes-popup">
-        <img src="/static/images/Pinboard%20Assets/Text/the-prizes.png" />
-        <div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam commodo mollis tempus. Nulla convallis in elit at placerat. Aliquam erat volutpat. In venenatis, est id mollis ullamcorper, eros orci sagittis erat, ac consectetur ligula augue et quam. Maecenas euismod dui id orci vulputate, eu lobortis nulla pretium. Quisque tortor ligula, pharetra et ligula eu, mattis volutpat augue. Integer egestas pharetra sapien ut facilisis.</p>
-            <p>Nullam congue, sem in tempor mattis, nunc magna vehicula est, nec vulputate elit felis quis purus. Etiam et lectus at tellus lacinia sollicitudin. Nam vulputate turpis non mattis ullamcorper. Pellentesque sed nisi non enim tincidunt ultrices non nec odio. Maecenas rhoncus erat nibh, a tincidunt dui lacinia congue. Cras porttitor ipsum ligula, et lobortis augue venenatis in. Nunc nec turpis vulputate urna tincidunt congue. Integer ac nisl nibh. Fusce gravida dapibus odio quis dignissim. Mauris sit amet elementum mauris. Nullam fermentum tellus quis lectus consequat, eu gravida purus eleifend. Ut tincidunt tortor nec justo vulputate consequat. Nullam ac venenatis nibh, non suscipit arcu. Aenean libero erat, ultricies ac sodales quis, vulputate sed nunc. In elementum odio et elit bibendum pellentesque.</p>
-            <p>Praesent varius iaculis ligula eget laoreet. Phasellus laoreet ligula nibh, vel posuere lacus auctor sed. Curabitur pharetra fringilla tellus, ac consequat tellus placerat ac. Nulla sit amet eros sit amet nunc pulvinar suscipit. Vivamus ac faucibus erat. Nullam ornare augue pharetra ligula luctus bibendum. Integer vel lorem metus. Nulla ornare dolor luctus, pellentesque risus at, fringilla urna. Donec faucibus justo et vestibulum euismod.</p>
-            <p>Suspendisse blandit, eros ac feugiat auctor, tellus dui malesuada purus, et eleifend justo erat sed nisi. Phasellus facilisis ipsum metus, id consequat erat lacinia sit amet. Maecenas fringilla dui vitae massa mattis sollicitudin. Nam non rutrum urna. Suspendisse diam nunc, dapibus eget sagittis in, porta eu lacus. Donec imperdiet dolor nec risus porttitor bibendum. Suspendisse consequat velit luctus tincidunt placerat. Suspendisse consequat, augue vel sodales pretium, orci tellus iaculis augue, id aliquet massa ligula nec diam.</p>
-            <p>Pellentesque ut mauris odio. Vivamus sed libero iaculis, dignissim justo nec, blandit leo. Nam in leo hendrerit, suscipit nunc ultrices, mattis leo. Mauris quam tortor, ullamcorper mollis nunc vel, tempor convallis ante. Curabitur porttitor libero quam, sed fermentum velit accumsan non. Praesent enim sem, molestie eget mauris eget, lacinia rutrum nibh. Cras quis interdum tortor, nec adipiscing erat. Sed vulputate augue lacus, a consectetur lorem tincidunt id.</p>
+        <img src="/static/images/Pinboard%20Assets/Text/the-prizes.png"/>
+
+        <div style="width: 550px">
+            <p><strong>Three (3) weekly prizes:</strong></p>
+
+            <p>One (1) $350 gift basket containing various Benefit Cosmetics products; and</p>
+
+            <p>One (1) $50 CDN West 49 gift card.</p>
+
+            <p>Approximate Retail Value (“ARV”) of each weekly prize is $400 CDN.</p>
+            <br>
+
+            <p><strong>One (1) grand prize:</strong></p>
+
+            <p>One (1) Samsung Galaxy 8.0 Tablet with pink case;</p>
+
+            <p>One (1) $500 gift basket containing various Benefit Cosmetics products; and</p>
+
+            <p>One (1) $300 CDN West 49 gift card.</p>
+
+            <p>ARV of the grand prize is $1,300 CDN.</p>
         </div>
-        <img id="prizes-popup-button" src="/static/images/Pinboard%20Assets/Buttons/back.png" />
+        <img id="prizes-popup-button" src="/static/images/Pinboard%20Assets/Buttons/back.png"/>
     </div>
 </div>
 <div class="content" id="wrap">
+    <div class="img-text">
+        Got a “comedian” in your group who gets all the giggles? Know a “shopaholic”
+        with more in her (or his!) closet than all your friends combined?
+
+        Match and tag your gorgeous friends to one of our eight #BENESELFIES
+        profiles for a chance to WIN beauty, fashion & tech prizes!
+
+        Simply sign in on Facebook, fill in your email address* and start tagging!
+
+        *Don’t worry gorgeous, we’ll only use your email address to contact you if you win!
+    </div>
     <a name="app"></a>
 
     <div id="overlay"
@@ -54,23 +695,29 @@
             <form action="/email/" method="post" id="email_form">
                 {% csrf_token %}
                 <input type="hidden" value="" name="user_id" id="user_id">
+
                 <div class="first-name">
-                    <input type="text" id="first_name" placeholder="First Name" name="first_name" />
+                    <input type="text" id="first_name" placeholder="First Name" name="first_name"/>
+
                     <div id="firstNameMsg"></div>
                 </div>
                 <div class="last-name">
-                    <input type="text" id="last_name" placeholder="Last Name" name="last_name" />
+                    <input type="text" id="last_name" placeholder="Last Name" name="last_name"/>
+
                     <div id="lastNameMsg"></div>
                 </div>
                 <div class="email-input">
-                    <input type="text" id="email" placeholder="Email" name="email" />
+                    <input type="text" id="email" placeholder="Email" name="email"/>
+
                     <div id="emailMsg"></div>
                 </div>
                 <br>
+
                 <div class="terms-check" style="text-align: center; width: 95%; padding: 0 10px;">
                     <input type="checkbox" id="terms" name="terms" style="margin-right: 10px">I agree to the <a
                         href="#">terms
                     and conditions!</a>
+
                     <div id="termsMsg"
                          style="color: white; background-color: pink; width: 62%; text-align: center; display: inline-block; padding: 0 4px;"></div>
                     {% if messages %}
@@ -82,16 +729,24 @@
                     <p><strong>In order to continue, please like us on Facebook!</strong></p>
                 </div>
 
-                <div style="text-align: center; margin-top:-3px;">
-                    <img id="like-alternate" style="display: none; cursor: pointer;"
-                         src="/static/images/Pinboard%20Assets/Buttons/like.png"/>
-                    <img id="login" style="display: none; cursor: pointer;"
-                         src="/static/images/Pinboard%20Assets/Buttons/like.png"/>
-                </div>
-                <div style="text-align: center; height: 27px; margin: 20px auto 0;">
-                    <div id="fb-root" style="text-align: center; margin: 0 auto; height: 27px; overflow: hidden">
-                        <div id="like-button" class="fb-like" data-width="100" data-height="30"
-                             data-href="https://www.facebook.com/benefitcosmeticscanada"></div>
+                <div style="height: 45px; overflow: hidden;">
+                    <div style="text-align: center; margin-top:-3px;">
+                        <img id="like-alternate" style="display: none; cursor: pointer;"
+                             src="/static/images/Pinboard%20Assets/Buttons/like.png"/>
+                        <img id="login" style="display: none; cursor: pointer;"
+                             src="/static/images/Pinboard%20Assets/Buttons/like.png"/>
+                    </div>
+                    <div style=" margin-top: -10px">
+                        <div style="text-align: center; height: 27px; margin: 20px auto 0; ">
+                            <div class="fb-like" style=" margin-top: -15px">
+                                <div style="height: 27px; overflow: hidden;" class="fb-like">
+                                    <fb:like href="https://www.facebook.com/benefitcosmeticscanada?ref=br_tf"
+                                             width="250"
+                                             height="27" colorscheme="light" layout="standard" action="like"
+                                             show_faces="false" send="false"></fb:like>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -102,10 +757,23 @@
             <img src="/static/images/Pinboard%20Assets/Text/how-to-play.png" alt="">
 
             <div id="prizes-button-container">
-                <img id="prizes-button" src="/static/images/Pinboard%20Assets/Buttons/the-prizes.png" />
+                <img id="prizes-button" src="/static/images/Pinboard%20Assets/Buttons/the-prizes.png"/>
             </div>
-            <div style="text-align: center;"><img style="cursor: pointer;" src="/static/images/Pinboard%20Assets/Buttons/okay.png"
-                                              alt="" class="close">
+            <div style="text-align: center;"><img style="cursor: pointer;"
+                                                  src="/static/images/Pinboard%20Assets/Buttons/okay.png"
+                                                  alt="" class="close">
+            </div>
+        </div>
+    </div>
+
+    <div class="24" style="position: absolute; top: 100px; width: 100%; display: none">
+        <div style="margin: auto; width: 356px;">
+            <img src="/static/images/Pinboard%20Assets/Text/come-back-in-24-hours.png" alt="">
+
+            <div style="text-align: center; margin-top: -75px"><img style="cursor: pointer;"
+                                                                    onclick="window.location = 'http://www.beneselfies.com'"
+                                                                    src="/static/images/Pinboard%20Assets/Buttons/okay.png"
+                                                                    alt="" class="okay_back">
             </div>
         </div>
     </div>
@@ -175,6 +843,7 @@
             xfbml: true                                  // Look for social plugins on the page
         });
 
+
         FB.Event.subscribe('edge.create',
                 function () {
                     if (preventSubmission()) {
@@ -182,9 +851,11 @@
                         $('#email_form').submit();
                     } else {
                         $('#like-alternate').css("display", "inline");
+                        $('fb-like').hide();
                     }
                 }
         );
+
         FB.Event.subscribe('auth.authResponseChange', function (response) {
             // Here we specify what we do with the response anytime this event occurs.
             if (response.status === 'connected') {
@@ -253,6 +924,11 @@
                 $('#login').css("display", "inline");
             }
         });
+
+        {% if no %}
+            $('.24').lightbox_me({centered: true, closeClick: false, closeEsc: false});
+        {% endif %}
+
     });
 </script>
 </body>

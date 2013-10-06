@@ -19,6 +19,11 @@ img {
     border: 0;
 }
 
+.img-text {
+    position: absolute;
+   left: -9999px;
+}
+
 div#header {
     background: #fff url('../images/Beneselfies-Pattern-Header.png') top center repeat;
     height: 94px;
@@ -580,7 +585,7 @@ div#enter-to-win form div.terms-check p {
     color: #333;
     font-size: 12px;
     height: 158px;
-    margin: 0 30px;
+    margin: 0 40px;
     overflow-y: scroll;
     position: absolute;
     text-align: left;

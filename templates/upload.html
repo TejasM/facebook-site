@@ -3,7 +3,9 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-    <title>Benefit Cosmetics</title>
+    <title>Beneselfies by Benefit Cosmetics Canada - Tag Your Friends and Win!</title>
+    <meta name="description"
+          content="Tag your friends and share your shameless BENESELFIES on Facebook! Enter to win the ULTIMATE fashion, beauty and tech prizes with Benefit Cosmetics Canada!">
     <link rel="stylesheet" href="/static/css/main.css"/>
     <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -20,6 +22,47 @@
 {% include 'header.html' %}
 <div class="content" id="wrap">
 <a name="app"></a>
+
+<div class="img-text">
+    Hello, Gorgeous!
+
+    Click on any of the #BENESELFIES, choose the friend that you think fits best, then tag them in to the photo!
+
+    Once you’re done hit
+    ‘FINISHED’ to see your completed pinboard.
+
+    The Shopaholic
+
+    If the shoe fits…buy the other one!
+
+    The Comedian
+
+    Laughter is the best cosmetic, so grin and wear it!
+
+    The Sexy One
+
+    Whistle while you work it!
+
+    The Fashionista
+
+    These heels were made for walkin' the runway!
+
+    The Gorgeous Geek
+
+    Tech-savvy and book club chic!
+
+    Miss Independent
+
+    Men may come and go but lipstick is forever!
+
+    Miss Sassy and Sporty
+
+    The balls are always in your court!
+
+    The Globetrotter
+
+    Pack up your beauty bag, baby we're leaving on a jet plane!
+</div>
 
 <div class="loader"></div>
 <div id="dialog-confirm" style="position: absolute; top: 150px; width: 100%; display: none; z-index: 5;">
@@ -109,7 +152,7 @@
         <div id="global" style="display: inline"></div>
     </div>
 
-    <img id="pin_06" class="pin" style="position: absolute; left: 110px; top: 157px; display: none"
+    <img id="pin_06" class="pin" style="position: absolute; left: 110px; top: 145px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-06.png"/>
     <img id="pin_04" class="pin" style="position: absolute; left: 304px; top: 148px; display: none"
          src="/static/images/Pinboard%20Assets/Pins/pin-04.png"/>
@@ -140,7 +183,8 @@
 <div id="select_phase"
      style="position: absolute; left: 130px; top:140px; width: 525px; height: 470px; padding-left: 25px">
     <div>
-        <img id="head" src="/static/images/Pinboard%20Assets/1x1-pixel-placeholder.png" style="position: absolute; top: 250px; left: 500px">
+        <img id="head" src="/static/images/Pinboard%20Assets/1x1-pixel-placeholder.png"
+             style="position: absolute; top: 250px; left: 500px">
     </div>
     <div style="width: 246px; height: 366px; background: url('/static/images/Pinboard%20Assets/Text/instructions-box-choosing.png'); float: right;">
         <div style="margin-top: 200px; padding-left: 25px; padding-right: 10px;">
@@ -242,6 +286,9 @@
     </div>
 </div>
 </div>
+<div id="final_upload" style="display: none">
+
+</div>
 {% include 'footer.html' %}
 <div class="help_div" style="display: none">
     <img src="/static/images/beneselfies-how-to-play.png" alt="">
@@ -317,11 +364,10 @@ function previewPost($next) {
             });
             if (index != mapping[count]) {
                 var newIndex = mapping[count];
-                $($pins[newIndex]).show();
                 swapNodes($wrap[newIndex], element);
                 $wrap = $('#wrap').find('.polaroid');
             } else {
-                $($pins[index]).show();
+
             }
             count++;
         } else {
@@ -330,9 +376,16 @@ function previewPost($next) {
     });
     $wrap.each(function (index, element) {
         var d = rotateAngles[index];
-        layers[index].setScale(0.93);
-        layers[index].rotateDeg(d);
+        $(this).css({'-moz-transform': 'rotate(' + d + 'deg)',
+            '-webkit-transform': 'rotate(' + d + 'deg)',
+            '-o-transform': 'rotate(' + d + 'deg)',
+            '-ms-transform': 'rotate(' + d + 'deg)',
+            'transform': 'rotate(' + d + 'deg)'});
         layers[index].draw();
+        var id = parseInt($(element).attr('id'));
+        if (selected.indexOf(id) > -1) {
+            $($pins[index]).show();
+        }
     });
     $('#buttons').show();
     $('#help_button').hide();
@@ -340,274 +393,362 @@ function previewPost($next) {
 
 
 $(function () {
-    $('#overlay').hide();
-    var $helpbutton = $('#help_button');
-    $helpbutton.click(function () {
-        var $helpdiv = $(".help_div");
-        $helpdiv.lightbox_me({centered: true, closeClick: false});
-    });
-    $('#help_close').click(function () {
-        $(".help_div").trigger("close");
-    });
-    $('#bene_close').click(function () {
-        $(".bene_help").trigger("close");
-    });
-    var $next = $('#next');
-    $next.click(function () {
-        previewPost($(this));
-    });
-    $('#upload-image').hide();
-    $('#image-upload').change(function () {
-        buttonCancel.hide();
-        buttonOK.hide();
-        $('#upload-image').show();
-    });
-    $('#back').click(function () {
-        $next.show();
-        $('#buttons').hide();
-        $('#select_phase').show();
-        var $wrap = $('#wrap').find('.polaroid');
-        $wrap.each(function (index, element) {
-            $(this).on('click', focusImage);
-            $(this).hide();
-            $(this).css({'opacity': '1'});
-            var d = rotateAngles[index];
-            layers[index].setScale(1);
-            layers[index].rotateDeg(-d);
-            layers[index].draw();
-        });
-        var $pins = $('.pin');
-        $pins.each(function (index, element) {
-            $(this).hide();
-        });
-        $('#help_button').hide();
-    });
+            var $helpbutton = $('#help_button');
+            $helpbutton.click(function () {
+                var $helpdiv = $(".help_div");
+                $helpdiv.lightbox_me({centered: true, closeClick: false});
+            });
+            $('#help_close').click(function () {
+                $(".help_div").trigger("close");
+            });
+            $('#bene_close').click(function () {
+                $(".bene_help").trigger("close");
+            });
+            var $next = $('#next');
+            $next.click(function () {
+                previewPost($(this));
+            });
+            $('#upload-image').hide();
+            $('#image-upload').change(function () {
+                buttonCancel.hide();
+                buttonOK.hide();
+                $('#upload-image').show();
+            });
+            $('#back').click(function () {
+                $next.show();
+                $('#buttons').hide();
+                $('#select_phase').show();
+                var $wrap = $('#wrap').find('.polaroid');
+                $wrap.each(function (index, element) {
+                    $(this).on('click', focusImage);
+                    $(this).hide();
+                    $(this).css({'opacity': '1'});
+                    var d = rotateAngles[index];
+                    $(this).css({'-moz-transform': 'rotate(' + -d + 'deg)',
+                        '-webkit-transform': 'rotate(' + -d + 'deg)',
+                        '-o-transform': 'rotate(' + -d + 'deg)',
+                        '-ms-transform': 'rotate(' + -d + 'deg)',
+                        'transform': 'rotate(' + -d + 'deg)'});
+                    layers[index].draw();
+                });
+                var $pins = $('.pin');
+                $pins.each(function (index, element) {
+                    $(this).hide();
+                });
+                $('#help_button').hide();
+            });
 
-    $('#share').click(function () {
-        var leng = $('.hidden_input').length;
-        if (leng == 0) {
-            $("#dialog-confirm-2").show();
-        } else if (leng != 8) {
-            $("#dialog-confirm").show();
-        } else {
-            share();
-        }
-    });
-
-    $('#post').click(share);
-
-    $('#close').click(function () {
-        $("#dialog-confirm").hide();
-    });
-
-    $('#okay_fine').click(function () {
-        $("#dialog-confirm-2").hide();
-    });
-
-    $('#yes_tags').click(function () {
-        $('#dialog-tags').hide();
-        postFinal(true);
-    });
-
-    $('#no_tags').click(function () {
-        $('#dialog-tags').hide();
-        postFinal(false);
-    });
-
-    var data_post = null;
-    if (!window.location.origin) {
-        window.location.origin = window.location.protocol + "//" + window.location.hostname
-    }
-
-    function postFinal(tags) {
-        if (data_post != null) {
-            $('div.loader').show();
-            $('#overlay').show();
-            if (tags && data_post["tags"].length != 0) {
-                var data = {
-                    url: window.location.origin + data_post["image"],
-                    tags: data_post["tags"],
-                    message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to www.beneselfies.com."
-                };
-            } else {
-                var data = {
-                    url: window.location.origin + data_post["image"],
-                    message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to www.beneselfies.com."
-                };
-            }
-            FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', data, function (response) {
-                if (response.post_id) {
-                    $.post('/post_id/', {post_id: response.post_id}).done(
-                            function () {
-                                window.location = "/finish/";
-                            });
+            $('#share').click(function () {
+                var leng = $('.hidden_input').length;
+                if (leng == 0) {
+                    $("#dialog-confirm-2").show();
+                } else if (leng != 8) {
+                    $("#dialog-confirm").show();
                 } else {
-                    window.location = "/finish/";
+                    share();
                 }
             });
-        }
-    }
 
-    function share() {
-        $('#dialog-confirm').hide();
-        $('#buttons').hide();
-        $('#white_logo').show();
-        html2canvas(document.getElementById('wrap'), {
-            onrendered: function (canvas) {
+            $('#post').click(share);
+
+            $('#close').click(function () {
+                $("#dialog-confirm").hide();
+            });
+
+            $('#okay_fine').click(function () {
+                $("#dialog-confirm-2").hide();
+            });
+
+            $('#yes_tags').click(function () {
+                $('#dialog-tags').hide();
+                postFinal(true);
+            });
+
+            $('#no_tags').click(function () {
+                $('#dialog-tags').hide();
+                postFinal(false);
+            });
+
+            var data_post = null;
+            if (!window.location.origin) {
+                window.location.origin = window.location.protocol + "//" + window.location.hostname
+            }
+
+            function postFinal(tags) {
+                if (data_post != null) {
+                    $('div.loader').show();
+                    $('#overlay').show();
+                    if (tags && data_post["tags"].length != 0) {
+                        var data = {
+                            url: window.location.origin + data_post["image"],
+                            tags: data_post["tags"],
+                            message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to www.beneselfies.com."
+                        };
+                    } else {
+                        var data = {
+                            url: window.location.origin + data_post["image"],
+                            message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to www.beneselfies.com."
+                        };
+                    }
+                    FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', data, function (response) {
+                        if (response.post_id) {
+                            $.post('/post_id/', {post_id: response.post_id}).done(
+                                    function () {
+                                        window.location = "/finish/";
+                                    });
+                        } else {
+                            window.location = "/finish/";
+                        }
+                    });
+                }
+            }
+
+            function share() {
+                $('#dialog-confirm').hide();
+                $('#buttons').hide();
+                $('#white_logo').show();
                 var $div = $('div.loader');
                 $div.css("background", "url(/static/images/please-wait-2.png) center center no-repeat rgba(255,255,255,0.5)");
                 $div.show();
                 $('#overlay').show();
-                var dataURL = canvas.toDataURL();
-                current_tags = [];
-                $.each($('#wrap').find('.polaroid'), function (index, element) {
-                    var tag_element = $(element).find('.hidden_input');
-                    if (tag_element && tag_element.length > 0 && $(tag_element).val() != '') {
-                        current_tags.push($(element).find('.hidden_input').val().toString() + "," + tag_positions[index][0].toString() + "," + tag_positions[index][1].toString());
+                stageCentral = new Kinetic.Stage({
+                    container: 'final_upload',
+                    width: 800,
+                    height: 600
+                });
+                var layer = new Kinetic.Layer();
+                stageCentral.add(layer);
+                var imageObj = new Image();
+                selected = selected.reverse().filter(function (e, i, arr) {
+                    return arr.indexOf(e, i + 1) === -1;
+                }).reverse();
+                var count = selected.length + 1;
+                imageObj.onload = function () {
+                    var pinboard = new Kinetic.Image({
+                        x: 0,
+                        y: 0,
+                        image: imageObj
+                    });
+                    // add the shape to the layer
+                    layer.add(pinboard);
+                    pinboard.moveToBottom();
+                    layer.draw();
+                    // add the layer to the stage
+                    count--;
+
+                    if (count == 0) {
+                        stageCentral.toDataURL({
+                            callback: function (dataUrl) {
+                                current_tags = [];
+                                $.each($('#wrap').find('.polaroid'), function (index, element) {
+                                    var tag_element = $(element).find('.hidden_input');
+                                    if (tag_element && tag_element.length > 0 && $(tag_element).val() != '') {
+                                        current_tags.push($(element).find('.hidden_input').val().toString() + "," + tag_positions[index][0].toString() + "," + tag_positions[index][1].toString());
+                                    }
+                                });
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/upload_custom/",
+                                    enctype: 'multipart/form-data',
+                                    data: {'user_id': user_id, 'file': dataUrl, 'tags': current_tags }
+                                }).success(function (data) {
+                                            data_post = data;
+                                            $('#dialog-tags').show();
+                                            $div.hide();
+                                            location.hash = "#app";
+                                            gotoHASH();
+                                        });
+                            }
+                        });
+                    }
+                };
+                imageObj.src = '/static/images/Pinboard%20Assets/benefit-pinboard-800px-with-beneselfies-logo.png';
+                var $wrap = $('#wrap').find('.polaroid');
+                var pins = [];
+                $.each([ 0, 1, 2, 3, 4, 5, 6, 7 ], function (i, value) {
+                    var id = parseInt($($wrap[i]).attr('id'));
+                    if (selected.indexOf(id) > -1) {
+                        stageCentral.add(layers[id].clone({
+                            x: bene_positions[i][0],
+                            y: bene_positions[i][1],
+                            offset: [175 / 2, 175 / 2],
+                            rotationDeg: rotateAngles[i]
+                        }));
+                        pins[i] = new Image();
+                        pins[i].onload = (function () {
+                            var index = pins.indexOf(this);
+                            var layer = new Kinetic.Layer();
+                            var pin = new Kinetic.Image({
+                                image: pins[index],
+                                x: pin_locations_alt[index][0],
+                                y: pin_locations_alt[index][1]
+                            });
+                            stageCentral.add(layer);
+                            layer.add(pin);
+                            pin.moveToTop();
+                            layer.draw();
+                            count--;
+
+                            if (count == 0) {
+                                stageCentral.toDataURL({
+                                    callback: function (dataUrl) {
+                                        current_tags = [];
+                                        $.each($('#wrap').find('.polaroid'), function (index, element) {
+                                            var tag_element = $(element).find('.hidden_input');
+                                            if (tag_element && tag_element.length > 0 && $(tag_element).val() != '') {
+                                                current_tags.push($(element).find('.hidden_input').val().toString() + "," + tag_positions[index][0].toString() + "," + tag_positions[index][1].toString());
+                                            }
+                                        });
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/upload_custom/",
+                                            enctype: 'multipart/form-data',
+                                            data: {'user_id': user_id, 'file': dataUrl, 'tags': current_tags }
+                                        }).success(function (data) {
+                                                    data_post = data;
+                                                    $('#dialog-tags').show();
+                                                    $div.hide();
+                                                    location.hash = "#app";
+                                                    gotoHASH();
+                                                });
+                                    }
+                                });
+                            }
+                        });
+                        pins[i].src = pins_src[i];
                     }
                 });
-                $.ajax({
-                    type: "POST",
-                    url: "/upload_custom/",
-                    enctype: 'multipart/form-data',
-                    data: {'user_id': user_id, 'file': dataURL, 'tags': current_tags }
-                }).success(function (data) {
-                            data_post = data;
-                            $('#dialog-tags').show();
-                            $div.hide();
-                            location.hash = "#app";
-                            gotoHASH();
-                        });
-
             }
-        });
-    }
 
-    function gotoHASH() {
-        if (location.hash) {
-            if ($.browser.webkit == false) {
-                window.location.hash = location.hash
-            } else {
-                window.location.href = location.hash;
-                window.location.href = location.hash
-            }
-        }
-    };
-
-    $('div.loader').hide();
-    var buttonOK = $('#CSPhotoSelector_buttonOK');
-    var buttonCancel = $('#CSPhotoSelector_buttonCancel');
-
-    fbphotoSelect = function (id) {
-        // if no user/friend id is sent, default to current user
-        if (!id) id = 'me';
-
-        callbackAlbumSelected = function (albumId) {
-            var album, name;
-            album = CSPhotoSelector.getAlbumById(albumId);
-            // show album photos
-            selector.showPhotoSelector(null, album.id);
-        };
-
-        callbackAlbumUnselected = function (albumId) {
-            $('#tag_values').text('');
-            $('#tags').hide();
-        };
-
-        callbackPhotoSelected = function (photoId) {
-            var photo;
-            photo = CSPhotoSelector.getPhotoById(photoId);
-            var $tags = "";
-            try {
-                var tags = photo["tags"]["data"];
-                for (var i = 0; i < tags.length; i++) {
-                    $tags += tags[i].name;
-                    if (i != tags.length - 1) {
-                        $tags += ", ";
+            function gotoHASH() {
+                if (location.hash) {
+                    if ($.browser.webkit == false) {
+                        window.location.hash = location.hash
+                    } else {
+                        window.location.href = location.hash;
+                        window.location.href = location.hash
                     }
                 }
             }
-            catch (e) {
-                try {
-                    $tags += photo.alternate_tags;
-                } catch (e) {
+
+            $('div.loader').hide();
+            var buttonOK = $('#CSPhotoSelector_buttonOK');
+            var buttonCancel = $('#CSPhotoSelector_buttonCancel');
+
+            fbphotoSelect = function (id) {
+                // if no user/friend id is sent, default to current user
+                if (!id) id = 'me';
+
+                callbackAlbumSelected = function (albumId) {
+                    var album, name;
+                    album = CSPhotoSelector.getAlbumById(albumId);
+                    // show album photos
+                    selector.showPhotoSelector(null, album.id);
+                };
+
+                callbackAlbumUnselected = function (albumId) {
+                    $('#tag_values').text('');
+                    $('#tags').hide();
+                };
+
+                callbackPhotoSelected = function (photoId) {
+                    var photo;
+                    photo = CSPhotoSelector.getPhotoById(photoId);
+                    var $tags = "";
+                    try {
+                        var tags = photo["tags"]["data"];
+                        for (var i = 0; i < tags.length; i++) {
+                            $tags += tags[i].name;
+                            if (i != tags.length - 1) {
+                                $tags += ", ";
+                            }
+                        }
+                    }
+                    catch (e) {
+                        try {
+                            $tags += photo.alternate_tags;
+                        } catch (e) {
+                        }
+                    }
+                    if ($tags && $tags != "undefined") {
+                        $('#tag_values').text($tags);
+                    } else {
+                        $('#tag_values').text('');
+                    }
+                    $('#tags').show();
+                    buttonOK.show();
+                    selected.push(parseInt($('#selected_bene').val()));
+                };
+
+                callbackPhotoUnselected = function (photoId) {
+                    buttonOK.hide();
+                };
+
+                callbackSubmit = function (photoId) {
+                    var photo;
+                    photo = CSPhotoSelector.getPhotoById(photoId);
+                    selector.reset();
+                    var $tags = [];
+                    try {
+                        var tags = photo["tags"]["data"];
+                        for (var i = 0; i < tags.length; i++) {
+                            $tags.push({value: tags[i].name, label: tags[i].name, id: tags[i].id});
+                        }
+                    }
+                    catch (e) {
+                        try {
+                            if (photo.alternate_tags)
+                                $tags.push({value: photo.alternate_tags, label: photo.alternate_tags, id: photo.uid});
+                            else
+                                $tags = selector.$tags;
+                        } catch (e) {
+                            $tags = selector.$tags;
+                        }
+                    }
+                    selectPic(photo["source"], $tags);
+                    $('.loader').show();
+                };
+
+                // Initialise the Photo Selector with options that will apply to all instances
+                CSPhotoSelector.init({debug: true});
+
+                // Create Photo Selector instances
+                selector = CSPhotoSelector.newInstance({
+                    callbackAlbumSelected: callbackAlbumSelected,
+                    callbackAlbumUnselected: callbackAlbumUnselected,
+                    callbackPhotoSelected: callbackPhotoSelected,
+                    callbackPhotoUnselected: callbackPhotoUnselected,
+                    callbackSubmit: callbackSubmit,
+                    maxSelection: 1,
+                    albumsPerPage: 6,
+                    photosPerPage: 200,
+                    autoDeselection: true
+                });
+                $('#tags').hide();
+                // reset and show album selector
+                selector.reset();
+                selector.showAlbumSelector(id);
+            };
+
+            $('#yes_sure').click(function () {
+                $("#dialog-warn").hide();
+                if ($(clicked).find('.descript').is(":visible")) {
+                    $(newButtons).show();
+                } else {
+                    $('.okay-buttons').show();
                 }
-            }
-            if ($tags && $tags != "undefined") {
-                $('#tag_values').text($tags);
-            } else {
-                $('#tag_values').text('');
-            }
-            $('#tags').show();
-            buttonOK.show();
-            selected.push(parseInt($('#selected_bene').val()));
-        };
+            });
+            $('#no_back').click(function () {
+                fbphotoSelect(null);
+                $("#dialog-warn").hide();
+                $('.okay-buttons').show();
+            });
 
-        callbackPhotoUnselected = function (photoId) {
-            buttonOK.hide();
-        };
-
-        callbackSubmit = function (photoId) {
-            var photo;
-            photo = CSPhotoSelector.getPhotoById(photoId);
-            selector.reset();
-            var $tags = [];
-            try {
-                var tags = photo["tags"]["data"];
-                for (var i = 0; i < tags.length; i++) {
-                    $tags.push({value: tags[i].name, label: tags[i].name, id: tags[i].id});
-                }
-            }
-            catch (e) {
-                try {
-                    if (photo.alternate_tags)
-                        $tags.push({value: photo.alternate_tags, label: photo.alternate_tags, id: photo.uid});
-                    else
-                        $tags = selector.$tags;
-                } catch (e) {
-                    $tags = selector.$tags;
-                }
-            }
-            selectPic(photo["source"], $tags);
-            $('.loader').show();
-        };
-
-        // Initialise the Photo Selector with options that will apply to all instances
-        CSPhotoSelector.init({debug: true});
-
-        // Create Photo Selector instances
-        selector = CSPhotoSelector.newInstance({
-            callbackAlbumSelected: callbackAlbumSelected,
-            callbackAlbumUnselected: callbackAlbumUnselected,
-            callbackPhotoSelected: callbackPhotoSelected,
-            callbackPhotoUnselected: callbackPhotoUnselected,
-            callbackSubmit: callbackSubmit,
-            maxSelection: 1,
-            albumsPerPage: 6,
-            photosPerPage: 200,
-            autoDeselection: true
-        });
-        $('#tags').hide();
-        // reset and show album selector
-        selector.reset();
-        selector.showAlbumSelector(id);
-    };
-
-    $('#yes_sure').click(function () {
-        $("#dialog-warn").hide();
-        if ($(clicked).find('.descript').is(":visible")) {
-            $(newButtons).show();
-        } else {
-            $('.okay-buttons').show();
+            $('#overlay').hide();
         }
-    });
-    $('#no_back').click(function () {
-        fbphotoSelect(null);
-        $("#dialog-warn").hide();
-        $('.okay-buttons').show();
-    });
 
-});
+)
+;
 var next = 0;
 var stageCentral = null;
 var imageLayer = null;
@@ -640,16 +781,7 @@ function drawImageDraggable(imageObj) {
     if (imageObj.width / imageObj.height > 1) {
         width = GetWidth(height, imageObj.width, imageObj.height);
         function boundX(pos) {
-            var rect = rects[i];
             var X = pos.x;
-            var minX = rect.getX() - (this.getWidth() - rect.getWidth()) - 10;
-            var maxX = rect.getX() + (this.getWidth() - rect.getWidth()) + 10;
-            if (X < minX) {
-                X = minX;
-            }
-            if (X > maxX) {
-                X = maxX;
-            }
             return {
                 x: X,
                 y: this.getAbsolutePosition().y
@@ -670,16 +802,7 @@ function drawImageDraggable(imageObj) {
     } else {
         height = GetHeight(width, imageObj.width, imageObj.height);
         function boundY(pos) {
-            var rect = rects[i];
             var Y = pos.y;
-            var minY = rect.getY() + rect.getHeight() - this.getHeight() - 10;
-            var maxY = rect.getY() - rect.getHeight() + this.getHeight() + 10;
-            if (Y < minY) {
-                Y = minY;
-            }
-            if (Y > maxY) {
-                Y = maxY;
-            }
             return {
                 x: this.getAbsolutePosition().x,
                 y: Y
@@ -818,6 +941,7 @@ function bringBackPolaroid(event) {
     event.data.text.remove();
     $('.arrows').remove();
     var i = parseInt($(clicked).attr('id'));
+    image_poss[i] = [images[i].getX(), images[i].getX()];
     var tagged = false;
     if (!names_for_each_clicked[i]) {
     }
@@ -886,17 +1010,17 @@ function drawImage(imageObj, container, i) {
     var height = 175;
     var stage = new Kinetic.Stage({
         container: container,
-        width: width,
-        height: height
+        width: 175,
+        height: 175
     });
     var layer = new Kinetic.Layer();
 
     var img = new Kinetic.Image({
         image: imageObj,
-        x: stage.getWidth() / 2 - width / 2,
-        y: stage.getHeight() / 2 - height / 2,
-        width: width,
-        height: height
+        x: stage.getWidth() / 2 - 175 / 2,
+        y: stage.getHeight() / 2 - 175 / 2,
+        width: 175,
+        height: 175
     });
     polaroids[i] = img;
     layer.add(img);
@@ -970,7 +1094,7 @@ function bringForward(url) {
         drawImageDraggable(this);
     };
 
-
+    var i = parseInt($(clicked).attr('id'));
     $.ajax({
         type: "POST",
         url: "/post_pic/",
@@ -981,6 +1105,7 @@ function bringForward(url) {
         async: false,
         timeout: 30000,
         success: function (data) {
+            image_urls[i] = data["image"];
             imageObj.src = data["image"];
         },
         error: function (x, t, m) {

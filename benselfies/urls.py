@@ -7,7 +7,7 @@ admin.autodiscover()
 from benselfies import settings
 
 urlpatterns = patterns('',
-                       url(r'^$', 'benselfies.views.preview', name='home'),
+                       url(r'^$', 'benselfies.views.home', name='home'),
                        url(r'^finish/$', 'benselfies.views.finish', name='finish'),
                        url(r'^upload/(?P<user_id>.*)$', 'benselfies.views.upload', name='upload'),
                        url(r'^post_pic/$', 'benselfies.views.add_media_file', name='post_pic'),
@@ -18,7 +18,7 @@ urlpatterns = patterns('',
                        url(r'^preview/$', 'benselfies.views.home', name='preview'),
                        url(r'^login/$', 'benselfies.views.login_user', name='login'),
                        url(r'^random/$', 'benselfies.views.random_page', name='random_page'),
-                       url(r'^smallrandom/$', 'benselfies.views.get_small_random_winner', name='small_random'),
+                       url(r'^smallrandom/$', 'benselfies.views.get_small_random_winners', name='small_random'),
                        url(r'^bigrandom/$', 'benselfies.views.get_big_random_winner', name='big_random'),
 
                        # url(r'^benselfies/', include('benselfies.foo.urls')),

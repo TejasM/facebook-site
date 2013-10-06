@@ -1,3 +1,4 @@
+from datetime import date, datetime
 import json
 import cStringIO
 import random
@@ -21,12 +22,10 @@ from benselfies.models import UserSubmission, UserImage, Submission
 __author__ = 'tmehta'
 
 
-@login_required()
 def home(request):
     return render_to_response('home.html')
 
 
-@login_required()
 def upload(request, user_id):
     try:
         user = request.session["user"]
@@ -34,7 +33,10 @@ def upload(request, user_id):
         try:
             submission = UserSubmission.objects.get(user_id=user_id)
             if user != submission:
-                submission.delete()
+                try:
+                    submission.delete()
+                except:
+                    pass
         except UserSubmission.DoesNotExist as _:
             pass
         user.user_id = user_id
@@ -46,7 +48,6 @@ def upload(request, user_id):
     return render_to_response('upload.html')
 
 
-@login_required()
 @csrf_exempt
 def add_media_file(request):
     #TODO: check and upload to server
@@ -74,7 +75,6 @@ def sharpen(image, sharpness=1.6):
 
 
 @csrf_exempt
-@login_required()
 def add_custom_pic(request):
     try:
         submission = UserSubmission.objects.get(pk=request.session["user"])
@@ -82,12 +82,13 @@ def add_custom_pic(request):
         return redirect(email)
     name = str(len(UserImage.objects.filter(submission=submission)))
     image = UserImage.objects.create(submission=submission)
-    file_content = ContentFile(str(request.POST['file']).split(',')[1].decode('base64'))
-    file_content = sharpen(Image.open(file_content))
-    thumb_io = cStringIO.StringIO()
-    file_content.save(thumb_io, format='JPEG')
-    file_content = ContentFile(thumb_io.getvalue())
-    image.image.save("final-" + name + ".png", file_content)
+    if 'file' in request.POST:
+        file_content = ContentFile(str(request.POST['file']).split(',')[1].decode('base64'))
+        file_content = sharpen(Image.open(file_content))
+        thumb_io = cStringIO.StringIO()
+        file_content.save(thumb_io, format='JPEG')
+        file_content = ContentFile(thumb_io.getvalue())
+        image.image.save("final-" + name + ".png", file_content)
     image.tags = request.POST.getlist('tags[]')
     tags = image.tags
     tags_submit = []
@@ -118,12 +119,15 @@ def add_custom_pic(request):
                     Submission.objects.create(user_id=submission.user_id, email=submission.email)
     except Submission.DoesNotExist:
         Submission.objects.create(user_id=submission.user_id, email=submission.email)
-    return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/media/')[1], "tags": tags_submit}),
+    if image.image:
+        context = {'image': "/media/" + image.image.name.split('/media/')[1], "tags": tags_submit}
+    else:
+        context = {"tags": tags_submit}
+    return HttpResponse(json.dumps(context),
                         content_type="application/json")
 
 
 @csrf_exempt
-@login_required()
 def add_image(request):
     try:
         submission = UserSubmission.objects.get(pk=request.session["user"])
@@ -137,7 +141,6 @@ def add_image(request):
 
 
 @csrf_exempt
-@login_required()
 def email(request):
     if request.method == "POST":
         try:
@@ -152,17 +155,23 @@ def email(request):
                 td = (timezone.now() - user.last_submitted)
                 duration = td.seconds + (td.days * 24 * 3600)
                 if duration > 24 * 60 * 60:
-                    Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
+                    pass
+                elif not request.user.is_authenticated():
+                    request.session["no"] = True
+                    return redirect(email)
         except Submission.DoesNotExist:
             Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
         submission = UserSubmission.objects.create(email=request.POST["email"], first_name=request.POST["first_name"],
                                                    last_name=request.POST["last_name"], num_tags=0)
         request.session["user"] = submission.id
         return redirect(upload, user_id=(request.POST["user_id"]))
-    return render_to_response('email.html')
+    if "no" in request.session:
+        del(request.session["no"])
+        return render_to_response('email.html', {"no": True})
+    else:
+        return render_to_response('email.html')
 
 
-@login_required()
 def finish(request):
     try:
         submission = UserSubmission.objects.get(pk=request.session["user"])
@@ -179,7 +188,6 @@ def finish(request):
 
 
 @csrf_exempt
-@login_required()
 def post_id(request):
     try:
         submission = UserSubmission.objects.get(pk=request.session["user"])
@@ -207,25 +215,31 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect(home)
+                return redirect(random_page)
     return render_to_response('login.html')
 
 
+week_starts = [
+    [datetime.strptime("7/10/13 09:00", "%d/%m/%y %H:%M"), datetime.strptime("14/10/13 23:59", "%d/%m/%y %H:%M")],
+    [datetime.strptime("15/10/13 09:00", "%d/%m/%y %H:%M"), datetime.strptime("20/10/13 23:59", "%d/%m/%y %H:%M")],
+    [datetime.strptime("21/10/13 09:00", "%d/%m/%y %H:%M"), datetime.strptime("27/10/13 23:59", "%d/%m/%y %H:%M")]]
+
+
 @login_required()
-def get_small_random_winner(request):
-    submissions = Submission.objects.filter()
-    submission = random.choice(submissions)
-    return render_to_response('random_page.html', {"submission": submission})
+def get_small_random_winners(request):
+    submissions = Submission.objects.filter(last_submitted__gte=week_starts[0][0], last_submitted__lt=week_starts[0][1])
+    submission1 = random.choice(submissions)
+    submissions = Submission.objects.filter(last_submitted__gte=week_starts[1][0], last_submitted__lt=week_starts[1][1])
+    submission2 = random.choice(submissions)
+    submissions = Submission.objects.filter(last_submitted__gte=week_starts[2][0], last_submitted__lt=week_starts[2][1])
+    submission3 = random.choice(submissions)
+    return render_to_response('random_page.html', {"submissions": [submission1, submission2, submission3]})
 
 
 @login_required()
 def get_big_random_winner(request):
-    submissions = Submission.objects.filter(eligible=True)
+    submissions = Submission.objects.filter(last_submitted__gte=week_starts[0][0], last_submitted__lt=week_starts[2][1])
     submission = random.choice(submissions)
-    submissions = Submission.objects.filter(user_id=submission.user_id)
-    for sub in submissions:
-        sub.eligible = False
-        sub.save()
     return render_to_response('random_page.html', {"submission": submission})
 
 

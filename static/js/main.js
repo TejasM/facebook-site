@@ -2,10 +2,11 @@ var clicked;
 var clickedDefaults;
 var layers = [];
 var images = [];
-var rotateAngles = [-2, 2, -2, 2, 2, -2, 2, -1];
+var rotateAngles = [-4, 3, -3, 5, 5, -3, 4, -3];
 var selected = [];
 var polaroids = [];
 var rects = [];
+var image_urls = [];
 var tag_positions = [
     [17.50, 40.00],
     [40.13, 40.17],
@@ -15,9 +16,30 @@ var tag_positions = [
     [40.38, 70.83],
     [56.00, 70.50],
     [81.88, 71.00]
-
-
 ];
+
+var bene_positions = [
+    [135, 240],
+    [315, 240],
+    [485, 240],
+    [650, 240],
+    [135, 425],
+    [315, 425],
+    [490, 425],
+    [650, 425]
+];
+
+//Miss Independent	315	425
+//Miss Sporty and Sassy	135	425
+//The Comedian	650	240
+//The Fashionista	315	240
+//The Globetrotter	485	240
+//The Gorgeous Geek	135	240
+//The Sexy One	650	425
+//The Shopaholic	490	425
+
+
+var image_poss = [];
 var newButtons;
 var texts = ["/static/images/Pinboard%20Assets/Text/the-shopaholic.png",
     "/static/images/Pinboard%20Assets/Text/the-comedian.png",
@@ -69,15 +91,47 @@ var centres = [
 ];
 
 var pin_locations = [
-    [78, 0],
-    [84, 0],
-    [90, 0],
-    [89, 0],
-    [89, 0],
-    [84, 0],
-    [77, 0],
-    [77, 0]
+    [130, 142],
+    [315, 145],
+    [465, 136],
+    [645, 142],
+    [130, 325],
+    [315, 325],
+    [465, 338],
+    [645, 335]
 ];
+
+var pin_locations_alt = [
+    [130, 147],
+    [315, 145],
+    [465, 142],
+    [645, 142],
+    [130, 325],
+    [315, 325],
+    [465, 338],
+    [645, 335]
+];
+
+var images_polar = [
+    '/static/images/Beneselfies/beneselfies-the-shopaholic-t.png',
+    '/static/images/Beneselfies/beneselfies-the-comedian-t.png',
+    '/static/images/Beneselfies/beneselfies-the-sexy-one-t.png',
+    '/static/images/Beneselfies/beneselfies-the-fashionista-t.png',
+    '/static/images/Beneselfies/beneselfies-the-gorgeous-geek-t.png',
+    '/static/images/Beneselfies/beneselfies-miss-independent-t.png',
+    '/static/images/Beneselfies/beneselfies-miss-sporty-and-sassy-t.png',
+    '/static/images/Beneselfies/beneselfies-the-globetrotter-t.png'
+];
+
+var pins_src = [
+    "/static/images/Pinboard%20Assets/Pins/pin-06.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-04.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-05.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-03.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-02.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-01.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-08.png",
+    "/static/images/Pinboard%20Assets/Pins/pin-07.png"];
 
 var choose = false;
 
@@ -92,7 +146,7 @@ $(document).ready(function () {
         'sporty': '/static/images/Beneselfies/beneselfies-miss-sporty-and-sassy-t.png',
         'global': '/static/images/Beneselfies/beneselfies-the-globetrotter-t.png'
     };
-    
+
     // Preload button images.
     var preloadbuttons = [
         "/static/images/Pinboard Assets/Buttons/back.png",
@@ -116,7 +170,7 @@ $(document).ready(function () {
         "/static/images/Pinboard Assets/Buttons/yes.png",
         "/static/images/Pinboard Assets/Buttons/yes-on.png"
     ];
-    $(preloadbuttons).each(function() {
+    $(preloadbuttons).each(function () {
         $.ajax({
             url: this.toString()
         });
@@ -174,7 +228,7 @@ $(document).ready(function () {
     }
 
     // Add hove/click/active button images.
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('mouseover', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('mouseover', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on")) {
@@ -194,7 +248,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('mouseout', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('mouseout', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") != -1) {
@@ -214,7 +268,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('click', function() {
+    $('.close, #login, #like-alternate, #zoom, #next, #back, #share, #btn_choose, #btn_done, #okay_fine img, #post, #close, #view, #okay, #terms-and-conditions-popup-button, #yes_sure, #no_back, .okay-buttons img, #yes_tags, #no_tags, #ie-warning-popup-button, #prizes-popup-button, #prizes-button').on('click', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") == -1) {
@@ -236,15 +290,15 @@ $(document).ready(function () {
     });
 
     // Add slight movement to personality images on hover.
-    $('#selects').find('img').each(function() {
-        $(this).on('mouseover', function() {
+    $('#selects').find('img').each(function () {
+        $(this).on('mouseover', function () {
             if ($(this).css("marginLeft") != "-20px") {
                 $(this).css({
                     marginLeft: "-10px"
                 });
             }
         });
-        $(this).on('mouseout', function() {
+        $(this).on('mouseout', function () {
             if ($(this).css("marginLeft") != "-20px") {
                 $(this).css({
                     marginLeft: "0px"
@@ -254,7 +308,7 @@ $(document).ready(function () {
     });
 
     // Add terms and conditions pop-up.
-    $('.terms-check a').on('click', function(event) {
+    $('.terms-check a').on('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -262,18 +316,18 @@ $(document).ready(function () {
 
         return false;
     });
-    $('#terms-and-conditions-popup-button').on('click', function() {
+    $('#terms-and-conditions-popup-button').on('click', function () {
         $('#terms-and-conditions-popup').hide();
     });
-    
+
     // Add prizes pop-up.
-    $('#prizes-button').on('click', function(event) {
+    $('#prizes-button').on('click', function (event) {
         $('#prizes-popup').show();
     });
-    $('#prizes-popup-button').on('click', function() {
+    $('#prizes-popup-button').on('click', function () {
         $('#prizes-popup').hide();
     });
-    
+
     // IE Warning popup.
     $('#ie-warning-popup-button').on('click', function() {
         window.location = "https://www.facebook.com/benefitcosmeticscanada/app_151503908244383";
@@ -366,7 +420,7 @@ function focusImage(event) {
     $('#selected_opacity').show();
 
     // Add hove/click/active button images.
-    $('#btn_choose, #btn_done').on('mouseover', function() {
+    $('#btn_choose, #btn_done').on('mouseover', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on")) {
@@ -386,7 +440,7 @@ function focusImage(event) {
             });
         }
     });
-    $('#btn_choose, #btn_done').on('mouseout', function() {
+    $('#btn_choose, #btn_done').on('mouseout', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") != -1) {
@@ -406,7 +460,7 @@ function focusImage(event) {
             });
         }
     });
-    $('#btn_choose, #btn_done').on('click', function() {
+    $('#btn_choose, #btn_done').on('click', function () {
         // Add -on at the end of the image (before the .png).
         if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
             if ($(this).attr('src').indexOf("-on") == -1) {

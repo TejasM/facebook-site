@@ -2,6 +2,9 @@
 <html>
 <head>
     <title>Select Winner</title>
+    <meta name="description"
+          content="Tag your friends and share your shameless BENESELFIES on Facebook! Enter to win the ULTIMATE fashion, beauty and tech prizes with Benefit Cosmetics Canada!">
+
     <link rel="stylesheet" href="/static/css/main.css"/>
     <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
 </head>
@@ -10,6 +13,11 @@
 <div class="wraptocenter">
     {% if submission %}
         {{ submission }}
+    {% elif submissions %}
+        {% for submission in submissions %}
+            {{ submission }}
+            <br>
+        {% endfor %}
     {% else %}
         <button><a href="/smallrandom/">Random Small Winner</a></button>
         <button><a href="/bigrandom/">Random Big Winner</a></button>
