@@ -242,7 +242,7 @@ def get_small_random_winners(request):
 
 @login_required()
 def get_big_random_winner(request):
-    submissions = Submission.objects.filter()
+    submissions = Submission.objects.filter(last_submitted__gte=week_starts[0][0], last_submitted__lt=week_starts[2][1])
     submission = random.choice(submissions)
     return render_to_response('random_page.html', {"submission": submission})
 
