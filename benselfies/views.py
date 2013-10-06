@@ -22,12 +22,10 @@ from benselfies.models import UserSubmission, UserImage, Submission
 __author__ = 'tmehta'
 
 
-@login_required()
 def home(request):
     return render_to_response('home.html')
 
 
-@login_required()
 def upload(request, user_id):
     try:
         user = request.session["user"]
@@ -50,7 +48,6 @@ def upload(request, user_id):
     return render_to_response('upload.html')
 
 
-@login_required()
 @csrf_exempt
 def add_media_file(request):
     #TODO: check and upload to server
@@ -78,7 +75,6 @@ def sharpen(image, sharpness=1.6):
 
 
 @csrf_exempt
-@login_required()
 def add_custom_pic(request):
     try:
         submission = UserSubmission.objects.get(pk=request.session["user"])
@@ -132,7 +128,6 @@ def add_custom_pic(request):
 
 
 @csrf_exempt
-@login_required()
 def add_image(request):
     try:
         submission = UserSubmission.objects.get(pk=request.session["user"])
@@ -146,7 +141,6 @@ def add_image(request):
 
 
 @csrf_exempt
-@login_required()
 def email(request):
     if request.method == "POST":
         try:
@@ -178,7 +172,6 @@ def email(request):
         return render_to_response('email.html')
 
 
-@login_required()
 def finish(request):
     try:
         submission = UserSubmission.objects.get(pk=request.session["user"])
@@ -195,7 +188,6 @@ def finish(request):
 
 
 @csrf_exempt
-@login_required()
 def post_id(request):
     try:
         submission = UserSubmission.objects.get(pk=request.session["user"])
@@ -223,7 +215,7 @@ def login_user(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect(home)
+                return redirect(random_page)
     return render_to_response('login.html')
 
 

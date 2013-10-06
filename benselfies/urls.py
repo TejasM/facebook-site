@@ -7,7 +7,7 @@ admin.autodiscover()
 from benselfies import settings
 
 urlpatterns = patterns('',
-                       url(r'^$', 'benselfies.views.preview', name='home'),
+                       url(r'^$', 'benselfies.views.home', name='home'),
                        url(r'^finish/$', 'benselfies.views.finish', name='finish'),
                        url(r'^upload/(?P<user_id>.*)$', 'benselfies.views.upload', name='upload'),
                        url(r'^post_pic/$', 'benselfies.views.add_media_file', name='post_pic'),
