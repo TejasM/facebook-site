@@ -276,7 +276,7 @@ $(document).ready(function () {
     
     // IE Warning popup.
     $('#ie-warning-popup-button').on('click', function() {
-        $('#ie-warning').hide();
+        window.location = "https://www.facebook.com/benefitcosmeticscanada/app_151503908244383";
     });
 });
 

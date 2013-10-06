@@ -8,6 +8,13 @@
     <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="/static/js/main.js"></script>
+    <!--[if lt IE 10]>
+        <script>
+            $(document).ready(function () {
+                $('#ie-warning').show();
+            });
+        </script>
+    <![endif]-->
 </head>
 <body onload='location.href="#app"'>
 {% include 'header.html' %}
