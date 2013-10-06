@@ -3,7 +3,9 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
 <head>
-    <title>Benefit Cosmetics</title>
+    <title>Beneselfies by Benefit Cosmetics Canada - Tag Your Friends and Win!</title>
+    <meta name="description"
+          content="Tag your friends and share your shameless BENESELFIES on Facebook! Enter to win the ULTIMATE fashion, beauty and tech prizes with Benefit Cosmetics Canada!">
     <link rel="stylesheet" href="/static/css/main.css"/>
     <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -13,6 +15,47 @@
 {% include 'header.html' %}
 <div class="content" id="wrap">
 <a name="app"></a>
+
+<div class="img-text">
+    Hello, Gorgeous!
+
+    Click on any of the #BENESELFIES, choose the friend that you think fits best, then tag them in to the photo!
+
+    Once you’re done hit
+    ‘FINISHED’ to see your completed pinboard.
+
+    The Shopaholic
+
+    If the shoe fits…buy the other one!
+
+    The Comedian
+
+    Laughter is the best cosmetic, so grin and wear it!
+
+    The Sexy One
+
+    Whistle while you work it!
+
+    The Fashionista
+
+    These heels were made for walkin' the runway!
+
+    The Gorgeous Geek
+
+    Tech-savvy and book club chic!
+
+    Miss Independent
+
+    Men may come and go but lipstick is forever!
+
+    Miss Sassy and Sporty
+
+    The balls are always in your court!
+
+    The Globetrotter
+
+    Pack up your beauty bag, baby we're leaving on a jet plane!
+</div>
 
 <div class="loader"></div>
 <div id="dialog-confirm" style="position: absolute; top: 150px; width: 100%; display: none; z-index: 5;">
@@ -721,16 +764,7 @@ function drawImageDraggable(imageObj) {
     if (imageObj.width / imageObj.height > 1) {
         width = GetWidth(height, imageObj.width, imageObj.height);
         function boundX(pos) {
-            var rect = rects[i];
             var X = pos.x;
-            var minX = rect.getX() - (this.getWidth() - rect.getWidth()) - 10;
-            var maxX = rect.getX() + (this.getWidth() - rect.getWidth()) + 10;
-            if (X < minX) {
-                X = minX;
-            }
-            if (X > maxX) {
-                X = maxX;
-            }
             return {
                 x: X,
                 y: this.getAbsolutePosition().y
@@ -751,16 +785,7 @@ function drawImageDraggable(imageObj) {
     } else {
         height = GetHeight(width, imageObj.width, imageObj.height);
         function boundY(pos) {
-            var rect = rects[i];
             var Y = pos.y;
-            var minY = rect.getY() + rect.getHeight() - this.getHeight() - 10;
-            var maxY = rect.getY() - rect.getHeight() + this.getHeight() + 10;
-            if (Y < minY) {
-                Y = minY;
-            }
-            if (Y > maxY) {
-                Y = maxY;
-            }
             return {
                 x: this.getAbsolutePosition().x,
                 y: Y
@@ -968,17 +993,17 @@ function drawImage(imageObj, container, i) {
     var height = 175;
     var stage = new Kinetic.Stage({
         container: container,
-        width: width,
-        height: height
+        width: 175,
+        height: 175
     });
     var layer = new Kinetic.Layer();
 
     var img = new Kinetic.Image({
         image: imageObj,
-        x: stage.getWidth() / 2 - width / 2,
-        y: stage.getHeight() / 2 - height / 2,
-        width: width,
-        height: height
+        x: stage.getWidth() / 2 - 175 / 2,
+        y: stage.getHeight() / 2 - 175 / 2,
+        width: 175,
+        height: 175
     });
     polaroids[i] = img;
     layer.add(img);

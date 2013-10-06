@@ -162,16 +162,20 @@ def email(request):
                 duration = td.seconds + (td.days * 24 * 3600)
                 if duration > 24 * 60 * 60:
                     pass
-                    # else:
-                    #     messages.error(request, 'You have entered in the last 24 hours')
-                    #     return redirect(email)
+                else:
+                    request.session["no"] = True
+                    return redirect(email)
         except Submission.DoesNotExist:
             Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
         submission = UserSubmission.objects.create(email=request.POST["email"], first_name=request.POST["first_name"],
                                                    last_name=request.POST["last_name"], num_tags=0)
         request.session["user"] = submission.id
         return redirect(upload, user_id=(request.POST["user_id"]))
-    return render_to_response('email.html')
+    if "no" in request.session:
+        del(request.session["no"])
+        return render_to_response('email.html', {"no": True})
+    else:
+        return render_to_response('email.html')
 
 
 @login_required()

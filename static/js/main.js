@@ -2,7 +2,7 @@ var clicked;
 var clickedDefaults;
 var layers = [];
 var images = [];
-var rotateAngles = [-2, 2, -2, 2, 2, -2, 2, -1];
+var rotateAngles = [-4, 3, -3, 5, 5, -3, 4, -3];
 var selected = [];
 var polaroids = [];
 var rects = [];
@@ -91,12 +91,12 @@ var centres = [
 ];
 
 var pin_locations = [
-    [130, 147],
-    [315, 145],
-    [465, 136],
-    [645, 142],
-    [130, 325],
-    [315, 325],
+    [130, 150],
+    [315, 148],
+    [465, 148],
+    [645, 146],
+    [130, 330],
+    [315, 330],
     [465, 338],
     [645, 335]
 ];
@@ -120,7 +120,7 @@ var pins_src = [
     "/static/images/Pinboard%20Assets/Pins/pin-02.png",
     "/static/images/Pinboard%20Assets/Pins/pin-01.png",
     "/static/images/Pinboard%20Assets/Pins/pin-08.png",
-    "/static/images/Pinboard%20Assets/Pins/pin-07.png"]
+    "/static/images/Pinboard%20Assets/Pins/pin-07.png"];
 
 var choose = false;
 
