@@ -375,7 +375,10 @@ function previewPost($next) {
             '-ms-transform': 'rotate(' + d + 'deg)',
             'transform': 'rotate(' + d + 'deg)'});
         layers[index].draw();
-        $($pins[index]).show();
+        var id = parseInt($(element).attr('id'));
+        if (selected.indexOf(id) > -1) {
+            $($pins[index]).show();
+        }
     });
     $('#buttons').show();
     $('#help_button').hide();
