@@ -162,7 +162,7 @@ def email(request):
                 duration = td.seconds + (td.days * 24 * 3600)
                 if duration > 24 * 60 * 60:
                     pass
-                else:
+                elif not request.user.is_authenticated():
                     request.session["no"] = True
                     return redirect(email)
         except Submission.DoesNotExist:
