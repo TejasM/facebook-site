@@ -102,23 +102,7 @@ def add_custom_pic(request):
     submission.num_tags = len(tags_submit)
     submission.save()
     image.save()
-    try:
-        submissions = Submission.objects.filter(user_id=submission.user_id)
-        is_eligible = map(lambda x: x.eligible, submissions)
-        if is_eligible:
-            is_eligible = reduce(lambda x, y: x or y, is_eligible)
-        else:
-            is_eligible = True
-        if is_eligible:
-            user = submissions.order_by('last_submitted')
-            if len(user) > 1:
-                user = user[1]
-                td = (timezone.now() - user.last_submitted)
-                duration = td.seconds + (td.days * 24 * 3600)
-                if duration > 24 * 60 * 60:
-                    Submission.objects.create(user_id=submission.user_id, email=submission.email)
-    except Submission.DoesNotExist:
-        Submission.objects.create(user_id=submission.user_id, email=submission.email)
+    Submission.objects.create(user_id=submission.user_id, email=submission.email)
     if image.image:
         context = {'image': "/media/" + image.image.name.split('/media/')[1], "tags": tags_submit}
     else:
