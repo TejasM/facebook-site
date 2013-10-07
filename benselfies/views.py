@@ -102,7 +102,7 @@ def add_custom_pic(request):
     submission.num_tags = len(tags_submit)
     submission.save()
     image.save()
-    Submission.objects.create(user_id=submission.user_id, email=submission.email)
+    #Submission.objects.create(user_id=submission.user_id, email=submission.email)
     if image.image:
         context = {'image': "/media/" + image.image.name.split('/media/')[1], "tags": tags_submit}
     else:
@@ -133,18 +133,22 @@ def email(request):
             td = (timezone.now() - user.last_submitted)
             duration = td.seconds + (td.days * 24 * 3600)
             if duration > 24 * 60 * 60:
-                pass
+                Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"],
+                                          first_name=request.POST["first_name"],
+                                          last_name=request.POST["last_name"])
             elif not request.user.is_authenticated():
                 request.session["no"] = True
                 return redirect(email)
         except Submission.DoesNotExist:
-            Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
+            Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"],
+                                      first_name=request.POST["first_name"],
+                                      last_name=request.POST["last_name"])
         submission = UserSubmission.objects.create(email=request.POST["email"], first_name=request.POST["first_name"],
                                                    last_name=request.POST["last_name"], num_tags=0)
         request.session["user"] = submission.id
         return redirect(upload, user_id=(request.POST["user_id"]))
     if "no" in request.session:
-        del(request.session["no"])
+        del (request.session["no"])
         return render_to_response('email.html', {"no": True})
     else:
         return render_to_response('email.html')
