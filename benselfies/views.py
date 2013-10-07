@@ -145,20 +145,14 @@ def email(request):
     if request.method == "POST":
         try:
             submissions = Submission.objects.filter(user_id=request.POST["user_id"])
-            is_eligible = map(lambda x: x.eligible, submissions)
-            if is_eligible:
-                is_eligible = reduce(lambda x, y: x or y, is_eligible)
-            else:
-                is_eligible = True
-            if is_eligible:
-                user = submissions.latest('last_submitted')
-                td = (timezone.now() - user.last_submitted)
-                duration = td.seconds + (td.days * 24 * 3600)
-                if duration > 24 * 60 * 60:
-                    pass
-                elif not request.user.is_authenticated():
-                    request.session["no"] = True
-                    return redirect(email)
+            user = submissions.latest('last_submitted')
+            td = (timezone.now() - user.last_submitted)
+            duration = td.seconds + (td.days * 24 * 3600)
+            if duration > 24 * 60 * 60:
+                pass
+            elif not request.user.is_authenticated():
+                request.session["no"] = True
+                return redirect(email)
         except Submission.DoesNotExist:
             Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"])
         submission = UserSubmission.objects.create(email=request.POST["email"], first_name=request.POST["first_name"],
