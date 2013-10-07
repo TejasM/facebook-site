@@ -664,10 +664,16 @@ div#enter-to-win form div.terms-check p {
 #landing-page #start {
     cursor: pointer;
     left: 115px;
-    position: relative;
+    position: relative;/
     top: -50px;
 }
 #landing-page > p {
     position: relative;
     z-index: 10;
+}
+
+
+.fb-like span, .fb-like iframe {
+  min-width: 100px !important;
+  min-height: 30px !important;
 }
