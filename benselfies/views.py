@@ -100,6 +100,10 @@ def add_custom_pic(request):
                 tags_submit.append({'tag_uid': split_tag[0], 'x': split_tag[1], 'y': split_tag[2]})
                 already_tagged.append(split_tag[0])
     submission.num_tags = len(tags_submit)
+    submissions = Submission.objects.filter(user_id=submission.user_id)
+    user = submissions.latest('last_submitted')
+    user.eligible = False
+    user.save()
     submission.save()
     image.save()
     #Submission.objects.create(user_id=submission.user_id, email=submission.email)
@@ -136,7 +140,7 @@ def email(request):
                 Submission.objects.create(user_id=request.POST["user_id"], email=request.POST["email"],
                                           first_name=request.POST["first_name"],
                                           last_name=request.POST["last_name"])
-            elif not request.user.is_authenticated():
+            elif not request.user.is_authenticated() and not user.eligible:
                 request.session["no"] = True
                 return redirect(email)
         except Submission.DoesNotExist:
@@ -163,7 +167,6 @@ def finish(request):
         submission.time = timezone.now()
         submission.save()
         context = {"link": submission.submission_link, "user_id": submission.user_id}
-        Submission.objects.create(user_id=submission.user_id, email=submission.email)
     except KeyError as _:
         return redirect(email)
     return render_to_response('finish.html', context)
