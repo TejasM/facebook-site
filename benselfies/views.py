@@ -231,3 +231,7 @@ def get_big_random_winner(request):
 @login_required()
 def random_page(request):
     return render_to_response('random_page.html')
+
+
+def terms(request):
+    return render_to_response('terms.html')
