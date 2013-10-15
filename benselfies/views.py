@@ -213,11 +213,20 @@ week_starts = [
 @login_required()
 def get_small_random_winners(request):
     submissions = Submission.objects.filter(last_submitted__gte=week_starts[0][0], last_submitted__lt=week_starts[0][1])
-    submission1 = random.choice(submissions)
+    if submissions:
+        submission1 = random.choice(submissions)
+    else:
+        submission1 = None
     submissions = Submission.objects.filter(last_submitted__gte=week_starts[1][0], last_submitted__lt=week_starts[1][1])
-    submission2 = random.choice(submissions)
+    if submissions:
+        submission2 = random.choice(submissions)
+    else:
+        submission2 = None
     submissions = Submission.objects.filter(last_submitted__gte=week_starts[2][0], last_submitted__lt=week_starts[2][1])
-    submission3 = random.choice(submissions)
+    if submissions:
+        submission3 = random.choice(submissions)
+    else:
+        submission3 = None
     return render_to_response('random_page.html', {"submissions": [submission1, submission2, submission3]})
 
 
