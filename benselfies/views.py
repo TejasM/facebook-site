@@ -240,7 +240,7 @@ def get_big_random_winner(request):
 @login_required()
 def random_page(request):
     submissions = Submission.objects.filter(last_submitted__gte=week_starts[0][0], last_submitted__lt=week_starts[2][1])
-    unique_subs = submissions.values('email').distinct()
+    unique_subs = submissions.values_list('email', flat=True).distinct()
     return render_to_response('random_page.html', {'num': len(submissions), 'list': unique_subs})
 
 
