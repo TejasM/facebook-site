@@ -23,7 +23,7 @@
         <button><a href="/smallrandom/">Random Small Winner</a></button>
         <button><a href="/bigrandom/">Random Big Winner</a></button>
     {% endif %}
-    <div>
+    <div style="max-height: 400px; overflow-y:auto">
         {% if list %}
             <ul style="line-height: normal">
                 {% for email in list %}
