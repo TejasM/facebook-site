@@ -18,6 +18,8 @@
             {{ submission }}
             <br>
         {% endfor %}
+    {% elif num %}
+        {{ num }}
     {% else %}
         <button><a href="/smallrandom/">Random Small Winner</a></button>
         <button><a href="/bigrandom/">Random Big Winner</a></button>

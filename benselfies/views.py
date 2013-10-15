@@ -239,7 +239,8 @@ def get_big_random_winner(request):
 
 @login_required()
 def random_page(request):
-    return render_to_response('random_page.html')
+    submissions = Submission.objects.filter(last_submitted__gte=week_starts[0][0], last_submitted__lt=week_starts[2][1])
+    return render_to_response('random_page.html', {'num': len(submissions)})
 
 
 def terms(request):
