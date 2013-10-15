@@ -23,6 +23,15 @@
         <button><a href="/smallrandom/">Random Small Winner</a></button>
         <button><a href="/bigrandom/">Random Big Winner</a></button>
     {% endif %}
+    <div>
+        {% if list %}
+            <ul>
+                {% for email in list %}
+                    <li>{{ email }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 </div>
 </body>
 </html>
