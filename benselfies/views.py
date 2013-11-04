@@ -26,6 +26,7 @@ def home(request):
     return render_to_response('home.html')
 
 
+@login_required
 def upload(request, user_id):
     try:
         user = request.session["user"]
@@ -48,6 +49,7 @@ def upload(request, user_id):
     return render_to_response('upload.html')
 
 
+@login_required
 @csrf_exempt
 def add_media_file(request):
     #TODO: check and upload to server
@@ -68,12 +70,14 @@ def add_media_file(request):
 from PIL import ImageEnhance, Image
 
 
+@login_required
 def sharpen(image, sharpness=1.6):
     sharpener = ImageEnhance.Sharpness(image)
     sharpened_image = sharpener.enhance(sharpness)
     return sharpened_image
 
 
+@login_required
 @csrf_exempt
 def add_custom_pic(request):
     try:
@@ -115,6 +119,7 @@ def add_custom_pic(request):
                         content_type="application/json")
 
 
+@login_required
 @csrf_exempt
 def add_image(request):
     try:
@@ -128,6 +133,7 @@ def add_image(request):
                         content_type="application/json")
 
 
+@login_required
 @csrf_exempt
 def email(request):
     if request.method == "POST":
@@ -158,6 +164,7 @@ def email(request):
         return render_to_response('email.html')
 
 
+@login_required
 def finish(request):
     try:
         submission = UserSubmission.objects.get(pk=request.session["user"])
@@ -172,6 +179,7 @@ def finish(request):
     return render_to_response('finish.html', context)
 
 
+@login_required
 @csrf_exempt
 def post_id(request):
     try:
@@ -185,10 +193,12 @@ def post_id(request):
     return HttpResponse({}, content_type="application/json")
 
 
+@login_required
 def preview(request):
     return render_to_response('coming_soon.html')
 
 
+@login_required
 @csrf_exempt
 def login_user(request):
     if request.user.is_authenticated():
