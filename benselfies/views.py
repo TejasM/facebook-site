@@ -198,7 +198,6 @@ def preview(request):
     return render_to_response('coming_soon.html')
 
 
-@login_required
 @csrf_exempt
 def login_user(request):
     if request.user.is_authenticated():
