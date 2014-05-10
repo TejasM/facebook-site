@@ -21,17 +21,17 @@ DATABASES = {
     }
 }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/benese5/site/facebook-site/database', # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '', # Set to empty string for default.
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+#         'NAME': '/home/benese5/site/facebook-site/database', # Or path to database file if using sqlite3.
+#         # The following settings are not used with sqlite3:
+#         'USER': '',
+#         'PASSWORD': '',
+#         'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+#         'PORT': '', # Set to empty string for default.
+#     }
+# }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -121,6 +121,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
 )
 
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.twitter.TwitterBackend',
+    'social_auth.backends.contrib.instagram.InstagramBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 ROOT_URLCONF = 'benselfies.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -142,6 +149,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'benselfies',
+    'social_auth',
 )
 
 LOGIN_URL = "/login"
@@ -175,6 +183,12 @@ LOGGING = {
         },
     }
 }
+INSTAGRAM_CLIENT_ID = '00af6175cc4947bf9963b41062b72afb'
+INSTAGRAM_CLIENT_SECRET = '88d231b09c0e40228891838539724f57'
+
+TWITTER_CONSUMER_KEY = 'ZQJOlIqeornPsUj2dfhg5pcfG'
+TWITTER_CONSUMER_SECRET = '6oA7jGvtEHsq1BcaL8wY6FNqAEL3f1V9ttwx9DiiycLycSrNKu'
+
 # #
 # import dj_database_url
 #
