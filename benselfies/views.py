@@ -48,26 +48,27 @@ def upload(request):
                           twitter_social.tokens['oauth_token'], twitter_social.tokens['oauth_token_secret'])
             date_now = timezone.now() - relativedelta(years=2)
             urls = []
-            if len(profile.urls) < 10:
-                max_id = None
-                for i in range(4):
-                    if max_id:
-                        res = api.get_home_timeline(count=200, include_entities='true', max_id=max_id)
-                    else:
-                        res = api.get_home_timeline(count=200, include_entities='true')
-                    # res_urls = [t for t in res if 'urls' in t['entities']]
-                    if res:
-                        max_id = res[-1]['id']
-                    res_media = [t for t in res if 'media' in t['entities']]
-                    # for t in res_urls:
-                    # for l in t['entities']['urls']:
-                    # if 'instagram' in l['expanded_url']:
-                    # urls.append(l['display_url'])
-                    for t in res_media:
-                        for m in t['entities']['media']:
-                            urls.append(m['media_url'])
-                            if m['media_url'] not in profile.urls:
-                                profile.urls += m['media_url'] + ","
+           # if len(profile.urls) < 10:
+            max_id = None
+            profile.urls = ""
+            for i in range(10):
+                if max_id:
+                    res = api.get_user_timeline(count=200, include_entities='true', max_id=max_id)
+                else:
+                    res = api.get_user_timeline(count=200, include_entities='true')
+                # res_urls = [t for t in res if 'urls' in t['entities']]
+                if res:
+                    max_id = res[-1]['id']
+                res_media = [t for t in res if 'media' in t['entities']]
+                # for t in res_urls:
+                # for l in t['entities']['urls']:
+                # if 'instagram' in l['expanded_url']:
+                # urls.append(l['display_url'])
+                for t in res_media:
+                    for m in t['entities']['media']:
+                        urls.append(m['media_url'])
+                        if m['media_url'] not in profile.urls:
+                            profile.urls += m['media_url'] + ","
                 profile.save()
             else:
                 urls = profile.urls.split(',')
