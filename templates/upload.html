@@ -1,15 +1,15 @@
 {% load staticfiles %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-    <title>Beneselfies by Benefit Cosmetics Canada - Tag Your Friends and Win!</title>
+    <title>TOM</title>
     <meta name="description"
-          content="Tag your friends and share your shameless BENESELFIES on Facebook! Enter to win the ULTIMATE fashion, beauty and tech prizes with Benefit Cosmetics Canada!">
+          content="TOM App">
     <link rel="stylesheet" href="/static/css/main.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script type="text/javascript" src="/static/js/main.js"></script>
     <!--[if lt IE 10]>
         <script>
             $(document).ready(function () {
@@ -17,1109 +17,667 @@
             });
         </script>
     <![endif]-->
+    <link href='http://fonts.googleapis.com/css?family=Lusitana:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,900,700,200' rel='stylesheet' type='text/css'>
 </head>
-<body onload='location.href="#app"'>
-{% include 'header.html' %}
-<div class="content" id="wrap">
-<a name="app"></a>
+<body>
+<div class="main-app main-app-background">
+    <div class="veritcal-center horizontal-center" id="inner-wrap">
+        <img src="{% static 'iPad pngs/i-am-tom-white-small.png' %}"/>
 
-<div class="img-text">
-    Hello, Gorgeous!
+        <div class="transparent-box" style="padding: 10px 20px; width: 40%; margin: 20px auto">
+            <button id="media-library">MEDIA LIBRARY</button>
+            <button id="upload-photo-button">UPLOAD PHOTO</button>
+            <input type="file" id="upload-file" style="display: none" accept="image/*">
+            {% if not request.is_mobile %}
+                <button id="take-photo-button">TAKE A PHOTO</button>
+            {% endif %}
+        </div>
+        <img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}"/>
+    </div>
+    <div style="display: none; padding: 20px; background: #fff;" id="instagram-lib">
+        <div style="position: fixed;">
+            <button id="instagram-selected" style="width: auto;">Select</button>
+            <button id="back-select" style="width: auto;">Back</button>
+        </div>
+        <div id="images" style="margin-top: 100px">
+            <select id="instafeed">
 
-    Click on any of the #BENESELFIES, choose the friend that you think fits best, then tag them in to the photo!
-
-    Once you’re done hit
-    ‘FINISHED’ to see your completed pinboard.
-
-    The Shopaholic
-
-    If the shoe fits…buy the other one!
-
-    The Comedian
-
-    Laughter is the best cosmetic, so grin and wear it!
-
-    The Sexy One
-
-    Whistle while you work it!
-
-    The Fashionista
-
-    These heels were made for walkin' the runway!
-
-    The Gorgeous Geek
-
-    Tech-savvy and book club chic!
-
-    Miss Independent
-
-    Men may come and go but lipstick is forever!
-
-    Miss Sassy and Sporty
-
-    The balls are always in your court!
-
-    The Globetrotter
-
-    Pack up your beauty bag, baby we're leaving on a jet plane!
-</div>
-
-<div class="loader"></div>
-<div id="dialog-confirm" style="position: absolute; top: 150px; width: 100%; display: none; z-index: 5;">
-    <div style="margin: auto; width: 422px; text-align: center;">
-        <img src="/static/images/sure-love.png" alt="">
-
-        <div style="text-align: center;"><img style="cursor: pointer;"
-                                              src="/static/images/Pinboard%20Assets/Buttons/yes.png" id="post"
-                                              alt="">
-            <img style="cursor: pointer;" src="/static/images/Pinboard%20Assets/Buttons/back.png" id="close"
-                 alt="">
+            </select>
         </div>
     </div>
-</div>
-
-<div id="dialog-confirm-2"
-     style="position: absolute; top: 150px; width: 100%; display: none; z-index: 5; display: none">
-    <div style="margin: auto; width: 422px; text-align: center;">
-        <img src="/static/images/hold-on-1.png" alt="">
-
-        <div style="text-align: center;" id="okay_fine"><img style="cursor: pointer;"
-                                                             src="/static/images/Pinboard%20Assets/Buttons/okay.png"
-                                                             alt="">
-        </div>
+    <div style="display: none; background: #fff; width: 100%; height: 100%;" id="take-photo-div">
+        <video id="video" width="640" height="480" autoplay></video>
+        <button id="snap" style="display: none">Snap Photo</button>
     </div>
-</div>
-
-<div id="dialog-warn"
-     style="position: absolute; top: 150px; width: 100%; display: none; z-index: 20; display: none">
-    <div style="margin: auto; width: 422px; text-align: center;">
-        <img src="/static/images/hold-on-2.png" alt="">
-
-        <div style="text-align: center;"><img style="cursor: pointer;"
-                                              src="/static/images/Pinboard%20Assets/Buttons/yes.png" id="yes_sure"
-                                              alt="">
-            <img style="cursor: pointer;" src="/static/images/Pinboard%20Assets/Buttons/back.png" id="no_back"
-                 alt="">
-        </div>
-
-    </div>
-</div>
-
-<div id="dialog-tags"
-     style="position: absolute; top: 150px; width: 100%; display: none; z-index: 20; display: none">
-    <div style="margin: auto; width: 422px; text-align: center;">
-        <img src="/static/images/Pinboard%20Assets/Text/share-your-tags.png" alt="">
-
-        <div style="text-align: center;"><img style="cursor: pointer;"
-                                              src="/static/images/Pinboard%20Assets/Buttons/yes.png" id="yes_tags"
-                                              alt="">
-            <img style="cursor: pointer;" src="/static/images/Pinboard%20Assets/Buttons/no.png" id="no_tags"
-                 alt="">
-        </div>
-
-    </div>
-</div>
-<div id="polaroids" style="padding-top: 150px; margin: 0 43px;">
-    <div class="polaroid" id="0">
-        <div id="shopaholic" style="display: inline"></div>
-    </div>
-
-    <div class="polaroid" id="1">
-        <div id="comedian" style="display: inline"></div>
-    </div>
-
-    <div class="polaroid" id="2">
-        <div id="sexy" style="display: inline"></div>
-    </div>
-
-    <div class="polaroid" id="3">
-        <div id="fashionista" style="display: inline"></div>
-    </div>
-
-    <div class="polaroid" id="4">
-        <div id="gorgeous" style="display: inline"></div>
-    </div>
-
-    <div class="polaroid" id="5">
-        <div id="independent" style="display: inline"></div>
-    </div>
-
-    <div class="polaroid" id="6">
-        <div id="sporty" style="display: inline"></div>
-    </div>
-
-    <div class="polaroid" id="7">
-        <div id="global" style="display: inline"></div>
-    </div>
-
-    <img id="pin_06" class="pin" style="position: absolute; left: 110px; top: 145px; display: none"
-         src="/static/images/Pinboard%20Assets/Pins/pin-06.png"/>
-    <img id="pin_04" class="pin" style="position: absolute; left: 304px; top: 148px; display: none"
-         src="/static/images/Pinboard%20Assets/Pins/pin-04.png"/>
-    <img id="pin_05" class="pin" style="position: absolute; left: 486px; top: 145px; display: none"
-         src="/static/images/Pinboard%20Assets/Pins/pin-05.png"/>
-    <img id="pin_03" class="pin" style="position: absolute; left: 675px; top: 140px; display: none"
-         src="/static/images/Pinboard%20Assets/Pins/pin-03.png"/>
-    <img id="pin_02" class="pin" style="position: absolute; left: 132px; top: 320px; display: none"
-         src="/static/images/Pinboard%20Assets/Pins/pin-02.png"/>
-    <img id="pin_01" class="pin" style="position: absolute; left: 305px; top: 320px; display: none"
-         src="/static/images/Pinboard%20Assets/Pins/pin-01.png"/>
-    <img id="pin_08" class="pin" style="position: absolute; left: 486px; top: 320px; display: none"
-         src="/static/images/Pinboard%20Assets/Pins/pin-08.png"/>
-    <img id="pin_07" class="pin" style="position: absolute; left: 655px; top: 320px; display: none"
-         src="/static/images/Pinboard%20Assets/Pins/pin-07.png"/>
-
-
-    <div style="margin: 15px auto; display: none; width: 350px" id="buttons">
-        <div id="back"
-             style="background: url('/static/images/Pinboard%20Assets/Buttons/back.png'); width: 103px; display: inline-block; height: 40px;"></div>
-        <div style="background: url('/static/images/Pinboard%20Assets/text-if-you-like-it-share-it.png'); width: 103px;display: inline-block; height: 40px;"></div>
-        <div id="share"
-             style="background: url('/static/images/Pinboard%20Assets/Buttons/share.png'); width: 103px; display: inline-block; height: 40px;"></div>
-    </div>
-    <img src="/static/images/Pinboard%20Assets/benefit-white-logo-small.png" id="white_logo"
-         style="display: none; z-index: 5; position: absolute; top: 525px; left: 360px" alt="">
-</div>
-<div id="select_phase"
-     style="position: absolute; left: 130px; top:140px; width: 525px; height: 470px; padding-left: 25px">
-    <div>
-        <img id="head" src="/static/images/Pinboard%20Assets/1x1-pixel-placeholder.png"
-             style="position: absolute; top: 250px; left: 500px">
-    </div>
-    <div style="width: 246px; height: 366px; background: url('/static/images/Pinboard%20Assets/Text/instructions-box-choosing.png'); float: right;">
-        <div style="margin-top: 200px; padding-left: 25px; padding-right: 10px;">
-            <div style="height: 72px">
-                <img id="select_text"
-                     style="margin: 0 auto;" src="/static/images/Pinboard%20Assets/img-placeholder.png"/>
+    <div class="after-inst" style="display: none; height: 100%">
+        <div style="width: 25%; height: 100%; background: #fff; float: left; position: relative">
+            <div class="veritcal-center horizontal-center">
+                <span id="current-instruction" style="padding: 0 10px">CLICK AND DRAG TO
+                CROP YOUR PHOTO.</span> <br>
             </div>
-            <div id="zoom"
-                 style="background: url('/static/images/Pinboard%20Assets/Buttons/choose.png'); width: 103px; height: 40px; margin: 25px auto 0;"></div>
-            <div id="next"
-                 style="background: url('/static/images/Pinboard%20Assets/Buttons/finished.png'); width: 103px; height: 40px; margin: 40px auto;"></div>
+            <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"
+                 style="position: absolute; bottom: 20px; left: 20px"/>
+        </div>
+        <div style="width: 75%;  height: 100%; background: #000; display: inline-block" id="image-main">
+            <div id="main-image" style="width: 100%;  height: 100%;"></div>
+            <div style="float: right; overflow: hidden; top: 0; width: 100%; height: 100%; z-index: 100; margin-top: -100%; padding-top: 35%">
+                <img src="{% static 'iPad pngs/Arrows.png' %}" id="arrow" alt=""
+                     style="position: relative; left: 220px; margin-bottom: 50px"/>
+                <img src="{% static 'iPad pngs/i-am-tom-white-large.png' %}" id="imtom" alt=""
+                     style="position: relative; left: 80px;"/>
+
+                <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px">
+                    <button style="float: left; color: #fff; background: rgba(255, 255, 255, 0.33)" id="back-to-select">
+                        BACK
+                    </button>
+                    <button style="float: right; color: #fff; background: rgba(255, 255, 255, 0.33)" id="finish">DONE
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
-    <input type="hidden" value="5" id="selected_bene">
-    <ul id="selects">
-        <li><img id="shopaholic_select" class="selects"
-                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/shopaholic.png"/>
-        </li>
-        <li><img id="comedian_select" class="selects"
-                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/comedian.png"/></li>
-        <li><img id="sexy_select" class="selects"
-                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/sexy.png"/></li>
-        <li><img id="fashionista_select" class="selects"
-                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/fashionista.png"/></li>
-        <li><img id="gorgeous_select" class="selects"
-                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/geek.png"/></li>
-        <li><img id="independent_select" class="selects"
-                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/independent.png"/></li>
-        <li><img id="sporty_select" class="selects"
-                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/sporty.png"/></li>
-        <li><img id="global_select" class="selects"
-                 src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/globetrotter.png"/>
-        </li>
-    </ul>
-    <img id="hit_me" style="margin-top: 10px; margin-left: 75px"
-         src="/static/images/Pinboard%20Assets/text-hit-the-preview-button.png"/>
+    <div class="saved-image" style="display: none; height: 100%">
+        <div style="width: 25%; height: 100%; background: #fff; float: left; position: relative">
+            <div class="veritcal-center horizontal-center">
+                <span id="current-instruction" style="padding: 0 10px;  margin-bottom: 20px">SHARE YOUR IMAGE</span>
+                <br>
+                <img src="{% static 'iPad pngs/facebook-botton.png' %}" style="margin-right: 30px;"
+                     id="facebook-share"/>
+                {% if instagram_number %}
+                    <img src="{% static 'iPad pngs/instagram-botton.png' %}" id="instagram-share"/>
+                {% endif %}
+                <br style=" margin-bottom: 20px">
+                <a href="" data-pin-do="buttonPin" id="pinterest-share"
+                   data-pin-config="above"><img src="{% static 'iPad pngs/pinterest-botton.png' %}"
+                                                style="margin-right: 30px"/>
+                    <a href="" id="twitter-share"><img src="{% static 'iPad pngs/Twitter-botton.png' %}"/></a>
+                </a>
+            </div>
+            <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"
+                 style="position: absolute; bottom: 20px; left: 20px"/>
+        </div>
+        <div style="width: 75%;  height: 100%; background: #000; display: inline-block">
+            <div id="saved-image" style="width: 100%;  height: 100%;"></div>
+            <div style="float: right; overflow: hidden; top: 0; width: 100%; height: 100%; z-index: 100; margin-top: -100%; padding-top: 35%">
+                <p style="text-align: center; color: #FFF; font-size: 70px; position: relative" id="saved-text">
+                    SAVED!</p>
+                <img src="{% static 'iPad pngs/i-am-tom-white-large.png' %}" alt=""
+                     style="position: relative; left: 80px; visibility: hidden"/>
+
+                <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px">
+                    <button style="float: right; color: #fff;  background: rgba(255, 255, 255, 0.33)" id="done">DONE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="veritcal-center horizontal-center" id="done-div" style="display: none">
+        <img src="{% static 'iPad pngs/i-am-tom-white-small.png' %}"/>
+
+        <div class="transparent-box" style="padding: 10px 20px; width: 40%; margin: 20px auto">
+            <h1 style="color: #fff; font-size: 2em">DONE!</h1>
+            <hr>
+            <p>Keep an eye out for your TOM* to
+                be featured in the wall of TOM* by
+                visiting our gallery or on site at
+                Toronto’s first ever Men’s Fashion
+                Week.</p>
+            <a href="/">
+                <button>ATTEND TOM*FW</button>
+            </a>
+        </div>
+        <img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}"/>
+    </div>
+    <div id="CSPhotoSelector" style="display: none; width: 100%; height: 100%; padding: 0; position: static">
+        <div class="CSPhotoSelector_dialog">
+            <a href="#" id="CSPhotoSelector_buttonClose">x</a>
+
+            <div class="CSPhotoSelector_form">
+                <div class="CSPhotoSelector_header">
+                    <p>Choose from Photos</p>
+                </div>
+                <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
+                    <p>Browse your albums until you find a picture you want to use</p>
+
+                    <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+                        <div class="CSPhotoSelector_selectedCountContainer">Select an album</div>
+                    </div>
+                    <div class="CSPhotoSelector_photosContainer CSAlbum_container"></div>
+                </div>
+
+                <div class="CSPhotoSelector_content CSPhotoSelector_wrapper" style="overflow: visible">
+                    <p>Select a new photo</p>
+
+                    <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+                        <div class="CSPhotoSelector_selectedCountContainer"><span
+                                class="CSPhotoSelector_selectedPhotoCount">0</span> / <span
+                                class="CSPhotoSelector_selectedPhotoCountMax">0</span> photos selected
+                        </div>
+                        <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
+                    </div>
+                    <div class="CSPhotoSelector_photosContainer CSPhoto_container"
+                         style="overflow-y: scroll; height: 300px;"></div>
+                </div>
+
+                <div id="CSPhotoSelector_loader"></div>
+
+
+                <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
+                    <a href="#" id="CSPhotoSelector_pagePrev" class="CSPhotoSelector_disabled">Previous</a>
+                    <a href="#" id="CSPhotoSelector_pageNext">Next</a>
+
+                    <div class="CSPhotoSelector_pageNumberContainer">
+                        Page <span id="CSPhotoSelector_pageNumber">1</span> / <span
+                            id="CSPhotoSelector_pageNumberTotal">1</span>
+                    </div>
+                    <a href="#" id="CSPhotoSelector_buttonOK">OK</a>
+                    <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div id="overlay"
-     style=" position: absolute; width: 100%; height: 100%; left: 0; top: 0; z-index: 5; background: rgba(0, 0, 0, 0.8)"></div>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <div id="fb-root">
 </div>
-<div id="CSPhotoSelector" style="display: none">
-    <div class="CSPhotoSelector_dialog">
-        <a href="#" id="CSPhotoSelector_buttonClose">x</a>
 
-        <div class="CSPhotoSelector_form">
-            <div class="CSPhotoSelector_header">
-                <p>Choose from Photos</p>
-            </div>
-            <div class="ui-widget">
-                <label for="filter" style="color: #ffffff">Filter by Friends: </label>
-                <input type="text" class="filter">
-            </div>
-            <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
-                <p>Browse your albums until you find a picture you want to use</p>
-
-                <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
-                    <div class="CSPhotoSelector_selectedCountContainer">Select an album</div>
-                </div>
-                <div class="CSPhotoSelector_photosContainer CSAlbum_container"></div>
-            </div>
-
-            <div class="CSPhotoSelector_content CSPhotoSelector_wrapper" style="overflow: visible">
-                <p>Select a new photo</p>
-
-                <div class="ui-widget">
-                    <label for="filter" style="color: black">Filter by Tags: </label>
-                    <input type="text" class="filter">
-
-                    <div id="tags">Tags: <span id="tag_values"></span></div>
-                </div>
-                <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
-                    <div class="CSPhotoSelector_selectedCountContainer"><span
-                            class="CSPhotoSelector_selectedPhotoCount">0</span> / <span
-                            class="CSPhotoSelector_selectedPhotoCountMax">0</span> photos selected
-                    </div>
-                    <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
-                </div>
-                <div class="CSPhotoSelector_photosContainer CSPhoto_container"
-                     style="overflow-y: scroll; height: 300px;"></div>
-            </div>
-
-            <div id="CSPhotoSelector_loader"></div>
-
-
-            <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
-                <a href="#" id="CSPhotoSelector_pagePrev" class="CSPhotoSelector_disabled">Previous</a>
-                <a href="#" id="CSPhotoSelector_pageNext">Next</a>
-
-                <div class="CSPhotoSelector_pageNumberContainer">
-                    Page <span id="CSPhotoSelector_pageNumber">1</span> / <span
-                        id="CSPhotoSelector_pageNumberTotal">1</span>
-                </div>
-                <a href="#" id="CSPhotoSelector_buttonOK">OK</a>
-                <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
-
-            </div>
-        </div>
-    </div>
-</div>
-</div>
 <div id="final_upload" style="display: none">
 
 </div>
-{% include 'footer.html' %}
-<div class="help_div" style="display: none">
-    <img src="/static/images/beneselfies-how-to-play.png" alt="">
-
-    <div id="help_close"
-         style="background: url('/static/images/got-it.png'); width: 80px; height: 27px; margin-top: 10px; margin-left: auto;margin-right: auto;"></div>
-</div>
-<div class="bene_help" style="display: none">
-    <img src="/static/images/beneselfies-pop-up-instructions.png" alt="">
-
-    <div id="bene_close"
-         style="background: url('/static/images/got-it.png'); width: 80px; height: 27px;margin-top: 10px; margin-left: auto;margin-right: auto;"></div>
-</div>
+</body>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"/>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="http://connect.facebook.net/en_US/all.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script src="/static/js/image-picker.min.js"></script>
-<script src="{% static 'js/kinetic.min.js' %}"></script>
+<script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
 <script src="http://malsup.github.io/min/jquery.form.min.js"></script>
 <link rel="stylesheet" href="/static/css/image-picker.css"/>
 <link rel="stylesheet" href="/static/css/selector.css"/>
 <script src="/static/js/chosen.jquery.min.js"></script>
 <script src="/static/js/html2canvas.js"></script>
+<script src="/static/js/jquery.plugin.html2canvas.js"></script>
 <script src="/static/js/selector.js"></script>
 <script src="{% static 'js/jquery.lightbox_me.js' %}"></script>
-<script type="text/javascript">
-var options = [];
-var tags_all = {};
-var current_tags = [];
-var tags_final = [];
-var dict_for_each_clicked = [];
-var names_for_each_clicked = [];
-var id_for_each_clicked = [];
-var pass_over_id = null;
-var pass_over_label = null;
+<script src="{% static 'js/instafeed.js' %}"></script>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=151985691672341";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
 $(function () {
-    // init the FB JS SDK
     FB.init({
         appId: '151985691672341',                        // App ID from the app dashboard
         cookie: true,
         status: true,                                 // Check Facebook Login status
         xfbml: true                                  // Look for social plugins on the page
     });
-});
-
-var mapping = [1, 6, 2, 5, 0, 7, 4, 3];
-
-function swapNodes(a, b) {
-    var aparent = a.parentNode;
-    var asibling = a.nextSibling === b ? a : a.nextSibling;
-    b.parentNode.insertBefore(a, b);
-    aparent.insertBefore(b, asibling);
-}
-
-function previewPost($next) {
-    $next.hide();
-    $('#select_phase').hide();
-    var $wrap = $('#wrap').find('.polaroid');
-    var $pins = $('.pin');
-    $wrap.off('click');
-    var count = 0;
-    selected = selected.reverse().filter(function (e, i, arr) {
-        return arr.indexOf(e, i + 1) === -1;
-    }).reverse();
-    $wrap.each(function (index, element) {
-        $(element).show();
-        var id = parseInt($(element).attr('id'));
-        if (selected.indexOf(id) > -1) {
-            $.each($wrap, function (i) {
-                if ($wrap[i] == clicked)
-                    index = i;
-            });
-            if (index != mapping[count]) {
-                var newIndex = mapping[count];
-                swapNodes($wrap[newIndex], element);
-                $wrap = $('#wrap').find('.polaroid');
-            } else {
-
-            }
-            count++;
-        } else {
-            $(element).css({'opacity': '0'});
+});</script>
+<script>
+{% if instagram_number %}
+    var feed = new Instafeed({
+        get: 'user',
+        userId: {{ instagram_number }},
+        clientId: '00af6175cc4947bf9963b41062b72afb',
+        sortBy: 'most-recent',
+        accessToken: '{{ access_token }}',
+        'links': false,
+        template: '<option data-img-src="' + '{{ "{{image}" }}}" value="' + '{{ "{{image}" }}}"></option>',
+        after: function () {
+            $('#instafeed').imagepicker();
         }
     });
-    $wrap.each(function (index, element) {
-        var d = rotateAngles[index];
-        $(this).css({'-moz-transform': 'rotate(' + d + 'deg)',
-            '-webkit-transform': 'rotate(' + d + 'deg)',
-            '-o-transform': 'rotate(' + d + 'deg)',
-            '-ms-transform': 'rotate(' + d + 'deg)',
-            'transform': 'rotate(' + d + 'deg)'});
-        layers[index].draw();
-        var id = parseInt($(element).attr('id'));
-        if (selected.indexOf(id) > -1) {
-            $($pins[index]).show();
-        }
+    feed.run();
+    $('div.loader').hide();
+    $('#overlay').hide();
+    $('#media-library').click(function () {
+        $('#inner-wrap').hide();
+        $('#instagram-lib').show();
     });
-    $('#buttons').show();
-    $('#help_button').hide();
-}
-
-
-$(function () {
-            var $helpbutton = $('#help_button');
-            $helpbutton.click(function () {
-                var $helpdiv = $(".help_div");
-                $helpdiv.lightbox_me({centered: true, closeClick: false});
-            });
-            $('#help_close').click(function () {
-                $(".help_div").trigger("close");
-            });
-            $('#bene_close').click(function () {
-                $(".bene_help").trigger("close");
-            });
-            var $next = $('#next');
-            $next.click(function () {
-                previewPost($(this));
-            });
-            $('#upload-image').hide();
-            $('#image-upload').change(function () {
-                buttonCancel.hide();
-                buttonOK.hide();
-                $('#upload-image').show();
-            });
-            $('#back').click(function () {
-                $next.show();
-                $('#buttons').hide();
-                $('#select_phase').show();
-                var $wrap = $('#wrap').find('.polaroid');
-                $wrap.each(function (index, element) {
-                    $(this).on('click', focusImage);
-                    $(this).hide();
-                    $(this).css({'opacity': '1'});
-                    var d = rotateAngles[index];
-                    $(this).css({'-moz-transform': 'rotate(' + -d + 'deg)',
-                        '-webkit-transform': 'rotate(' + -d + 'deg)',
-                        '-o-transform': 'rotate(' + -d + 'deg)',
-                        '-ms-transform': 'rotate(' + -d + 'deg)',
-                        'transform': 'rotate(' + -d + 'deg)'});
-                    layers[index].draw();
-                });
-                var $pins = $('.pin');
-                $pins.each(function (index, element) {
-                    $(this).hide();
-                });
-                $('#help_button').hide();
-            });
-
-            $('#share').click(function () {
-                var leng = $('.hidden_input').length;
-                if (leng == 0) {
-                    $("#dialog-confirm-2").show();
-                } else if (leng != 8) {
-                    $("#dialog-confirm").show();
+    $('#instagram-selected').click(function () {
+        var image_link = $('#instafeed').val();
+        var imageObj = new Image();
+        imageObj.onload = function () {
+            drawImageDraggable(imageObj);
+        };
+        $.ajax({
+            type: "POST",
+            url: "/post_pic/",
+            data: {
+                image: image_link,
+            },
+            async: false,
+            timeout: 30000,
+            success: function (data) {
+                image_urls[i] = data["image"];
+                imageObj.src = data["image"];
+            },
+            error: function (x, t, m) {
+                if (t === "timeout") {
+                    //Alert timeout happened.
                 } else {
-                    share();
-                }
-            });
-
-            $('#post').click(share);
-
-            $('#close').click(function () {
-                $("#dialog-confirm").hide();
-            });
-
-            $('#okay_fine').click(function () {
-                $("#dialog-confirm-2").hide();
-            });
-
-            $('#yes_tags').click(function () {
-                $('#dialog-tags').hide();
-                postFinal(true);
-            });
-
-            $('#no_tags').click(function () {
-                $('#dialog-tags').hide();
-                postFinal(false);
-            });
-
-            var data_post = null;
-            if (!window.location.origin) {
-                window.location.origin = window.location.protocol + "//" + window.location.hostname
-            }
-
-            function postFinal(tags) {
-                if (data_post != null) {
-                    $('div.loader').show();
-                    $('#overlay').show();
-                    if (tags && data_post["tags"].length != 0) {
-                        var data = {
-                            url: window.location.origin + data_post["image"],
-                            tags: data_post["tags"],
-                            message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to www.beneselfies.com."
-                        };
-                    } else {
-                        var data = {
-                            url: window.location.origin + data_post["image"],
-                            message: "I just entered for a chance to win the ULTIMATE fashion, beauty and tech prizes with @BenefitCanada. Pick your #BENESELFIES too! For full details and official contest rules go to www.beneselfies.com."
-                        };
-                    }
-                    FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', data, function (response) {
-                        if (response.post_id) {
-                            $.post('/post_id/', {post_id: response.post_id}).done(
-                                    function () {
-                                        window.location = "/finish/";
-                                    });
-                        } else {
-                            window.location = "/finish/";
-                        }
-                    });
                 }
             }
-
-            function share() {
-                $('#dialog-confirm').hide();
-                $('#buttons').hide();
-                $('#white_logo').show();
-                var $div = $('div.loader');
-                $div.css("background", "url(/static/images/please-wait-2.png) center center no-repeat rgba(255,255,255,0.5)");
-                $div.show();
-                $('#overlay').show();
-                stageCentral = new Kinetic.Stage({
-                    container: 'final_upload',
-                    width: 800,
-                    height: 600
-                });
-                var layer = new Kinetic.Layer();
-                stageCentral.add(layer);
-                var imageObj = new Image();
-                selected = selected.reverse().filter(function (e, i, arr) {
-                    return arr.indexOf(e, i + 1) === -1;
-                }).reverse();
-                var count = selected.length + 1;
-                imageObj.onload = function () {
-                    var pinboard = new Kinetic.Image({
-                        x: 0,
-                        y: 0,
-                        image: imageObj
-                    });
-                    // add the shape to the layer
-                    layer.add(pinboard);
-                    pinboard.moveToBottom();
-                    layer.draw();
-                    // add the layer to the stage
-                    count--;
-
-                    if (count == 0) {
-                        stageCentral.toDataURL({
-                            callback: function (dataUrl) {
-                                current_tags = [];
-                                $.each($('#wrap').find('.polaroid'), function (index, element) {
-                                    var tag_element = $(element).find('.hidden_input');
-                                    if (tag_element && tag_element.length > 0 && $(tag_element).val() != '') {
-                                        current_tags.push($(element).find('.hidden_input').val().toString() + "," + tag_positions[index][0].toString() + "," + tag_positions[index][1].toString());
-                                    }
-                                });
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/upload_custom/",
-                                    enctype: 'multipart/form-data',
-                                    data: {'user_id': user_id, 'file': dataUrl, 'tags': current_tags }
-                                }).success(function (data) {
-                                            data_post = data;
-                                            $('#dialog-tags').show();
-                                            $div.hide();
-                                            location.hash = "#app";
-                                            gotoHASH();
-                                        });
-                            }
-                        });
-                    }
-                };
-                imageObj.src = '/static/images/Pinboard%20Assets/benefit-pinboard-800px-with-beneselfies-logo.png';
-                var $wrap = $('#wrap').find('.polaroid');
-                var pins = [];
-                $.each([ 0, 1, 2, 3, 4, 5, 6, 7 ], function (i, value) {
-                    var id = parseInt($($wrap[i]).attr('id'));
-                    if (selected.indexOf(id) > -1) {
-                        stageCentral.add(layers[id].clone({
-                            x: bene_positions[i][0],
-                            y: bene_positions[i][1],
-                            offset: [175 / 2, 175 / 2],
-                            rotationDeg: rotateAngles[i]
-                        }));
-                        pins[i] = new Image();
-                        pins[i].onload = (function () {
-                            var index = pins.indexOf(this);
-                            var layer = new Kinetic.Layer();
-                            var pin = new Kinetic.Image({
-                                image: pins[index],
-                                x: pin_locations_alt[index][0],
-                                y: pin_locations_alt[index][1]
-                            });
-                            stageCentral.add(layer);
-                            layer.add(pin);
-                            pin.moveToTop();
-                            layer.draw();
-                            count--;
-
-                            if (count == 0) {
-                                stageCentral.toDataURL({
-                                    callback: function (dataUrl) {
-                                        current_tags = [];
-                                        $.each($('#wrap').find('.polaroid'), function (index, element) {
-                                            var tag_element = $(element).find('.hidden_input');
-                                            if (tag_element && tag_element.length > 0 && $(tag_element).val() != '') {
-                                                current_tags.push($(element).find('.hidden_input').val().toString() + "," + tag_positions[index][0].toString() + "," + tag_positions[index][1].toString());
-                                            }
-                                        });
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "/upload_custom/",
-                                            enctype: 'multipart/form-data',
-                                            data: {'user_id': user_id, 'file': dataUrl, 'tags': current_tags }
-                                        }).success(function (data) {
-                                                    data_post = data;
-                                                    $('#dialog-tags').show();
-                                                    $div.hide();
-                                                    location.hash = "#app";
-                                                    gotoHASH();
-                                                });
-                                    }
-                                });
-                            }
-                        });
-                        pins[i].src = pins_src[i];
-                    }
-                });
-            }
-
-            function gotoHASH() {
-                if (location.hash) {
-                    if ($.browser.webkit == false) {
-                        window.location.hash = location.hash
-                    } else {
-                        window.location.href = location.hash;
-                        window.location.href = location.hash
-                    }
+        });
+        $('.after-inst').show();
+        $('#instagram-lib').hide();
+    });
+{% elif twitter %}
+    var $insta = $('#instafeed');
+    {% for u in urls %}
+        $insta.append('<option data-img-src="' + '{{ u }}" value="' + '{{ u }}"></option>');
+    {% endfor %}
+    $('#instafeed').imagepicker();
+    $('#media-library').click(function () {
+        $('#inner-wrap').hide();
+        $('#instagram-lib').show();
+    });
+    $('div.loader').hide();
+    $('#overlay').hide();
+    $('#instagram-selected').click(function () {
+        var image_link = $('#instafeed').val();
+        var imageObj = new Image();
+        imageObj.onload = function () {
+            drawImageDraggable(imageObj);
+        };
+        $.ajax({
+            type: "POST",
+            url: "/post_pic/",
+            data: {
+                image: image_link,
+            },
+            async: false,
+            timeout: 30000,
+            success: function (data) {
+                imageObj.src = data["image"];
+            },
+            error: function (x, t, m) {
+                if (t === "timeout") {
+                    //Alert timeout happened.
+                } else {
                 }
             }
+        });
+        $('.after-inst').show();
+        $('#instagram-lib').hide();
+    });
+{% elif facebook %}
+    $(function () {
+        fbphotoSelect = function (id) {
+            // if no user/friend id is sent, default to current user
+            if (!id) id = 'me';
 
-            $('div.loader').hide();
-            var buttonOK = $('#CSPhotoSelector_buttonOK');
-            var buttonCancel = $('#CSPhotoSelector_buttonCancel');
-
-            fbphotoSelect = function (id) {
-                // if no user/friend id is sent, default to current user
-                if (!id) id = 'me';
-
-                callbackAlbumSelected = function (albumId) {
-                    var album, name;
-                    album = CSPhotoSelector.getAlbumById(albumId);
-                    // show album photos
-                    selector.showPhotoSelector(null, album.id);
-                };
-
-                callbackAlbumUnselected = function (albumId) {
-                    $('#tag_values').text('');
-                    $('#tags').hide();
-                };
-
-                callbackPhotoSelected = function (photoId) {
-                    var photo;
-                    photo = CSPhotoSelector.getPhotoById(photoId);
-                    var $tags = "";
-                    try {
-                        var tags = photo["tags"]["data"];
-                        for (var i = 0; i < tags.length; i++) {
-                            $tags += tags[i].name;
-                            if (i != tags.length - 1) {
-                                $tags += ", ";
-                            }
-                        }
-                    }
-                    catch (e) {
-                        try {
-                            $tags += photo.alternate_tags;
-                        } catch (e) {
-                        }
-                    }
-                    if ($tags && $tags != "undefined") {
-                        $('#tag_values').text($tags);
-                    } else {
-                        $('#tag_values').text('');
-                    }
-                    $('#tags').show();
-                    buttonOK.show();
-                    selected.push(parseInt($('#selected_bene').val()));
-                };
-
-                callbackPhotoUnselected = function (photoId) {
-                    buttonOK.hide();
-                };
-
-                callbackSubmit = function (photoId) {
-                    var photo;
-                    photo = CSPhotoSelector.getPhotoById(photoId);
-                    selector.reset();
-                    var $tags = [];
-                    try {
-                        var tags = photo["tags"]["data"];
-                        for (var i = 0; i < tags.length; i++) {
-                            $tags.push({value: tags[i].name, label: tags[i].name, id: tags[i].id});
-                        }
-                    }
-                    catch (e) {
-                        try {
-                            if (photo.alternate_tags)
-                                $tags.push({value: photo.alternate_tags, label: photo.alternate_tags, id: photo.uid});
-                            else
-                                $tags = selector.$tags;
-                        } catch (e) {
-                            $tags = selector.$tags;
-                        }
-                    }
-                    selectPic(photo["source"], $tags);
-                    $('.loader').show();
-                };
-
-                // Initialise the Photo Selector with options that will apply to all instances
-                CSPhotoSelector.init({debug: true});
-
-                // Create Photo Selector instances
-                selector = CSPhotoSelector.newInstance({
-                    callbackAlbumSelected: callbackAlbumSelected,
-                    callbackAlbumUnselected: callbackAlbumUnselected,
-                    callbackPhotoSelected: callbackPhotoSelected,
-                    callbackPhotoUnselected: callbackPhotoUnselected,
-                    callbackSubmit: callbackSubmit,
-                    maxSelection: 1,
-                    albumsPerPage: 6,
-                    photosPerPage: 200,
-                    autoDeselection: true
-                });
-                $('#tags').hide();
-                // reset and show album selector
-                selector.reset();
-                selector.showAlbumSelector(id);
+            callbackAlbumSelected = function (albumId) {
+                var album, name;
+                album = CSPhotoSelector.getAlbumById(albumId);
+                // show album photos
+                selector.showPhotoSelector(null, album.id);
             };
 
-            $('#yes_sure').click(function () {
-                $("#dialog-warn").hide();
-                if ($(clicked).find('.descript').is(":visible")) {
-                    $(newButtons).show();
-                } else {
-                    $('.okay-buttons').show();
-                }
-            });
-            $('#no_back').click(function () {
-                fbphotoSelect(null);
-                $("#dialog-warn").hide();
-                $('.okay-buttons').show();
-            });
+            callbackAlbumUnselected = function (albumId) {
+            };
 
-            $('#overlay').hide();
-        }
+            callbackPhotoSelected = function (photoId) {
+                var buttonOK = $('#CSPhotoSelector_buttonOK');
+                buttonOK.show();
+            };
 
-)
-;
-var next = 0;
-var stageCentral = null;
-var imageLayer = null;
-var image_added = null;
+            callbackPhotoUnselected = function (photoId) {
+            };
 
-function GetWidth(newHeight, currentWidth, currentHeight) {
-    if (currentHeight == 0) return newHeight;
-    var aspectRatio = currentWidth / currentHeight;
-    return newHeight * aspectRatio;
-}
-
-function GetHeight(newWidth, currentWidth, currentHeight) {
-    if (currentHeight == 0) return newWidth;
-    var aspectRatio = currentWidth / currentHeight;
-    return newWidth / aspectRatio;
-}
-
-var okayButton;
-
-function drawImageDraggable(imageObj) {
-    var $filter = $('#filter');
-    $filter.val('');
-    $filter.change();
-    var i = parseInt($(clicked).attr('id'));
-    var stage = $(clicked).find('canvas')[0];
-    $('.selects')[i].src = done_labels[i];
-    var width = 130;
-    var height = 130;
-    $('.arrows').remove();
-    if (imageObj.width / imageObj.height > 1) {
-        width = GetWidth(height, imageObj.width, imageObj.height);
-        function boundX(pos) {
-            var X = pos.x;
-            return {
-                x: X,
-                y: this.getAbsolutePosition().y
-            }
-        }
-
-        image_added = new Kinetic.Image({
-            image: imageObj,
-            x: centres[i][0] - width / (2),
-            y: centres[i][1] - height / (2),
-            width: width,
-            height: height,
-            draggable: true,
-            dragBoundFunc: boundX
-        });
-        var arrow = $('<img style="margin: 0 auto; display: block;" class="arrows" src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/adjust-arrow-horizontal.png"/>');
-        $(clicked).prepend(arrow);
-    } else {
-        height = GetHeight(width, imageObj.width, imageObj.height);
-        function boundY(pos) {
-            var Y = pos.y;
-            return {
-                x: this.getAbsolutePosition().x,
-                y: Y
-            }
-        }
-
-        image_added = new Kinetic.Image({
-            image: imageObj,
-            x: centres[i][0] - width / (2),
-            y: centres[i][1] - height / (2),
-            width: width,
-            height: height,
-            draggable: true,
-            dragBoundFunc: boundY
-        });
-        var arrow = $('<img style="margin-top:85px; right: -25px; float: right; position: absolute; display: block;" class="arrows" src="/static/images/Pinboard%20Assets/Beneselfie%20Labels/adjust-arrow-vertical.png"/>');
-        $(clicked).find('.kineticjs-content').append(arrow);
-    }
-
-    var group = new Kinetic.Group({
-        clip: [centres[i][0] - 65, centres[i][1] - 65, 130, 130]
-    });
-
-    // add cursor styling
-    image_added.on('mouseover', function () {
-        document.body.style.cursor = 'pointer';
-    });
-    image_added.on('mouseout', function () {
-        document.body.style.cursor = 'default';
-    });
-    if (images[i]) {
-        images[i].remove();
-    }
-    images[i] = group;
-    group.add(image_added);
-    layers[i].add(group);
-    group.moveDown();
-    polaroids[i].hide();
-    $(newButtons).hide();
-    okayButton = $('<div class="okay-buttons"></div>');
-    var newOkay = document.createElement('img');
-    var newRechoose = document.createElement('img');
-    newRechoose.src = "/static/images/Pinboard%20Assets/Buttons/choose.png";
-    newOkay.src = "/static/images/Pinboard%20Assets/Buttons/okay.png";
-    $(newRechoose).attr('width', "103");
-    $(newRechoose).attr('height', "40");
-    $(newOkay).attr('width', "103");
-    $(newOkay).attr('height', "40");
-    $('.drag_text').remove();
-    $('.okay-buttons').remove();
-    $(okayButton).css({'display': 'block', 'margin': '0 auto', 'z-index': 20, 'position': 'relative', 'top': '-35px'});
-    var $text = $('<img style="margin: 0 auto; display: block;" class="drag_text" src="/static/images/drag-to-reposition-your-polaroid.png"/>');
-    $(newRechoose).click(function () {
-        fbphotoSelect(null);
-    });
-    $(newOkay).on('click', {polaroid: polaroids[i], okayButton: okayButton, layer: layers[i], text: $text}, bringBackPolaroid);
-    $(okayButton).append(newRechoose);
-    $(okayButton).append(newOkay);
-    $(clicked).append(okayButton);
-    $(clicked).prepend($text);
-    $(clicked).find('.tags_in').remove();
-    layers[i].draw();
-    if ($('#dialog-warn').is(":visible")) {
-        $('.okay-buttons').hide();
-    }
-    $('.descript').hide();
-    $('.loader').hide();
-
-    // Add hove/click/active button images.
-    $('.okay-buttons img').on('mouseover', function () {
-        // Add -on at the end of the image (before the .png).
-        if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
-            if ($(this).attr('src').indexOf("-on")) {
-                var src = $(this).attr('src');
-                var addIndex = src.indexOf(".png");
-                var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
-                $(this).attr('src', newSrc);
-            }
-        }
-        // Check if background image is used.
-        if ($(this).css('backgroundImage').length > 0 && $(this).css('backgroundImage').indexOf("-on") == -1) {
-            var bgImage = $(this).css('backgroundImage');
-            var addIndex = bgImage.indexOf(".png");
-            var newSrc = bgImage.slice(0, addIndex) + "-on" + bgImage.slice(addIndex, bgImage.length);
-            $(this).css({
-                'backgroundImage': newSrc
-            });
-        }
-    });
-    $('.okay-buttons img').on('mouseout', function () {
-        // Add -on at the end of the image (before the .png).
-        if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
-            if ($(this).attr('src').indexOf("-on") != -1) {
-                var src = $(this).attr('src');
-                var addIndex = src.indexOf("-on");
-                var newSrc = src.slice(0, addIndex) + src.slice(addIndex + 3, src.length);
-                $(this).attr('src', newSrc);
-            }
-        }
-        // Check if background image is used.
-        if ($(this).css('backgroundImage').length > 0 && $(this).css('backgroundImage').indexOf("-on") != -1) {
-            var bgImage = $(this).css('backgroundImage');
-            var addIndex = bgImage.indexOf("-on");
-            var newSrc = bgImage.slice(0, addIndex) + bgImage.slice(addIndex + 3, bgImage.length);
-            $(this).css({
-                'backgroundImage': newSrc
-            });
-        }
-    });
-    $('.okay-buttons img').on('click', function () {
-        // Add -on at the end of the image (before the .png).
-        if (typeof $(this).attr('src') != 'undefined' && $(this).attr('src') != false) {
-            if ($(this).attr('src').indexOf("-on") == -1) {
-                var src = $(this).attr('src');
-                var addIndex = src.indexOf(".png");
-                var newSrc = src.slice(0, addIndex) + "-on" + src.slice(addIndex, src.length);
-                $(this).attr('src', newSrc);
-            }
-        }
-        // Check if background image is used.
-        if ($(this).css('backgroundImage').length > 0 && $(this).css('backgroundImage').indexOf("-on") == -1) {
-            var bgImage = $(this).css('backgroundImage');
-            var addIndex = bgImage.indexOf(".png");
-            var newSrc = bgImage.slice(0, addIndex) + "-on" + bgImage.slice(addIndex, bgImage.length);
-            $(this).css({
-                'backgroundImage': newSrc
-            });
-        }
-    });
-}
-
-function bringBackPolaroid(event) {
-    event.data.polaroid.show();
-    $(event.data.okayButton).remove();
-    event.data.layer.draw();
-    event.data.text.remove();
-    $('.arrows').remove();
-    var i = parseInt($(clicked).attr('id'));
-    image_poss[i] = [images[i].getX(), images[i].getX()];
-    var tagged = false;
-    if (!names_for_each_clicked[i]) {
-    }
-    else if (names_for_each_clicked[i].length == 1) {
-        var $newP = $('<p class="tags_in" style="color: white; text-align: center; position: relative; top: -15px; margin-bottom: -25px;">In this photo: ' + names_for_each_clicked[i] + '</p>');
-        $(newButtons).before($newP);
-    } else {
-        var $newP = $('<p class="tags_in" style="color: white; text-align: center; position: relative; top: -15px; margin-bottom: -25px;">In this photo:</p>');
-        if (names_for_each_clicked[i].length <= 10) {
-            var $newSelect = $('<select></select>');
-            $newSelect.append('<option value="-1">Who\'s your Friend</option>');
-            for (var j = 0; j < names_for_each_clicked[i].length; j++) {
-                $newSelect.append('<option value="' + id_for_each_clicked[i][j] + '">' + names_for_each_clicked[i][j] + '</option>')
-            }
-            $($newSelect).change(function () {
-                if (parseInt($(this).val()) != -1) {
-                    $(clicked).find('.hidden_input').val($(this).val());
-                    for (var i = 0; i < 8; i++) {
-                        if (i != parseInt($(clicked).attr('id')) && dict_for_each_clicked[i]) {
-                            if (dict_for_each_clicked[i] == $(this).val()) {
-                                tagged = true;
-                                break;
-                            }
+            callbackSubmit = function (photoId) {
+                var photo;
+                photo = CSPhotoSelector.getPhotoById(photoId);
+                var imageObj = new Image();
+                imageObj.onload = function () {
+                    drawImageDraggable(imageObj);
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/post_pic/",
+                    data: {
+                        image: photo['source'],
+                    },
+                    async: false,
+                    timeout: 30000,
+                    success: function (data) {
+                        imageObj.src = data["image"];
+                    },
+                    error: function (x, t, m) {
+                        if (t === "timeout") {
+                            //Alert timeout happened.
+                        } else {
                         }
                     }
-                    if (tagged) {
-                        $("#dialog-warn").show();
-                        $(newButtons).hide();
+                });
+                $('.after-inst').show();
+                $('#instagram-lib').hide();
+                selector.reset();
+            };
+
+            // Initialise the Photo Selector with options that will apply to all instances
+            CSPhotoSelector.init({debug: true}, '{{ access_token }}');
+
+            // Create Photo Selector instances
+            selector = CSPhotoSelector.newInstance({
+                callbackAlbumSelected: callbackAlbumSelected,
+                callbackAlbumUnselected: callbackAlbumUnselected,
+                callbackPhotoSelected: callbackPhotoSelected,
+                callbackPhotoUnselected: callbackPhotoUnselected,
+                callbackSubmit: callbackSubmit,
+                maxSelection: 1,
+                albumsPerPage: 6,
+                photosPerPage: 200,
+                autoDeselection: true
+            });
+            // reset and show album selector
+            selector.reset();
+            selector.showAlbumSelector(id);
+        };
+
+        $('#media-library').click(function () {
+            $('#inner-wrap').hide();
+            fbphotoSelect(null);
+        });
+    });
+
+{% endif %}
+$('#back-select').click(function () {
+    $('#inner-wrap').show();
+    $('#instagram-lib').hide();
+});
+$('#back-to-select').click(function () {
+    $('#inner-wrap').show();
+    $('#instagram-lib').hide();
+    $('.after-inst').hide();
+});
+$('#finish').click(function () {
+    $('#back-to-select').css('opacity', '0');
+    $(this).css('opacity', '0');
+    $('#arrow').css('opacity', '0');
+    $('#iamtom').css('opacity', '0');
+    html2canvas($('#image-main'), {
+        onrendered: function (canvas) {
+            var img = canvas.toDataURL("image/png");
+            $('.after-inst').hide();
+            $('.saved-image').show();
+            $('#saved-image').append('<img src="' + img + '" style="width: 100%; height: 100%"/>');
+            setTimeout(function () {
+                //$('#saved-text').hide();
+            }, 1000);
+            $.ajax({
+                type: "POST",
+                url: "/addimage/",
+                data: {
+                    image: canvas.toDataURL(),
+                },
+                async: false,
+                timeout: 30000,
+                success: function (data) {
+                    $('#pinterest-share').attr('href', 'http://www.pinterest.com/pin/create/button/?url=http%3A%2F%2Fiamtom.com&media=http%3A%2F%2Fiamtom.com' + data['url'] + '&description=Next%20stop%3A%20Pinterest');
+                    $('#pinterest-share').click(function () {
+                        $(this).hide();
+                    });
+                    $('#instagram-share').click(function () {
+                        $.post('/share-instagram/', {'photo': data['url']}, function () {
+                            $('#instagram-share').hide();
+                        });
+                    });
+                    $('#twitter-share').attr('href', 'http://twitter.com/share?text=I%20have%20just%20created%20my%20own%20TOM.&url=http%3A%2F%2Fiamtom.com' + data['url']);
+                    $('#twitter-share').click(function (event) {
+                        var width = 575,
+                                height = 400,
+                                left = ($(window).width() - width) / 2,
+                                top = ($(window).height() - height) / 2,
+                                url = this.href,
+                                opts = 'status=1' +
+                                        ',width=' + width +
+                                        ',height=' + height +
+                                        ',top=' + top +
+                                        ',left=' + left;
+
+                        window.open(url, 'twitter', opts);
+                        $('#twitter-share').hide();
+                        return false;
+                    });
+                    $('#facebook-share').click(function () {
+                        FB.api('/me/photos?access_token={{ access_token }}', 'post', data, function (response) {
+                            if (response.post_id) {
+                                $.post('/post_id/', {post_id: response.post_id}).done(
+                                        function () {
+                                            $('#facebook-share').hide();
+                                        });
+                            } else {
+                            }
+                        });
+                    });
+                    $('html').click(function () {
+                        $('#saved-text').css('opacity', '0');
+                        $(this).click(null);
+                    });
+
+                },
+                error: function (x, t, m) {
+                    if (t === "timeout") {
+                        //Alert timeout happened.
+                    } else {
                     }
-                    var index = parseInt($(clicked).attr('id'));
-                    dict_for_each_clicked[index] = $(this).val();
                 }
+            });
+        }
+    });
+});
+$('#done').click(function () {
+    $('.saved-image').hide();
+    $('#done-div').show();
+});
+{% if not request.is_mobile %}
+    // Put event listeners into place
+    window.addEventListener("DOMContentLoaded", function () {
+        // Grab elements, create settings, etc.
+        var video = document.getElementById("video"),
+                videoObj = { "video": true },
+                errBack = function (error) {
+                    console.log("Video capture error: ", error.code);
+                };
+        var $vid = $('#video');
+        $vid.attr('width', $vid.width());
+        $vid.attr('height', $vid.height());
+
+        $('#take-photo-button').click(function () {
+            if (navigator.getUserMedia) { // Standard
+                navigator.getUserMedia(videoObj, function (stream) {
+                    video.src = stream;
+                    video.play();
+                    $('#snap').show();
+                }, errBack);
+            } else if (navigator.webkitGetUserMedia) { // WebKit-prefixed
+                navigator.webkitGetUserMedia(videoObj, function (stream) {
+                    video.src = window.webkitURL.createObjectURL(stream);
+                    video.play();
+                    $('#snap').show();
+                }, errBack);
+            }
+            else if (navigator.mozGetUserMedia) { // Firefox-prefixed
+                navigator.mozGetUserMedia(videoObj, function (stream) {
+                    video.src = window.URL.createObjectURL(stream);
+                    video.play();
+                    $('#snap').show();
+                }, errBack);
+            } else {
+                return;
+            }
+            $('#inner-wrap').hide();
+            $('#take-photo-div').show();
+            document.getElementById("snap").addEventListener("click", function () {
+                var img = video;
+                $('#take-photo-div').hide();
+                $('.after-inst').show();
+                drawImageDraggable(img);
+            });
+        });
+
+    }, false);
+{% endif %}
+$(function () {
+    $('#upload-photo-button').click(function () {
+        $('#upload-file').trigger('click');
+    });
+
+    $('#upload-file').change(function () {
+        var imageObj = new Image();
+        imageObj.onload = function () {
+            drawImageDraggable(imageObj);
+        };
+        var FR = new FileReader();
+        FR.onload = function (e) {
+            $.ajax({
+                type: "POST",
+                url: "/post_pic/",
+                data: {
+                    image: e.target.result,
+                },
+                async: false,
+                timeout: 30000,
+                success: function (data) {
+                    imageObj.src = data["image"];
+                    $('#inner-wrap').hide();
+                    $('.after-inst').show();
+                },
+                error: function (x, t, m) {
+                    if (t === "timeout") {
+                        //Alert timeout happened.
+                    } else {
+                    }
+                }
+            });
+        };
+        FR.readAsDataURL(this.files[0]);
+    });
+});
+</script>
+<script>
+    var clicked;
+    var stage;
+    var layer;
+    var rect;
+    var first_drag = true;
+    $(function () {
+        $('#current-instruction').delegate('.circle.white', 'click', function () {
+            $('#imtom').attr('src', '{% static 'iPad pngs/i-am-tom-white-large.png' %}');
+        });
+        $('#current-instruction').delegate('.circle.grey', 'click', function () {
+            $('#imtom').attr('src', '{% static 'iPad pngs/i-am-tom-grey.png' %}');
+        });
+        $('#current-instruction').delegate('.circle.black', 'click', function () {
+            $('#imtom').attr('src', '{% static 'iPad pngs/i-am-tom-Black.png' %}');
+        });
+    });
+    function drawImageDraggable(imageObj) {
+        clicked = $('#main-image');
+        stage = new Kinetic.Stage({
+            container: 'main-image',
+            width: clicked.width(),
+            height: clicked.height()
+        });
+        layer = new Kinetic.Layer();
+        rect = new Kinetic.Rect({
+            x: 0,
+            y: 0,
+            width: clicked.width(),
+            height: clicked.height(),
+            fill: 'black'
+        });
+        layer.add(rect);
+        stage.add(layer);
+        var image_added = null;
+        if (image_added && image_added != null)
+            image_added.remove();
+        var width = clicked.width();
+        var height = clicked.height();
+        if (imageObj.width / imageObj.height > 1) {
+            width = GetWidth(height, imageObj.width, imageObj.height);
+            function boundX(pos) {
+                if (first_drag) {
+                    $('#arrow').css('visibility', 'hidden');
+                    $('#current-instruction').html('<p>Select from the following options below to customize your TOM*</p>' +
+                            '<span class="circle white"></span><span class="circle grey"></span><span class="circle black"></span>');
+                    first_drag = false;
+                }
+                var X = pos.x;
+                return {
+                    x: X,
+                    y: this.getAbsolutePosition().y
+                }
+            }
+
+            image_added = new Kinetic.Image({
+                image: imageObj,
+                x: 0,
+                y: 0,
+                width: width,
+                height: height,
+                draggable: true,
+                dragBoundFunc: boundX
             });
         } else {
-            var $newInput = $('<input type="text"></input>');
-            $($newInput).autocomplete({source: selector.$tags,
-                select: function (e, ui) {
-                    for (var i = 0; i < 8; i++) {
-                        if (i != parseInt($(clicked).attr('id')) && dict_for_each_clicked[i]) {
-                            if (dict_for_each_clicked[i] == ui.item.id) {
-                                tagged = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (tagged) {
-                        $("#dialog-warn").show();
-                        $(newButtons).hide();
-                    }
-                    $(clicked).find('.hidden_input').val(ui.item.id);
-                    var index = parseInt($(clicked).attr('id'));
-                    dict_for_each_clicked[index] = ui.item.id;
+            height = GetHeight(width, imageObj.width, imageObj.height);
+            function boundY(pos) {
+                if (first_drag) {
+                    $('#arrow').css('visibility', 'hidden');
+                    $('#current-instruction').html('<p>Select from the following options below to customize your TOM*</p>' +
+                            '<span class="circle white"></span><span class="circle grey"></span><span class="circle black"></span>');
+                    first_drag = false;
                 }
+                var Y = pos.y;
+                return {
+                    x: this.getAbsolutePosition().x,
+                    y: Y
+                }
+            }
+
+            image_added = new Kinetic.Image({
+                image: imageObj,
+                x: 0,
+                y: 0,
+                width: width,
+                height: height,
+                draggable: true,
+                dragBoundFunc: boundY
             });
-            $newP.append($newInput);
         }
-        $newP.append($newSelect);
-        $(newButtons).before($newP);
+        // add cursor styling
+        image_added.on('mouseover', function () {
+            document.body.style.cursor = 'pointer';
+        });
+        image_added.on('mouseout', function () {
+            document.body.style.cursor = 'default';
+        });
+        layer.add(image_added);
+        image_added.cache();
+        image_added.filters([Kinetic.Filters.Grayscale]);
+        layer.draw();
     }
-    $('.descript').show();
-    $(newButtons).show();
-}
-
-function drawImage(imageObj, container, i) {
-    var width = 175;
-    var height = 175;
-    var stage = new Kinetic.Stage({
-        container: container,
-        width: 175,
-        height: 175
-    });
-    var layer = new Kinetic.Layer();
-
-    var img = new Kinetic.Image({
-        image: imageObj,
-        x: stage.getWidth() / 2 - 175 / 2,
-        y: stage.getHeight() / 2 - 175 / 2,
-        width: 175,
-        height: 175
-    });
-    polaroids[i] = img;
-    layer.add(img);
-    stage.add(layer);
-    layers[i] = layer;
-
-    // Give the inner div's and canvas' the proper width and height values.
-    var $wrap = $('#wrap');
-    $wrap.find('.polaroid div').css({
-        height: "100%",
-        width: "100%"
-    });
-    $wrap.find('.polaroid canvas').css({
-        height: "100%",
-        width: "100%"
-    });
-}
-
-function selectPic(image_url, tags) {
-    bringForward(image_url);
-    var $clicked = $(clicked);
-    $clicked.find(".tag").remove();
-    $(clicked).find('> .hidden_input').remove();
-    var tagged = false;
-    var index = parseInt($(clicked).attr('id'));
-    var hidden_box = $('<input class="hidden_input" type="hidden"/>');
-    if (tags && tags.length == 1) {
-        hidden_box.val(tags[0].id);
-
-        for (var i = 0; i < 8; i++) {
-            if (i != parseInt($(clicked).attr('id')) && dict_for_each_clicked[i]) {
-                if (dict_for_each_clicked[i] == tags[0].id) {
-                    tagged = true;
-                    break;
-                }
-            }
-        }
-        if (tagged) {
-            $("#dialog-warn").show();
-        }
-        dict_for_each_clicked[index] = tags[0].id;
-        names_for_each_clicked[index] = [tags[0].label];
-        id_for_each_clicked[index] = [tags[0].id];
-    } else if (tags && tags.length == 0) {
-        names_for_each_clicked[index] = [];
-        id_for_each_clicked[index] = [];
-    } else if (tags) {
-        var names = [];
-        var ids = [];
-        for (var j = 0; j < tags.length; j++) {
-            names.push(tags[j].label);
-            ids.push(tags[j].id);
-        }
-        names_for_each_clicked[index] = names;
-        id_for_each_clicked[index] = ids;
+    function GetWidth(newHeight, currentWidth, currentHeight) {
+        if (currentHeight == 0) return newHeight;
+        var aspectRatio = currentWidth / currentHeight;
+        return newHeight * aspectRatio;
     }
-    $(clicked).append(hidden_box);
-}
 
-var photo_urls = [];
-var accessToken = null;
-var user_id = null;
-
-var album_list = {};
-var current_loading = [];
-var current_open = null;
-
-function bringForward(url) {
-    var imageObj = new Image();
-    imageObj.onload = function () {
-        drawImageDraggable(this);
-    };
-
-    var i = parseInt($(clicked).attr('id'));
-    $.ajax({
-        type: "POST",
-        url: "/post_pic/",
-        data: {
-            image: url,
-            user_id: user_id
-        },
-        async: false,
-        timeout: 30000,
-        success: function (data) {
-            image_urls[i] = data["image"];
-            imageObj.src = data["image"];
-        },
-        error: function (x, t, m) {
-            if (t === "timeout") {
-                //Alert timeout happened.
-            } else {
-            }
-        }
-    });
-    //current_loading.push(index);
-    //var index = parseInt($(clicked).attr('id'));
-
-    next++;
-}
+    function GetHeight(newWidth, currentWidth, currentHeight) {
+        if (currentHeight == 0) return newWidth;
+        var aspectRatio = currentWidth / currentHeight;
+        return newWidth / aspectRatio;
+    }
 </script>
-</body>
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+<script type="text/javascript">
+</script>
 </html>

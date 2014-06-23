@@ -8,7 +8,7 @@
 
 /* Styles for main layout */
 html, body {
-    background: #FCD2BB url('../images/background-150px-width.png') repeat center center;
+    background-color: #000;
     font-family: Arial, Helvetica, sans-serif;
     height: 100%;
     margin: 0;
@@ -21,7 +21,7 @@ img {
 
 .img-text {
     position: absolute;
-   left: -9999px;
+    left: -9999px;
 }
 
 div#header {
@@ -84,6 +84,7 @@ div#main-nav ul li a {
     width: 100%;
     zoom: 1;
 }
+
 div#main-nav ul li a:hover, div#main-nav ul li a:active {
     background: #f964a2;
 }
@@ -504,7 +505,7 @@ div#enter-to-win form div.terms-check p {
 
 /* Add pointer to image links. */
 #selects img, #zoom, #next, #back, #share, #view, #okay, #twitter-follow, #facebook, .okay-buttons img, #prizes-button {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 /* Reposition button links. */
@@ -534,6 +535,7 @@ div#enter-to-win form div.terms-check p {
     position: absolute;
     width: 100%;
 }
+
 #terms-and-conditions-popup {
     display: none;
     margin: auto;
@@ -543,6 +545,7 @@ div#enter-to-win form div.terms-check p {
     width: 612px;
     z-index: 20;
 }
+
 #terms-and-conditions-popup > div {
     color: #333;
     font-size: 12px;
@@ -553,6 +556,7 @@ div#enter-to-win form div.terms-check p {
     text-align: left;
     top: 88px;
 }
+
 #terms-and-conditions-popup-button {
     cursor: pointer;
     position: relative;
@@ -563,15 +567,18 @@ div#enter-to-win form div.terms-check p {
 #prizes-button-container {
     text-align: center;
 }
+
 #prizes-button {
     position: relative;
     top: -5px;
 }
+
 #prizes-popup-container {
     left: 0;
     position: absolute;
     width: 100%;
 }
+
 #prizes-popup {
     display: none;
     margin: auto;
@@ -581,6 +588,7 @@ div#enter-to-win form div.terms-check p {
     width: 612px;
     z-index: 20;
 }
+
 #prizes-popup > div {
     color: #333;
     font-size: 12px;
@@ -591,6 +599,7 @@ div#enter-to-win form div.terms-check p {
     text-align: left;
     top: 88px;
 }
+
 #prizes-popup-button {
     cursor: pointer;
     position: relative;
@@ -609,6 +618,7 @@ div#enter-to-win form div.terms-check p {
     width: 100%;
     z-index: 50;
 }
+
 #ie-warning-popup {
     margin: auto;
     position: relative;
@@ -617,6 +627,7 @@ div#enter-to-win form div.terms-check p {
     width: 356px;
     z-index: 20;
 }
+
 #ie-warning-popup-button {
     cursor: pointer;
     position: relative;
@@ -628,53 +639,195 @@ div#enter-to-win form div.terms-check p {
     overflow: hidden;
     position: relative;
 }
+
 #landing-page {
     height: 100%;
     margin: 15px auto 0 auto;
     text-align: center;
     width: 749px;
 }
+
 #landing-page > div {
     left: 0;
     overflow: hidden;
     position: absolute;
     width: 100%;
 }
+
 #landing-page > div > img {
     left: -295px;
     position: relative;
     top: 230px;
     width: 410px;
 }
+
 #landing-page #share-grouping {
     left: -135px;
     position: relative;
     top: 20px;
 }
+
 #landing-page #like-grouping {
     left: 85px;
     position: relative;
     top: -110px;
 }
+
 #landing-page #logo-grouping {
     left: 40px;
     position: relative;
     top: -65px;
     margin-bottom: -55px;
 }
+
 #landing-page #start {
     cursor: pointer;
     left: 115px;
-    position: relative;/
-    top: -50px;
+    position: relative;
+/ top : - 50 px;
 }
+
 #landing-page > p {
     position: relative;
     z-index: 10;
 }
 
-
 .fb-like span, .fb-like iframe {
-  min-width: 100px !important;
-  min-height: 30px !important;
+    min-width: 100px !important;
+    min-height: 30px !important;
+}
+
+.image_picker_image {
+    width: 100px !important;
+    height: 100px !important;
+}
+
+.main-app {
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    max-height: 1000px;
+}
+
+.main-app-background {
+    background: url(../iPhone%20pgs/BG-Pic.png) no-repeat;
+}
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px) {
+    .main-app {
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
+        height: 100%;
+        max-height: 600px;
+    }
+
+    .main-app-background {
+        background: url(../iPad%20pngs/BG-Pic.png) no-repeat;
+    }
+}
+
+@media only screen
+and (min-width: 1224px) {
+    .main-app {
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
+        height: 100%;
+        max-height: 600px;
+    }
+
+    .main-app-background {
+        background: url(../iPad%20pngs/BG-Pic.png) no-repeat;
+    }
+}
+
+.veritcal-center {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.horizontal-center {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.transparent-box {
+    background: rgba(255, 255, 255, 0.333);
+    color: #ffffff;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    line-height: 2;
+}
+
+.logins img:not(:last-child) {
+    margin-right: 20px;
+}
+
+.after-trans {
+    display: none;
+}
+
+#instagram-lib {
+    max-height: 600px;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+#instagram-lib div#images {
+    overflow-y: scroll;
+    position: relative;
+    height: auto;
+    max-height: 500px;
+}
+
+button {
+    background: #000;
+    font-family: 'Raleway', serif;
+    font-weight: 900;
+    color: #fff;
+    padding: 20px 50px;
+    border: none;
+    box-shadow: none;
+}
+
+.transparent-box button {
+    background: #000;
+    font-family: 'Raleway', serif;
+    font-weight: 900;
+    color: #fff;
+    padding: 20px 50px;
+    width: 80%;
+    border: none;
+    margin: 3% 2%;
+    box-shadow: none;
+}
+
+button:hover, button:active, button:focus {
+    border: none;
+    box-shadow: none;
+}
+
+#current-instruction span.circle {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    border: solid black 2px;
+    margin-right: 5px;
+}
+
+#current-instruction span.circle:nth-child(3) {
+    background: #A5A7A9;
+}
+
+#current-instruction span.circle:nth-child(4) {
+    background: #201D1E;
 }

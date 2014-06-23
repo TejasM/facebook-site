@@ -4,20 +4,24 @@ import cStringIO
 import random
 import re
 import urllib
+from dateutil.relativedelta import relativedelta
+from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpResponse
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, render
 from django.template import RequestContext
 from django.utils import timezone
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import csrf_exempt
 import requests
-from benselfies.models import UserSubmission, UserImage, Submission
+from social_auth.db.django_models import UserSocialAuth
+from benselfies.models import UserSubmission, UserImage, Submission, UserProfile
+from twython import Twython
 
 __author__ = 'tmehta'
 
@@ -27,40 +31,75 @@ def home(request):
 
 
 @login_required
-def upload(request, user_id):
+def upload(request):
     try:
-        user = request.session["user"]
-        user = UserSubmission.objects.get(pk=user)
+        profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        profile = UserProfile.objects.create(user=request.user)
+    try:
+        instagram_social = UserSocialAuth.objects.get(user=request.user, provider='instagram')
+        return render(request, 'upload.html',
+                      {'instagram_number': instagram_social.uid,
+                       'access_token': instagram_social.tokens['access_token']})
+    except UserSocialAuth.DoesNotExist:
         try:
-            submission = UserSubmission.objects.get(user_id=user_id)
-            if user != submission:
-                try:
-                    submission.delete()
-                except:
-                    pass
-        except UserSubmission.DoesNotExist as _:
-            pass
-        user.user_id = user_id
-        user.save()
-    except KeyError as _:
-        return redirect(email)
-    except UserSubmission.DoesNotExist as _:
-        return redirect(email)
-    return render_to_response('upload.html')
+            twitter_social = UserSocialAuth.objects.get(user=request.user, provider='twitter')
+            api = Twython(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET,
+                          twitter_social.tokens['oauth_token'], twitter_social.tokens['oauth_token_secret'])
+            date_now = timezone.now() - relativedelta(years=2)
+            urls = []
+            if len(profile.urls) < 10:
+                max_id = None
+                for i in range(4):
+                    if max_id:
+                        res = api.get_home_timeline(count=200, include_entities='true', max_id=max_id)
+                    else:
+                        res = api.get_home_timeline(count=200, include_entities='true')
+                    # res_urls = [t for t in res if 'urls' in t['entities']]
+                    if res:
+                        max_id = res[-1]['id']
+                    res_media = [t for t in res if 'media' in t['entities']]
+                    # for t in res_urls:
+                    # for l in t['entities']['urls']:
+                    # if 'instagram' in l['expanded_url']:
+                    # urls.append(l['display_url'])
+                    for t in res_media:
+                        for m in t['entities']['media']:
+                            urls.append(m['media_url'])
+                            if m['media_url'] not in profile.urls:
+                                profile.urls += m['media_url'] + ","
+                profile.save()
+            else:
+                urls = profile.urls.split(',')
+            return render(request, 'upload.html',
+                          {'twitter': twitter_social.uid, 'urls': urls})
+        except UserSocialAuth.DoesNotExist:
+            try:
+                facebook_social = UserSocialAuth.objects.get(user=request.user, provider='facebook')
+                return render(request, 'upload.html',
+                              {'facebook': facebook_social.uid, 'access_token': facebook_social.tokens['access_token']})
+            except:
+                pass
+    return render(request, 'upload.html')
 
 
 @login_required
 @csrf_exempt
 def add_media_file(request):
-    #TODO: check and upload to server
+    # TODO: check and upload to server
     try:
-        submission = UserSubmission.objects.get(pk=request.session["user"])
+        submission = UserSubmission.objects.get(pk=1)
     except UserSubmission.DoesNotExist:
-        return redirect(email)
-    name = str(len(UserImage.objects.filter(submission=submission)))
+        submission = UserSubmission.objects.create()
+    name = str(len(UserImage.objects.filter(submission=submission))) + ".png"
     image = UserImage.objects.create(submission=submission)
-    response = requests.get(request.POST['image'])
-    file_content = ContentFile(response.content)
+    imag = request.POST['image']
+    if "data:image/png" in imag:
+        imag = re.search(r'base64,(.*)', imag).group(1)
+        file_content = ContentFile(imag.decode('base64'))
+    else:
+        response = requests.get(request.POST['image'])
+        file_content = ContentFile(response.content)
     image.image.save(name, file_content)
     image.save()
     return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/media/')[1]}),
@@ -110,7 +149,7 @@ def add_custom_pic(request):
     user.save()
     submission.save()
     image.save()
-    #Submission.objects.create(user_id=submission.user_id, email=submission.email)
+    # Submission.objects.create(user_id=submission.user_id, email=submission.email)
     if image.image:
         context = {'image': "/media/" + image.image.name.split('/media/')[1], "tags": tags_submit}
     else:
@@ -123,17 +162,16 @@ def add_custom_pic(request):
 @csrf_exempt
 def add_image(request):
     try:
-        submission = UserSubmission.objects.get(pk=request.session["user"])
+        submission = UserSubmission.objects.get(pk=1)
     except UserSubmission.DoesNotExist:
-        return redirect(email)
+        submission = UserSubmission.objects.create()
     image = UserImage.objects.create(submission=submission)
-    image.image = request.FILES['image']
+    image.image = ContentFile(request.POST['image'], name='tom')
     image.save()
     return HttpResponse(json.dumps({'url': "/media/" + image.image.name.split('/media/')[1]}),
                         content_type="application/json")
 
 
-@login_required
 @csrf_exempt
 def email(request):
     if request.method == "POST":
@@ -255,3 +293,18 @@ def random_page(request):
 
 def terms(request):
     return render_to_response('terms.html')
+
+
+@csrf_exempt
+@login_required()
+def share_instagram(request):
+    if request.method == "POST":
+        instagram_social = UserSocialAuth.objects.get(user=request.user, provider='instagram')
+        r = requests.post('https://instagram.com/api/v1/media/upload/', {'photo': request.POST['photo'],
+                                                                         'device_timestamp': timezone.now(),
+                                                                         'lat': 0,
+                                                                         'lng': 0,
+                                                                         'access_token': instagram_social.tokens[
+                                                                             'access_token']})
+        print r.text
+    return HttpResponse('', content_type='application/json')

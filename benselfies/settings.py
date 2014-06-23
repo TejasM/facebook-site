@@ -4,27 +4,27 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-# ('Your Name', 'your_email@example.com'),
+    # ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'database', # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'database',  # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
-        'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '', # Set to empty string for default.
+        'HOST': '',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',  # Set to empty string for default.
     }
 }
 
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-#         'NAME': '/home/benese5/site/facebook-site/database', # Or path to database file if using sqlite3.
+# 'default': {
+# 'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+# 'NAME': '/home/benese5/site/facebook-site/database', # Or path to database file if using sqlite3.
 #         # The following settings are not used with sqlite3:
 #         'USER': '',
 #         'PASSWORD': '',
@@ -111,6 +111,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'benselfies.mobiledetection.MobileDetectionMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -121,9 +122,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
 )
 
-
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.twitter.TwitterBackend',
+    'social_auth.backends.facebook.FacebookBackend',
     'social_auth.backends.contrib.instagram.InstagramBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -153,7 +154,7 @@ INSTALLED_APPS = (
 )
 
 LOGIN_URL = "/login"
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/upload"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -183,19 +184,26 @@ LOGGING = {
         },
     }
 }
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
 INSTAGRAM_CLIENT_ID = '00af6175cc4947bf9963b41062b72afb'
 INSTAGRAM_CLIENT_SECRET = '88d231b09c0e40228891838539724f57'
 
 TWITTER_CONSUMER_KEY = 'ZQJOlIqeornPsUj2dfhg5pcfG'
 TWITTER_CONSUMER_SECRET = '6oA7jGvtEHsq1BcaL8wY6FNqAEL3f1V9ttwx9DiiycLycSrNKu'
 
+FACEBOOK_APP_ID = '276771405831053'
+FACEBOOK_API_SECRET = '0749bc152df64690df3801bcada9804a'
+
+FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'user_photos', 'publish_stream', 'photo_upload', 'friends_photos']
 # #
-# import dj_database_url
-#
-# DATABASES['default'] = dj_database_url.config()
-#
-# # Honor the 'X-Forwarded-Proto' header for request.is_secure()
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-#
-# #Allow all host headers
-# ALLOWED_HOSTS = ['*']
+import dj_database_url
+
+DATABASES['default'] = dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+#Allow all host headers
+ALLOWED_HOSTS = ['*']

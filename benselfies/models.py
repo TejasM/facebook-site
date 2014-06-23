@@ -1,4 +1,5 @@
 import os
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_delete, pre_delete
 from django.dispatch import receiver
@@ -19,6 +20,11 @@ class Submission(models.Model):
     def __unicode__(self):
         return "Winner is: " + self.first_name + " " + self.last_name + "\nEmail: " + \
                self.email + "\nSubmitted: " + self.last_submitted.strftime("%c")
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    urls = models.CharField(max_length=1000000, default="")
 
 
 class UserSubmission(models.Model):

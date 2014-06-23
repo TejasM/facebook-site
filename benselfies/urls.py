@@ -9,7 +9,8 @@ from benselfies import settings
 urlpatterns = patterns('',
                        url(r'^$', 'benselfies.views.home', name='home'),
                        url(r'^finish/$', 'benselfies.views.finish', name='finish'),
-                       url(r'^upload/(?P<user_id>.*)$', 'benselfies.views.upload', name='upload'),
+                       url(r'^upload/$', 'benselfies.views.upload', name='upload'),
+                       url(r'^share-instagram/$', 'benselfies.views.share_instagram', name='share-instagram'),
                        url(r'^post_pic/$', 'benselfies.views.add_media_file', name='post_pic'),
                        url(r'^addimage/$', 'benselfies.views.add_image', name='add_image'),
                        url(r'^upload_custom/$', 'benselfies.views.add_custom_pic', name='custom_pic'),
@@ -28,6 +29,7 @@ urlpatterns = patterns('',
 
                        #Uncomment the next line to enable the admin:
                        url(r'^admin/', include(admin.site.urls)),
+                       url(r'', include('social_auth.urls')),
 )
 
 urlpatterns += patterns('',
