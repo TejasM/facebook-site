@@ -25,7 +25,7 @@ DATABASES = {
 # 'default': {
 # 'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
 # 'NAME': '/home/benese5/site/facebook-site/database', # Or path to database file if using sqlite3.
-#         # The following settings are not used with sqlite3:
+# # The following settings are not used with sqlite3:
 #         'USER': '',
 #         'PASSWORD': '',
 #         'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
@@ -62,7 +62,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = '/home/benese5/site/facebook-site/media/'
+MEDIA_ROOT = 'media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
