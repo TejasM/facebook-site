@@ -9,3 +9,4 @@ static==0.4
 PIL==1.1.7
 django-social-auth==0.7.28
 python-dateutil==2.2
+requests==2.1.0
