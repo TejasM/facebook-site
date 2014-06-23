@@ -102,7 +102,7 @@ def add_media_file(request):
         file_content = ContentFile(response.content)
     image.image.save(name, file_content)
     image.save()
-    return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/media/')[1]}),
+    return HttpResponse(json.dumps({'image': "/media/" + image.image.name}),
                         content_type="application/json")
 
 
@@ -151,7 +151,7 @@ def add_custom_pic(request):
     image.save()
     # Submission.objects.create(user_id=submission.user_id, email=submission.email)
     if image.image:
-        context = {'image': "/media/" + image.image.name.split('/media/')[1], "tags": tags_submit}
+        context = {'image': "/media/" + image.image.name, "tags": tags_submit}
     else:
         context = {"tags": tags_submit}
     return HttpResponse(json.dumps(context),
@@ -168,7 +168,7 @@ def add_image(request):
     image = UserImage.objects.create(submission=submission)
     image.image = ContentFile(request.POST['image'], name='tom')
     image.save()
-    return HttpResponse(json.dumps({'url': "/media/" + image.image.name.split('/media/')[1]}),
+    return HttpResponse(json.dumps({'url': "/media/" + image.image.name}),
                         content_type="application/json")
 
 
