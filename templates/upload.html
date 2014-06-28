@@ -21,160 +21,175 @@
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,900,700,200' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<div class="main-app main-app-background">
-    <div class="veritcal-center horizontal-center" id="inner-wrap">
-        <img src="{% static 'iPad pngs/i-am-tom-white-small.png' %}"/>
+<header>
+    <div style="float: left"><img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}" alt="tom"/></div>
+    <div class="nav-bar">
+        <a href="#">ABOUT</a>
+        <a href="#">EVENT</a>>
+        <a href="#">EMDA</a>
+        <a href="#"><strong>I AM TOM*</strong></a>
+        <a href="#">CONTACT</a>
+        </ul>
+    </div>
+</header>
+<div class="full-back">
+    <div class="main-app main-app-background">
+        <div class="veritcal-center horizontal-center" id="inner-wrap">
+            <img src="{% static 'iPad pngs/i-am-tom-white-small.png' %}"/>
 
-        <div class="transparent-box" style="padding: 10px 20px; width: 40%; margin: 20px auto">
-            <button id="media-library">MEDIA LIBRARY</button>
-            <button id="upload-photo-button">UPLOAD PHOTO</button>
-            <input type="file" id="upload-file" style="display: none" accept="image/*">
-            {% if not request.is_mobile %}
-                <button id="take-photo-button">TAKE A PHOTO</button>
-            {% endif %}
+            <div class="transparent-box" style="padding: 10px 20px; width: 40%; margin: 20px auto">
+                <button id="media-library">MEDIA LIBRARY</button>
+                <button id="upload-photo-button">UPLOAD PHOTO</button>
+                <input type="file" id="upload-file" style="display: none" accept="image/*">
+                {% if not request.is_mobile %}
+                    <button id="take-photo-button">TAKE A PHOTO</button>
+                {% endif %}
+            </div>
+            <img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}"/>
         </div>
-        <img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}"/>
-    </div>
-    <div style="display: none; padding: 20px; background: #fff;" id="instagram-lib">
-        <div style="position: fixed;">
-            <button id="instagram-selected" style="width: auto;">Select</button>
-            <button id="back-select" style="width: auto;">Back</button>
-        </div>
-        <div id="images" style="margin-top: 100px">
-            <select id="instafeed">
+        <div style="display: none; padding: 20px; background: #fff; padding-top: 50px;" id="instagram-lib">
+            <div style="position: fixed;">
+                <button id="instagram-selected" style="width: auto;">Select</button>
+                <button id="back-select" style="width: auto;">Back</button>
+            </div>
+            <div id="images" style="margin-top: 100px">
+                <select id="instafeed">
 
-            </select>
+                </select>
+            </div>
         </div>
-    </div>
-    <div style="display: none; background: #fff; width: 100%; height: 100%;" id="take-photo-div">
-        <video id="video" width="640" height="480" autoplay></video>
-        <button id="snap" style="display: none">Snap Photo</button>
-    </div>
-    <div class="after-inst" style="display: none; height: 100%">
-        <div style="width: 25%; height: 100%; background: #fff; float: left; position: relative">
-            <div class="veritcal-center horizontal-center">
+        <div style="display: none; background: #fff; width: 100%; height: 100%; padding-top: 50px;" id="take-photo-div">
+            <video id="video" width="640" height="480" autoplay></video>
+            <button id="snap" style="display: none">Snap Photo</button>
+        </div>
+        <div class="after-inst" style="display: none; height: 100%; padding-top: 50px;">
+            <div style="width: 25%; height: 100%; background: #fff; float: left; position: relative">
+                <div class="veritcal-center horizontal-center">
                 <span id="current-instruction" style="padding: 0 10px">CLICK AND DRAG TO
                 CROP YOUR PHOTO.</span> <br>
+                </div>
+                <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"
+                     style="position: absolute; bottom: 20px; left: 20px"/>
             </div>
-            <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"
-                 style="position: absolute; bottom: 20px; left: 20px"/>
-        </div>
-        <div style="width: 75%;  height: 100%; background: #000; display: inline-block" id="image-main">
-            <div id="main-image" style="width: 100%;  height: 100%;"></div>
-            <div style="float: right; overflow: hidden; top: 0; width: 100%; height: 100%; z-index: 100; margin-top: -100%; padding-top: 35%">
-                <img src="{% static 'iPad pngs/Arrows.png' %}" id="arrow" alt=""
-                     style="position: relative; left: 220px; margin-bottom: 50px"/>
-                <img src="{% static 'iPad pngs/i-am-tom-white-large.png' %}" id="imtom" alt=""
-                     style="position: relative; left: 80px;"/>
+            <div style="width: 75%;  height: 100%; background: #000; display: inline-block" id="image-main">
+                <div id="main-image" style="width: 100%;  height: 100%;"></div>
+                <div style="float: right; overflow: hidden; top: 0; width: 100%; height: 100%; z-index: 100; margin-top: -100%; padding-top: 35%">
+                    <img src="{% static 'iPad pngs/Arrows.png' %}" id="arrow" alt=""
+                         style="position: relative; left: 220px; margin-bottom: 50px"/>
+                    <img src="{% static 'iPad pngs/i-am-tom-white-large.png' %}" id="imtom" alt=""
+                         style="position: relative; left: 80px;"/>
 
-                <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px">
-                    <button style="float: left; color: #fff; background: rgba(255, 255, 255, 0.33)" id="back-to-select">
-                        BACK
-                    </button>
-                    <button style="float: right; color: #fff; background: rgba(255, 255, 255, 0.33)" id="finish">DONE
-                    </button>
+                    <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px">
+                        <button style="float: left; color: #fff; background: rgba(255, 255, 255, 0.33)"
+                                id="back-to-select">
+                            BACK
+                        </button>
+                        <button style="float: right; color: #fff; background: rgba(255, 255, 255, 0.33)" id="finish">
+                            DONE
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="saved-image" style="display: none; height: 100%; padding-top: 50px;">
+            <div style="width: 25%; height: 100%; background: #fff; float: left; position: relative">
+                <div class="veritcal-center horizontal-center">
+                    <span id="current-instruction" style="padding: 0 10px;  margin-bottom: 20px">SHARE YOUR IMAGE</span>
+                    <br>
+                    <img src="{% static 'iPad pngs/facebook-botton.png' %}" style="margin-right: 30px;"
+                         id="facebook-share"/>
+                    {% if instagram_number %}
+                        <img src="{% static 'iPad pngs/instagram-botton.png' %}" id="instagram-share"/>
+                    {% endif %}
+                    <br style=" margin-bottom: 20px">
+                    <a href="" data-pin-do="buttonPin" id="pinterest-share"
+                       data-pin-config="above"><img src="{% static 'iPad pngs/pinterest-botton.png' %}"
+                                                    style="margin-right: 30px"/>
+                        <a href="" id="twitter-share"><img src="{% static 'iPad pngs/Twitter-botton.png' %}"/></a>
+                    </a>
+                </div>
+                <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"
+                     style="position: absolute; bottom: 20px; left: 20px"/>
+            </div>
+            <div style="width: 75%;  height: 100%; background: #000; display: inline-block">
+                <div id="saved-image" style="width: 100%;  height: 100%;"></div>
+                <div style="float: right; overflow: hidden; top: 0; width: 100%; height: 100%; z-index: 100; margin-top: -100%; padding-top: 35%">
+                    <p style="text-align: center; color: #FFF; font-size: 70px; position: relative" id="saved-text">
+                        SAVED!</p>
+                    <img src="{% static 'iPad pngs/i-am-tom-white-large.png' %}" alt=""
+                         style="position: relative; left: 80px; visibility: hidden"/>
+
+                    <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px">
+                        <button style="float: right; color: #fff;  background: rgba(255, 255, 255, 0.33)" id="done">DONE
+                        </button>
+                    </div>
                 </div>
             </div>
-
         </div>
-    </div>
-    <div class="saved-image" style="display: none; height: 100%">
-        <div style="width: 25%; height: 100%; background: #fff; float: left; position: relative">
-            <div class="veritcal-center horizontal-center">
-                <span id="current-instruction" style="padding: 0 10px;  margin-bottom: 20px">SHARE YOUR IMAGE</span>
-                <br>
-                <img src="{% static 'iPad pngs/facebook-botton.png' %}" style="margin-right: 30px;"
-                     id="facebook-share"/>
-                {% if instagram_number %}
-                    <img src="{% static 'iPad pngs/instagram-botton.png' %}" id="instagram-share"/>
-                {% endif %}
-                <br style=" margin-bottom: 20px">
-                <a href="" data-pin-do="buttonPin" id="pinterest-share"
-                   data-pin-config="above"><img src="{% static 'iPad pngs/pinterest-botton.png' %}"
-                                                style="margin-right: 30px"/>
-                    <a href="" id="twitter-share"><img src="{% static 'iPad pngs/Twitter-botton.png' %}"/></a>
+        <div id="done-div" style="display: none; padding-top: 50px;">
+            <img src="{% static 'iPad pngs/i-am-tom-white-small.png' %}"/>
+
+            <div class="transparent-box" style="padding: 10px 20px; width: 40%; margin: 20px auto">
+                <h1 style="color: #fff; font-size: 2em">DONE!</h1>
+                <hr>
+                <p>Keep an eye out for your TOM* to
+                    be featured in the wall of TOM* by
+                    visiting our gallery or on site at
+                    Toronto’s first ever Men’s Fashion
+                    Week.</p>
+                <a href="/">
+                    <button>ATTEND TOM*FW</button>
                 </a>
             </div>
-            <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"
-                 style="position: absolute; bottom: 20px; left: 20px"/>
+            <img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}"/>
         </div>
-        <div style="width: 75%;  height: 100%; background: #000; display: inline-block">
-            <div id="saved-image" style="width: 100%;  height: 100%;"></div>
-            <div style="float: right; overflow: hidden; top: 0; width: 100%; height: 100%; z-index: 100; margin-top: -100%; padding-top: 35%">
-                <p style="text-align: center; color: #FFF; font-size: 70px; position: relative" id="saved-text">
-                    SAVED!</p>
-                <img src="{% static 'iPad pngs/i-am-tom-white-large.png' %}" alt=""
-                     style="position: relative; left: 80px; visibility: hidden"/>
+        <div id="CSPhotoSelector" style="display: none; width: 100%; height: 100%; padding: 100px 0 0;position: static">
+            <div class="CSPhotoSelector_dialog">
+                <a href="#" id="CSPhotoSelector_buttonClose">x</a>
 
-                <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px">
-                    <button style="float: right; color: #fff;  background: rgba(255, 255, 255, 0.33)" id="done">DONE
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="veritcal-center horizontal-center" id="done-div" style="display: none">
-        <img src="{% static 'iPad pngs/i-am-tom-white-small.png' %}"/>
-
-        <div class="transparent-box" style="padding: 10px 20px; width: 40%; margin: 20px auto">
-            <h1 style="color: #fff; font-size: 2em">DONE!</h1>
-            <hr>
-            <p>Keep an eye out for your TOM* to
-                be featured in the wall of TOM* by
-                visiting our gallery or on site at
-                Toronto’s first ever Men’s Fashion
-                Week.</p>
-            <a href="/">
-                <button>ATTEND TOM*FW</button>
-            </a>
-        </div>
-        <img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}"/>
-    </div>
-    <div id="CSPhotoSelector" style="display: none; width: 100%; height: 100%; padding: 0; position: static">
-        <div class="CSPhotoSelector_dialog">
-            <a href="#" id="CSPhotoSelector_buttonClose">x</a>
-
-            <div class="CSPhotoSelector_form">
-                <div class="CSPhotoSelector_header">
-                    <p>Choose from Photos</p>
-                </div>
-                <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
-                    <p>Browse your albums until you find a picture you want to use</p>
-
-                    <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
-                        <div class="CSPhotoSelector_selectedCountContainer">Select an album</div>
+                <div class="CSPhotoSelector_form">
+                    <div class="CSPhotoSelector_header">
+                        <p>Choose from Photos</p>
                     </div>
-                    <div class="CSPhotoSelector_photosContainer CSAlbum_container"></div>
-                </div>
+                    <div class="CSPhotoSelector_content CSAlbumSelector_wrapper">
+                        <p>Browse your albums until you find a picture you want to use</p>
 
-                <div class="CSPhotoSelector_content CSPhotoSelector_wrapper" style="overflow: visible">
-                    <p>Select a new photo</p>
-
-                    <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
-                        <div class="CSPhotoSelector_selectedCountContainer"><span
-                                class="CSPhotoSelector_selectedPhotoCount">0</span> / <span
-                                class="CSPhotoSelector_selectedPhotoCountMax">0</span> photos selected
+                        <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+                            <div class="CSPhotoSelector_selectedCountContainer">Select an album</div>
                         </div>
-                        <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
+                        <div class="CSPhotoSelector_photosContainer CSAlbum_container"></div>
                     </div>
-                    <div class="CSPhotoSelector_photosContainer CSPhoto_container"
-                         style="overflow-y: scroll; height: 300px;"></div>
-                </div>
 
-                <div id="CSPhotoSelector_loader"></div>
+                    <div class="CSPhotoSelector_content CSPhotoSelector_wrapper" style="overflow: visible">
+                        <p>Select a new photo</p>
 
-
-                <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
-                    <a href="#" id="CSPhotoSelector_pagePrev" class="CSPhotoSelector_disabled">Previous</a>
-                    <a href="#" id="CSPhotoSelector_pageNext">Next</a>
-
-                    <div class="CSPhotoSelector_pageNumberContainer">
-                        Page <span id="CSPhotoSelector_pageNumber">1</span> / <span
-                            id="CSPhotoSelector_pageNumberTotal">1</span>
+                        <div class="CSPhotoSelector_searchContainer CSPhotoSelector_clearfix">
+                            <div class="CSPhotoSelector_selectedCountContainer"><span
+                                    class="CSPhotoSelector_selectedPhotoCount">0</span> / <span
+                                    class="CSPhotoSelector_selectedPhotoCountMax">0</span> photos selected
+                            </div>
+                            <a href="#" id="CSPhotoSelector_backToAlbums">Back to albums</a>
+                        </div>
+                        <div class="CSPhotoSelector_photosContainer CSPhoto_container"
+                             style="overflow-y: scroll; height: 300px;"></div>
                     </div>
-                    <a href="#" id="CSPhotoSelector_buttonOK">OK</a>
-                    <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
 
+                    <div id="CSPhotoSelector_loader"></div>
+
+
+                    <div class="CSPhotoSelector_footer CSPhotoSelector_clearfix">
+                        <a href="#" id="CSPhotoSelector_pagePrev" class="CSPhotoSelector_disabled">Previous</a>
+                        <a href="#" id="CSPhotoSelector_pageNext">Next</a>
+
+                        <div class="CSPhotoSelector_pageNumberContainer">
+                            Page <span id="CSPhotoSelector_pageNumber">1</span> / <span
+                                id="CSPhotoSelector_pageNumberTotal">1</span>
+                        </div>
+                        <a href="#" id="CSPhotoSelector_buttonOK">OK</a>
+                        <a href="#" id="CSPhotoSelector_buttonCancel">Cancel</a>
+
+                    </div>
                 </div>
             </div>
         </div>
