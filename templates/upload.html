@@ -25,9 +25,9 @@
     <div style="float: left"><img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}" alt="tom"/></div>
     <div class="nav-bar">
         <a href="#">ABOUT</a>
-        <a href="#">EVENT</a>>
+        <a href="#">EVENT</a>
         <a href="#">EMDA</a>
-        <a href="#"><strong>I AM TOM*</strong></a>
+        <a href="#">I AM TOM*</a>
         <a href="#">CONTACT</a>
         </ul>
     </div>
@@ -99,16 +99,16 @@
                     <br>
                     <img src="{% static 'iPad pngs/facebook-botton.png' %}" style="margin-right: 30px;"
                          id="facebook-share"/>
-                    <br>
-                    {% if instagram_number %}
-                        <img src="{% static 'iPad pngs/instagram-botton.png' %}" id="instagram-share"/><br>
-                    {% endif %}
                     <br style=" margin-bottom: 20px">
+                    {% if instagram_number %}
+                        <img src="{% static 'iPad pngs/instagram-botton.png' %}" id="instagram-share" style="margin-right: 30px;"/><br>
+                        <br style=" margin-bottom: 20px">
+                    {% endif %}
                     <a href="" data-pin-do="buttonPin" id="pinterest-share"
                        data-pin-config="above"><img src="{% static 'iPad pngs/pinterest-botton.png' %}"
                                                     style="margin-right: 30px"/>
-                        <br>
-                        <a href="" id="twitter-share"><img src="{% static 'iPad pngs/Twitter-botton.png' %}"/></a>
+                        <br style=" margin-bottom: 20px">
+                        <a href="" id="twitter-share"><img src="{% static 'iPad pngs/Twitter-botton.png' %}" style="margin-right: 30px;"/></a>
                     </a>
                 </div>
                 <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"
@@ -129,7 +129,7 @@
                 </div>
             </div>
         </div>
-        <div id="done-div" style="display: none; padding-top: 50px;">
+        <div id="done-div" style="display: none; padding-top: 50px; text-align: center">
             <img src="{% static 'iPad pngs/i-am-tom-white-small.png' %}"/>
 
             <div class="transparent-box" style="padding: 10px 20px; width: 40%; margin: 20px auto">
