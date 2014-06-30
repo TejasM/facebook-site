@@ -24,11 +24,31 @@
 <header>
     <div style="float: left"><img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}" alt="tom"/></div>
     <div class="nav-bar">
-        <a href="#">ABOUT</a>
-        <a href="#">EVENT</a>
-        <a href="#">EMDA</a>
-        <a href="#">I AM TOM*</a>
-        <a href="#">CONTACT</a>
+        <ul style="list-style: none; display: inline-block">
+            <li><a href="#">ABOUT</a>
+                <ul class="sub-menu" style="display: none; opacity: 0;">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-372"><a
+                            href="http://www.tomfw.com/tom-magazine/">TOM* Magazine</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">EVENT</a>
+                <ul class="sub-menu" style="display: none; opacity: 0;">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-15 current_page_item menu-item-50">
+                        <a href="http://www.tomfw.com/designers/">Designers</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a
+                            href="http://www.tomfw.com/partners/">Partners</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">EMDA</a></li>
+            <li><a href="#">I AM TOM*</a></li>
+            <li><a href="#">CONTACT</a>
+                <ul class="sub-menu" style="display: none; opacity: 0;">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-44"><a
+                            href="http://www.tomfw.com/get-to-tom/">Get to TOM*</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </header>
@@ -101,14 +121,16 @@
                          id="facebook-share"/>
                     <br style=" margin-bottom: 20px">
                     {% if instagram_number %}
-                        <img src="{% static 'iPad pngs/instagram-botton.png' %}" id="instagram-share" style="margin-right: 30px;"/><br>
+                        <img src="{% static 'iPad pngs/instagram-botton.png' %}" id="instagram-share"
+                             style="margin-right: 30px;"/><br>
                         <br style=" margin-bottom: 20px">
                     {% endif %}
                     <a href="" data-pin-do="buttonPin" id="pinterest-share"
                        data-pin-config="above"><img src="{% static 'iPad pngs/pinterest-botton.png' %}"
                                                     style="margin-right: 30px"/>
                         <br style=" margin-bottom: 20px">
-                        <a href="" id="twitter-share"><img src="{% static 'iPad pngs/Twitter-botton.png' %}" style="margin-right: 30px;"/></a>
+                        <a href="" id="twitter-share"><img src="{% static 'iPad pngs/Twitter-botton.png' %}"
+                                                           style="margin-right: 30px;"/></a>
                     </a>
                 </div>
                 <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"

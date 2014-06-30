@@ -821,20 +821,20 @@ button:hover, button:active, button:focus {
 }
 
 header {
-    width: 100%;
+    max-width: 960px;
     height: 50px;
-    padding: 30px;
+    margin: 0 auto;
+    padding: 36px 15px;
 }
 
 .nav-bar {
     display: inline;
     text-align: right;
     float: right;
-    padding-right: 30px;
+
 }
 
-.nav-bar a {
-    margin-right: 60px;
+.nav-bar > ul > li > a {
     color: #fff;
     font-family: 'Lusitana', sans-serif;
     display: block;
@@ -844,14 +844,65 @@ header {
     float: left;
     text-decoration: none;
     line-height: 16px;
+    text-align: left;
+    padding: 0 0 36px 0;
 }
 
-.nav-bar a:after {
+.nav-bar > ul > li > ul > li > a {
+    color: #fff;
+    font-family: 'Lusitana', sans-serif;
+    display: block;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 600;
+    float: left;
+    text-decoration: none;
+    line-height: 16px;
+    text-align: left;
+}
+
+.nav-bar > ul > li:not(:first-child) {
+    margin-left: 15px;
+}
+
+.nav-bar > ul > li > ul > li {
+    display: block;
+}
+
+.nav-bar > ul > li > a:after {
     content: "";
     position: relative;
     font-size: 10px;
     display: inline-block !important;
     margin-left: 6px;
+}
+
+.nav-bar > ul > li > a:before {
+    background-color: #888888;
+    content: "";
+    display: block;
+    height: 0;
+    width: 100%;
+    position: absolute;
+    top: -36px;
+    left: 0px;
+    -webkit-transition: all 0.15s;
+    -moz-transition: all 0.15s;
+    transition: all 0.15s;
+}
+
+.nav-bar > ul > li:hover > a:before {
+    background-color: #888888;
+    content: "";
+    display: block;
+    height: 6px;
+    width: 100%;
+    position: absolute;
+    top: -36px;
+    left: 0px;
+    -webkit-transition: all 0.15s;
+    -moz-transition: all 0.15s;
+    transition: all 0.15s;
 }
 
 .full-back {
@@ -861,4 +912,39 @@ header {
     -o-background-size: cover;
     background-size: cover;
     height: 700px;
+}
+
+.nav-bar > ul > li {
+    display: inline-block;
+    position: relative;
+}
+
+.nav-bar ul ul {
+    text-transform: none;
+    display: none;
+    width: 200px;
+    position: absolute;
+    top: 100%;
+    left: -10px;
+    z-index: 100;
+    background: #000000;
+    margin-top: 0;
+    font-size: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #bbbbbb;
+    padding: 6px 12px;
+    text-align: left;
+}
+
+.sub-menu {
+    list-style: none;
+}
+
+.nav-bar ul ul li:not(:first-child) {
+    display: block;
+    float: none;
+    margin-left: 0;
+    border-top: 1px solid #eaeaea;
+    margin-top: 20px;
+    padding-top: 5px;
 }

@@ -24,11 +24,31 @@
 <header>
     <div style="float: left"><img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}" alt="tom"/></div>
     <div class="nav-bar">
-        <a href="#">ABOUT</a>
-        <a href="#">EVENT</a>
-        <a href="#">EMDA</a>
-        <a href="#">I AM TOM*</a>
-        <a href="#">CONTACT</a>
+        <ul style="list-style: none; display: inline-block">
+            <li><a href="#">ABOUT</a>
+                <ul class="sub-menu" style="display: none; opacity: 0;">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-372"><a
+                            href="http://www.tomfw.com/tom-magazine/">TOM* Magazine</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">EVENT</a>
+                <ul class="sub-menu" style="display: none; opacity: 0;">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-15 current_page_item menu-item-50">
+                        <a href="http://www.tomfw.com/designers/">Designers</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a
+                            href="http://www.tomfw.com/partners/">Partners</a></li>
+                </ul>
+            </li>
+
+            <li><a href="#">EMDA</a></li>
+            <li><a href="#">I AM TOM*</a></li>
+            <li><a href="#">CONTACT</a>
+                <ul class="sub-menu" style="display: none; opacity: 0;">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-44"><a
+                            href="http://www.tomfw.com/get-to-tom/">Get to TOM*</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </header>
@@ -67,6 +87,14 @@
         setTimeout(function () {
             $('.after-trans').fadeIn(3000);
         }, 1000);
+
+        $('.nav-bar').find('> ul li').hover(function () {
+            $(this).find('ul').css({'display': 'block', 'opacity': '1'});
+            $(this).find('> ul > li > a:before').css('height', '6px');
+        }, function () {
+            $(this).find('ul').css({'display': 'none', 'opacity': '0'});
+            $(this).find('> ul > li > a:before').css('height', '0');
+        })
     });
 </script>
 </html>
