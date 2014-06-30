@@ -48,7 +48,7 @@ def upload(request):
                           twitter_social.tokens['oauth_token'], twitter_social.tokens['oauth_token_secret'])
             date_now = timezone.now() - relativedelta(years=2)
             urls = []
-           # if len(profile.urls) < 10:
+            # if len(profile.urls) < 10:
             max_id = None
             profile.urls = ""
             for i in range(10):
@@ -95,7 +95,7 @@ def add_media_file(request):
     name = str(len(UserImage.objects.filter(submission=submission))) + ".png"
     image = UserImage.objects.create(submission=submission)
     imag = request.POST['image']
-    if "data:image/png" in imag:
+    if "data:image/png" in imag or "data:image/jpeg" in imag:
         imag = re.search(r'base64,(.*)', imag).group(1)
         file_content = ContentFile(imag.decode('base64'))
     else:
