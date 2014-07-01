@@ -119,10 +119,8 @@
             <div style="width: 25%; height: 100%; background: #fff; float: left; position: relative">
                 <div class="veritcal-center horizontal-center">
                     <span id="current-instruction" style="padding: 0 10px;  margin-bottom: 20px">SHARE YOUR IMAGE</span>
-                    <br>
                     <img src="{% static 'iPad pngs/facebook-botton.png' %}" style="margin-top: 20px"
                          id="facebook-share"/>
-                    <br style=" margin-bottom: 20px">
                     {% if instagram_number %}
                         <img src="{% static 'iPad pngs/instagram-botton.png' %}" id="instagram-share"
                              style="margin-top: 20px"/><br>
@@ -131,7 +129,6 @@
                     <a href="" data-pin-do="buttonPin" id="pinterest-share" target="_blank"
                        data-pin-config="above"><img src="{% static 'iPad pngs/pinterest-botton.png' %}"
                                                     style="margin-top: 20px"/>
-                        <br style=" margin-bottom: 20px">
                         <a href="" id="twitter-share"><img src="{% static 'iPad pngs/Twitter-botton.png' %}"
                                                            style="margin-top: 20px"/></a>
                     </a>
@@ -469,8 +466,9 @@ $('#finish').click(function () {
                         $(this).hide();
                     });
                     $('#instagram-share').click(function () {
-                        $.post('/share-instagram/', {'photo': data['url']}, function () {
+                        $.post('/share-instagram/', {'photo': data['url']}, function (data) {
                             $('#instagram-share').hide();
+                            console.log(data['text']);
                         });
                     });
                     $('#twitter-share').attr('href', 'http://twitter.com/share?text=I%20have%20just%20created%20my%20own%20TOM.&url=http%3A%2F%2Fiamtom.com' + data['url']);

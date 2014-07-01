@@ -311,4 +311,5 @@ def share_instagram(request):
                                                                          'access_token': instagram_social.tokens[
                                                                              'access_token']})
         print r.text
-    return HttpResponse('', content_type='application/json')
+        return HttpResponse(json.dumps({'text': r.text}), content_type='application/json')
+    return HttpResponse(json.dumps({}), content_type='application/json')
