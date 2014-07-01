@@ -102,7 +102,7 @@ def add_media_file(request):
         imag = re.search(r'base64,(.*)', imag).group(1)
         file_content = ContentFile(imag.decode('base64'))
     else:
-        response = requests.get(request.POST['image'])
+        response = requests.get(imag)
         file_content = ContentFile(response.content)
     image.image.save(name, file_content)
     image.save()
