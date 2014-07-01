@@ -55,6 +55,8 @@
 <div class="full-back">
     <div class="main-app main-app-background">
         <div class="veritcal-center horizontal-center" id="inner-wrap">
+            <div id="ajax-loader"
+                 style="position: absolute; height: 100%; width: 100%; opacity: 0.3; display: none; background: url('{% static 'AjaxLoader.gif' %}') no-repeat center; background-size: contain; z-index: 100;"></div>
             <img src="{% static 'iPad pngs/i-am-tom-white-small.png' %}"/>
 
             <div class="transparent-box" style="padding: 10px 20px; width: 40%; margin: 20px auto">
@@ -104,7 +106,8 @@
                                 id="back-to-select">
                             BACK
                         </button>
-                        <button style="float: right; color: #fff; background: rgba(255, 255, 255, 0.33); margin-right: 20px;" id="finish">
+                        <button style="float: right; color: #fff; background: rgba(255, 255, 255, 0.33); margin-right: 20px;"
+                                id="finish">
                             DONE
                         </button>
                     </div>
@@ -145,7 +148,8 @@
                          style="position: relative; left: 80px; visibility: hidden"/>
 
                     <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px">
-                        <button style="float: right; color: #fff;  background: rgba(255, 255, 255, 0.33); margin-right: 20px;" id="done">DONE
+                        <button style="float: right; color: #fff;  background: rgba(255, 255, 255, 0.33); margin-right: 20px;"
+                                id="done">DONE
                         </button>
                     </div>
                 </div>
@@ -575,6 +579,7 @@ $(function () {
         imageObj.onload = function () {
             drawImageDraggable(imageObj);
         };
+        $('#ajax-loader').show();
         var FR = new FileReader();
         FR.onload = function (e) {
             $.ajax({
@@ -588,6 +593,7 @@ $(function () {
                 success: function (data) {
                     imageObj.src = data["image"];
                     $('#inner-wrap').hide();
+                    $('#ajax-loader').hide();
                     $('.after-inst').show();
                 },
                 error: function (x, t, m) {
