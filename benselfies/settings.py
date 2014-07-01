@@ -196,7 +196,8 @@ TWITTER_CONSUMER_SECRET = '6oA7jGvtEHsq1BcaL8wY6FNqAEL3f1V9ttwx9DiiycLycSrNKu'
 FACEBOOK_APP_ID = '276771405831053'
 FACEBOOK_API_SECRET = '0749bc152df64690df3801bcada9804a'
 
-FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'user_photos', 'publish_stream', 'photo_upload', 'friends_photos']
+FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'user_photos', 'publish_stream', 'photo_upload', 'friends_photos',
+                                 'publish_actions']
 # #
 import dj_database_url
 

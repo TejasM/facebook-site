@@ -104,7 +104,7 @@
                                 id="back-to-select">
                             BACK
                         </button>
-                        <button style="float: right; color: #fff; background: rgba(255, 255, 255, 0.33)" id="finish">
+                        <button style="float: right; color: #fff; background: rgba(255, 255, 255, 0.33); margin-right: 20px;" id="finish">
                             DONE
                         </button>
                     </div>
@@ -117,20 +117,20 @@
                 <div class="veritcal-center horizontal-center">
                     <span id="current-instruction" style="padding: 0 10px;  margin-bottom: 20px">SHARE YOUR IMAGE</span>
                     <br>
-                    <img src="{% static 'iPad pngs/facebook-botton.png' %}" style="margin-right: 30px;"
+                    <img src="{% static 'iPad pngs/facebook-botton.png' %}" style="margin-top: 20px"
                          id="facebook-share"/>
                     <br style=" margin-bottom: 20px">
                     {% if instagram_number %}
                         <img src="{% static 'iPad pngs/instagram-botton.png' %}" id="instagram-share"
-                             style="margin-right: 30px;"/><br>
+                             style="margin-top: 20px"/><br>
                         <br style=" margin-bottom: 20px">
                     {% endif %}
-                    <a href="" data-pin-do="buttonPin" id="pinterest-share"
+                    <a href="" data-pin-do="buttonPin" id="pinterest-share" target="_blank"
                        data-pin-config="above"><img src="{% static 'iPad pngs/pinterest-botton.png' %}"
-                                                    style="margin-right: 30px"/>
+                                                    style="margin-top: 20px"/>
                         <br style=" margin-bottom: 20px">
                         <a href="" id="twitter-share"><img src="{% static 'iPad pngs/Twitter-botton.png' %}"
-                                                           style="margin-right: 30px;"/></a>
+                                                           style="margin-top: 20px"/></a>
                     </a>
                 </div>
                 <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"
@@ -145,7 +145,7 @@
                          style="position: relative; left: 80px; visibility: hidden"/>
 
                     <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px">
-                        <button style="float: right; color: #fff;  background: rgba(255, 255, 255, 0.33)" id="done">DONE
+                        <button style="float: right; color: #fff;  background: rgba(255, 255, 255, 0.33); margin-right: 20px;" id="done">DONE
                         </button>
                     </div>
                 </div>
