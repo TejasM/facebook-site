@@ -273,6 +273,7 @@ $(function () {
         sortBy: 'most-recent',
         accessToken: '{{ access_token }}',
         'links': false,
+        'resolution': 'standard_resolution',
         template: '<option data-img-src="' + '{{ "{{image}" }}}" value="' + '{{ "{{image}" }}}"></option>',
         after: function () {
             $('#instafeed').imagepicker();
