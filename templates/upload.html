@@ -258,7 +258,7 @@
 
 $(function () {
     FB.init({
-        appId: '151985691672341',                        // App ID from the app dashboard
+        appId: '276771405831053',                        // App ID from the app dashboard
         cookie: true,
         status: true,                                 // Check Facebook Login status
         xfbml: true                                  // Look for social plugins on the page
@@ -468,7 +468,7 @@ $('#finish').click(function () {
                 success: function (data) {
                     $('#pinterest-share').attr('href', 'http://www.pinterest.com/pin/create/button/?url=http%3A%2F%2Fiamtom.com&media=http%3A%2F%2Fiamtom.com' + data['url'] + '&description=Next%20stop%3A%20Pinterest');
                     $('#pinterest-share').click(function () {
-                        $(this).attr('src', '{% static 'iPad pngs/pinterest-grey-botton.png' %}');
+                        this.src = '{% static 'iPad pngs/pinterest-grey-botton.png' %}';
                     });
                     $('#instagram-share').click(function () {
                         $.post('/share-instagram/', {'photo': data['url']}, function (data) {
