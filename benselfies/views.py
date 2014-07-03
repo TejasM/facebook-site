@@ -1,28 +1,21 @@
-from datetime import date, datetime
+from datetime import datetime
 import json
 import cStringIO
-from lxml import html
 import random
 import re
-import urllib
-from dateutil.relativedelta import relativedelta
-from django.conf import settings
-from django.contrib import messages
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect, render
-from django.template import RequestContext
 from django.utils import timezone
-from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import csrf_exempt
 import requests
 from social_auth.db.django_models import UserSocialAuth
+
 from benselfies.models import UserSubmission, UserImage, Submission, UserProfile
-from twython import Twython
+
 
 __author__ = 'tmehta'
 
@@ -278,11 +271,6 @@ def terms(request):
 def share_instagram(request):
     if request.method == "POST":
         instagram_social = UserSocialAuth.objects.get(user=request.user, provider='instagram')
-        c = requests.session()
-        r = c.get('https://instagram.com/accounts/login/')
-        tree = html.fromstring(r.text)
-        inp = tree.xpath('//*[@id="login-form"]/input').value
-        c.request('post', 'https://instagram.com/accounts/login/')
         r = requests.post('http://instagr.am/api/v1/media/upload/', {'photo': request.POST['photo'],
                                                                          'device_timestamp': timezone.now(),
                                                                          'lat': 0,
