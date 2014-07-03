@@ -1,6 +1,7 @@
 from datetime import date, datetime
 import json
 import cStringIO
+from lxml import html
 import random
 import re
 import urllib
@@ -277,7 +278,12 @@ def terms(request):
 def share_instagram(request):
     if request.method == "POST":
         instagram_social = UserSocialAuth.objects.get(user=request.user, provider='instagram')
-        r = requests.post('https://instagram.com/api/v1/media/upload/', {'photo': request.POST['photo'],
+        c = requests.session()
+        r = c.get('https://instagram.com/accounts/login/')
+        tree = html.fromstring(r.text)
+        inp = tree.xpath('//*[@id="login-form"]/input').value
+        c.request('post', 'https://instagram.com/accounts/login/')
+        r = requests.post('http://instagr.am/api/v1/media/upload/', {'photo': request.POST['photo'],
                                                                          'device_timestamp': timezone.now(),
                                                                          'lat': 0,
                                                                          'lng': 0,
