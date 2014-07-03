@@ -137,7 +137,9 @@ def add_image(request):
     except UserSubmission.DoesNotExist:
         submission = UserSubmission.objects.create()
     image = UserImage.objects.create(submission=submission)
-    image.image = ContentFile(request.POST['image'], name='tom')
+    imag = re.search(r'base64,(.*)', request.POST['image']).group(1)
+    file_content = ContentFile(imag.decode('base64'), name='tom.png')
+    image.image = file_content
     image.save()
     return HttpResponse(json.dumps({'url': "/media/" + image.image.name}),
                         content_type="application/json")
@@ -272,11 +274,11 @@ def share_instagram(request):
     if request.method == "POST":
         instagram_social = UserSocialAuth.objects.get(user=request.user, provider='instagram')
         r = requests.post('http://instagr.am/api/v1/media/upload/', {'photo': request.POST['photo'],
-                                                                         'device_timestamp': timezone.now(),
-                                                                         'lat': 0,
-                                                                         'lng': 0,
-                                                                         'access_token': instagram_social.tokens[
-                                                                             'access_token']})
+                                                                     'device_timestamp': timezone.now(),
+                                                                     'lat': 0,
+                                                                     'lng': 0,
+                                                                     'access_token': instagram_social.tokens[
+                                                                         'access_token']})
         print r.text
         return HttpResponse(json.dumps({'text': r.text}), content_type='application/json')
     return HttpResponse(json.dumps({}), content_type='application/json')
