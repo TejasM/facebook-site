@@ -199,12 +199,12 @@ FACEBOOK_API_SECRET = '0749bc152df64690df3801bcada9804a'
 FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'user_photos', 'publish_stream', 'photo_upload', 'friends_photos',
                                  'publish_actions']
 # #
-import dj_database_url
-
-DATABASES['default'] = dj_database_url.config()
-
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-#Allow all host headers
-ALLOWED_HOSTS = ['*']
+# import dj_database_url
+#
+# DATABASES['default'] = dj_database_url.config()
+#
+# # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#
+# #Allow all host headers
+# ALLOWED_HOSTS = ['*']
