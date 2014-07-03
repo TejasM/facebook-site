@@ -497,7 +497,7 @@ $('#finish').click(function () {
                         FB.login(function (response) {
                             var user_id = response.authResponse.userID;
                             var page_id = "171685016222749"; //Change to this page
-                            FB.api('/me/photos?access_token={{ access_token }}', 'post', data, function (response) {
+                            FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', data, function (response) {
                                 if (response.post_id) {
                                     $.post('/post_id/', {post_id: response.post_id}).done(
                                             function () {
@@ -506,7 +506,7 @@ $('#finish').click(function () {
                                 } else {
                                 }
                             });
-                        }, {scope: 'user_likes,user_photos,publish_stream,photo_upload,friends_photos,publish_actions'});
+                        }, {scope: 'user_photos,publish_stream,photo_upload,friends_photos,publish_actions'});
                     });
                     $('html').click(function () {
                         $('#saved-text').css('opacity', '0');
