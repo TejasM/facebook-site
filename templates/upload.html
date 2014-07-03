@@ -60,7 +60,9 @@
             <img src="{% static 'iPad pngs/i-am-tom-white-small.png' %}"/>
 
             <div class="transparent-box" style="padding: 10px 20px; width: 40%; margin: 20px auto">
-                <button id="media-library">MEDIA LIBRARY</button>
+                {% if not twitter %}
+                    <button id="media-library">MEDIA LIBRARY</button>
+                {% endif %}
                 <button id="upload-photo-button">UPLOAD PHOTO</button>
                 <input type="file" id="upload-file" style="display: none" accept="image/*">
                 {% if not request.is_mobile %}
@@ -312,44 +314,44 @@ $(function () {
         $('#instagram-lib').hide();
     });
 {% elif twitter %}
-    var $insta = $('#instafeed');
-    {% for u in urls %}
-        $insta.append('<option data-img-src="' + '{{ u }}" value="' + '{{ u }}"></option>');
-    {% endfor %}
-    $('#instafeed').imagepicker();
-    $('#media-library').click(function () {
-        $('#inner-wrap').hide();
-        $('#instagram-lib').show();
-    });
-    $('div.loader').hide();
-    $('#overlay').hide();
-    $('#instagram-selected').click(function () {
-        var image_link = $('#instafeed').val();
-        var imageObj = new Image();
-        imageObj.onload = function () {
-            drawImageDraggable(imageObj);
-        };
-        $.ajax({
-            type: "POST",
-            url: "/post_pic/",
-            data: {
-                image: image_link,
-            },
-            async: false,
-            timeout: 30000,
-            success: function (data) {
-                imageObj.src = data["image"];
-            },
-            error: function (x, t, m) {
-                if (t === "timeout") {
-                    //Alert timeout happened.
-                } else {
-                }
-            }
-        });
-        $('.after-inst').show();
-        $('#instagram-lib').hide();
-    });
+    {% comment %} var $insta = $('#instafeed');
+     {% for u in urls %}
+         $insta.append('<option data-img-src="' + '{{ u }}" value="' + '{{ u }}"></option>');
+     {% endfor %}
+     $('#instafeed').imagepicker();
+     $('#media-library').click(function () {
+         $('#inner-wrap').hide();
+         $('#instagram-lib').show();
+     });
+     $('div.loader').hide();
+     $('#overlay').hide();
+     $('#instagram-selected').click(function () {
+         var image_link = $('#instafeed').val();
+         var imageObj = new Image();
+         imageObj.onload = function () {
+             drawImageDraggable(imageObj);
+         };
+         $.ajax({
+             type: "POST",
+             url: "/post_pic/",
+             data: {
+                 image: image_link,
+             },
+             async: false,
+             timeout: 30000,
+             success: function (data) {
+                 imageObj.src = data["image"];
+             },
+             error: function (x, t, m) {
+                 if (t === "timeout") {
+                     //Alert timeout happened.
+                 } else {
+                 }
+             }
+         });
+         $('.after-inst').show();
+         $('#instagram-lib').hide();
+     });{% endcomment %}
 {% elif facebook %}
     $(function () {
         fbphotoSelect = function (id) {
