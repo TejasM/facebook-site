@@ -495,9 +495,11 @@ $('#finish').click(function () {
                     });
                     $('#facebook-share').click(function () {
                         FB.login(function (response) {
-                            var user_id = response.authResponse.userID;
-                            var page_id = "171685016222749"; //Change to this page
-                            FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', data, function (response) {
+                            var data_inner = {
+                                url: window.location.origin + data["url"],
+                                message: "I uploaded at TOM."
+                            };
+                            FB.api('/me/photos?access_token=' + FB.getAuthResponse()['accessToken'].toString(), 'post', data_inner, function (response) {
                                 if (response.post_id) {
                                     $.post('/post_id/', {post_id: response.post_id}).done(
                                             function () {
