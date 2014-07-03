@@ -124,11 +124,7 @@
                     <img src="{% static 'iPad pngs/facebook-botton.png' %}" style="margin-top: 20px"
                          id="facebook-share"/>
                     <br>
-                    {% if instagram_number %}
-                        <img src="{% static 'iPad pngs/instagram-botton.png' %}" id="instagram-share"
-                             style="margin-top: 20px"/>
-                        <br>
-                    {% endif %}
+
                     <a href="" data-pin-do="buttonPin" id="pinterest-share" target="_blank"
                        data-pin-config="above"><img src="{% static 'iPad pngs/pinterest-botton.png' %}"
                                                     style="margin-top: 20px"/></a>
@@ -468,13 +464,7 @@ $('#finish').click(function () {
                 success: function (data) {
                     $('#pinterest-share').attr('href', 'http://www.pinterest.com/pin/create/button/?url=http%3A%2F%2Fiamtom.com&media=http%3A%2F%2Fiamtom.com' + data['url'] + '&description=Next%20stop%3A%20Pinterest');
                     $('#pinterest-share').click(function () {
-                        this.src = '{% static 'iPad pngs/pinterest-grey-botton.png' %}';
-                    });
-                    $('#instagram-share').click(function () {
-                        $.post('/share-instagram/', {'photo': data['url']}, function (data) {
-                            $('#instagram-share').hide();
-                            console.log(data['text']);
-                        });
+                         $(this).find('img').attr('src', '{% static 'iPad pngs/pinterest-grey-botton.png' %}');
                     });
                     $('#twitter-share').attr('href', 'http://twitter.com/share?text=I%20have%20just%20created%20my%20own%20TOM.&url=http%3A%2F%2Fiamtom.com' + data['url']);
                     $('#twitter-share').click(function (event) {
@@ -490,7 +480,7 @@ $('#finish').click(function () {
                                         ',left=' + left;
 
                         window.open(url, 'twitter', opts);
-                        $(this).attr('src', '{% static 'iPad pngs/Twitter-grey-botton.png' %}');
+                        $(this).find('img').attr('src', '{% static 'iPad pngs/Twitter-grey-botton.png' %}');
                         return false;
                     });
                     $('#facebook-share').click(function () {
