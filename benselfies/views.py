@@ -138,7 +138,7 @@ def add_image(request):
         submission = UserSubmission.objects.create()
     image = UserImage.objects.create(submission=submission)
     imag = re.search(r'base64,(.*)', request.POST['image']).group(1)
-    file_content = ContentFile(imag.decode('base64'), name='tom.png')
+    file_content = ContentFile(imag.decode('base64'), name='tom.jpg')
     image.image = file_content
     image.save()
     return HttpResponse(json.dumps({'url': "/media/" + image.image.name}),
