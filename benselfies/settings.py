@@ -199,12 +199,26 @@ FACEBOOK_API_SECRET = '0749bc152df64690df3801bcada9804a'
 FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'user_photos', 'publish_stream', 'photo_upload', 'friends_photos',
                                  'publish_actions']
 # #
-import dj_database_url
+# import dj_database_url
+#
+# DATABASES['default'] = dj_database_url.config()
+#
+# # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#
+# #Allow all host headers
+# ALLOWED_HOSTS = ['*']
+#
 
-DATABASES['default'] = dj_database_url.config()
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'iamtom',  # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+        'USER': 'tejas',
+        'PASSWORD': 'tejas',
+        'HOST': '',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',  # Set to empty string for default.
+    }
+}
 
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-#Allow all host headers
-ALLOWED_HOSTS = ['*']
