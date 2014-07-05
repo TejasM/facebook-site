@@ -803,7 +803,7 @@ button:hover, button:active, button:focus {
     box-shadow: none;
 }
 
-#current-instruction span.circle {
+.current-instruction span.circle {
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -812,11 +812,11 @@ button:hover, button:active, button:focus {
     margin-right: 5px;
 }
 
-#current-instruction span.circle:nth-child(3) {
+.current-instruction span.circle:nth-child(3) {
     background: #A5A7A9;
 }
 
-#current-instruction span.circle:nth-child(4) {
+.current-instruction span.circle:nth-child(4) {
     background: #201D1E;
 }
 
@@ -947,4 +947,213 @@ header {
     border-top: 1px solid #eaeaea;
     margin-top: 20px;
     padding-top: 5px;
+}
+
+#image-main {
+    width: 75%;
+    height: 100%;
+    background: #000;
+    display: inline-block;
+}
+
+#image-side {
+    width: 25%;
+    height: 100%;
+    background: #fff;
+    float: left;
+    position: relative;
+}
+
+.after-inst {
+    padding-top: 50px;
+}
+
+.bottom-logo {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+#buttons-done-back {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+    padding: 0 10px;
+}
+
+#arrow {
+    position: relative;
+    left: 220px;
+    margin-bottom: 50px;
+}
+
+#saved-side {
+    width: 25%;
+    height: 100%;
+    background: #fff;
+    float: left;
+    position: relative;
+}
+
+#saved-main {
+    width: 75%;
+    height: 100%;
+    background: #000;
+    display: inline-block;
+}
+
+.saved-image {
+    display: none;
+    height: 100%;
+    padding-top: 50px;
+}
+
+#saved-buttons {
+    float: right;
+    overflow: hidden;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    margin-top: -100%;
+    padding-top: 35%;
+}
+
+#take-photo-div {
+    display: none;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+}
+
+@media only screen
+and (min-width: 320px)
+and (max-width: 568px) {
+    .main-app {
+        width: 100%;
+        max-width: 568px;
+        margin: 0 auto;
+        height: 100%;
+    }
+
+    .full-back {
+        background: url('../iPhone%20pgs/BG-Pic.png') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        height: 100%;
+    }
+
+    header {
+        display: none;
+    }
+
+    #image-main {
+        width: 100%;
+        height: auto;
+        background: #000;
+        display: inline-block;
+    }
+
+    #image-side {
+        width: 100%;
+        height: auto;
+        background: #333;
+        float: left;
+        position: relative;
+    }
+
+    #saved-main {
+        width: 100%;
+        height: auto;
+        background: #000;
+        display: inline-block;
+    }
+
+    #saved-side {
+        width: 100%;
+        height: auto;
+        background: #333;
+        float: left;
+        position: relative;
+    }
+
+    .after-inst {
+        padding-top: 0;
+    }
+
+    .transparent-box button {
+        padding: 5px 10px;
+    }
+
+    .bottom-logo {
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+    }
+
+    #buttons-done-back {
+        padding: 0;
+    }
+
+    #buttons-done-back button {
+        padding: 5px;
+        font-weight: 400;
+    }
+
+    #done {
+        padding: 10px;
+        font-weight: 400;
+    }
+
+    #back-to-select {
+        margin-left: 20px;
+    }
+
+    .current-instruction {
+        color: #fff;
+    }
+
+    .current-instruction p:first-child {
+        color: #fff;
+    }
+
+    span.circle.white {
+        background: #fff;
+    }
+
+    #arrow {
+        position: relative;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        margin-bottom: 100px;
+        margin-top: -50px;
+    }
+
+    .saved-image {
+        padding-top: 0;
+    }
+
+    #CSPhotoSelector .CSPhotoSelector_dialog {
+        width: auto;
+    }
+
+    #CSPhotoSelector .CSPhotoSelector_dialog {
+        width: auto;
+    }
+
+    #take-photo-div {
+        padding-top: 0;
+    }
+
+    video {
+        width: 100% !important;
+        height: auto !important;
+    }
 }

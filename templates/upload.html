@@ -6,7 +6,6 @@
     <title>TOM</title>
     <meta name="description"
           content="TOM App">
-    <link rel="stylesheet" href="/static/css/main.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -19,6 +18,9 @@
     <![endif]-->
     <link href='http://fonts.googleapis.com/css?family=Lusitana:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,900,700,200' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/static/css/image-picker.css"/>
+    <link rel="stylesheet" href="/static/css/selector.css"/>
+    <link rel="stylesheet" href="/static/css/main.css"/>
 </head>
 <body>
 <header>
@@ -82,28 +84,30 @@
                 </select>
             </div>
         </div>
-        <div style="display: none; background: #fff; width: 100%; height: 100%; padding-top: 50px;" id="take-photo-div">
+        <div style="text-align: center" id="take-photo-div">
             <video id="video" width="640" height="480" autoplay></video>
-            <button id="snap" style="display: none">Snap Photo</button>
+            <button id="snap" style="display: none; text-align: center;">Snap Photo</button>
         </div>
-        <div class="after-inst" style="display: none; height: 100%; padding-top: 50px;">
-            <div style="width: 25%; height: 100%; background: #fff; float: left; position: relative">
+        <div class="after-inst" style="display: none; height: 100%;">
+            <div id="image-side">
                 <div class="veritcal-center horizontal-center">
-                <span id="current-instruction" style="padding: 0 10px">CLICK AND DRAG TO
+                <span class="current-instruction" style="padding: 0 10px" id="current-instruction">CLICK AND DRAG TO
                 CROP YOUR PHOTO.</span> <br>
                 </div>
                 <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"
-                     style="position: absolute; bottom: 20px; left: 20px"/>
+                     style="" class="bottom-logo"/>
             </div>
-            <div style="width: 75%;  height: 100%; background: #000; display: inline-block" id="image-main">
+            <div id="image-main">
                 <div id="main-image" style="width: 100%;  height: 100%;"></div>
-                <div style="float: right; overflow: hidden; top: 0; width: 100%; height: 100%; z-index: 100; margin-top: -100%; padding-top: 35%">
+                <div style="float: right; overflow: hidden; top: 0; width: 100%; height: 100%; z-index: 100; margin-top: -100%; padding-top: 35%"
+                     id="inside-main-image">
                     <img src="{% static 'iPad pngs/Arrows.png' %}" id="arrow" alt=""
-                         style="position: relative; left: 220px; margin-bottom: 50px"/>
+                         onclick="$(this).css('visibility', 'hidden');"
+                         style=""/>
                     <img src="{% static 'iPad pngs/i-am-tom-white-large.png' %}" id="imtom" alt=""
                          style="position: relative; left: 80px;"/>
 
-                    <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px">
+                    <div style="" id="buttons-done-back">
                         <button style="float: left; color: #fff; background: rgba(255, 255, 255, 0.33)"
                                 id="back-to-select">
                             BACK
@@ -117,10 +121,12 @@
 
             </div>
         </div>
-        <div class="saved-image" style="display: none; height: 100%; padding-top: 50px;">
-            <div style="width: 25%; height: 100%; background: #fff; float: left; position: relative">
+        <div class="saved-image" style="">
+            <div style="" id="saved-side">
                 <div class="veritcal-center horizontal-center">
-                    <span id="current-instruction" style="padding: 0 10px;  margin-bottom: 20px">SHARE YOUR IMAGE</span>
+                    <span class="current-instruction"
+                          style="padding: 0 10px;  margin-bottom: 20px">SHARE YOUR IMAGE</span>
+                    <br>
                     <img src="{% static 'iPad pngs/facebook-botton.png' %}" style="margin-top: 20px"
                          id="facebook-share"/>
                     <br>
@@ -132,19 +138,21 @@
                     <br>
                     <a href="" id="twitter-share"><img src="{% static 'iPad pngs/Twitter-botton.png' %}"
                                                        style="margin-top: 20px"/></a>
+                    <br>
                 </div>
                 <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"
-                     style="position: absolute; bottom: 20px; left: 20px"/>
+                     style="" class="bottom-logo"/>
             </div>
-            <div style="width: 75%;  height: 100%; background: #000; display: inline-block">
+            <div style="" id="saved-main">
                 <div id="saved-image" style="width: 100%;  height: 100%;"></div>
-                <div style="float: right; overflow: hidden; top: 0; width: 100%; height: 100%; z-index: 100; margin-top: -100%; padding-top: 35%">
+                <div style="" id="saved-buttons">
                     <p style="text-align: center; color: #FFF; font-size: 70px; position: relative" id="saved-text">
                         SAVED!</p>
                     <img src="{% static 'iPad pngs/i-am-tom-white-large.png' %}" alt=""
                          style="position: relative; left: 80px; visibility: hidden"/>
 
-                    <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px">
+                    <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px"
+                         id="button-inside">
                         <button style="float: right; color: #fff;  background: rgba(255, 255, 255, 0.33); margin-right: 20px;"
                                 id="done">DONE
                         </button>
@@ -235,8 +243,6 @@
 <script src="/static/js/image-picker.min.js"></script>
 <script src="http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
 <script src="http://malsup.github.io/min/jquery.form.min.js"></script>
-<link rel="stylesheet" href="/static/css/image-picker.css"/>
-<link rel="stylesheet" href="/static/css/selector.css"/>
 <script src="/static/js/chosen.jquery.min.js"></script>
 <script src="/static/js/html2canvas.js"></script>
 <script src="/static/js/jquery.plugin.html2canvas.js"></script>
@@ -308,47 +314,17 @@ $(function () {
             }
         });
         $('.after-inst').show();
+        listenWidth();
+        var cw = $('#image-main').width();
+        $('#image-main').css({'height': cw + 'px'});
+        if ($(window).width() < 568) {
+            var full_height = $(window).height();
+            $('#image-side').css({'height': full_height - cw + 'px'});
+        }
         $('#instagram-lib').hide();
     });
 {% elif twitter %}
-    {% comment %} var $insta = $('#instafeed');
-     {% for u in urls %}
-         $insta.append('<option data-img-src="' + '{{ u }}" value="' + '{{ u }}"></option>');
-     {% endfor %}
-     $('#instafeed').imagepicker();
-     $('#media-library').click(function () {
-         $('#inner-wrap').hide();
-         $('#instagram-lib').show();
-     });
-     $('div.loader').hide();
-     $('#overlay').hide();
-     $('#instagram-selected').click(function () {
-         var image_link = $('#instafeed').val();
-         var imageObj = new Image();
-         imageObj.onload = function () {
-             drawImageDraggable(imageObj);
-         };
-         $.ajax({
-             type: "POST",
-             url: "/post_pic/",
-             data: {
-                 image: image_link,
-             },
-             async: false,
-             timeout: 30000,
-             success: function (data) {
-                 imageObj.src = data["image"];
-             },
-             error: function (x, t, m) {
-                 if (t === "timeout") {
-                     //Alert timeout happened.
-                 } else {
-                 }
-             }
-         });
-         $('.after-inst').show();
-         $('#instagram-lib').hide();
-     });{% endcomment %}
+
 {% elif facebook %}
     $(function () {
         fbphotoSelect = function (id) {
@@ -360,6 +336,8 @@ $(function () {
                 album = CSPhotoSelector.getAlbumById(albumId);
                 // show album photos
                 selector.showPhotoSelector(null, album.id);
+
+                $('.CSPhotoSelector_content').css('width', $('.CSPhotoSelector_content').parent().width() + 'px');
             };
 
             callbackAlbumUnselected = function (albumId) {
@@ -399,6 +377,13 @@ $(function () {
                     }
                 });
                 $('.after-inst').show();
+                listenWidth();
+                var cw = $('#image-main').width();
+                $('#image-main').css({'height': cw + 'px'});
+                if ($(window).width() < 568) {
+                    var full_height = $(window).height();
+                    $('#image-side').css({'height': full_height - cw + 'px'});
+                }
                 $('#instagram-lib').hide();
                 selector.reset();
             };
@@ -427,19 +412,76 @@ $(function () {
             $('#inner-wrap').hide();
             fbphotoSelect(null);
         });
+
+        $('#CSPhotoSelector_buttonCancel').click(back_to_select);
     });
 
 {% endif %}
+var small = false;
+var small2 = false;
+function listenWidth() {
+    if (small == false && $(window).width() < 568) {
+        $("#image-side").remove().insertAfter($('#image-main'));
+
+        $('#buttons-done-back').remove().insertAfter($($('.current-instruction + br')[0]));
+
+        $('#back-to-select').click(back_to_select);
+
+        $('#finish').click(finish_up);
+        var $tom = $('#imtom');
+        $tom.attr('src', '{% static 'iPhone pgs/i-am-tom-white-smaller.png' %}');
+        $tom.css({'top': '-80px', 'width': $(window).width() - 5 + 'px', 'left': '5px'});
+
+        small = true;
+    } else if (small == true && $(window).width() > 568) {
+        $('#image-side').remove().insertBefore($('#image-main'));
+        $('#buttons-done-back').remove().insertAfter($('#imtom'));
+        $('#back-to-select').click(back_to_select);
+
+        $('#finish').click(finish_up);
+        var $tom = $('#imtom');
+        $tom.attr('src', '{% static 'iPad pngs/i-am-tom-white-large.png' %}');
+        $tom.css({'top': '0', 'width': 'auto', 'left': '80px'});
+        small = false;
+    }
+}
+
+function listenWidth2() {
+    if (small2 == false && $(window).width() < 568) {
+        $("#saved-side").remove().insertAfter($('#saved-main'));
+        $("#saved-side br:not(:first):not(:last-child)").css('display', 'none');
+        $('#done').remove().insertAfter($('#saved-side > div br:last-child'));
+        $('#done').click(function () {
+                    $('.saved-image').hide();
+                    $('#done-div').show();
+                }
+        );
+        small2 = true;
+    } else if (small == true && $(window).width() > 568) {
+        $('#saved-side').remove().insertBefore($('#saved-main'));
+        $("#saved-side br").css('display', 'block');
+        $('#done').click(function () {
+            $('.saved-image').hide();
+            $('#done-div').show();
+        });
+        $('#button-inside').append($('#done').remove());
+        small2 = false;
+    }
+}
+$(function () {
+    $(document).load($(window).bind("resize", listenWidth));
+});
 $('#back-select').click(function () {
     $('#inner-wrap').show();
     $('#instagram-lib').hide();
 });
-$('#back-to-select').click(function () {
+
+function back_to_select() {
     $('#inner-wrap').show();
     $('#instagram-lib').hide();
     $('.after-inst').hide();
-});
-$('#finish').click(function () {
+}
+function finish_up() {
     $('#back-to-select').css('opacity', '0');
     $(this).css('opacity', '0');
     $('#arrow').css('opacity', '0');
@@ -449,6 +491,13 @@ $('#finish').click(function () {
             var img = canvas.toDataURL("image/jpeg");
             $('.after-inst').hide();
             $('.saved-image').show();
+            listenWidth2();
+            var cw = $('#saved-main').width();
+            $('#saved-main').css({'height': cw + 'px'});
+            if ($(window).width() < 568) {
+                var full_height = $(window).height();
+                $('#saved-side').css({'height': full_height - cw + 'px'});
+            }
             $('#saved-image').append('<img src="' + img + '" style="width: 100%; height: 100%"/>');
             setTimeout(function () {
                 //$('#saved-text').hide();
@@ -464,7 +513,7 @@ $('#finish').click(function () {
                 success: function (data) {
                     $('#pinterest-share').attr('href', 'http://www.pinterest.com/pin/create/button/?url=http%3A%2F%2Fiamtom.com&media=http%3A%2F%2Fiamtom.com' + data['url'] + '&description=Next%20stop%3A%20Pinterest');
                     $('#pinterest-share').click(function () {
-                         $(this).find('img').attr('src', '{% static 'iPad pngs/pinterest-grey-botton.png' %}');
+                        $(this).find('img').attr('src', '{% static 'iPad pngs/pinterest-grey-botton.png' %}');
                     });
                     $('#twitter-share').attr('href', 'http://twitter.com/share?text=I%20have%20just%20created%20my%20own%20TOM.&url=http%3A%2F%2Fiamtom.com' + data['url']);
                     $('#twitter-share').click(function (event) {
@@ -515,7 +564,10 @@ $('#finish').click(function () {
             });
         }
     });
-});
+}
+$('#back-to-select').click(back_to_select);
+
+$('#finish').click(finish_up);
 $('#done').click(function () {
     $('.saved-image').hide();
     $('#done-div').show();
@@ -530,8 +582,13 @@ $('#done').click(function () {
                     console.log("Video capture error: ", error.code);
                 };
         var $vid = $('#video');
-        $vid.attr('width', $vid.width());
-        $vid.attr('height', $vid.height());
+        if ($(window).width < 600) {
+            $vid.attr('width', $(window).width + 'px');
+            $vid.attr('height', $(window).width + 'px');
+
+            $vid.css('width', $(window).width + 'px');
+            $vid.css('height', $(window).width + 'px');
+        }
 
         $('#take-photo-button').click(function () {
             if (navigator.getUserMedia) { // Standard
@@ -562,6 +619,13 @@ $('#done').click(function () {
                 var img = video;
                 $('#take-photo-div').hide();
                 $('.after-inst').show();
+                listenWidth();
+                var cw = $('#image-main').width();
+                $('#image-main').css({'height': cw + 'px'});
+                if ($(window).width() < 568) {
+                    var full_height = $(window).height();
+                    $('#image-side').css({'height': full_height - cw + 'px'});
+                }
                 drawImageDraggable(img);
             });
         });
@@ -594,6 +658,13 @@ $(function () {
                     $('#inner-wrap').hide();
                     $('#ajax-loader').hide();
                     $('.after-inst').show();
+                    listenWidth();
+                    var cw = $('#image-main').width();
+                    $('#image-main').css({'height': cw + 'px'});
+                    if ($(window).width() < 568) {
+                        var full_height = $(window).height();
+                        $('#image-side').css({'height': full_height - cw + 'px'});
+                    }
                 },
                 error: function (x, t, m) {
                     if (t === "timeout") {
@@ -614,13 +685,13 @@ $(function () {
     var rect;
     var first_drag = true;
     $(function () {
-        $('#current-instruction').delegate('.circle.white', 'click', function () {
+        $('.after-inst').delegate('.circle.white', 'click', function () {
             $('#imtom').attr('src', '{% static 'iPad pngs/i-am-tom-white-large.png' %}');
         });
-        $('#current-instruction').delegate('.circle.grey', 'click', function () {
+        $('.after-inst').delegate('.circle.grey', 'click', function () {
             $('#imtom').attr('src', '{% static 'iPad pngs/i-am-tom-grey.png' %}');
         });
-        $('#current-instruction').delegate('.circle.black', 'click', function () {
+        $('.after-inst').delegate('.circle.black', 'click', function () {
             $('#imtom').attr('src', '{% static 'iPad pngs/i-am-tom-Black.png' %}');
         });
     });
@@ -651,7 +722,7 @@ $(function () {
             function boundX(pos) {
                 if (first_drag) {
                     $('#arrow').css('visibility', 'hidden');
-                    $('#current-instruction').html('<p>Select from the following options below to customize your TOM*</p>' +
+                    $($('.current-instruction')[0]).html('<p>Select from the following options below to customize your TOM*</p>' +
                             '<span class="circle white"></span><span class="circle grey"></span><span class="circle black"></span>');
                     first_drag = false;
                 }
@@ -676,7 +747,7 @@ $(function () {
             function boundY(pos) {
                 if (first_drag) {
                     $('#arrow').css('visibility', 'hidden');
-                    $('#current-instruction').html('<p>Select from the following options below to customize your TOM*</p>' +
+                    $($('#current-instruction')[0]).html('<p>Select from the following options below to customize your TOM*</p>' +
                             '<span class="circle white"></span><span class="circle grey"></span><span class="circle black"></span>');
                     first_drag = false;
                 }
