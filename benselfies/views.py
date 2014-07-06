@@ -73,7 +73,7 @@ def add_media_file(request):
         file_content = ContentFile(response.content)
     image.image.save(name, file_content)
     image.save()
-    return HttpResponse(json.dumps({'image': "/media/" + image.image.name}),
+    return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/')[-1]}),
                         content_type="application/json")
 
 
@@ -141,7 +141,7 @@ def add_image(request):
     file_content = ContentFile(imag.decode('base64'), name='tom.jpg')
     image.image = file_content
     image.save()
-    return HttpResponse(json.dumps({'url': "/media/" + image.image.name}),
+    return HttpResponse(json.dumps({'url': "/media/" + image.image.name.split('/')[-1]}),
                         content_type="application/json")
 
 
