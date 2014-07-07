@@ -66,7 +66,11 @@
                     <button id="media-library">MEDIA LIBRARY</button>
                 {% endif %}
                 <button id="upload-photo-button">UPLOAD PHOTO</button>
-                <input type="file" id="upload-file" style="display: none" accept="image/*">
+                {% if request.is_mobile %}
+                    <input type="file" accept="image/*" style="opacity: 0" id="upload-file" capture>
+                {% else %}
+                    <input type="file" id="upload-file" style="opacity: 0" accept="image/*">
+                {% endif %}
                 {% if not request.is_mobile %}
                     <button id="take-photo-button">TAKE A PHOTO</button>
                 {% endif %}
@@ -634,6 +638,7 @@ $('#done').click(function () {
 {% endif %}
 $(function () {
     $('#upload-photo-button').click(function () {
+        $('#upload-file').css('opacity', 1);
         $('#upload-file').trigger('click');
     });
 
