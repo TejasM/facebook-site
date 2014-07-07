@@ -67,9 +67,9 @@
                 {% endif %}
                 <button id="upload-photo-button">UPLOAD PHOTO</button>
                 {% if request.is_mobile %}
-                    <input type="file" accept="image/*" style="opacity: 0" id="upload-file" capture>
+                    <input type="file" accept="image/*" style="position: absolute; left: -1500px" id="upload-file" capture >
                 {% else %}
-                    <input type="file" id="upload-file" style="opacity: 0" accept="image/*">
+                    <input type="file" id="upload-file" style="position: absolute; left: -1500px" accept="image/*">
                 {% endif %}
                 {% if not request.is_mobile %}
                     <button id="take-photo-button">TAKE A PHOTO</button>
@@ -643,6 +643,7 @@ $(function () {
     });
 
     $('#upload-file').change(function () {
+        $('#upload-file').css('opacity', 0);
         var imageObj = new Image();
         imageObj.onload = function () {
             drawImageDraggable(imageObj);
