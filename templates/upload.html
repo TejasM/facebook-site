@@ -56,7 +56,7 @@
 </header>
 <div class="full-back">
     <div class="main-app main-app-background">
-        <div class="veritcal-center horizontal-center" id="inner-wrap">
+        <div class="veritcal-center horizontal-center" id="inner-wrap" style="padding-left: 10px; padding-right: 10px;">
             <div id="ajax-loader"
                  style="position: absolute; height: 100%; width: 100%; opacity: 0.3; display: none; background: url('{% static 'AjaxLoader.gif' %}') no-repeat center; background-size: contain; z-index: 100;"></div>
             <img src="{% static 'iPad pngs/i-am-tom-white-small.png' %}"/>
@@ -67,7 +67,8 @@
                 {% endif %}
                 <button id="upload-photo-button">UPLOAD PHOTO</button>
                 {% if request.is_mobile %}
-                    <input type="file" accept="image/*" style="position: absolute; left: -1500px" id="upload-file" capture >
+                    <input type="file" accept="image/*" style="position: absolute; left: -1500px" id="upload-file"
+                           capture>
                 {% else %}
                     <input type="file" id="upload-file" style="position: absolute; left: -1500px" accept="image/*">
                 {% endif %}
@@ -164,7 +165,8 @@
                 </div>
             </div>
         </div>
-        <div id="done-div" style="display: none; padding-top: 50px; text-align: center">
+        <div id="done-div"
+             style="display: none; padding-top: 50px; text-align: center; padding-left: 10px; padding-right: 10px;">
             <img src="{% static 'iPad pngs/i-am-tom-white-small.png' %}"/>
 
             <div class="transparent-box" style="padding: 10px 20px; width: 40%; margin: 20px auto">
@@ -503,7 +505,7 @@ function finish_up() {
             if ($(window).width() < 568) {
                 var full_height = $(window).height();
                 var h;
-                if (full_height - cw < min_height){
+                if (full_height - cw < min_height) {
                     h = min_height;
                 } else {
                     h = full_height - cw;
