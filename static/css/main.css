@@ -1037,6 +1037,26 @@ header {
 }
 
 @media only screen
+and (max-height: 480px) {
+    #CSPhotoSelector .CSPhotoSelector_content {
+        height: 380px;
+    }
+
+    .bottom-logo {
+        opacity: 0;
+    }
+
+    #buttons-done-back {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    #saved-side > div {
+        margin-top: -40px;
+    }
+}
+
+@media only screen
 and (min-width: 320px)
 and (max-width: 568px) {
     .main-app {
