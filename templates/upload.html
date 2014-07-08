@@ -485,6 +485,8 @@ function back_to_select() {
     $('#instagram-lib').hide();
     $('.after-inst').hide();
 }
+
+var min_height = 450;
 function finish_up() {
     $('#back-to-select').css('opacity', '0');
     $(this).css('opacity', '0');
@@ -500,6 +502,9 @@ function finish_up() {
             $('#saved-main').css({'height': cw + 'px'});
             if ($(window).width() < 568) {
                 var full_height = $(window).height();
+                if (full_height - cw < min_height){
+                    full_height += min_height - (full_height - cw);
+                }
                 $('#saved-side').css({'height': full_height - cw + 'px'});
             }
             $('#saved-image').append('<img src="' + img + '" style="width: 100%; height: 100%"/>');
