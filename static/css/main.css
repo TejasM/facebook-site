@@ -1036,6 +1036,20 @@ header {
     position: static
 }
 
+.trans-2 {
+    padding: 10px 20px;
+    width: 40%;
+    margin: 20px auto;
+}
+
+#done-div {
+    display: none;
+    padding-top: 50px;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 @media only screen
 and (max-height: 480px) {
     #CSPhotoSelector .CSPhotoSelector_content {
@@ -1073,6 +1087,14 @@ and (max-width: 568px) {
         -o-background-size: cover;
         background-size: cover;
         height: 100%;
+    }
+
+    #done-div {
+        padding-top: 20px;
+    }
+
+    .trans-2 {
+        width: 80%;
     }
 
     header {
