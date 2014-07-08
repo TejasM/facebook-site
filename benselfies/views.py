@@ -206,7 +206,7 @@ def post_id(request):
 
 @login_required
 def preview(request):
-    return render_to_response('coming_soon.html')
+    return render_to_response('privacy.html')
 
 
 @csrf_exempt
@@ -265,7 +265,7 @@ def random_page(request):
 
 
 def terms(request):
-    return render_to_response('terms.html')
+    return render_to_response('privacy.html')
 
 
 @csrf_exempt

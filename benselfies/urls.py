@@ -21,7 +21,7 @@ urlpatterns = patterns('',
                        url(r'^random/$', 'benselfies.views.random_page', name='random_page'),
                        url(r'^smallrandom/$', 'benselfies.views.get_small_random_winners', name='small_random'),
                        url(r'^bigrandom/$', 'benselfies.views.get_big_random_winner', name='big_random'),
-                       url(r'^termsandconditions/$', 'benselfies.views.terms', name='terms'),
+                       url(r'^privacy/$', 'benselfies.views.terms', name='terms'),
                        # url(r'^benselfies/', include('benselfies.foo.urls')),
 
                        # Uncomment the admin/doc line below to enable admin documentation:
