@@ -193,13 +193,15 @@ while(true) {
                             die;
                         }
                         file_put_contents ("current_number.txt", ($current_number + 1));
+                        $current_number  = $current_number + 1;
+                        $current_string = strval($current_number);
         echo("File found\n");
                     }
                 }
             }  else {
                 echo "Status isn't okay";
             echo $response;
-
+die;
             }
         }
     }
