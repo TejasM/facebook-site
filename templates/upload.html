@@ -520,7 +520,7 @@ function finish_up() {
                 type: "POST",
                 url: "/addimage/",
                 data: {
-                    image: canvas.toDataURL(),
+                    image: canvas.toDataURL("image/jpeg"),
                 },
                 async: false,
                 timeout: 30000,
