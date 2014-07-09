@@ -70,14 +70,14 @@ curl_setopt($c, CURLOPT_NOBODY, true);
 $response = curl_exec($c);
 $http_status = curl_getinfo($c, CURLINFO_HTTP_CODE);
 curl_close($c);
-current_string = file_get_contents("current_number.txt");
-current_number = intval(current_string);
+$current_string = file_get_contents("current_number.txt");
+$current_number = intval(current_string);
 
 while(true) {
-    if (current_number == 0 && file_exists("/home/iamtom/facebook-site/media/tom.png")){
+    if ($current_number == 0 && file_exists("/home/iamtom/facebook-site/media/tom.png")){
         $file = "/home/iamtom/facebook-site/media/tom.png";
-    } else if (current_number != 0 && file_exists("/home/iamtom/facebook-site/media/tom_' + current_string + '.png")){
-        $file = "/home/iamtom/facebook-site/media/tom_' + current_string + '.png";
+    } else if ($current_number != 0 && file_exists("/home/iamtom/facebook-site/media/tom_' + $current_string + '.png")){
+        $file = "/home/iamtom/facebook-site/media/tom_' + $current_string + '.png";
     } else {
         continue;
     }
