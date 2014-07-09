@@ -70,123 +70,135 @@ curl_setopt($c, CURLOPT_NOBODY, true);
 $response = curl_exec($c);
 $http_status = curl_getinfo($c, CURLINFO_HTTP_CODE);
 curl_close($c);
-			
-// If the user isn't logged in, then log them in 
-if(empty($response) 
-|| $http_status != 200) {
-    // Set the device ID
-	$device_id = "android-".$guid;
-	$data = '{"device_id":"'. $device_id.'","guid":"'.$guid.'","username":"'.$username.'","password":"'.$password.'","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"}';
-    
-    // Generate a signature
-	$signature = GenerateSignature($data);
-	$post_data = 'signed_body='.$signature.'.'.urlencode($data).'&ig_sig_key_version=4';
+current_string = file_get_contents("current_number.txt");
+current_number = intval(current_string);
 
-    // Send a cURL request to the page that is supposed to handle the login form submission
-	$c = InitializeCurl("https://instagram.com/api/v2/accounts/login/", true, $post_data, $agent, $proxy, $auth, $cookies);
-	curl_setopt($c, CURLOPT_HEADER, true);
-	$response = curl_exec($c);
-		
-    // If this statement is in the response, there's a chance that you'll need another proxy
-	if(strpos($response, "Sorry, an error occurred while processing this request.")) {
-		echo "Request failed, there's a chance that this proxy/ip is blocked";
-        die;
-	}
-				
-	$parts = explode("\r\n\r\nHTTP/", $response);
-	$parts = (count($parts) > 1 ? 'HTTP/' : '').array_pop($parts);
-				
-	list($header, $body) = explode("\r\n\r\n", $parts, 2);
-	curl_close($c);
+while(true) {
+    if (current_number == 0 && file_exists("/home/iamtom/facebook-site/media/tom.png")){
+        $file = "/home/iamtom/facebook-site/media/tom.png";
+    } else if (current_number != 0 && file_exists("/home/iamtom/facebook-site/media/tom_' + current_string + '.png")){
+        $file = "/home/iamtom/facebook-site/media/tom_' + current_string + '.png";
+    } else {
+        continue;
+    }
 
-	if(empty($body)) {
-		echo "Empty response received from the server while trying to login";
-        die;
-	}
+    // If the user isn't logged in, then log them in
+    if(empty($response)
+    || $http_status != 200) {
+        // Set the device ID
+        $device_id = "android-".$guid;
+        $data = '{"device_id":"'. $device_id.'","guid":"'.$guid.'","username":"'.$username.'","password":"'.$password.'","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"}';
 
-	$obj = @json_decode($body, true);
+        // Generate a signature
+        $signature = GenerateSignature($data);
+        $post_data = 'signed_body='.$signature.'.'.urlencode($data).'&ig_sig_key_version=4';
 
-	if(empty($obj)) {
-		echo "Could not decode the response: ".$body;
-        die;
-	}
-		
-    // If you're logging into IG for the first time with the proxy you specified,
-    // then your cookies variable should be an empty string. If not, then it's wise
-    // to save the cookies in a DB as they don't change very often
-	if($cookies == '') {
-		preg_match_all('|Set-Cookie: (.*);|U', $header, $matches);
-		$cookies = implode(';', $matches[1]);
+        // Send a cURL request to the page that is supposed to handle the login form submission
+        $c = InitializeCurl("https://instagram.com/api/v2/accounts/login/", true, $post_data, $agent, $proxy, $auth, $cookies);
+        curl_setopt($c, CURLOPT_HEADER, true);
+        $response = curl_exec($c);
 
-	}
-}
-$file = "/home/tmehta/Downloads/tumblr_m22jqt3Xiq1qm4rc3.jpg";
-// Define the caption
-$caption = "Sample caption text";
-// Trim the caption and replace line breaks
-$caption = trim(preg_replace("/\r|\n/", "", $caption));
-
-// Define the post data that will be sent to the upload page
-if(!is_file($file)) {
-    echo "The image doesn't exist ".$file;
-    die;
-} else {
-    $post_data = array('device_timestamp' => time(), 
-						'photo' => '@'.$file);
-}
-
-// Send a cURL request to the page that handles the upload request
-$c = InitializeCurl("https://instagram.com/api/v1/media/upload/", true, $post_data, $agent, $proxy, $auth, $cookies);	
-$response = curl_exec($c);
-
-if(empty($response)) {
-	echo "Empty response received from the server while trying to post the image";
-    die;
-} else {
-    // Decode the response 
-	$obj = @json_decode($response, true);
-
-	if(empty($obj)) {
-		echo "Could not decode the response:";
-        die;
-	} else {
-		$status = $obj['status'];
-
-		if($status == "ok") {
-			$media_id = $obj['media_id'];
-			$device_id = "android-".$guid;
-			$data = '{"device_id":"'.$device_id.'","guid":"'.$guid.'","media_id":"'.$media_id.'","caption":"'.$caption.'","device_timestamp":"'.time().'","source_type":"5","filter_type":"0","extra":"{}","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"}';	
-			$sig = GenerateSignature($data);
-			$new_data = 'signed_body='.$sig.'.'.urlencode($data).'&ig_sig_key_version=4';
-
-            // Send a cURL request to the page that configues the pic and its caption
-			curl_setopt($c, CURLOPT_URL, "https://instagram.com/api/v1/media/configure/");
-			curl_setopt($c, CURLOPT_POSTFIELDS, $new_data);
-			$response = curl_exec($c);
-			curl_close($c);
-
-			if(empty($response)) {
-			    echo "Empty response received from the server while trying to configure the image";
-                die;
-			} else {
-				if(strpos($response, "login_required")) {
-					echo "You are not logged in. There's a chance that the account is banned";
-                    die;
-				} else {
-					$obj = @json_decode($response, true);
-					$status = $obj['status'];
-
-					if($status == "fail") {
-						echo "fail";
-                        die;
-					}
-				}
-			}
-		}  else {
-    		echo "Status isn't okay";
-		echo $response;
+        // If this statement is in the response, there's a chance that you'll need another proxy
+        if(strpos($response, "Sorry, an error occurred while processing this request.")) {
+            echo "Request failed, there's a chance that this proxy/ip is blocked";
             die;
-		}
-	} 
+        }
+
+        $parts = explode("\r\n\r\nHTTP/", $response);
+        $parts = (count($parts) > 1 ? 'HTTP/' : '').array_pop($parts);
+
+        list($header, $body) = explode("\r\n\r\n", $parts, 2);
+        curl_close($c);
+
+        if(empty($body)) {
+            echo "Empty response received from the server while trying to login";
+            die;
+        }
+
+        $obj = @json_decode($body, true);
+
+        if(empty($obj)) {
+            echo "Could not decode the response: ".$body;
+            die;
+        }
+
+        // If you're logging into IG for the first time with the proxy you specified,
+        // then your cookies variable should be an empty string. If not, then it's wise
+        // to save the cookies in a DB as they don't change very often
+        if($cookies == '') {
+            preg_match_all('|Set-Cookie: (.*);|U', $header, $matches);
+            $cookies = implode(';', $matches[1]);
+
+        }
+    }
+
+    // Define the caption
+    $caption = "Sample caption text";
+    // Trim the caption and replace line breaks
+    $caption = trim(preg_replace("/\r|\n/", "", $caption));
+
+    // Define the post data that will be sent to the upload page
+    if(!is_file($file)) {
+        echo "The image doesn't exist ".$file;
+        die;
+    } else {
+        $post_data = array('device_timestamp' => time(),
+                            'photo' => '@'.$file);
+    }
+
+    // Send a cURL request to the page that handles the upload request
+    $c = InitializeCurl("https://instagram.com/api/v1/media/upload/", true, $post_data, $agent, $proxy, $auth, $cookies);
+    $response = curl_exec($c);
+
+    if(empty($response)) {
+        echo "Empty response received from the server while trying to post the image";
+        die;
+    } else {
+        // Decode the response
+        $obj = @json_decode($response, true);
+
+        if(empty($obj)) {
+            echo "Could not decode the response:";
+            die;
+        } else {
+            $status = $obj['status'];
+
+            if($status == "ok") {
+                $media_id = $obj['media_id'];
+                $device_id = "android-".$guid;
+                $data = '{"device_id":"'.$device_id.'","guid":"'.$guid.'","media_id":"'.$media_id.'","caption":"'.$caption.'","device_timestamp":"'.time().'","source_type":"5","filter_type":"0","extra":"{}","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"}';
+                $sig = GenerateSignature($data);
+                $new_data = 'signed_body='.$sig.'.'.urlencode($data).'&ig_sig_key_version=4';
+
+                // Send a cURL request to the page that configues the pic and its caption
+                curl_setopt($c, CURLOPT_URL, "https://instagram.com/api/v1/media/configure/");
+                curl_setopt($c, CURLOPT_POSTFIELDS, $new_data);
+                $response = curl_exec($c);
+                curl_close($c);
+
+                if(empty($response)) {
+                    echo "Empty response received from the server while trying to configure the image";
+                    die;
+                } else {
+                    if(strpos($response, "login_required")) {
+                        echo "You are not logged in. There's a chance that the account is banned";
+                        die;
+                    } else {
+                        $obj = @json_decode($response, true);
+                        $status = $obj['status'];
+
+                        if($status == "fail") {
+                            echo "fail";
+                            die;
+                        }
+                    }
+                }
+            }  else {
+                echo "Status isn't okay";
+            echo $response;
+                die;
+            }
+        }
+    }
 }
 ?>
