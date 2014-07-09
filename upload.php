@@ -76,12 +76,8 @@ $current_number = intval($current_string);
 while(true) {
     if ($current_number == 0 && file_exists("/home/iamtom/facebook-site/media/tom.jpg")){
         $file = "/home/iamtom/facebook-site/media/tom.jpg";
-        file_put_contents ("current_number.txt", ($current_number + 1));
-        echo("File found\n");
     } else if ($current_number != 0 && file_exists("/home/iamtom/facebook-site/media/tom_' + $current_string + '.jpg")){
         $file = "/home/iamtom/facebook-site/media/tom_' + $current_string + '.jpg";
-        file_put_contents ("current_number.txt", ($current_number + 1));
-        echo("File found\n");
     } else {
         continue;
     }
@@ -200,7 +196,8 @@ while(true) {
             }  else {
                 echo "Status isn't okay";
             echo $response;
-                die;
+                file_put_contents ("current_number.txt", ($current_number + 1));
+        echo("File found\n");
             }
         }
     }
