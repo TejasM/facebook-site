@@ -74,10 +74,14 @@ $current_string = file_get_contents("current_number.txt");
 $current_number = intval($current_string);
 
 while(true) {
-    if ($current_number == 0 && file_exists("/home/iamtom/facebook-site/media/tom.png")){
-        $file = "/home/iamtom/facebook-site/media/tom.png";
-    } else if ($current_number != 0 && file_exists("/home/iamtom/facebook-site/media/tom_' + $current_string + '.png")){
-        $file = "/home/iamtom/facebook-site/media/tom_' + $current_string + '.png";
+    if ($current_number == 0 && file_exists("/home/iamtom/facebook-site/media/tom.jpg")){
+        $file = "/home/iamtom/facebook-site/media/tom.jpg";
+        file_put_contents ("current_number.txt", ($current_number + 1));
+        echo("File found");
+    } else if ($current_number != 0 && file_exists("/home/iamtom/facebook-site/media/tom_' + $current_string + '.jpg")){
+        $file = "/home/iamtom/facebook-site/media/tom_' + $current_string + '.jpg";
+        file_put_contents ("current_number.txt", ($current_number + 1));
+        echo("File found");
     } else {
         continue;
     }
