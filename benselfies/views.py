@@ -73,6 +73,28 @@ def add_media_file(request):
         file_content = ContentFile(response.content)
     image.image.save(name, file_content)
     image.save()
+    try:
+        ima = Image.open(image.image.path)
+        exif = ima._getexif()
+        if not exif:
+            return False
+
+        orientation_key = 274  # cf ExifTags
+        if orientation_key in exif:
+            orientation = exif[orientation_key]
+
+            rotate_values = {
+                3: 180,
+                6: 270,
+                8: 90
+            }
+
+            if orientation in rotate_values:
+                # Rotate and save the picture
+                ima = ima.rotate(rotate_values[orientation])
+                ima.save(ima.image.path, quality=100)
+    except:
+        pass
     return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/')[-1]}),
                         content_type="application/json")
 
