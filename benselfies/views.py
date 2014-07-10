@@ -62,12 +62,11 @@ def add_media_file(request):
         submission = UserSubmission.objects.create()
     name = str(len(UserImage.objects.filter(submission=submission))) + ".png"
     image = UserImage.objects.create(submission=submission)
-    imag = request.POST['image']
+    imag = request.POST.get('image', '')
     if imag.startswith('//'):
         imag = 'http:' + imag
-    if "data:image/png" in imag or "data:image/jpeg" in imag:
-        imag = re.search(r'base64,(.*)', imag).group(1)
-        file_content = ContentFile(imag.decode('base64'))
+    if imag == '':
+        file_content = ContentFile(request.FILES['image'].read())
     else:
         response = requests.get(imag)
         file_content = ContentFile(response.content)
@@ -77,7 +76,8 @@ def add_media_file(request):
         ima = Image.open(image.image.path)
         exif = ima._getexif()
         if not exif:
-            return False
+            return HttpResponse(json.dumps({'image': "/media/" + image.image.name.split('/')[-1]}),
+                        content_type="application/json")
 
         orientation_key = 274  # cf ExifTags
         if orientation_key in exif:

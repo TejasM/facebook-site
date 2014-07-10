@@ -62,7 +62,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = '/home/iamtom/facebook-site/media/'
+MEDIA_ROOT = 'media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -209,7 +209,7 @@ FACEBOOK_EXTENDED_PERMISSIONS = ['email', 'user_photos', 'publish_stream', 'phot
 # #Allow all host headers
 # ALLOWED_HOSTS = ['*']
 #
-
+MEDIA_ROOT = '/home/iamtom/facebook-site/media/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.

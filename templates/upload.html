@@ -66,12 +66,14 @@
                     <button id="media-library">MEDIA LIBRARY</button>
                 {% endif %}
                 <button id="upload-photo-button">UPLOAD PHOTO</button>
-                {% if request.is_mobile %}
-                    <input type="file" accept="image/*" style="position: absolute; left: -1500px" id="upload-file"
-                           capture>
-                {% else %}
-                    <input type="file" id="upload-file" style="position: absolute; left: -1500px" accept="image/*">
-                {% endif %}
+                <form id="upload-form" style="position: absolute; left: -1500px" enctype="multipart/form-data">
+                    {% if request.is_mobile %}
+                        <input type="file" accept="image/*" id="upload-file" name="image"
+                               capture>
+                    {% else %}
+                        <input type="file" id="upload-file" name="image" accept="image/*">
+                    {% endif %}
+                </form>
                 {% if not request.is_mobile %}
                     <button id="take-photo-button">TAKE A PHOTO</button>
                 {% endif %}
@@ -660,38 +662,32 @@ $(function () {
             drawImageDraggable(imageObj);
         };
         $('#ajax-loader').show();
-        var FR = new FileReader();
-        FR.onload = function (e) {
-            $.ajax({
-                type: "POST",
-                url: "/post_pic/",
-                data: {
-                    image: e.target.result,
-                },
-                async: false,
-                timeout: 30000,
-                success: function (data) {
-                    imageObj.src = data["image"];
-                    $('#inner-wrap').hide();
-                    $('#ajax-loader').hide();
-                    $('.after-inst').show();
-                    listenWidth();
-                    var cw = $('#image-main').width();
-                    $('#image-main').css({'height': cw + 'px'});
-                    if ($(window).width() < 568) {
-                        var full_height = $(window).height();
-                        $('#image-side').css({'height': full_height - cw + 'px'});
-                    }
-                },
-                error: function (x, t, m) {
-                    if (t === "timeout") {
-                        //Alert timeout happened.
-                    } else {
-                    }
+        $.ajax({
+            type: "POST",
+            url: "/post_pic/",
+            data: new FormData($('#upload-form')[0]),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                imageObj.src = data["image"];
+                $('#inner-wrap').hide();
+                $('#ajax-loader').hide();
+                $('.after-inst').show();
+                listenWidth();
+                var cw = $('#image-main').width();
+                $('#image-main').css({'height': cw + 'px'});
+                if ($(window).width() < 568) {
+                    var full_height = $(window).height();
+                    $('#image-side').css({'height': full_height - cw + 'px'});
                 }
-            });
-        };
-        FR.readAsDataURL(this.files[0]);
+            },
+            error: function (x, t, m) {
+                if (t === "timeout") {
+                    //Alert timeout happened.
+                } else {
+                }
+            }
+        });
     });
 });
 </script>
