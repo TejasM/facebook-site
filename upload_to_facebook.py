@@ -18,4 +18,8 @@ while True:
     r = graph.request('/544358639026648/links',
                       post_args={'link': "https://www.facebook.com/photo.php?fbid=" + r['id']})
     print r
+    f = open('current_number.txt', 'w')
+    current_number = str(int(current_number) + 1)
+    f.write(current_number)
+    f.close()
 
