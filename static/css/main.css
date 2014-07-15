@@ -1051,7 +1051,7 @@ header {
 }
 
 @media only screen
-and (max-height: 480px) {
+and (max-height: 560px) {
     #CSPhotoSelector .CSPhotoSelector_content {
         height: 380px;
     }

@@ -24,29 +24,34 @@
 </head>
 <body>
 <header>
-    <div style="float: left"><img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}" alt="tom"/></div>
+    <div style="float: left"><img src="{% static 'iPad pngs/TOMFW-logo-white.png' %}" alt="tom"
+                                  onclick="document.location.href='www.tomfw.com'"></div>
     <div class="nav-bar">
         <ul style="list-style: none; display: inline-block">
-            <li><a href="#">ABOUT</a>
+            <li><a href="http://www.tomfw.com/about/">ABOUT</a>
                 <ul class="sub-menu" style="display: none; opacity: 0;">
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-372"><a
                             href="http://www.tomfw.com/tom-magazine/">TOM* Magazine</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#">EVENT</a>
+                <a href="http://www.tomfw.com/event/">EVENT</a>
                 <ul class="sub-menu" style="display: none; opacity: 0;">
                     <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-15 current_page_item menu-item-50">
                         <a href="http://www.tomfw.com/designers/">Designers</a></li>
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a
                             href="http://www.tomfw.com/partners/">Partners</a></li>
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-49"><a
+                            href="http://www.tomfw.com/schedule/">Schedule</a></li>
                 </ul>
             </li>
 
-            <li><a href="#">EMDA</a></li>
-            <li><a href="#">I AM TOM*</a></li>
-            <li><a href="#">CONTACT</a>
+            <li><a href="http://www.tomfw.com/emda/">EMDA</a></li>
+            <li><a href="/">I AM TOM*</a></li>
+            <li><a href="http://www.tomfw.com/contact/">CONTACT</a>
                 <ul class="sub-menu" style="display: none; opacity: 0;">
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-44"><a
+                            href="http://www.tomfw.com/media-accreditation-volunteering/">Volunteering</a></li>
                     <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-44"><a
                             href="http://www.tomfw.com/get-to-tom/">Get to TOM*</a></li>
                 </ul>
@@ -98,7 +103,7 @@
         <div class="after-inst" style="display: none; height: 100%;">
             <div id="image-side">
                 <div class="veritcal-center horizontal-center">
-                <span class="current-instruction" style="padding: 0 10px" id="current-instruction">CLICK AND DRAG TO
+                <span class="current-instruction" id="current-instruction">CLICK AND DRAG TO
                 CROP YOUR PHOTO.</span> <br>
                 </div>
                 <img src="{% static 'iPad pngs/TOMFW-logo-grey.png' %}" alt="Toronto Men's Fashion Week"
@@ -179,7 +184,7 @@
                     visiting our gallery or on site at
                     Toronto’s first ever Men’s Fashion
                     Week.</p>
-                <a href="/">
+                <a href="http://www.tomfw.com/schedule/">
                     <button>ATTEND TOM*FW</button>
                 </a>
             </div>
