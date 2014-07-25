@@ -3,9 +3,9 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-    <title>TOM</title>
+    <title>TOM* - I AM TOM</title>
     <meta name="description"
-          content="TOM App">
+          content="And you can be too. Show your TOM* and be placed on our IAMTOM* wall, come to the inaugural Toronto Men's Fashion Week this August 12-14th at the Fairmont Royal York.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Englebert|Stalemate' rel='stylesheet' type='text/css'>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -161,7 +161,8 @@
                     <p style="text-align: center; color: #FFF; font-size: 70px; position: relative" id="saved-text">
                         SAVED!</p>
                     <img src="{% static 'iPad pngs/i-am-tom-white-large.png' %}" alt=""
-                         style="position: relative;left: 50%;transform: translateX(-50%); -webkit-transform: translateX(-50%);-ms-transform: translateX(-50%);visibility: hidden"/>
+                         style="position: relative;left: 50%;transform: translateX(-50%); -webkit-transform: translateX(-50%);-ms-transform: translateX(-50%);visibility: hidden"
+                         id="imtom2"/>
 
                     <div style="display: inline-block; width: 100%; position: relative; margin-top: 20px; padding: 0 10px"
                          id="button-inside">
@@ -341,7 +342,38 @@ $(function () {
 {% elif twitter %}
 
 {% elif facebook %}
+    var supports = (function () {
+        var div = document.createElement('div'),
+                vendors = 'Khtml Ms O Moz Webkit'.split(' '),
+                len = vendors.length;
+
+        return function (prop) {
+            if (prop in div.style) return true;
+
+            prop = prop.replace(/^[a-z]/, function (val) {
+                return val.toUpperCase();
+            });
+
+            while (len--) {
+                if (vendors[len] + prop in div.style) {
+                    // browser supports box-shadow. Do what you need.
+                    // Or use a bang (!) to test if the browser doesn't.
+                    return true;
+                }
+            }
+            return false;
+        };
+    })();
+
     $(function () {
+        if (!supports('textShadow')) {
+            $('#imtom').css('left', '80px');
+            $('#imtom').attr('width', '420px');
+            $('#imtom2').css('left', '80px');
+            $('#imtom2').attr('width', '420px');
+        }
+
+
         fbphotoSelect = function (id) {
             // if no user/friend id is sent, default to current user
             if (!id) id = 'me';
